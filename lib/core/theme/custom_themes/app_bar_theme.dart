@@ -8,7 +8,7 @@ class BuzzWireAppBarTheme {
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: BuzzWireColors.lightGrey,
       surfaceTintColor: Colors.transparent,
       iconTheme: const IconThemeData(color: BuzzWireColors.black, size: 24),
       actionsIconTheme:
@@ -22,9 +22,9 @@ class BuzzWireAppBarTheme {
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: BuzzWireColors.dark,
       surfaceTintColor: Colors.transparent,
-      iconTheme: const IconThemeData(color: BuzzWireColors.black, size: 24),
+      iconTheme: const IconThemeData(color: BuzzWireColors.white, size: 24),
       actionsIconTheme:
           const IconThemeData(color: BuzzWireColors.white, size: 24),
       titleTextStyle: const TextStyle().copyWith(
