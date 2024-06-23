@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/res/sizes.dart';
+import 'package:buzzwire/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

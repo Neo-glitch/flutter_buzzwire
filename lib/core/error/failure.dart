@@ -4,7 +4,18 @@ class Failure {
   Failure([this.message = "An Unexpected error occured"]);
 }
 
-class DioFailure extends Failure {
-  final String failureMessage;
-  DioFailure(this.failureMessage) : super(failureMessage);
+class ApiFailure extends Failure {
+  ApiFailure(super.message);
+}
+
+class FbAuthFailure extends Failure {
+  FbAuthFailure(super.message);
+}
+
+class FbFirestoreFailure extends Failure {
+  FbFirestoreFailure(super.message);
+}
+
+class CacheFailure extends Failure {
+  CacheFailure(super.message);
 }

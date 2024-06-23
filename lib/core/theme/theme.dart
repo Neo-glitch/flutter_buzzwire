@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/res/colors.dart';
-import 'package:buzzwire/core/res/strings.dart';
+import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/theme/color_schemes/color_schemes.dart';
 import 'package:buzzwire/core/theme/custom_themes/app_bar_theme.dart';
 import 'package:buzzwire/core/theme/custom_themes/bottom_sheet_theme.dart';

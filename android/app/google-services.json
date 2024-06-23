@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "942678162515",
+    "project_id": "buzzwire-62480",
+    "storage_bucket": "buzzwire-62480.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942678162515:android:a31f816350d9a17f3cdaa6",
+        "android_client_info": {
+          "package_name": "com.example.buzzwire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp2H8t-DC0Cq70WckJwq-ImwuJwZZxxbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

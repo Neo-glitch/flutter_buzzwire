@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/res/colors.dart';
+import 'package:buzzwire/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BuzzWireBottomSheetTheme {
