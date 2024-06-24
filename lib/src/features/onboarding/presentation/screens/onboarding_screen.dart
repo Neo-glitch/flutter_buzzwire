@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/onboarding/presentation/onboarding_item.dart';
 import 'package:buzzwire/src/features/onboarding/presentation/riverpod/onboarding_controller.dart';
@@ -43,9 +44,11 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     var uiState = ref.watch(onBoardingControllerProvider);
+    // BuzzWireDeviceUtils.setFullScreen(true);
 
-    return Scaffold(
-      body: Padding(
+    return Container(
+      color: context.backgroundColor,
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -75,16 +78,21 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (uiState.pageIndex < 3)
-                    TextButton(
-                      onPressed: () {
-                        _pageController.jumpToPage(items.length - 1);
-                      },
-                      child: Text(
-                        "Skip",
-                        style: context.labelLarge,
+                  Visibility(
+                    visible: uiState.pageIndex < 3,
+                    child: Material(
+                      child: InkWell(
+                        child: Text(
+                          "Skip",
+                          style: context.bodyMedium,
+                        ),
+                        onTap: () {
+                          _pageController
+                              .jumpToPage(_onboardingItems.length - 1);
+                        },
                       ),
                     ),
+                  ),
                   SmoothPageIndicator(
                     controller: _pageController,
                     count: _onboardingItems.length,
@@ -94,7 +102,6 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                     effect: ExpandingDotsEffect(
                       dotHeight: 6,
                       dotWidth: 6,
-                      radius: 26,
                       activeDotColor: context.primaryColor,
                     ),
                   ),

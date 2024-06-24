@@ -14,9 +14,9 @@ class BuzzWireColorScheme {
     onTertiary: BuzzWireColors.black,
     error: BuzzWireColors.error,
     onError: BuzzWireColors.white,
-    background: BuzzWireColors.lightGrey,
+    background: BuzzWireColors.light,
     onBackground: BuzzWireColors.black,
-    surface: BuzzWireColors.lightGrey,
+    surface: BuzzWireColors.light,
     onSurface: BuzzWireColors.black,
   );
 

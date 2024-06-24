@@ -8,7 +8,7 @@ class BuzzWireAppBarTheme {
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: BuzzWireColors.lightGrey,
+      backgroundColor: BuzzWireColors.light,
       surfaceTintColor: Colors.transparent,
       iconTheme: const IconThemeData(color: BuzzWireColors.black, size: 24),
       actionsIconTheme:

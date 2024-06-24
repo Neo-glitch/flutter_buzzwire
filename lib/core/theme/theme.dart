@@ -20,7 +20,7 @@ class BuzzWireAppTheme {
     fontFamily: BuzzWireStrings.poppins,
     brightness: Brightness.light,
     primaryColor: BuzzWireColors.primary,
-    scaffoldBackgroundColor: BuzzWireColors.lightGrey,
+    scaffoldBackgroundColor: BuzzWireColors.light,
     textTheme: BuzzWireTextTheme.lightTextTheme,
     appBarTheme: BuzzWireAppBarTheme.lightAppBarTheme,
     chipTheme: BuzzWireChipTheme.lightChipTheme,

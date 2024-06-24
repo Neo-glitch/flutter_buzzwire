@@ -16,8 +16,8 @@ class BuzzWireColors {
   static const Color textWhite = Colors.white;
 
   // Background Colors
-  static const Color light = Color(0XFFF6F6F6);
-  static const Color dark = Color(0XFF272727);
+  static const Color light = Color(0XFFF9F9F9);
+  static const Color dark = Color(0XFF121212);
   static const Color primaryBackground = Color(0XFFF3F5FF);
 
   // Background Container Colors
