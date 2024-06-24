@@ -1,6 +1,6 @@
 /// contains path to image, logos and icons assets
-class BuzzWireImages {
-  BuzzWireImages._();
+class BuzzWireAssets {
+  BuzzWireAssets._();
 
   // App Logos
   static const String darkAppLogo = "assets/logos/dark-app-logo.png";
@@ -8,4 +8,6 @@ class BuzzWireImages {
 
   // Onboarding Icons
   static const String firstItem = "assets/icons/dark-app-logo.png";
+
+  static const String splashLogo = "assets/logos/splash_icon.png";
 }

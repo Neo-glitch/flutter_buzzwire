@@ -1,5 +1,9 @@
+import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:buzzwire/app_view.dart';
+import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/theme/theme.dart';
+import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -7,6 +11,28 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppView();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: BuzzWireAppTheme.lightTheme,
+      darkTheme: BuzzWireAppTheme.darkTheme,
+      home: FlutterSplashScreen.fadeIn(
+        backgroundColor: context.backgroundColor,
+        onInit: () {
+          debugPrint("On Init");
+        },
+        onEnd: () {
+          debugPrint("On End");
+        },
+        duration: const Duration(milliseconds: 3515),
+        childWidget: SizedBox(
+          height: 200,
+          width: 200,
+          child: Image.asset(BuzzWireAssets.splashLogo),
+        ),
+        onAnimationEnd: () => debugPrint("On Fade In End"),
+        nextScreen: const OnboardingScreen(),
+      ),
+    );
   }
 }
