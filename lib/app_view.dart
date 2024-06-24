@@ -24,7 +24,7 @@ class AppView extends StatelessWidget {
           width: 200,
           child: Image.asset(BuzzWireAssets.splashLogo),
         ),
-        nextScreen: const OnboardingScreen(),
+        nextScreen: const OnBoardingScreen(),
       ),
     );
   }

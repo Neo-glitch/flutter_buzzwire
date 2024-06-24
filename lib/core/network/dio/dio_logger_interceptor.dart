@@ -11,7 +11,7 @@ class LoggerInterceptor extends Interceptor {
   );
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     final options = err.requestOptions;
     final requestPath = '${options.baseUrl}${options.path}';
     logger.e('${options.method} request => $requestPath'); // Debug log

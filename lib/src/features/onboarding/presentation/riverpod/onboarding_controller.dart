@@ -17,4 +17,8 @@ class OnBoardingController extends _$OnBoardingController {
   void goToPreviousage() {
     state = state.copyWith(pageIndex: state.pageIndex - 1);
   }
+
+  void updatePageIndex(int index) {
+    state = state.copyWith(pageIndex: index);
+  }
 }

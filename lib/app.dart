@@ -17,21 +17,14 @@ class App extends StatelessWidget {
       theme: BuzzWireAppTheme.lightTheme,
       darkTheme: BuzzWireAppTheme.darkTheme,
       home: FlutterSplashScreen.fadeIn(
-        backgroundColor: context.backgroundColor,
-        onInit: () {
-          debugPrint("On Init");
-        },
-        onEnd: () {
-          debugPrint("On End");
-        },
+        backgroundColor: Colors.red,
         duration: const Duration(milliseconds: 3515),
         childWidget: SizedBox(
           height: 200,
           width: 200,
           child: Image.asset(BuzzWireAssets.splashLogo),
         ),
-        onAnimationEnd: () => debugPrint("On Fade In End"),
-        nextScreen: const OnboardingScreen(),
+        nextScreen: const OnBoardingScreen(),
       ),
     );
   }

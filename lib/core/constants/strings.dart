@@ -5,12 +5,18 @@ class BuzzWireStrings {
   static const String appTitle = 'BuzzWire';
 
   // OnBoarding Texts
-  static const String onBoardingTitle1 = "First Title";
-  static const String onBoarsingTitle2 = "Second Title";
-  static const String onBoardingTitle3 = "Third Title";
-  static const String onBoardingSubTitle1 = "First SubTitle";
-  static const String onBoardingSubTitle2 = "Second SubTitle";
-  static const String onBoardingSubTitle3 = "Third SubTitle";
+  static const String onBoardingTitle1 = "Stay Informed";
+  static const String onBoardingTitle2 = "Breaking Alerts";
+  static const String onBoardingTitle3 = "Personalized News";
+  static const String onBoardingTitle4 = "Get Started";
+  static const String onBoardingSubTitle1 =
+      "Get the latest news from trusted sources around the world. Stay updated with real-time news on politics, sports, entertainment, and more.";
+  static const String onBoardingSubTitle2 =
+      "Get breaking news and top stories. Never miss out on important updates as they happen";
+  static const String onBoardingSubTitle3 =
+      "Customize your news feed to match your interests. Follow your favorite topics and receive news that matters to you.";
+  static const String onBoardingSubTitle4 =
+      "You're ready to dive in! Start exploring the latest news tailored to your interests. Stay informed and enjoy a personalized news experience.";
 
   // Home
   static const String homeAppBarTitle = "Welcome Back!";
