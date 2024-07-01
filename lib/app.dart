@@ -1,18 +1,21 @@
 import 'package:buzzwire/app_view.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/navigation/app_router.dart';
 import 'package:buzzwire/core/theme/theme.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:buzzwire/src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: BuzzWireAppTheme.lightTheme,
@@ -29,7 +32,7 @@ class App extends StatelessWidget {
       //   ),
       //   nextScreen: const OnBoardingScreen(),
       // ),
-      home: OnBoardingScreen(),
+      routerConfig: router,
     );
   }
 }

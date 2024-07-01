@@ -1,5 +1,6 @@
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/src/features/auth/presentation/app_entry/app_entry_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/onboarding/onboarding_item.dart';
 import 'package:buzzwire/src/features/auth/presentation/onboarding/riverpod/onboarding_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/onboarding/widgets/onboarding_page.dart';
@@ -111,7 +112,9 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                       if (uiState.pageIndex < 3) {
                         _navigateToOnBoardingPage(uiState.pageIndex + 1);
                       } else {
-                        // handle nav to next page
+                        ref
+                            .read(appEntryControllerProvider.notifier)
+                            .saveAppEntry();
                       }
                     },
                     icon: const Icon(Icons.navigate_next_rounded),

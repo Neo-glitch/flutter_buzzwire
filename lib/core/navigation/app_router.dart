@@ -1,12 +1,15 @@
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/main_wrapper.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signin_usecase.dart';
+import 'package:buzzwire/src/features/auth/presentation/app_entry/app_entry_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
+import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
 import 'package:buzzwire/src/features/auth/presentation/password_reset/password_reset.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/signin_screen.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/signup_screen.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/verify_email_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/news_details/news_details_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/news_details/news_webview_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/news_headlines/news_headlines_screen.dart';
@@ -23,7 +26,8 @@ part 'app_router.g.dart';
 
 // NavigatorKeys
 // This is super important - otherwise, we would throw away the whole widget tree when the provider is updated.
-final navigatorKey = GlobalKey<NavigatorState>(debugLabel: "root_navigator");
+final rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "root_navigator");
 final homeNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "home_navigator");
 final discoverNavigatorKey =
@@ -38,10 +42,11 @@ GoRouter? _previousRouter;
 @riverpod
 GoRouter router(RouterRef ref) {
   final authState = ref.watch(authControllerProvider);
+  final appEntryState = ref.watch(appEntryControllerProvider);
 
   return _previousRouter = GoRouter(
       debugLogDiagnostics: kDebugMode,
-      navigatorKey: navigatorKey,
+      navigatorKey: rootNavigatorKey,
       initialLocation:
           _previousRouter?.routerDelegate.currentConfiguration.fullPath,
       routes: [
@@ -62,6 +67,13 @@ GoRouter router(RouterRef ref) {
               name: BuzzWireRoute.signUp.name,
               builder: (context, state) {
                 return SignUpScreen();
+              },
+            ),
+            GoRoute(
+              path: BuzzWireRoute.verifyEmail.path,
+              name: BuzzWireRoute.verifyEmail.name,
+              builder: (context, state) {
+                return VerifyEmailScreen();
               },
             ),
             GoRoute(
@@ -106,19 +118,19 @@ GoRouter router(RouterRef ref) {
                   path: BuzzWireRoute.headlines.path,
                   name: BuzzWireRoute.headlines.name,
                   builder: (context, state) {
-                    return const NewsHeadlinesScreen();
+                    return NewsHeadlinesScreen();
                   },
                 )
               ],
             ),
             StatefulShellBranch(
-              navigatorKey: discoverNavigatorKey,
+              navigatorKey: savedNavigatorKey,
               routes: [
                 GoRoute(
                   path: BuzzWireRoute.savedNews.path,
                   name: BuzzWireRoute.savedNews.name,
                   builder: (context, state) {
-                    return const SavedNewsScreen();
+                    return SavedNewsScreen();
                   },
                 )
               ],
@@ -130,7 +142,7 @@ GoRouter router(RouterRef ref) {
                   path: BuzzWireRoute.profile.path,
                   name: BuzzWireRoute.profile.name,
                   builder: (context, state) {
-                    return const ProfileScreen();
+                    return ProfileScreen();
                   },
                 )
               ],
@@ -153,7 +165,30 @@ GoRouter router(RouterRef ref) {
         )
       ],
       redirect: (ctx, state) {
-        final inLoginRo
+        final hasOpenedApp = appEntryState == true;
+        // final inLoginScreen =
+        //     state.matchedLocation == BuzzWireRoute.signIn.path;
+        final inLoginRoute =
+            state.matchedLocation.startsWith(BuzzWireRoute.signIn.path);
+        final isLoggedIn = authState.authStatus == AuthStatus.authenticated;
+
+        // hasn't gotten past onboarding screen
+        if (!hasOpenedApp) {
+          return BuzzWireRoute.onBoarding.path;
+        }
+
+        // not logged in and not in signin, signup, reset password, or verify email screen
+        if (!isLoggedIn) {
+          return inLoginRoute ? null : BuzzWireRoute.signIn.path;
+        }
+
+        // user is logged in and still in signin, signup, reset password, or verify email screen
+        if (isLoggedIn) {
+          if (inLoginRoute) {
+            return BuzzWireRoute.home.path;
+          }
+        }
+
         return null;
       });
 }

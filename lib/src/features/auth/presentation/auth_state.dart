@@ -14,6 +14,8 @@ class AuthState with _$AuthState {
 
 enum AuthStatus {
   initial,
+  registered,
+  registeredAndVerified,
   authenticated,
   unAuthenticated,
 }

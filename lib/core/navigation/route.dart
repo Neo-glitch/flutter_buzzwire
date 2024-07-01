@@ -23,6 +23,8 @@ class BuzzWireRoute {
   static BuzzWireRoute signIn =
       BuzzWireRoute(path: "/sign_in", name: "sign_in");
   static BuzzWireRoute signUp = BuzzWireRoute(path: "sign_up", name: "sign_up");
+  static BuzzWireRoute verifyEmail =
+      BuzzWireRoute(path: "verify_email", name: "verify_email");
   static BuzzWireRoute passwordReset =
       BuzzWireRoute(path: "password_reset", name: "password_reset");
 

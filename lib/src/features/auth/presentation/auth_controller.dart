@@ -63,7 +63,7 @@ class AuthController extends _$AuthController {
       (user) {
         state = state.copyWith(
           isLoading: false,
-          authStatus: AuthStatus.authenticated,
+          authStatus: AuthStatus.registered,
           errorMessage: null,
         );
       },
