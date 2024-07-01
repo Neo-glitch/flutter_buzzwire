@@ -7,6 +7,5 @@ part 'onboarding_state.freezed.dart';
 class OnBoardingState with _$OnBoardingState {
   const factory OnBoardingState({
     @Default(0) int pageIndex,
-    @Default(false) bool isLoading,
   }) = _OnBoardingState;
 }

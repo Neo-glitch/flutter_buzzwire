@@ -1,7 +1,10 @@
 import 'package:buzzwire/app.dart';
+import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -12,11 +15,17 @@ void main() async {
   // Todo: Init Authentication
 
   WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences pref = await SharedPreferences.getInstance();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(
-    const ProviderScope(child: App()),
+    ProviderScope(
+      overrides: [
+        preferencesProvider.overrideWithValue(pref),
+      ],
+      child: App(),
+    ),
   );
 }

@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$OnBoardingState {
   int get pageIndex => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OnBoardingStateCopyWith<OnBoardingState> get copyWith =>
@@ -30,7 +29,7 @@ abstract class $OnBoardingStateCopyWith<$Res> {
           OnBoardingState value, $Res Function(OnBoardingState) then) =
       _$OnBoardingStateCopyWithImpl<$Res, OnBoardingState>;
   @useResult
-  $Res call({int pageIndex, bool isLoading});
+  $Res call({int pageIndex});
 }
 
 /// @nodoc
@@ -47,17 +46,12 @@ class _$OnBoardingStateCopyWithImpl<$Res, $Val extends OnBoardingState>
   @override
   $Res call({
     Object? pageIndex = null,
-    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       pageIndex: null == pageIndex
           ? _value.pageIndex
           : pageIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -70,7 +64,7 @@ abstract class _$$OnBoardingStateImplCopyWith<$Res>
       __$$OnBoardingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int pageIndex, bool isLoading});
+  $Res call({int pageIndex});
 }
 
 /// @nodoc
@@ -85,17 +79,12 @@ class __$$OnBoardingStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pageIndex = null,
-    Object? isLoading = null,
   }) {
     return _then(_$OnBoardingStateImpl(
       pageIndex: null == pageIndex
           ? _value.pageIndex
           : pageIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -105,18 +94,15 @@ class __$$OnBoardingStateImplCopyWithImpl<$Res>
 class _$OnBoardingStateImpl
     with DiagnosticableTreeMixin
     implements _OnBoardingState {
-  const _$OnBoardingStateImpl({this.pageIndex = 0, this.isLoading = false});
+  const _$OnBoardingStateImpl({this.pageIndex = 0});
 
   @override
   @JsonKey()
   final int pageIndex;
-  @override
-  @JsonKey()
-  final bool isLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'OnBoardingState(pageIndex: $pageIndex, isLoading: $isLoading)';
+    return 'OnBoardingState(pageIndex: $pageIndex)';
   }
 
   @override
@@ -124,8 +110,7 @@ class _$OnBoardingStateImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'OnBoardingState'))
-      ..add(DiagnosticsProperty('pageIndex', pageIndex))
-      ..add(DiagnosticsProperty('isLoading', isLoading));
+      ..add(DiagnosticsProperty('pageIndex', pageIndex));
   }
 
   @override
@@ -134,13 +119,11 @@ class _$OnBoardingStateImpl
         (other.runtimeType == runtimeType &&
             other is _$OnBoardingStateImpl &&
             (identical(other.pageIndex, pageIndex) ||
-                other.pageIndex == pageIndex) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.pageIndex == pageIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, pageIndex, isLoading);
+  int get hashCode => Object.hash(runtimeType, pageIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -151,13 +134,10 @@ class _$OnBoardingStateImpl
 }
 
 abstract class _OnBoardingState implements OnBoardingState {
-  const factory _OnBoardingState({final int pageIndex, final bool isLoading}) =
-      _$OnBoardingStateImpl;
+  const factory _OnBoardingState({final int pageIndex}) = _$OnBoardingStateImpl;
 
   @override
   int get pageIndex;
-  @override
-  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$OnBoardingStateImplCopyWith<_$OnBoardingStateImpl> get copyWith =>

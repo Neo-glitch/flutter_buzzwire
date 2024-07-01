@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'onboarding_controller.dart';
+part of 'auth_local_datasource.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$onBoardingControllerHash() =>
-    r'6253707cd1cd580a74f99fc03d72a9439cf08745';
+String _$authLocalDataSourceHash() =>
+    r'77ad9e56dfb3fa6f8e6cd3e2377bd3844819c32a';
 
-/// See also [OnBoardingController].
-@ProviderFor(OnBoardingController)
-final onBoardingControllerProvider =
-    AutoDisposeNotifierProvider<OnBoardingController, OnBoardingState>.internal(
-  OnBoardingController.new,
-  name: r'onBoardingControllerProvider',
+/// See also [authLocalDataSource].
+@ProviderFor(authLocalDataSource)
+final authLocalDataSourceProvider =
+    AutoDisposeProvider<AuthLocalDataSource>.internal(
+  authLocalDataSource,
+  name: r'authLocalDataSourceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$onBoardingControllerHash,
+      : _$authLocalDataSourceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$OnBoardingController = AutoDisposeNotifier<OnBoardingState>;
+typedef AuthLocalDataSourceRef = AutoDisposeProviderRef<AuthLocalDataSource>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

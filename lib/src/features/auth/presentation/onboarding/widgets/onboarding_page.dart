@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/onboarding/presentation/onboarding_item.dart';
+import 'package:buzzwire/src/features/auth/presentation/onboarding/onboarding_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';

@@ -1,4 +1,4 @@
-import 'package:buzzwire/src/features/onboarding/presentation/riverpod/onboarding_state.dart';
+import 'package:buzzwire/src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'onboarding_controller.g.dart';

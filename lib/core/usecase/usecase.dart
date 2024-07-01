@@ -1,16 +1,25 @@
 import 'package:buzzwire/core/error/failure.dart';
+import 'package:buzzwire/core/utils/resource.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class UseCaseFuture<SuccessType, Params> {
-  Future<Either<Failure, SuccessType>> call(Params params);
+  Future<Either<Failure, SuccessType>> call(Params param);
 }
 
-abstract class UseCaseVoid<Param> {
-  Future<Either<Failure, void>> call(Param param);
+abstract class UseCaseFutureVoid<Params> {
+  Future<Either<Failure, void>> call(Params param);
 }
 
-abstract class UseCaseStrean<SuccessType, Param> {
-  Stream<Either<Failure, SuccessType>> call(Param param);
+abstract class UseCaseVoid<Params> {
+  Either<Failure, void> call(Params param);
+}
+
+abstract class UseCaseResult<SuccessType, Params> {
+  Either<Failure, SuccessType> call(Params param);
+}
+
+abstract class UseCaseStrean<SuccessType, Params> {
+  Stream<Either<Failure, SuccessType>> call(Params param);
 }
 
 class NoParams {}
