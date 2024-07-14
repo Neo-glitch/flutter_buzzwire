@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/error/enums/fb_auth_error_type.dart';
-import 'package:buzzwire/core/error/error_text.dart';
-import 'package:buzzwire/core/error/firebase_error_codes.dart';
-import 'package:buzzwire/core/error/exception.dart';
+import 'enums/fb_auth_error_type.dart';
+import 'error_text.dart';
+import 'firebase_error_codes.dart';
+import 'exception.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

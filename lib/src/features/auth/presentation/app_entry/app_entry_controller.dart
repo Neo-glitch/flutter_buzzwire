@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/read_entry_usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/save_entry_usecase.dart';
+import '../../../../../core/usecase/usecase.dart';
+import '../../domain/usecase/read_entry_usecase.dart';
+import '../../domain/usecase/save_entry_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_entry_controller.g.dart';

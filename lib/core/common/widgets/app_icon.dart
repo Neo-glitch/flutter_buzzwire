@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/constants/asset_strings.dart';
-import 'package:buzzwire/core/constants/strings.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import '../../constants/asset_strings.dart';
+import '../../constants/strings.dart';
+import '../../utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -16,15 +16,15 @@ class BuzzWireAppIcon extends StatelessWidget {
       mainAxisAlignment: alignment,
       children: [
         Image.asset(
-          width: 15,
-          height: 15,
+          width: 13,
+          height: 13,
           fit: BoxFit.fill,
           BuzzWireAssets.appLogo,
         ),
-        const Gap(5),
+        const Gap(2),
         Text(
           BuzzWireStrings.appTitle,
-          style: context.titleLarge,
+          style: context.titleLarge?.copyWith(fontSize: 20),
         )
       ],
     );

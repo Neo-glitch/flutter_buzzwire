@@ -1,12 +1,12 @@
-import 'package:buzzwire/app_view.dart';
-import 'package:buzzwire/core/constants/asset_strings.dart';
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/navigation/app_router.dart';
-import 'package:buzzwire/core/theme/theme.dart';
-import 'package:buzzwire/core/utils/device/device_utility.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
+import 'app_view.dart';
+import 'core/constants/asset_strings.dart';
+import 'core/constants/colors.dart';
+import 'core/navigation/app_router.dart';
+import 'core/theme/theme.dart';
+import 'core/utils/device/device_utility.dart';
+import 'core/utils/extensions/context_extension.dart';
+import 'core/utils/logging/logger_helper.dart';
+import 'src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

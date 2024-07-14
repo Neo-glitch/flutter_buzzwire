@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/error/error_text.dart';
+import '../error_text.dart';
 
 enum FbAuthErrorType {
   invalidEmail,

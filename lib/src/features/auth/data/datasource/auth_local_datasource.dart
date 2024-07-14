@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
+import '../../../../../core/utils/local_storage/shared_preference_util.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_local_datasource.g.dart';

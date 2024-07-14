@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/constants/colors.dart';
+import '../../constants/colors.dart';
 import 'package:flutter/material.dart';
 
 // Todo: Should create a file for button styles so we can swap button styles easily without hassle

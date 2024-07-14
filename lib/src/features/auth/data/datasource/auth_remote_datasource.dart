@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
-import 'package:buzzwire/src/features/auth/presentation/signin/signin_screen.dart';
+import '../../../../../core/utils/logging/logger_helper.dart';
+import '../../presentation/signin/signin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

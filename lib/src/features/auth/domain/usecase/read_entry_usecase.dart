@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/src/features/auth/data/manager/local_user_manager_impl.dart';
-import 'package:buzzwire/src/features/auth/domain/manager/local_user_manager.dart';
+import '../../../../../core/error/failure.dart';
+import '../../../../../core/usecase/usecase.dart';
+import '../../data/manager/local_user_manager_impl.dart';
+import '../manager/local_user_manager.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

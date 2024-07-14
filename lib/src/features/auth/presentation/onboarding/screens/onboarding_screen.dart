@@ -1,9 +1,9 @@
-import 'package:buzzwire/core/utils/device/device_utility.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/auth/presentation/app_entry/app_entry_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/onboarding_item.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/riverpod/onboarding_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/widgets/onboarding_page.dart';
+import '../../../../../../core/utils/device/device_utility.dart';
+import '../../../../../../core/utils/extensions/context_extension.dart';
+import '../../app_entry/app_entry_controller.dart';
+import '../onboarding_item.dart';
+import '../riverpod/onboarding_controller.dart';
+import '../widgets/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

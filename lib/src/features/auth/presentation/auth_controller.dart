@@ -1,9 +1,9 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/src/features/auth/data/repository/auth_repository_impl.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/signin_usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/signout_usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/signup_usecase.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../data/repository/auth_repository_impl.dart';
+import '../domain/usecase/signin_usecase.dart';
+import '../domain/usecase/signout_usecase.dart';
+import '../domain/usecase/signup_usecase.dart';
+import 'auth_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

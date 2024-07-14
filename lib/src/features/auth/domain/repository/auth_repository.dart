@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:buzzwire/core/error/failure.dart';
+import '../../../../../core/error/failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 

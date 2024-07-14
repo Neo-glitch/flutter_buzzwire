@@ -15,12 +15,12 @@ class BuzzWireAssets {
 
   // Authentication FLow Icons
   static const String signInLogo = "assets/logos/signin-logo.svg";
-  static const String signUpLogo = "assets/logos/signup-logo.svg";
+  static const String signupLogo = "assets/logos/signup-logo.svg";
   static const String signUpSuccessLogo =
       "assets/logos/signup-success-logo.svg";
   static const String verifyEmailLogo = "assets/logos/verify-email-logo.svg";
-  static const String resetPasswordLogo =
-      "assets/logos/reset-password-logo.svg";
+  static const String forgotPasswordLogo =
+      "assets/logos/forgot-password-logo.svg";
 
   static const String splashLogo = "assets/logos/splash_icon.png";
 

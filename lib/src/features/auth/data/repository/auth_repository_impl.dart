@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/error/exception_handler.dart';
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/src/features/auth/data/datasource/auth_remote_datasource.dart';
-import 'package:buzzwire/src/features/auth/domain/repository/auth_repository.dart';
+import '../../../../../core/error/exception_handler.dart';
+import '../../../../../core/error/failure.dart';
+import '../datasource/auth_remote_datasource.dart';
+import '../../domain/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

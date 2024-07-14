@@ -1,16 +1,20 @@
-import 'package:buzzwire/core/common/widgets/app_icon.dart';
-import 'package:buzzwire/core/constants/asset_strings.dart';
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/constants/strings.dart';
-import 'package:buzzwire/core/utils/device/device_utility.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/auth/presentation/signin/widgets/signin_header.dart';
+import '../../../../../core/common/widgets/app_icon.dart';
+import '../../../../../core/constants/asset_strings.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/strings.dart';
+import '../../../../../core/navigation/route.dart';
+import '../../../../../core/utils/device/device_utility.dart';
+import '../../../../../core/utils/extensions/context_extension.dart';
+import '../../../../../core/utils/logging/logger_helper.dart';
+import 'widgets/signin_header.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -32,9 +36,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.max,
@@ -43,12 +47,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 const Gap(20),
                 SvgPicture.asset(
                   BuzzWireAssets.signInLogo,
-                  semanticsLabel: "OnBoarding Image",
+                  semanticsLabel: "SingIn Logo",
                   fit: BoxFit.cover,
                   width: BuzzWireDeviceUtils.getScreenWidth(context),
                   height: BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
                 ),
-                const Gap(30),
                 Text(
                   BuzzWireStrings.loginTitleText,
                   style:
@@ -67,7 +70,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     prefixIcon: Icon(Icons.email_outlined),
                   ),
                 ),
-                const Gap(15),
+                const Gap(10),
                 TextField(
                   textInputAction: TextInputAction.done,
                   keyboardType: TextInputType.visiblePassword,
@@ -88,7 +91,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        context.pushNamed(BuzzWireRoute.verifyEmail.name),
                     child: const Text("Forgot Password"),
                   ),
                 ),
@@ -100,7 +104,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       style: context.bodyMedium!
                           .copyWith(fontWeight: FontWeight.w700),
                       children: [
-                        const TextSpan(text: "Don't have an account ? "),
+                        const TextSpan(text: "Don't have an account? "),
                         TextSpan(
                           text: "Create an Account",
                           style: context.bodyMedium!.copyWith(
@@ -109,7 +113,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // TODO Go to Reset PAssword screen
+                              context.pushNamed(BuzzWireRoute.signUp.name);
                             },
                         )
                       ],

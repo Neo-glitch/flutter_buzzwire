@@ -1,22 +1,22 @@
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/main_wrapper.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/signin_usecase.dart';
-import 'package:buzzwire/src/features/auth/presentation/app_entry/app_entry_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
-import 'package:buzzwire/src/features/auth/presentation/password_reset/password_reset.dart';
-import 'package:buzzwire/src/features/auth/presentation/signin/signin_screen.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/signup_screen.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/verify_email_screen.dart';
-import 'package:buzzwire/src/features/news/presentation/news_details/news_details_screen.dart';
-import 'package:buzzwire/src/features/news/presentation/news_details/news_webview_screen.dart';
-import 'package:buzzwire/src/features/news/presentation/news_headlines/news_headlines_screen.dart';
-import 'package:buzzwire/src/features/news/presentation/news_home/home_screen.dart';
-import 'package:buzzwire/src/features/news/presentation/saved_news/saved_news_screen.dart';
-import 'package:buzzwire/src/features/profile/presentation/profile_screen.dart';
-import 'package:buzzwire/src/features/settings/presentation/settings_screen.dart';
+import 'route.dart';
+import '../../main_wrapper.dart';
+import '../../src/features/auth/domain/usecase/signin_usecase.dart';
+import '../../src/features/auth/presentation/app_entry/app_entry_controller.dart';
+import '../../src/features/auth/presentation/auth_controller.dart';
+import '../../src/features/auth/presentation/auth_state.dart';
+import '../../src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
+import '../../src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
+import '../../src/features/auth/presentation/forgot_password/forgot_password.dart';
+import '../../src/features/auth/presentation/signin/signin_screen.dart';
+import '../../src/features/auth/presentation/signup/signup_screen.dart';
+import '../../src/features/auth/presentation/signup/verify_email_screen.dart';
+import '../../src/features/news/presentation/news_details/news_details_screen.dart';
+import '../../src/features/news/presentation/news_details/news_webview_screen.dart';
+import '../../src/features/news/presentation/news_headlines/news_headlines_screen.dart';
+import '../../src/features/news/presentation/news_home/home_screen.dart';
+import '../../src/features/news/presentation/saved_news/saved_news_screen.dart';
+import '../../src/features/profile/presentation/profile_screen.dart';
+import '../../src/features/settings/presentation/settings_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ GoRouter router(RouterRef ref) {
               path: BuzzWireRoute.passwordReset.path,
               name: BuzzWireRoute.passwordReset.name,
               builder: (context, state) {
-                return PasswordResetScreen();
+                return ForgotPasswordScreen();
               },
             )
           ],

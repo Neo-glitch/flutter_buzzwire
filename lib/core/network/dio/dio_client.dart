@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/network/dio/api_key_interceptor.dart';
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
-import 'package:buzzwire/core/network/dio/dio_logger_interceptor.dart';
+import 'api_key_interceptor.dart';
+import 'dio_helper.dart';
+import 'dio_logger_interceptor.dart';
 import 'package:dio/dio.dart';
 
 class DioClient {

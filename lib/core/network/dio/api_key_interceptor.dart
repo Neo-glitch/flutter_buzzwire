@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/constants/app_secrets.dart';
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
+import '../../constants/app_secrets.dart';
+import 'dio_helper.dart';
 import 'package:dio/dio.dart';
 
 class ApiKeyInterceptor extends Interceptor {

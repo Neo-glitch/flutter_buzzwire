@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/core/utils/resource.dart';
+import '../error/failure.dart';
+import '../utils/resource.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class UseCaseFuture<SuccessType, Params> {

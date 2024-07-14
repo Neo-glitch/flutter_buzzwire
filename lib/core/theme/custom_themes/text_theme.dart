@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/constants/strings.dart';
+import '../../constants/colors.dart';
+import '../../constants/strings.dart';
 import 'package:flutter/material.dart';
 
 class BuzzWireTextTheme {
@@ -62,12 +62,12 @@ class BuzzWireTextTheme {
         color: BuzzWireColors.textBlack.withOpacity(0.5)),
     labelLarge: const TextStyle().copyWith(
         fontSize: 12.0,
-        fontWeight: FontWeight.normal,
-        color: BuzzWireColors.textBlack),
+        fontWeight: FontWeight.bold,
+        color: BuzzWireColors.primary),
     labelMedium: const TextStyle().copyWith(
         fontSize: 12.0,
-        fontWeight: FontWeight.normal,
-        color: BuzzWireColors.textBlack.withOpacity(0.5)),
+        fontWeight: FontWeight.bold,
+        color: BuzzWireColors.primary.withOpacity(0.5)),
   );
 
   static TextTheme darkTextTheme = TextTheme(
@@ -127,11 +127,11 @@ class BuzzWireTextTheme {
         color: BuzzWireColors.textWhite.withOpacity(0.5)),
     labelLarge: const TextStyle().copyWith(
         fontSize: 12.0,
-        fontWeight: FontWeight.normal,
-        color: BuzzWireColors.textWhite),
+        fontWeight: FontWeight.bold,
+        color: BuzzWireColors.primary),
     labelMedium: const TextStyle().copyWith(
         fontSize: 12.0,
-        fontWeight: FontWeight.normal,
-        color: BuzzWireColors.textWhite.withOpacity(0.5)),
+        fontWeight: FontWeight.bold,
+        color: BuzzWireColors.primary.withOpacity(0.5)),
   );
 }

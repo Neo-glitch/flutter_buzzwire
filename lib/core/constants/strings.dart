@@ -18,10 +18,19 @@ class BuzzWireStrings {
   static const String onBoardingSubTitle4 =
       "You're ready to dive in! Start exploring the latest news tailored to your interests. Stay informed and enjoy a personalized news experience.";
 
-  // SingIn
+  // Auth
   static const String loginTitleText = "Log into your Account";
   static const String loginSubTitleText =
-      "Enter your email and password to login";
+      "Enter your email and password to login.";
+  static const String signupTitleText = "Sign up to BuzzWire";
+  static const String signupSubTitleText =
+      "Sign up to stay updated with breaking News.";
+  static const String forgotPasswordTitle = "Forgot Password?";
+  static const String forgotPasswordSubtitle =
+      "No worries, we'll send you reset instructions";
+  static const String verifyEmailTitle = "Verify your email";
+  static const String verifyEmailSubtitle =
+      "An email has been sent to you. Follow the instructions to complete your signup.";
 
   // Home
   static const String homeAppBarTitle = "Welcome Back!";

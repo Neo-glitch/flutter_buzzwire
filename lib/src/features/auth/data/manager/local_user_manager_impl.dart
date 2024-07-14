@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/preference_keys.dart';
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
-import 'package:buzzwire/src/features/auth/domain/manager/local_user_manager.dart';
+import '../../../../../core/constants/preference_keys.dart';
+import '../../../../../core/error/failure.dart';
+import '../../../../../core/utils/local_storage/shared_preference_util.dart';
+import '../../domain/manager/local_user_manager.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

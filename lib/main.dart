@@ -1,8 +1,8 @@
-import 'package:buzzwire/app.dart';
-import 'package:buzzwire/core/common/riverpod/provider_observer.dart';
-import 'package:buzzwire/core/utils/device/device_utility.dart';
-import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'app.dart';
+import 'core/common/riverpod/provider_observer.dart';
+import 'core/utils/device/device_utility.dart';
+import 'core/utils/local_storage/shared_preference_util.dart';
+import 'core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/scheduler.dart';

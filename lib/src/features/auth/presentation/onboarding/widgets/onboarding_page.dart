@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/utils/device/device_utility.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/onboarding_item.dart';
+import '../../../../../../core/utils/device/device_utility.dart';
+import '../../../../../../core/utils/extensions/context_extension.dart';
+import '../onboarding_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';

@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/asset_strings.dart';
-import 'package:buzzwire/core/theme/theme.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
+import 'core/constants/asset_strings.dart';
+import 'core/theme/theme.dart';
+import 'core/utils/extensions/context_extension.dart';
+import 'src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 /// First view on the app
