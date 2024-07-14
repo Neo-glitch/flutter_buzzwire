@@ -10,64 +10,64 @@ class BuzzWireTextTheme {
         fontFamily: BuzzWireStrings.playFairDisplay,
         fontSize: 57.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     displayMedium: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.playFairDisplay,
         fontSize: 45.0,
         fontWeight: FontWeight.w500,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     displaySmall: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.playFairDisplay,
         fontSize: 36.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     headlineLarge: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.merriWeather,
         fontSize: 32.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     headlineMedium: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.merriWeather,
         fontSize: 28.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     headlineSmall: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.merriWeather,
         fontSize: 24.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     titleLarge: const TextStyle().copyWith(
         fontSize: 22.0,
         fontWeight: FontWeight.w600,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     titleMedium: const TextStyle().copyWith(
         fontSize: 20.0,
         fontWeight: FontWeight.w500,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     titleSmall: const TextStyle().copyWith(
         fontSize: 18.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     bodyLarge: const TextStyle().copyWith(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     bodyMedium: const TextStyle().copyWith(
         fontSize: 14.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     bodySmall: const TextStyle().copyWith(
         fontSize: 12.0,
         fontWeight: FontWeight.w400,
-        color: BuzzWireColors.black.withOpacity(0.5)),
+        color: BuzzWireColors.textBlack.withOpacity(0.5)),
     labelLarge: const TextStyle().copyWith(
         fontSize: 12.0,
         fontWeight: FontWeight.normal,
-        color: BuzzWireColors.black),
+        color: BuzzWireColors.textBlack),
     labelMedium: const TextStyle().copyWith(
         fontSize: 12.0,
         fontWeight: FontWeight.normal,
-        color: BuzzWireColors.black.withOpacity(0.5)),
+        color: BuzzWireColors.textBlack.withOpacity(0.5)),
   );
 
   static TextTheme darkTextTheme = TextTheme(

@@ -6,6 +6,7 @@ class BuzzWireOutlinedButonTheme {
 
   static final lightTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
+      minimumSize: const Size.fromHeight(48),
       elevation: 0,
       foregroundColor: BuzzWireColors.primary,
       backgroundColor: Colors.transparent,
@@ -15,7 +16,7 @@ class BuzzWireOutlinedButonTheme {
       padding: const EdgeInsets.symmetric(vertical: 10),
       textStyle: const TextStyle().copyWith(
           fontSize: 16,
-          color: BuzzWireColors.black,
+          color: BuzzWireColors.textBlack,
           fontWeight: FontWeight.w600),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -25,6 +26,7 @@ class BuzzWireOutlinedButonTheme {
 
   static final darkTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
+      minimumSize: const Size.fromHeight(48),
       elevation: 0,
       foregroundColor: BuzzWireColors.primary,
       backgroundColor: Colors.transparent,

@@ -5,11 +5,32 @@ class BuzzWireTextFieldTheme {
   BuzzWireTextFieldTheme._();
 
   static InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(
+    filled: true,
+    fillColor: Colors.white,
     errorMaxLines: 3,
+    // prefixIconColor: MaterialStateColor.resolveWith((states) {
+    //   if (states.contains(MaterialState.focused)) {
+    //     return BuzzWireColors.primary;
+    //   }
+    //   if (states.contains(MaterialState.error)) {
+    //     return BuzzWireColors.error;
+    //   }
+    //   return BuzzWireColors.darkGrey;
+    // }),
+    // suffixIconColor: MaterialStateColor.resolveWith((states) {
+    //   if (states.contains(MaterialState.focused)) {
+    //     return BuzzWireColors.primary;
+    //   }
+    //   if (states.contains(MaterialState.error)) {
+    //     return BuzzWireColors.error;
+    //   }
+    //   return BuzzWireColors.darkGrey;
+    // }),
     prefixIconColor: BuzzWireColors.darkGrey,
     suffixIconColor: BuzzWireColors.darkGrey,
     labelStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.black),
-    hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.black),
+    hintStyle: const TextStyle()
+        .copyWith(fontSize: 14, color: Colors.black.withOpacity(0.35)),
     errorStyle:
         const TextStyle().copyWith(fontSize: 14, color: BuzzWireColors.error),
     floatingLabelStyle:
@@ -37,11 +58,32 @@ class BuzzWireTextFieldTheme {
   );
 
   static InputDecorationTheme darkInputDecorationTheme = InputDecorationTheme(
+    fillColor: Colors.black,
+    filled: true,
     errorMaxLines: 3,
+    // prefixIconColor: MaterialStateColor.resolveWith((states) {
+    //   if (states.contains(MaterialState.focused)) {
+    //     return BuzzWireColors.primary;
+    //   }
+    //   if (states.contains(MaterialState.error)) {
+    //     return BuzzWireColors.error;
+    //   }
+    //   return BuzzWireColors.darkGrey;
+    // }),
+    // suffixIconColor: MaterialStateColor.resolveWith((states) {
+    //   if (states.contains(MaterialState.focused)) {
+    //     return BuzzWireColors.primary;
+    //   }
+    //   if (states.contains(MaterialState.error)) {
+    //     return BuzzWireColors.error;
+    //   }
+    //   return BuzzWireColors.darkGrey;
+    // }),
     prefixIconColor: BuzzWireColors.darkGrey,
     suffixIconColor: BuzzWireColors.darkGrey,
     labelStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
-    hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
+    hintStyle: const TextStyle()
+        .copyWith(fontSize: 14, color: Colors.white.withOpacity(0.35)),
     errorStyle:
         const TextStyle().copyWith(fontSize: 14, color: BuzzWireColors.error),
     floatingLabelStyle:

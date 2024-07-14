@@ -18,6 +18,11 @@ class BuzzWireStrings {
   static const String onBoardingSubTitle4 =
       "You're ready to dive in! Start exploring the latest news tailored to your interests. Stay informed and enjoy a personalized news experience.";
 
+  // SingIn
+  static const String loginTitleText = "Log into your Account";
+  static const String loginSubTitleText =
+      "Enter your email and password to login";
+
   // Home
   static const String homeAppBarTitle = "Welcome Back!";
   static const String homeAppBarSubTitle = "Dat App Boy";

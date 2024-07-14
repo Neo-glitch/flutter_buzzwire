@@ -8,6 +8,7 @@ class BuzzWireElevatedButtonTheme {
   // Light Theme Button
   static final lightTheme = ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+    minimumSize: const Size.fromHeight(48),
     elevation: 0,
     foregroundColor: BuzzWireColors.white,
     backgroundColor: BuzzWireColors.primary,
@@ -25,6 +26,7 @@ class BuzzWireElevatedButtonTheme {
   // dark Theme:
   static final darkTheme = ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+    minimumSize: const Size.fromHeight(48),
     elevation: 0,
     foregroundColor: BuzzWireColors.white,
     backgroundColor: BuzzWireColors.primary,
