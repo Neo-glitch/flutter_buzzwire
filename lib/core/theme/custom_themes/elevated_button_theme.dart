@@ -12,8 +12,8 @@ class BuzzWireElevatedButtonTheme {
     elevation: 0,
     foregroundColor: BuzzWireColors.white,
     backgroundColor: BuzzWireColors.primary,
-    disabledForegroundColor: BuzzWireColors.grey,
-    disabledBackgroundColor: BuzzWireColors.grey,
+    disabledForegroundColor: BuzzWireColors.lightGrey,
+    disabledBackgroundColor: BuzzWireColors.primary.withOpacity(0.4),
     side: const BorderSide(color: BuzzWireColors.primary),
     padding: const EdgeInsets.symmetric(vertical: 10),
     textStyle: const TextStyle().copyWith(
@@ -30,8 +30,8 @@ class BuzzWireElevatedButtonTheme {
     elevation: 0,
     foregroundColor: BuzzWireColors.white,
     backgroundColor: BuzzWireColors.primary,
-    disabledForegroundColor: BuzzWireColors.grey,
-    disabledBackgroundColor: BuzzWireColors.grey,
+    disabledForegroundColor: BuzzWireColors.lightGrey,
+    disabledBackgroundColor: BuzzWireColors.primary.withOpacity(0.4),
     side: const BorderSide(color: BuzzWireColors.primary),
     padding: const EdgeInsets.symmetric(vertical: 10),
     textStyle: const TextStyle().copyWith(

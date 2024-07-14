@@ -32,7 +32,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 30,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -43,7 +42,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.max,
@@ -103,7 +102,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                 ),
                 const Gap(30),
-                ElevatedButton(onPressed: () {}, child: const Text("Signup")),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Signup"),
+                ),
                 const Gap(20),
                 Center(
                   child: RichText(

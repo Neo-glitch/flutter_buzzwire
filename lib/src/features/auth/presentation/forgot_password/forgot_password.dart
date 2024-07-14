@@ -26,7 +26,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 30,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -37,7 +36,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.max,
@@ -69,10 +68,10 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     prefixIcon: Icon(Icons.email_outlined),
                   ),
                 ),
-                const Gap(30),
+                const Gap(80),
                 ElevatedButton(
                     onPressed: () {}, child: const Text("Reset password")),
-                const Gap(20),
+                const Gap(10),
                 Center(
                     child: TextButton(
                   child: Text(

@@ -1,4 +1,5 @@
 import 'package:buzzwire/core/common/widgets/app_icon.dart';
+import 'package:buzzwire/core/common/widgets/progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
@@ -20,6 +21,22 @@ class VerifyEmailScreen extends ConsumerStatefulWidget {
 
 class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen>
     with TickerProviderStateMixin {
+  bool _isLoading = false;
+  void _doSomething() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    Future.delayed(
+      Duration(milliseconds: 2000),
+      () {
+        setState(() {
+          _isLoading = false;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,13 +92,14 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen>
                             vsync: this,
                             duration: const Duration(milliseconds: 1200)),
                       ),
-                      const Gap(10),
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Resend",
-                            style: context.labelLarge,
-                          ))
+                      const Gap(20),
+                      ProgressButton(
+                        text: const Text("Resend"),
+                        isLoading: _isLoading,
+                        onPressed: () {
+                          _doSomething();
+                        },
+                      )
                     ],
                   ),
                 ),

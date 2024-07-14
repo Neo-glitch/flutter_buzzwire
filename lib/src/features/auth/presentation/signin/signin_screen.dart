@@ -92,7 +92,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () =>
-                        context.pushNamed(BuzzWireRoute.verifyEmail.name),
+                        context.pushNamed(BuzzWireRoute.passwordReset.name),
                     child: const Text("Forgot Password"),
                   ),
                 ),
