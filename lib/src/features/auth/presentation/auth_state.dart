@@ -9,6 +9,9 @@ class AuthState with _$AuthState {
     @Default(AuthStatus.initial) AuthStatus authStatus,
     @Default(false) bool isLoading,
     @Default(null) String? errorMessage,
+    @Default(false) bool isSignInEmailUnverified,
+    @Default(false) bool isEmailVerificationMailSent,
+    @Default(false) bool isPasswordResetMailSent,
   }) = _AuthState;
 }
 

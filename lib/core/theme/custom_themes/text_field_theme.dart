@@ -53,7 +53,7 @@ class BuzzWireTextFieldTheme {
     ),
     focusedErrorBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(width: 1, color: BuzzWireColors.warning),
+      borderSide: const BorderSide(width: 1, color: BuzzWireColors.error),
     ),
   );
 
@@ -106,7 +106,7 @@ class BuzzWireTextFieldTheme {
     ),
     focusedErrorBorder: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(width: 1, color: BuzzWireColors.warning),
+      borderSide: const BorderSide(width: 1, color: BuzzWireColors.error),
     ),
   );
 }

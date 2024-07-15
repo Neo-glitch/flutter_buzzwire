@@ -60,4 +60,37 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(FbAuthFailure(exception.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> resetPassword(String email) async {
+    try {
+      final response = await authRemoteDataSource.resetPassword(email);
+      return Right(response);
+    } on Exception catch (e) {
+      final exception = ExceptionHandler.handleException(e);
+      return Left(FbAuthFailure(exception.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> sendVerificationEmail() async {
+    try {
+      final response = await authRemoteDataSource.sendVerificationEmail();
+      return Right(response);
+    } on Exception catch (e) {
+      final exception = ExceptionHandler.handleException(e);
+      return Left(FbAuthFailure(exception.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> verifyEmail() async {
+    try {
+      final response = await authRemoteDataSource.verifyEmail();
+      return Right(response);
+    } on Exception catch (e) {
+      final exception = ExceptionHandler.handleException(e);
+      return Left(FbAuthFailure(exception.toString()));
+    }
+  }
 }

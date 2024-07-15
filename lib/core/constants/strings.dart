@@ -40,4 +40,11 @@ class BuzzWireStrings {
   static const String poppins = "Poppins";
   static const String merriWeather = "Merriweather";
   static const String playFairDisplay = "PlayfairDisplay";
+
+  // Regex
+  static final RegExp validEmailRegExp = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
+  static final RegExp validPasswordRegExp =
+      RegExp(r'^.{6,}$'); // password must be 6 digits minimum
 }

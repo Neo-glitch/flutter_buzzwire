@@ -19,6 +19,9 @@ mixin _$AuthState {
   AuthStatus get authStatus => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  bool get isSignInEmailUnverified => throw _privateConstructorUsedError;
+  bool get isEmailVerificationMailSent => throw _privateConstructorUsedError;
+  bool get isPasswordResetMailSent => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -30,7 +33,13 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({AuthStatus authStatus, bool isLoading, String? errorMessage});
+  $Res call(
+      {AuthStatus authStatus,
+      bool isLoading,
+      String? errorMessage,
+      bool isSignInEmailUnverified,
+      bool isEmailVerificationMailSent,
+      bool isPasswordResetMailSent});
 }
 
 /// @nodoc
@@ -49,6 +58,9 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? authStatus = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
+    Object? isSignInEmailUnverified = null,
+    Object? isEmailVerificationMailSent = null,
+    Object? isPasswordResetMailSent = null,
   }) {
     return _then(_value.copyWith(
       authStatus: null == authStatus
@@ -63,6 +75,18 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSignInEmailUnverified: null == isSignInEmailUnverified
+          ? _value.isSignInEmailUnverified
+          : isSignInEmailUnverified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEmailVerificationMailSent: null == isEmailVerificationMailSent
+          ? _value.isEmailVerificationMailSent
+          : isEmailVerificationMailSent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPasswordResetMailSent: null == isPasswordResetMailSent
+          ? _value.isPasswordResetMailSent
+          : isPasswordResetMailSent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -75,7 +99,13 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       __$$AuthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthStatus authStatus, bool isLoading, String? errorMessage});
+  $Res call(
+      {AuthStatus authStatus,
+      bool isLoading,
+      String? errorMessage,
+      bool isSignInEmailUnverified,
+      bool isEmailVerificationMailSent,
+      bool isPasswordResetMailSent});
 }
 
 /// @nodoc
@@ -92,6 +122,9 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? authStatus = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
+    Object? isSignInEmailUnverified = null,
+    Object? isEmailVerificationMailSent = null,
+    Object? isPasswordResetMailSent = null,
   }) {
     return _then(_$AuthStateImpl(
       authStatus: null == authStatus
@@ -106,6 +139,18 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isSignInEmailUnverified: null == isSignInEmailUnverified
+          ? _value.isSignInEmailUnverified
+          : isSignInEmailUnverified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEmailVerificationMailSent: null == isEmailVerificationMailSent
+          ? _value.isEmailVerificationMailSent
+          : isEmailVerificationMailSent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPasswordResetMailSent: null == isPasswordResetMailSent
+          ? _value.isPasswordResetMailSent
+          : isPasswordResetMailSent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -116,7 +161,10 @@ class _$AuthStateImpl with DiagnosticableTreeMixin implements _AuthState {
   const _$AuthStateImpl(
       {this.authStatus = AuthStatus.initial,
       this.isLoading = false,
-      this.errorMessage = null});
+      this.errorMessage = null,
+      this.isSignInEmailUnverified = false,
+      this.isEmailVerificationMailSent = false,
+      this.isPasswordResetMailSent = false});
 
   @override
   @JsonKey()
@@ -127,10 +175,19 @@ class _$AuthStateImpl with DiagnosticableTreeMixin implements _AuthState {
   @override
   @JsonKey()
   final String? errorMessage;
+  @override
+  @JsonKey()
+  final bool isSignInEmailUnverified;
+  @override
+  @JsonKey()
+  final bool isEmailVerificationMailSent;
+  @override
+  @JsonKey()
+  final bool isPasswordResetMailSent;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthState(authStatus: $authStatus, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'AuthState(authStatus: $authStatus, isLoading: $isLoading, errorMessage: $errorMessage, isSignInEmailUnverified: $isSignInEmailUnverified, isEmailVerificationMailSent: $isEmailVerificationMailSent, isPasswordResetMailSent: $isPasswordResetMailSent)';
   }
 
   @override
@@ -140,7 +197,13 @@ class _$AuthStateImpl with DiagnosticableTreeMixin implements _AuthState {
       ..add(DiagnosticsProperty('type', 'AuthState'))
       ..add(DiagnosticsProperty('authStatus', authStatus))
       ..add(DiagnosticsProperty('isLoading', isLoading))
-      ..add(DiagnosticsProperty('errorMessage', errorMessage));
+      ..add(DiagnosticsProperty('errorMessage', errorMessage))
+      ..add(DiagnosticsProperty(
+          'isSignInEmailUnverified', isSignInEmailUnverified))
+      ..add(DiagnosticsProperty(
+          'isEmailVerificationMailSent', isEmailVerificationMailSent))
+      ..add(DiagnosticsProperty(
+          'isPasswordResetMailSent', isPasswordResetMailSent));
   }
 
   @override
@@ -153,12 +216,28 @@ class _$AuthStateImpl with DiagnosticableTreeMixin implements _AuthState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(
+                    other.isSignInEmailUnverified, isSignInEmailUnverified) ||
+                other.isSignInEmailUnverified == isSignInEmailUnverified) &&
+            (identical(other.isEmailVerificationMailSent,
+                    isEmailVerificationMailSent) ||
+                other.isEmailVerificationMailSent ==
+                    isEmailVerificationMailSent) &&
+            (identical(
+                    other.isPasswordResetMailSent, isPasswordResetMailSent) ||
+                other.isPasswordResetMailSent == isPasswordResetMailSent));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, authStatus, isLoading, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      authStatus,
+      isLoading,
+      errorMessage,
+      isSignInEmailUnverified,
+      isEmailVerificationMailSent,
+      isPasswordResetMailSent);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +250,10 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {final AuthStatus authStatus,
       final bool isLoading,
-      final String? errorMessage}) = _$AuthStateImpl;
+      final String? errorMessage,
+      final bool isSignInEmailUnverified,
+      final bool isEmailVerificationMailSent,
+      final bool isPasswordResetMailSent}) = _$AuthStateImpl;
 
   @override
   AuthStatus get authStatus;
@@ -179,6 +261,12 @@ abstract class _AuthState implements AuthState {
   bool get isLoading;
   @override
   String? get errorMessage;
+  @override
+  bool get isSignInEmailUnverified;
+  @override
+  bool get isEmailVerificationMailSent;
+  @override
+  bool get isPasswordResetMailSent;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

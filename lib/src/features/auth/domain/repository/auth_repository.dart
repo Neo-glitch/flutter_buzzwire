@@ -9,6 +9,9 @@ abstract class AuthRepository {
   Future<Either<Failure, User>> signIn(String email, String password);
   Future<Either<Failure, User>> signUp(String email, String password);
   Future<Either<Failure, void>> signOut();
+  Future<Either<Failure, bool>> verifyEmail();
+  Future<Either<Failure, void>> sendVerificationEmail();
+  Future<Either<Failure, void>> resetPassword(String email);
 
   bool checkIfAunthenticated();
 }

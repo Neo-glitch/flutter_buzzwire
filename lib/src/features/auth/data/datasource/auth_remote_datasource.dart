@@ -10,6 +10,9 @@ abstract class AuthRemoteDataSource {
   Future<User> signIn(String email, String password);
   Future<User> signup(String email, String password);
   Future<void> signOut();
+  Future<bool> verifyEmail();
+  Future<void> sendVerificationEmail();
+  Future<void> resetPassword(String emauil);
 }
 
 @riverpod
@@ -53,6 +56,38 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final response = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       return response.user!;
+    } catch (e, s) {
+      BuzzWireLoggerHelper.error(s.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> resetPassword(String email) {
+    try {
+      return firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e, s) {
+      BuzzWireLoggerHelper.error(s.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> verifyEmail() async {
+    try {
+      // reload to get latest loggedin user detail and verify is email is verified
+      await firebaseAuth.currentUser?.reload();
+      return firebaseAuth.currentUser?.emailVerified ?? false;
+    } catch (e, s) {
+      BuzzWireLoggerHelper.error(s.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> sendVerificationEmail() async {
+    try {
+      await firebaseAuth.currentUser?.sendEmailVerification();
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;
