@@ -1,40 +1,26 @@
-import 'package:dio/dio.dart';
+import 'error_text.dart';
 
-/// handles errors pertaining to Dio Network Call
-class DioException implements Exception {
-  late String message;
+class BaseException implements Exception {
+  final String? message;
 
-  DioException.fromDioError(DioError dioError) {
-    message = switch (dioError) {
-      DioErrorType.cancel => "Request to the serve was cancelled",
-      DioErrorType.connectionTimeout => "Connection timed out",
-      DioErrorType.receiveTimeout => "Receiving timeout occurred",
-      DioErrorType.sendTimeout => "Request send timeout",
-      DioErrorType.badResponse =>
-        _handleStatusCode(dioError.response?.statusCode),
-      DioErrorType.unknown => _handleUnknownError(dioError),
-      _ => "Oops something went wrong",
-    };
-  }
-
-  String _handleStatusCode(int? statusCode) {
-    return switch (statusCode) {
-      400 => "Request not allowed",
-      401 => "Authentication failed",
-      429 => "Too many requests",
-      500 => "Internal server error",
-      _ => "Oops something went wrong",
-    };
-  }
-
-  String _handleUnknownError(DioError error) {
-    if (error.message!.contains("SocketException")) {
-      return "No internet";
-    }
-
-    return "Unexpected error occured";
-  }
+  BaseException({required this.message});
 
   @override
-  String toString() => message;
+  String toString() => message ?? ErrorText.unknownError;
+}
+
+class ApiException extends BaseException {
+  ApiException({required String message}) : super(message: message);
+}
+
+class FbAuthException extends BaseException {
+  FbAuthException({required String message}) : super(message: message);
+}
+
+class FbFirestoreException extends BaseException {
+  FbFirestoreException({required String message}) : super(message: message);
+}
+
+class CacheException extends BaseException {
+  CacheException({required String message}) : super(message: message);
 }

@@ -1,4 +1,7 @@
-import 'package:buzzwire/core/theme/theme.dart';
+import 'core/constants/asset_strings.dart';
+import 'core/theme/theme.dart';
+import 'core/utils/extensions/context_extension.dart';
+import 'src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 /// First view on the app
@@ -12,7 +15,7 @@ class AppView extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: BuzzWireAppTheme.lightTheme,
       darkTheme: BuzzWireAppTheme.darkTheme,
-      home: Scaffold(),
+      home: const OnBoardingScreen(),
     );
   }
 }

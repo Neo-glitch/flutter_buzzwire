@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/res/colors.dart';
+import '../../constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BuzzWireAppBarTheme {
@@ -8,15 +8,15 @@ class BuzzWireAppBarTheme {
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: BuzzWireColors.lightGrey,
+      backgroundColor: BuzzWireColors.light,
       surfaceTintColor: Colors.transparent,
-      iconTheme: const IconThemeData(color: BuzzWireColors.black, size: 24),
+      iconTheme: const IconThemeData(color: BuzzWireColors.textBlack, size: 24),
       actionsIconTheme:
-          const IconThemeData(color: BuzzWireColors.black, size: 24),
+          const IconThemeData(color: BuzzWireColors.dark, size: 24),
       titleTextStyle: const TextStyle().copyWith(
           fontSize: 18.0,
           fontWeight: FontWeight.w600,
-          color: BuzzWireColors.black));
+          color: BuzzWireColors.textBlack));
 
   static final darkAppBarTheme = AppBarTheme(
       elevation: 0,

@@ -11,13 +11,13 @@ class BuzzWireColors {
   static const Color tertiary = Color(0XFFFDBA74);
 
   // Text Colors
-  static const Color textPrimary = Color(0XFF333333);
+  static const Color textBlack = Color(0XFF121212);
   static const Color textSecondary = Color(0XFF6C7570);
   static const Color textWhite = Colors.white;
 
   // Background Colors
-  static const Color light = Color(0XFFF6F6F6);
-  static const Color dark = Color(0XFF272727);
+  static const Color light = Color(0XFFF9F9F9);
+  static const Color dark = Color(0XFF121212);
   static const Color primaryBackground = Color(0XFFF3F5FF);
 
   // Background Container Colors
@@ -40,7 +40,7 @@ class BuzzWireColors {
   static const Color info = Color(0XFF00FFFF);
 
   // Neutral Colors (can be used for background)
-  static const Color black = Color(0XFF232323);
+  static const Color black = Color(0XFF000000);
   static const Color darkerGrey = Color(0XFF4F4F4F);
   static const Color darkGrey = Color(0XFF939393);
   static const Color grey = Color(0XFFE0E0E0);
@@ -53,4 +53,13 @@ class BuzzWireColors {
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
       colors: [Color(0xFF0437F2), Color(0XFF00FFFF), Color(0XFFFFFFFF)]);
+
+  static const Gradient transparentToBlack = LinearGradient(
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+    colors: [
+      Colors.black45,
+      Colors.transparent,
+    ],
+  );
 }

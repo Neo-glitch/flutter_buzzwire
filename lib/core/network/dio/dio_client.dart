@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/network/dio/api_key_interceptor.dart';
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
-import 'package:buzzwire/core/network/dio/dio_logger_interceptor.dart';
+import 'api_key_interceptor.dart';
+import 'dio_helper.dart';
+import 'dio_logger_interceptor.dart';
 import 'package:dio/dio.dart';
 
 class DioClient {
@@ -131,4 +131,34 @@ class DioClient {
       rethrow;
     }
   }
+
+  // Helper example for handling exception
+  //
+  //  Future<Either<Exception, T>> _handleResponse<T>(
+  //   Future<Response> request,
+  // ) async {
+  //   try {
+  //     final response = await request;
+  //     if (response.statusCode! >= 200 && response.statusCode! < 300) {
+  //       final data = response.data;
+  //       return right(data);
+  //     } else {
+  //       return left(ApiErrorHandler.handleError(response.data));
+  //     }
+  //   } catch (e) {
+  //     return left(ApiErrorHandler.handleError(e));
+  //   }
+  // }
+
+  // Future<Either<Exception, T>> get<T>(
+  //   String url, {
+  //   Map<String, dynamic>? queryParameters,
+  // }) async {
+  //   final request = dio.get(url,
+  //       options: Options(headers: headers, validateStatus: (status) => true),
+  //       queryParameters: {
+  //         if (queryParameters != null) ...queryParameters,
+  //       });
+  //   return _handleResponse<T>(request);
+  // }
 }

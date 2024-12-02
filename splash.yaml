@@ -1,0 +1,11 @@
+flutter_native_splash:
+  background_image: "assets/logos/light-theme-app-splash.png"
+  background_image_dark: "assets/logos/dark-theme-app-splash.png"
+
+  android_12:
+    # image: "assets/logos/light-theme-app-splash.png"
+    # image_dark: "assets/logos/dark-theme-app-splash.png"
+
+  # android_gravity: fill
+  # fullscreen: true
+  web: false

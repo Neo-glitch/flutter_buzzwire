@@ -1,14 +1,14 @@
-import 'package:buzzwire/core/res/colors.dart';
-import 'package:buzzwire/core/res/strings.dart';
-import 'package:buzzwire/core/theme/color_schemes/color_schemes.dart';
-import 'package:buzzwire/core/theme/custom_themes/app_bar_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/bottom_sheet_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/checkbox_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/chip_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/elevated_button_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/outlined_button_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/text_field_theme.dart';
-import 'package:buzzwire/core/theme/custom_themes/text_theme.dart';
+import '../constants/colors.dart';
+import '../constants/strings.dart';
+import 'color_schemes/color_schemes.dart';
+import 'custom_themes/app_bar_theme.dart';
+import 'custom_themes/bottom_sheet_theme.dart';
+import 'custom_themes/checkbox_theme.dart';
+import 'custom_themes/chip_theme.dart';
+import 'custom_themes/elevated_button_theme.dart';
+import 'custom_themes/outlined_button_theme.dart';
+import 'custom_themes/text_field_theme.dart';
+import 'custom_themes/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class BuzzWireAppTheme {
@@ -20,7 +20,7 @@ class BuzzWireAppTheme {
     fontFamily: BuzzWireStrings.poppins,
     brightness: Brightness.light,
     primaryColor: BuzzWireColors.primary,
-    scaffoldBackgroundColor: BuzzWireColors.lightGrey,
+    scaffoldBackgroundColor: BuzzWireColors.light,
     textTheme: BuzzWireTextTheme.lightTextTheme,
     appBarTheme: BuzzWireAppBarTheme.lightAppBarTheme,
     chipTheme: BuzzWireChipTheme.lightChipTheme,

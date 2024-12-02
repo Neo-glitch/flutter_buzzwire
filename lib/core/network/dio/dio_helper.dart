@@ -6,4 +6,6 @@ class BuzzWireDioHelper {
   static const String news = "everything";
   static const String headlines = "top-headlines";
   static const String sources = "top-headlines/sources";
+
+  // Error Messages
 }

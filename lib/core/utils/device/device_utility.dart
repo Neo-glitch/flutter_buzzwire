@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -14,9 +15,20 @@ class BuzzWireDeviceUtils {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static Future<void> setStatusBarColor(Color color) async {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: color));
+  static Future<void> setStatusBarColor(Color color, {bool? isDarkMode}) async {
+    var statusBarIconBrightness = null;
+    var statusBarTextBrightness = null;
+
+    if (isDarkMode != null) {
+      statusBarTextBrightness = isDarkMode ? Brightness.light : Brightness.dark;
+      statusBarIconBrightness = isDarkMode ? Brightness.light : Brightness.dark;
+    }
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: color,
+      statusBarIconBrightness: statusBarIconBrightness,
+      statusBarBrightness: statusBarTextBrightness,
+    ));
   }
 
   static bool isLandScapeOrientation(BuildContext context) =>
@@ -64,7 +76,7 @@ class BuzzWireDeviceUtils {
         defaultTargetPlatform == TargetPlatform.iOS;
   }
 
-  static void vibrae(Duration duration) {
+  static void vibrate(Duration duration) {
     HapticFeedback.vibrate();
     Future.delayed(duration, () => HapticFeedback.vibrate());
   }
@@ -102,11 +114,16 @@ class BuzzWireDeviceUtils {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      throw "Could not launcgh $url";
+      throw "Could not launch $url";
     }
   }
 
+  // static bool isDarkMode(BuildContext context) {
+  //   return Theme.of(context).brightness == Brightness.dark;
+  // }
+
   static bool isDarkMode(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    return brightness == Brightness.dark;
   }
 }

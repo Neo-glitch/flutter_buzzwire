@@ -1,5 +1,6 @@
-import 'package:buzzwire/core/res/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/colors.dart';
 
 class BuzzWireColorScheme {
   BuzzWireColorScheme._();
@@ -9,15 +10,15 @@ class BuzzWireColorScheme {
     primary: BuzzWireColors.primary,
     onPrimary: BuzzWireColors.white,
     secondary: BuzzWireColors.secondary,
-    onSecondary: BuzzWireColors.black,
+    onSecondary: BuzzWireColors.dark,
     tertiary: BuzzWireColors.tertiary,
-    onTertiary: BuzzWireColors.black,
+    onTertiary: BuzzWireColors.dark,
     error: BuzzWireColors.error,
     onError: BuzzWireColors.white,
-    background: BuzzWireColors.lightGrey,
-    onBackground: BuzzWireColors.black,
-    surface: BuzzWireColors.lightGrey,
-    onSurface: BuzzWireColors.black,
+    background: BuzzWireColors.light,
+    onBackground: BuzzWireColors.dark,
+    surface: BuzzWireColors.light,
+    onSurface: BuzzWireColors.dark,
   );
 
   static const darkTheme = ColorScheme(
@@ -25,9 +26,9 @@ class BuzzWireColorScheme {
     primary: BuzzWireColors.primary,
     onPrimary: BuzzWireColors.white,
     secondary: BuzzWireColors.secondary,
-    onSecondary: BuzzWireColors.black,
+    onSecondary: BuzzWireColors.dark,
     tertiary: BuzzWireColors.tertiary,
-    onTertiary: BuzzWireColors.black,
+    onTertiary: BuzzWireColors.dark,
     error: BuzzWireColors.error,
     onError: BuzzWireColors.white,
     background: BuzzWireColors.dark,
