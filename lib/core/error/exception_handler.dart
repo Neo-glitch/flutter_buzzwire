@@ -74,6 +74,6 @@ class ExceptionHandler {
     FirebaseException exception,
   ) {
     // Todo handle firestore errors later
-    return Exception(ErrorText.unknownError);
+    return FbFirestoreException(message: ErrorText.unknownError);
   }
 }

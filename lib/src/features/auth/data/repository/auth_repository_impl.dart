@@ -12,7 +12,6 @@ part 'auth_repository_impl.g.dart';
 AuthRepository authRepository(AuthRepositoryRef ref) {
   return AuthRepositoryImpl(
       authRemoteDataSource: ref.read(authRemoteDataSourceProvider));
-  ;
 }
 
 class AuthRepositoryImpl implements AuthRepository {

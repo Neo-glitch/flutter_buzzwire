@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+
 import '../../constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -99,5 +101,13 @@ class BuzzWireHelperFunctions {
   // Replace this with go Router call
   static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
+  }
+
+  static void pushToScreen(BuildContext context, String path) {
+    context.pushNamed(path);
+  }
+
+  static void goToScreen(BuildContext context, String path) {
+    context.goNamed(path);
   }
 }

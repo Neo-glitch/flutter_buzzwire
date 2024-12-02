@@ -114,7 +114,7 @@ class BuzzWireDeviceUtils {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      throw "Could not launcgh $url";
+      throw "Could not launch $url";
     }
   }
 
