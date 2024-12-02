@@ -12,7 +12,7 @@ class ForgotPasswordController extends _$ForgotPasswordController {
   }
 
   void validateEmail(String email) {
-    final isEmailValid = email.isValidEmail(email);
+    final isEmailValid = email.isValidEmail();
     state = state.copyWith(isEmailValid: isEmailValid);
   }
 }

@@ -8,7 +8,7 @@ class BuzzWireElevatedButtonTheme {
   // Light Theme Button
   static final lightTheme = ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-    minimumSize: const Size.fromHeight(48),
+    fixedSize: const Size.fromHeight(44),
     elevation: 0,
     foregroundColor: BuzzWireColors.white,
     backgroundColor: BuzzWireColors.primary,
@@ -17,7 +17,7 @@ class BuzzWireElevatedButtonTheme {
     side: const BorderSide(color: BuzzWireColors.primary),
     padding: const EdgeInsets.symmetric(vertical: 10),
     textStyle: const TextStyle().copyWith(
-        fontSize: 16,
+        fontSize: 14,
         color: BuzzWireColors.textWhite,
         fontWeight: FontWeight.w600),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -26,7 +26,7 @@ class BuzzWireElevatedButtonTheme {
   // dark Theme:
   static final darkTheme = ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-    minimumSize: const Size.fromHeight(48),
+    fixedSize: const Size.fromHeight(44),
     elevation: 0,
     foregroundColor: BuzzWireColors.white,
     backgroundColor: BuzzWireColors.primary,
@@ -35,7 +35,7 @@ class BuzzWireElevatedButtonTheme {
     side: const BorderSide(color: BuzzWireColors.primary),
     padding: const EdgeInsets.symmetric(vertical: 10),
     textStyle: const TextStyle().copyWith(
-        fontSize: 16,
+        fontSize: 14,
         color: BuzzWireColors.textWhite,
         fontWeight: FontWeight.w600),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

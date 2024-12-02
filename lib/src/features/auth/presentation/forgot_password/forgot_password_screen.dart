@@ -4,6 +4,7 @@ import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_controller.dart';
 import 'package:flutter/gestures.dart';
@@ -51,7 +52,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         ),
         body: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: AutovalidateMode.disabled,
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -82,19 +83,18 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     controller: _emailTextController,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: "Enter email",
-                      prefixIcon: Icon(Icons.email_outlined),
-                    ),
+                    decoration: InputDecoration(
+                        hintText: "Enter email",
+                        prefixIcon: const Icon(Icons.email_outlined),
+                        suffixIcon: forgotpasswordUiState.isEmailValid
+                            ? const Icon(Icons.check_circle)
+                            : null),
                     onChanged: (value) {
                       ref
                           .read(forgotPasswordControllerProvider.notifier)
-                          .validateEmail(value);
+                          .validateEmail(_emailTextController.text);
                     },
                     validator: (value) {
-                      // if (value == null || value.isEmpty) {
-                      //   return "Please enter an email";
-                      // }
                       if (!forgotpasswordUiState.isEmailValid) {
                         return "Please enter an email";
                       }

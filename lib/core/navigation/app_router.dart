@@ -6,7 +6,7 @@ import '../../src/features/auth/presentation/auth_controller.dart';
 import '../../src/features/auth/presentation/auth_state.dart';
 import '../../src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
 import '../../src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
-import '../../src/features/auth/presentation/forgot_password/forgot_password.dart';
+import '../../src/features/auth/presentation/forgot_password/forgot_password_screen.dart';
 import '../../src/features/auth/presentation/signin/signin_screen.dart';
 import '../../src/features/auth/presentation/signup/signup_screen.dart';
 import '../../src/features/auth/presentation/signup/verify_email_screen.dart';
