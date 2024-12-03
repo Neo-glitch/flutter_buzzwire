@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SigninState {
+  LoadState get loadState => throw _privateConstructorUsedError;
   bool get isEmailValid => throw _privateConstructorUsedError;
   bool get isPasswordValid => throw _privateConstructorUsedError;
 
@@ -30,7 +31,7 @@ abstract class $SigninStateCopyWith<$Res> {
           SigninState value, $Res Function(SigninState) then) =
       _$SigninStateCopyWithImpl<$Res, SigninState>;
   @useResult
-  $Res call({bool isEmailValid, bool isPasswordValid});
+  $Res call({LoadState loadState, bool isEmailValid, bool isPasswordValid});
 }
 
 /// @nodoc
@@ -46,10 +47,15 @@ class _$SigninStateCopyWithImpl<$Res, $Val extends SigninState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loadState = null,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
   }) {
     return _then(_value.copyWith(
+      loadState: null == loadState
+          ? _value.loadState
+          : loadState // ignore: cast_nullable_to_non_nullable
+              as LoadState,
       isEmailValid: null == isEmailValid
           ? _value.isEmailValid
           : isEmailValid // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$SigninStateImplCopyWith<$Res>
       __$$SigninStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isEmailValid, bool isPasswordValid});
+  $Res call({LoadState loadState, bool isEmailValid, bool isPasswordValid});
 }
 
 /// @nodoc
@@ -84,10 +90,15 @@ class __$$SigninStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loadState = null,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
   }) {
     return _then(_$SigninStateImpl(
+      loadState: null == loadState
+          ? _value.loadState
+          : loadState // ignore: cast_nullable_to_non_nullable
+              as LoadState,
       isEmailValid: null == isEmailValid
           ? _value.isEmailValid
           : isEmailValid // ignore: cast_nullable_to_non_nullable
@@ -104,8 +115,13 @@ class __$$SigninStateImplCopyWithImpl<$Res>
 
 class _$SigninStateImpl implements _SigninState {
   const _$SigninStateImpl(
-      {this.isEmailValid = false, this.isPasswordValid = false});
+      {this.loadState = Empty,
+      this.isEmailValid = false,
+      this.isPasswordValid = false});
 
+  @override
+  @JsonKey()
+  final LoadState loadState;
   @override
   @JsonKey()
   final bool isEmailValid;
@@ -115,7 +131,7 @@ class _$SigninStateImpl implements _SigninState {
 
   @override
   String toString() {
-    return 'SigninState(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)';
+    return 'SigninState(loadState: $loadState, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)';
   }
 
   @override
@@ -123,6 +139,8 @@ class _$SigninStateImpl implements _SigninState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SigninStateImpl &&
+            (identical(other.loadState, loadState) ||
+                other.loadState == loadState) &&
             (identical(other.isEmailValid, isEmailValid) ||
                 other.isEmailValid == isEmailValid) &&
             (identical(other.isPasswordValid, isPasswordValid) ||
@@ -130,7 +148,8 @@ class _$SigninStateImpl implements _SigninState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isEmailValid, isPasswordValid);
+  int get hashCode =>
+      Object.hash(runtimeType, loadState, isEmailValid, isPasswordValid);
 
   @JsonKey(ignore: true)
   @override
@@ -141,9 +160,12 @@ class _$SigninStateImpl implements _SigninState {
 
 abstract class _SigninState implements SigninState {
   const factory _SigninState(
-      {final bool isEmailValid,
+      {final LoadState loadState,
+      final bool isEmailValid,
       final bool isPasswordValid}) = _$SigninStateImpl;
 
+  @override
+  LoadState get loadState;
   @override
   bool get isEmailValid;
   @override

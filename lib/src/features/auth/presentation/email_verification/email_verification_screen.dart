@@ -11,15 +11,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class VerifyEmailScreen extends ConsumerStatefulWidget {
-  const VerifyEmailScreen({super.key});
+class EmailVerificationScreen extends ConsumerStatefulWidget {
+  const EmailVerificationScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _VerifyEmailScreenState();
 }
 
-class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen>
+class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen>
     with TickerProviderStateMixin {
   bool _isLoading = false;
   void _doSomething() {

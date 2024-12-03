@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'signup_state.dart';
+part of 'email_verification_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,34 +15,30 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$SignupState {
+mixin _$EmailVerificationState {
   LoadState get loadState => throw _privateConstructorUsedError;
   bool get isEmailValid => throw _privateConstructorUsedError;
   bool get isPasswordValid => throw _privateConstructorUsedError;
-  bool get isFullNameFilled => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignupStateCopyWith<SignupState> get copyWith =>
+  $EmailVerificationStateCopyWith<EmailVerificationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignupStateCopyWith<$Res> {
-  factory $SignupStateCopyWith(
-          SignupState value, $Res Function(SignupState) then) =
-      _$SignupStateCopyWithImpl<$Res, SignupState>;
+abstract class $EmailVerificationStateCopyWith<$Res> {
+  factory $EmailVerificationStateCopyWith(EmailVerificationState value,
+          $Res Function(EmailVerificationState) then) =
+      _$EmailVerificationStateCopyWithImpl<$Res, EmailVerificationState>;
   @useResult
-  $Res call(
-      {LoadState loadState,
-      bool isEmailValid,
-      bool isPasswordValid,
-      bool isFullNameFilled});
+  $Res call({LoadState loadState, bool isEmailValid, bool isPasswordValid});
 }
 
 /// @nodoc
-class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
-    implements $SignupStateCopyWith<$Res> {
-  _$SignupStateCopyWithImpl(this._value, this._then);
+class _$EmailVerificationStateCopyWithImpl<$Res,
+        $Val extends EmailVerificationState>
+    implements $EmailVerificationStateCopyWith<$Res> {
+  _$EmailVerificationStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -55,7 +51,6 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? loadState = null,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
-    Object? isFullNameFilled = null,
   }) {
     return _then(_value.copyWith(
       loadState: null == loadState
@@ -70,35 +65,30 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
           ? _value.isPasswordValid
           : isPasswordValid // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFullNameFilled: null == isFullNameFilled
-          ? _value.isFullNameFilled
-          : isFullNameFilled // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$SignupStateImplCopyWith<$Res>
-    implements $SignupStateCopyWith<$Res> {
-  factory _$$SignupStateImplCopyWith(
-          _$SignupStateImpl value, $Res Function(_$SignupStateImpl) then) =
-      __$$SignupStateImplCopyWithImpl<$Res>;
+abstract class _$$EmailVerificationStateImplCopyWith<$Res>
+    implements $EmailVerificationStateCopyWith<$Res> {
+  factory _$$EmailVerificationStateImplCopyWith(
+          _$EmailVerificationStateImpl value,
+          $Res Function(_$EmailVerificationStateImpl) then) =
+      __$$EmailVerificationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {LoadState loadState,
-      bool isEmailValid,
-      bool isPasswordValid,
-      bool isFullNameFilled});
+  $Res call({LoadState loadState, bool isEmailValid, bool isPasswordValid});
 }
 
 /// @nodoc
-class __$$SignupStateImplCopyWithImpl<$Res>
-    extends _$SignupStateCopyWithImpl<$Res, _$SignupStateImpl>
-    implements _$$SignupStateImplCopyWith<$Res> {
-  __$$SignupStateImplCopyWithImpl(
-      _$SignupStateImpl _value, $Res Function(_$SignupStateImpl) _then)
+class __$$EmailVerificationStateImplCopyWithImpl<$Res>
+    extends _$EmailVerificationStateCopyWithImpl<$Res,
+        _$EmailVerificationStateImpl>
+    implements _$$EmailVerificationStateImplCopyWith<$Res> {
+  __$$EmailVerificationStateImplCopyWithImpl(
+      _$EmailVerificationStateImpl _value,
+      $Res Function(_$EmailVerificationStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -107,9 +97,8 @@ class __$$SignupStateImplCopyWithImpl<$Res>
     Object? loadState = null,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
-    Object? isFullNameFilled = null,
   }) {
-    return _then(_$SignupStateImpl(
+    return _then(_$EmailVerificationStateImpl(
       loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
@@ -122,22 +111,17 @@ class __$$SignupStateImplCopyWithImpl<$Res>
           ? _value.isPasswordValid
           : isPasswordValid // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFullNameFilled: null == isFullNameFilled
-          ? _value.isFullNameFilled
-          : isFullNameFilled // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$SignupStateImpl implements _SignupState {
-  _$SignupStateImpl(
+class _$EmailVerificationStateImpl implements _EmailVerificationState {
+  const _$EmailVerificationStateImpl(
       {this.loadState = Empty,
       this.isEmailValid = false,
-      this.isPasswordValid = false,
-      this.isFullNameFilled = false});
+      this.isPasswordValid = false});
 
   @override
   @JsonKey()
@@ -148,47 +132,42 @@ class _$SignupStateImpl implements _SignupState {
   @override
   @JsonKey()
   final bool isPasswordValid;
-  @override
-  @JsonKey()
-  final bool isFullNameFilled;
 
   @override
   String toString() {
-    return 'SignupState(loadState: $loadState, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isFullNameFilled: $isFullNameFilled)';
+    return 'EmailVerificationState(loadState: $loadState, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SignupStateImpl &&
+            other is _$EmailVerificationStateImpl &&
             (identical(other.loadState, loadState) ||
                 other.loadState == loadState) &&
             (identical(other.isEmailValid, isEmailValid) ||
                 other.isEmailValid == isEmailValid) &&
             (identical(other.isPasswordValid, isPasswordValid) ||
-                other.isPasswordValid == isPasswordValid) &&
-            (identical(other.isFullNameFilled, isFullNameFilled) ||
-                other.isFullNameFilled == isFullNameFilled));
+                other.isPasswordValid == isPasswordValid));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loadState, isEmailValid, isPasswordValid, isFullNameFilled);
+  int get hashCode =>
+      Object.hash(runtimeType, loadState, isEmailValid, isPasswordValid);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SignupStateImplCopyWith<_$SignupStateImpl> get copyWith =>
-      __$$SignupStateImplCopyWithImpl<_$SignupStateImpl>(this, _$identity);
+  _$$EmailVerificationStateImplCopyWith<_$EmailVerificationStateImpl>
+      get copyWith => __$$EmailVerificationStateImplCopyWithImpl<
+          _$EmailVerificationStateImpl>(this, _$identity);
 }
 
-abstract class _SignupState implements SignupState {
-  factory _SignupState(
+abstract class _EmailVerificationState implements EmailVerificationState {
+  const factory _EmailVerificationState(
       {final LoadState loadState,
       final bool isEmailValid,
-      final bool isPasswordValid,
-      final bool isFullNameFilled}) = _$SignupStateImpl;
+      final bool isPasswordValid}) = _$EmailVerificationStateImpl;
 
   @override
   LoadState get loadState;
@@ -197,9 +176,7 @@ abstract class _SignupState implements SignupState {
   @override
   bool get isPasswordValid;
   @override
-  bool get isFullNameFilled;
-  @override
   @JsonKey(ignore: true)
-  _$$SignupStateImplCopyWith<_$SignupStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$EmailVerificationStateImplCopyWith<_$EmailVerificationStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -1,33 +1,34 @@
+// controller for verify email screen
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/error/enums/fb_auth_error_type.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
-import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
+import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/usecase/signin_usecase.dart';
 import '../../../domain/usecase/signout_usecase.dart';
-import '../../../domain/usecase/verify_email_usecase.dart';
 
-part 'sigin_controller.g.dart';
+part 'email_verification_controller.g.dart';
 
 @riverpod
-class SignInController extends _$SignInController {
+class EmailVerificationController extends _$EmailVerificationController {
+  late SendVerificationEmail _sendVerificationEmail;
   late SignIn _signIn;
   late SignOut _signOut;
-  late VerifyEmail _verifyEmail;
 
   @override
-  SigninState build() {
+  EmailVerificationState build() {
     _signIn = ref.read(signInProvider);
     _signOut = ref.read(signOutProvider);
-    _verifyEmail = ref.read(verifyEmailProvider);
-    return SigninState();
+    _sendVerificationEmail = ref.read(sendVerificationEmailProvider);
+    return EmailVerificationState();
   }
 
-  void signIn({required String email, required String password}) async {
+  void signIn({
+    required String email,
+    required String password,
+  }) async {
     state = state.copyWith(loadState: Loading());
     final result =
         await _signIn(SignInParams(email: email, password: password));
@@ -36,28 +37,35 @@ class SignInController extends _$SignInController {
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
-      (result) => verifyEmail(),
+      (user) => sendVerificationEmail(),
     );
   }
 
-  void verifyEmail() async {
-    final result = await _verifyEmail(NoParams());
+  void sendVerificationEmail() async {
+    final result = await _sendVerificationEmail(NoParams());
 
     result.fold(
       (failure) {
-        state = state.copyWith(loadState: Error(message: failure.message));
+        state = state.copyWith(
+          loadState: Error(message: failure.message),
+        );
+        signOut();
       },
-      (isVerified) async {
-        if (isVerified) {
-          state = state.copyWith(loadState: Loaded());
-          ref
-              .read(authControllerProvider.notifier)
-              .setAuthState(AuthStatus.authenticated);
-        } else {
-          await _signOut(NoParams());
-          state =
-              state.copyWith(loadState: Error(message: "Email not verified"));
-        }
+      (success) async => signOut(),
+    );
+  }
+
+  void signOut() async {
+    final result = await _signOut(NoParams());
+
+    result.fold(
+      (failure) {
+        state = state.copyWith(
+          loadState: Error(message: failure.message),
+        );
+      },
+      (_) {
+        state = state.copyWith(loadState: Loaded());
       },
     );
   }

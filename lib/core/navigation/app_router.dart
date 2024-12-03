@@ -9,7 +9,7 @@ import '../../src/features/auth/presentation/onboarding/screens/onboarding_scree
 import '../../src/features/auth/presentation/forgot_password/forgot_password_screen.dart';
 import '../../src/features/auth/presentation/signin/signin_screen.dart';
 import '../../src/features/auth/presentation/signup/signup_screen.dart';
-import '../../src/features/auth/presentation/signup/verify_email_screen.dart';
+import '../../src/features/auth/presentation/email_verification/email_verification_screen.dart';
 import '../../src/features/news/presentation/news_details/news_details_screen.dart';
 import '../../src/features/news/presentation/news_details/news_webview_screen.dart';
 import '../../src/features/news/presentation/news_headlines/news_headlines_screen.dart';
@@ -73,7 +73,7 @@ GoRouter router(RouterRef ref) {
               path: BuzzWireRoute.verifyEmail.path,
               name: BuzzWireRoute.verifyEmail.name,
               builder: (context, state) {
-                return VerifyEmailScreen();
+                return EmailVerificationScreen();
               },
             ),
             GoRoute(
