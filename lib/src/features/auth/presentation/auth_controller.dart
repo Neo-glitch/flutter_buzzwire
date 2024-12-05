@@ -14,10 +14,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AuthController extends _$AuthController {
-  Stream<User?> get authUser =>
-      ref.watch(authRepositoryProvider).authStateChanges();
+  // Stream<User?> get authUser =>
+  //     ref.watch(authRepositoryProvider).authStateChanges();
   late SignIn _sign;
   late SignOut _signOut;
   late SignUp _signUp;
@@ -36,142 +36,142 @@ class AuthController extends _$AuthController {
     return const AuthState();
   }
 
-  void signIn({required String email, required String password}) async {
-    state = state.copyWith(isLoading: true);
-    final result = await _sign(SignInParams(email: email, password: password));
+  // void signIn({required String email, required String password}) async {
+  //   state = state.copyWith(isLoading: true);
+  //   final result = await _sign(SignInParams(email: email, password: password));
 
-    result.fold(
-      (failure) {
-        state = state.copyWith(
-          isLoading: false,
-          authStatus: AuthStatus.unAuthenticated,
-          errorMessage: failure.message,
-        );
-      },
-      (user) async {
-        final isEmailVerified = await verifySignInEmail();
+  //   result.fold(
+  //     (failure) {
+  //       state = state.copyWith(
+  //         isLoading: false,
+  //         authStatus: AuthStatus.unAuthenticated,
+  //         errorMessage: failure.message,
+  //       );
+  //     },
+  //     (user) async {
+  //       final isEmailVerified = await verifySignInEmail();
 
-        if (isEmailVerified) {
-          state = state.copyWith(
-            isLoading: false,
-            authStatus: AuthStatus.authenticated,
-            isSignInEmailUnverified: false,
-          );
-        } else {
-          state = state.copyWith(
-            isLoading: false,
-            errorMessage: null,
-            isSignInEmailUnverified: true,
-          );
-        }
-      },
-    );
-  }
+  //       if (isEmailVerified) {
+  //         state = state.copyWith(
+  //           isLoading: false,
+  //           authStatus: AuthStatus.authenticated,
+  //           isSignInEmailUnverified: false,
+  //         );
+  //       } else {
+  //         state = state.copyWith(
+  //           isLoading: false,
+  //           errorMessage: null,
+  //           isSignInEmailUnverified: true,
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
-  void signUp({required String email, required String password}) async {
-    state = state.copyWith(isLoading: true);
-    final result =
-        await _signUp(SignUpParams(email: email, password: password));
+  // void signUp({required String email, required String password}) async {
+  //   state = state.copyWith(isLoading: true);
+  //   final result =
+  //       await _signUp(SignUpParams(email: email, password: password));
 
-    result.fold(
-      (failure) {
-        state = state.copyWith(
-          isLoading: false,
-          authStatus: AuthStatus.unAuthenticated,
-          errorMessage: failure.message,
-        );
-      },
-      (user) {
-        state = state.copyWith(
-          isLoading: false,
-          authStatus: AuthStatus.registered,
-          errorMessage: null,
-        );
-      },
-    );
-  }
+  //   result.fold(
+  //     (failure) {
+  //       state = state.copyWith(
+  //         isLoading: false,
+  //         authStatus: AuthStatus.unAuthenticated,
+  //         errorMessage: failure.message,
+  //       );
+  //     },
+  //     (user) {
+  //       state = state.copyWith(
+  //         isLoading: false,
+  //         authStatus: AuthStatus.registered,
+  //         errorMessage: null,
+  //       );
+  //     },
+  //   );
+  // }
 
-  void signOut() async {
-    state = state.copyWith(isLoading: true);
-    final result = await _signOut(NoParams());
+  // void signOut() async {
+  //   state = state.copyWith(isLoading: true);
+  //   final result = await _signOut(NoParams());
 
-    result.fold(
-      (failure) {
-        state = state.copyWith(
-          errorMessage: failure.message,
-        );
-      },
-      (result) {
-        state = state.copyWith(
-          authStatus: AuthStatus.unAuthenticated,
-          errorMessage: null,
-        );
-      },
-    );
-  }
+  //   result.fold(
+  //     (failure) {
+  //       state = state.copyWith(
+  //         errorMessage: failure.message,
+  //       );
+  //     },
+  //     (result) {
+  //       state = state.copyWith(
+  //         authStatus: AuthStatus.unAuthenticated,
+  //         errorMessage: null,
+  //       );
+  //     },
+  //   );
+  // }
 
-  void sendVerificationEmail() async {
-    state = state.copyWith(isLoading: true);
-    final result = await _sendVerificationEmail(NoParams());
+  // void sendVerificationEmail() async {
+  //   state = state.copyWith(isLoading: true);
+  //   final result = await _sendVerificationEmail(NoParams());
 
-    result.fold(
-      (failure) {
-        state = state.copyWith(errorMessage: failure.message, isLoading: false);
-      },
-      (_) {
-        state = state.copyWith(
-            errorMessage: null,
-            isLoading: false,
-            isEmailVerificationMailSent: true);
-      },
-    );
-  }
+  //   result.fold(
+  //     (failure) {
+  //       state = state.copyWith(errorMessage: failure.message, isLoading: false);
+  //     },
+  //     (_) {
+  //       state = state.copyWith(
+  //           errorMessage: null,
+  //           isLoading: false,
+  //           isEmailVerificationMailSent: true);
+  //     },
+  //   );
+  // }
 
-  Future<bool> verifySignInEmail() async {
-    state = state.copyWith(isLoading: true);
-    final result = await _verifyEmail(NoParams());
+  // Future<bool> verifySignInEmail() async {
+  //   state = state.copyWith(isLoading: true);
+  //   final result = await _verifyEmail(NoParams());
 
-    return result.fold(
-      (failure) {
-        return false;
-      },
-      (isVerified) {
-        return isVerified;
-      },
-    );
-  }
+  //   return result.fold(
+  //     (failure) {
+  //       return false;
+  //     },
+  //     (isVerified) {
+  //       return isVerified;
+  //     },
+  //   );
+  // }
 
-  void verifySignUpEmail() async {
-    final result = await _verifyEmail(NoParams());
+  // void verifySignUpEmail() async {
+  //   final result = await _verifyEmail(NoParams());
 
-    result.fold(
-      (failure) {},
-      (isVerified) {
-        if (isVerified) {
-          state = state.copyWith(
-            isLoading: false,
-            errorMessage: null,
-            authStatus: AuthStatus.registeredAndVerified,
-          );
-        }
-      },
-    );
-  }
+  //   result.fold(
+  //     (failure) {},
+  //     (isVerified) {
+  //       if (isVerified) {
+  //         state = state.copyWith(
+  //           isLoading: false,
+  //           errorMessage: null,
+  //           authStatus: AuthStatus.registeredAndVerified,
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
-  void resetPassword(String email) async {
-    state = state.copyWith(isLoading: true);
+  // void resetPassword(String email) async {
+  //   state = state.copyWith(isLoading: true);
 
-    final result = await _resetPassword(ResetPasswordParams(email: email));
+  //   final result = await _resetPassword(ResetPasswordParams(email: email));
 
-    result.fold(
-      (failure) {
-        state = state.copyWith(isLoading: false, errorMessage: failure.message);
-      },
-      (result) {
-        state = state.copyWith(isLoading: false, isPasswordResetMailSent: true);
-      },
-    );
-  }
+  //   result.fold(
+  //     (failure) {
+  //       state = state.copyWith(isLoading: false, errorMessage: failure.message);
+  //     },
+  //     (result) {
+  //       state = state.copyWith(isLoading: false, isPasswordResetMailSent: true);
+  //     },
+  //   );
+  // }
 
   void hasSeenError() {
     state = state.copyWith(errorMessage: null);
@@ -183,5 +183,9 @@ class AuthController extends _$AuthController {
 
   void hasSentPasswordResetEmail() {
     state = state.copyWith(isPasswordResetMailSent: false);
+  }
+
+  void setAuthState(AuthStatus authStatus) {
+    state = state.copyWith(authStatus: authStatus);
   }
 }

@@ -28,9 +28,10 @@ class BuzzWireStrings {
   static const String forgotPasswordTitle = "Forgot Password?";
   static const String forgotPasswordSubtitle =
       "No worries, we'll send you reset instructions";
-  static const String verifyEmailTitle = "Verify your email";
-  static const String verifyEmailSubtitle =
-      "An email has been sent to you. Follow the instructions to complete your signup.";
+  static const String emailVerificationTitle =
+      "You didn't receive a verification mail?";
+  static const String emailVerificationSubtitle =
+      "Input your email and password to get a verification email.";
 
   // Home
   static const String homeAppBarTitle = "Welcome Back!";

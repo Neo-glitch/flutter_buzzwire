@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/common/riverpod/load_state.dart';
 import 'package:buzzwire/core/common/widgets/progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
@@ -5,6 +6,7 @@ import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_controller.dart';
 import 'package:flutter/gestures.dart';
@@ -36,8 +38,24 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final forgotpasswordUiState = ref.watch(forgotPasswordControllerProvider);
-    final authUiState = ref.watch(authControllerProvider);
+    final forgotpasswordState = ref.watch(forgotPasswordControllerProvider);
+    bool isBtnEnabled = forgotpasswordState.isEmailValid;
+
+    ref.listen(forgotPasswordControllerProvider, (previous, next) {
+      if (next.loadState is Error) {
+        final message = (next.loadState as Error).message;
+        context.showSingleButtonAlert("Error", message).then(
+          (value) {
+            ref.read(forgotPasswordControllerProvider.notifier).hasSeenError();
+          },
+        );
+      }
+
+      if (next.loadState is Loaded) {
+        context.pop();
+        context.showToast("password reset email sent successfully");
+      }
+    });
 
     return SafeArea(
       child: Scaffold(
@@ -80,36 +98,34 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   ),
                   const Gap(15),
                   TextFormField(
+                    enabled: forgotpasswordState.loadState is! Loading,
                     controller: _emailTextController,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        hintText: "Enter email",
-                        prefixIcon: const Icon(Icons.email_outlined),
-                        suffixIcon: forgotpasswordUiState.isEmailValid
-                            ? const Icon(Icons.check_circle)
-                            : null),
+                      hintText: "Enter email",
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      suffixIcon: forgotpasswordState.isEmailValid
+                          ? const Icon(Icons.check_circle)
+                          : null,
+                    ),
                     onChanged: (value) {
                       ref
                           .read(forgotPasswordControllerProvider.notifier)
-                          .validateEmail(_emailTextController.text);
-                    },
-                    validator: (value) {
-                      if (!forgotpasswordUiState.isEmailValid) {
-                        return "Please enter an email";
-                      }
-
-                      return null;
+                          .validateEmail(value);
                     },
                   ),
-                  const Gap(80),
+                  const Gap(20),
                   ProgressButton(
-                    isLoading: false,
-                    isDisabled: !forgotpasswordUiState.isEmailValid,
+                    isLoading: forgotpasswordState.loadState is Loading,
+                    isDisabled: !isBtnEnabled,
                     text: const Text("Reset password"),
-                    onPressed: () {},
+                    onPressed: () {
+                      ref
+                          .read(forgotPasswordControllerProvider.notifier)
+                          .resetPassword(email: _emailTextController.text);
+                    },
                   ),
-                  const Gap(10),
                   Center(
                       child: TextButton(
                     child: Text(

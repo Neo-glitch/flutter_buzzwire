@@ -103,11 +103,11 @@ class BuzzWireHelperFunctions {
     Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
   }
 
-  static void pushToScreen(BuildContext context, String path) {
-    context.pushNamed(path);
-  }
+  // static void pushToScreen(BuildContext context, String path) {
+  //   context.pushNamed(path);
+  // }
 
-  static void goToScreen(BuildContext context, String path) {
-    context.goNamed(path);
-  }
+  // static void goToScreen(BuildContext context, String path) {
+  //   context.goNamed(path);
+  // }
 }

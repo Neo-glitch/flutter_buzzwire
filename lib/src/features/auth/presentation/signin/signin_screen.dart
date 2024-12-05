@@ -1,3 +1,8 @@
+import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
+
 import '../../../../../core/common/widgets/app_icon.dart';
 import '../../../../../core/constants/asset_strings.dart';
 import '../../../../../core/constants/colors.dart';
@@ -25,7 +30,16 @@ class SignInScreen extends ConsumerStatefulWidget {
 
 class _SignInScreenState extends ConsumerState<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
   bool _showPassword = false;
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
+  }
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -35,11 +49,25 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final signInState = ref.watch(signInControllerProvider);
+    bool isBtnEnabled = signInState.isEmailValid && signInState.isPasswordValid;
+
+    ref.listen(signInControllerProvider, (previous, next) {
+      if (next.loadState is Error) {
+        final message = (next.loadState as Error).message;
+        context.showSingleButtonAlert("Error", message).then(
+          (value) {
+            ref.read(signInControllerProvider.notifier).hasSeenError();
+          },
+        );
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
         body: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Padding(
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: SingleChildScrollView(
@@ -67,15 +95,25 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   ),
                   const Gap(15),
                   TextFormField(
+                    controller: _emailTextController,
+                    enabled: signInState.loadState is! Loading,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Enter email",
-                      prefixIcon: Icon(Icons.email_outlined),
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      suffixIcon: signInState.isEmailValid
+                          ? const Icon(Icons.check_circle)
+                          : null,
                     ),
+                    onChanged: (value) => ref
+                        .read(signInControllerProvider.notifier)
+                        .validateEmail(value),
                   ),
-                  const Gap(10),
+                  const Gap(15),
                   TextFormField(
+                    controller: _passwordTextController,
+                    enabled: signInState.loadState is! Loading,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: !_showPassword,
@@ -93,6 +131,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         ),
                       ),
                     ),
+                    onChanged: (value) => ref
+                        .read(signInControllerProvider.notifier)
+                        .validatePassword(value),
+                    validator: (value) {
+                      return !value?.isValidPassword()
+                          ? "Please ensure your password is up to 6 characters"
+                          : null;
+                    },
                   ),
                   Container(
                     alignment: Alignment.centerRight,
@@ -102,28 +148,66 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       child: const Text("Forgot Password"),
                     ),
                   ),
-                  ElevatedButton(onPressed: () {}, child: const Text("Login")),
-                  const Gap(40),
+                  const Gap(4),
+                  ProgressButton(
+                    isDisabled: !isBtnEnabled,
+                    isLoading: signInState.loadState is Loading,
+                    onPressed: () {
+                      ref.read(signInControllerProvider.notifier).signIn(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text,
+                          );
+                    },
+                    text: const Text("Login"),
+                  ),
+                  const Gap(20),
                   Center(
-                    child: RichText(
-                      text: TextSpan(
-                        style: context.bodyMedium!
-                            .copyWith(fontWeight: FontWeight.w700),
-                        children: [
-                          const TextSpan(text: "Don't have an account? "),
-                          TextSpan(
-                            text: "Create an Account",
-                            style: context.bodyMedium!.copyWith(
-                              color: BuzzWireColors.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.pushNamed(BuzzWireRoute.signUp.name);
-                              },
-                          )
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            style: context.bodyMedium!
+                                .copyWith(fontWeight: FontWeight.w700),
+                            children: [
+                              const TextSpan(text: "Don't have an account? "),
+                              TextSpan(
+                                text: "Create an Account",
+                                style: context.bodyMedium!.copyWith(
+                                  color: BuzzWireColors.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context
+                                        .pushNamed(BuzzWireRoute.signUp.name);
+                                  },
+                              )
+                            ],
+                          ),
+                        ),
+                        const Gap(10),
+                        RichText(
+                          text: TextSpan(
+                            style: context.bodyMedium!
+                                .copyWith(fontWeight: FontWeight.w700),
+                            children: [
+                              const TextSpan(text: "Email not verified? "),
+                              TextSpan(
+                                text: "Verify email",
+                                style: context.bodyMedium!.copyWith(
+                                  color: BuzzWireColors.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context.pushNamed(
+                                        BuzzWireRoute.verifyEmail.name);
+                                  },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],

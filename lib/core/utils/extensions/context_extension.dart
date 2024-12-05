@@ -1,6 +1,10 @@
+import 'package:buzzwire/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-extension ContextExtension on BuildContext {
+extension ContextExtension<T> on BuildContext {
   // Text Styles
   TextStyle? get displayLarge => Theme.of(this).textTheme.displayLarge;
   TextStyle? get displayMedium => Theme.of(this).textTheme.displayMedium;
@@ -32,5 +36,99 @@ extension ContextExtension on BuildContext {
   Color get surfaceColor => Theme.of(this).colorScheme.surface;
   Color get onSurfaceColor => Theme.of(this).colorScheme.onSurface;
 
-  // can other functions like showing a toast and all
+  // can other functions like showing a toast and all, show bottom sheet
+  void showSnackBar(
+    String message, {
+    Function()? action,
+  }) {
+    ScaffoldMessenger.of(this)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          duration: const Duration(seconds: 3),
+          content: Text(message),
+          action: action != null
+              ? SnackBarAction(
+                  label: "Retry",
+                  onPressed: () {
+                    action();
+                  },
+                )
+              : null,
+        ),
+      );
+  }
+
+  Future<T?> showSingleButtonAlert(
+    String title,
+    String message,
+  ) {
+    return showDialog(
+        context: this,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(this).pop(),
+                child: const Text("Ok"),
+              )
+            ],
+          );
+        });
+  }
+
+  Future<T?> showDoubleButtonAlert(
+    String title,
+    String message,
+    String positiveText,
+    String negativeText, {
+    Function()? positiveAction,
+    Function()? negativeAction,
+  }) {
+    return showDialog(
+        context: this,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(this).pop();
+                  if (positiveAction != null) positiveAction();
+                },
+                child: Text(positiveText),
+              ),
+              const Gap(BuzzWireSizes.sm),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(this).pop();
+                  if (negativeAction != null) negativeAction();
+                },
+                child: Text(positiveText),
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<bool?> showToast(String message) {
+// It's a plugin to show toast and we can with extension
+    Fluttertoast.cancel();
+    return Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: secondaryColor,
+        textColor: onSecondaryColor,
+        fontSize: labelMedium?.fontSize ?? 14);
+  }
+
+  // Replace this with go Router call
+  void navigateToScreen(BuildContext context, Widget screen) {
+    Navigator.push(this, MaterialPageRoute(builder: (_) => screen));
+  }
 }

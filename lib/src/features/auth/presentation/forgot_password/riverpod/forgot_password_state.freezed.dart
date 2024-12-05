@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ForgotPasswordState {
+  LoadState get loadState => throw _privateConstructorUsedError;
   bool get isEmailValid => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,7 @@ abstract class $ForgotPasswordStateCopyWith<$Res> {
           ForgotPasswordState value, $Res Function(ForgotPasswordState) then) =
       _$ForgotPasswordStateCopyWithImpl<$Res, ForgotPasswordState>;
   @useResult
-  $Res call({bool isEmailValid});
+  $Res call({LoadState loadState, bool isEmailValid});
 }
 
 /// @nodoc
@@ -45,9 +46,14 @@ class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPasswordState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loadState = null,
     Object? isEmailValid = null,
   }) {
     return _then(_value.copyWith(
+      loadState: null == loadState
+          ? _value.loadState
+          : loadState // ignore: cast_nullable_to_non_nullable
+              as LoadState,
       isEmailValid: null == isEmailValid
           ? _value.isEmailValid
           : isEmailValid // ignore: cast_nullable_to_non_nullable
@@ -64,7 +70,7 @@ abstract class _$$ForgotPasswordStateImplCopyWith<$Res>
       __$$ForgotPasswordStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isEmailValid});
+  $Res call({LoadState loadState, bool isEmailValid});
 }
 
 /// @nodoc
@@ -78,9 +84,14 @@ class __$$ForgotPasswordStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? loadState = null,
     Object? isEmailValid = null,
   }) {
     return _then(_$ForgotPasswordStateImpl(
+      loadState: null == loadState
+          ? _value.loadState
+          : loadState // ignore: cast_nullable_to_non_nullable
+              as LoadState,
       isEmailValid: null == isEmailValid
           ? _value.isEmailValid
           : isEmailValid // ignore: cast_nullable_to_non_nullable
@@ -92,15 +103,19 @@ class __$$ForgotPasswordStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
-  const _$ForgotPasswordStateImpl({this.isEmailValid = false});
+  const _$ForgotPasswordStateImpl(
+      {this.loadState = const Empty(), this.isEmailValid = false});
 
+  @override
+  @JsonKey()
+  final LoadState loadState;
   @override
   @JsonKey()
   final bool isEmailValid;
 
   @override
   String toString() {
-    return 'ForgotPasswordState(isEmailValid: $isEmailValid)';
+    return 'ForgotPasswordState(loadState: $loadState, isEmailValid: $isEmailValid)';
   }
 
   @override
@@ -108,12 +123,14 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ForgotPasswordStateImpl &&
+            (identical(other.loadState, loadState) ||
+                other.loadState == loadState) &&
             (identical(other.isEmailValid, isEmailValid) ||
                 other.isEmailValid == isEmailValid));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isEmailValid);
+  int get hashCode => Object.hash(runtimeType, loadState, isEmailValid);
 
   @JsonKey(ignore: true)
   @override
@@ -124,9 +141,12 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
 }
 
 abstract class _ForgotPasswordState implements ForgotPasswordState {
-  const factory _ForgotPasswordState({final bool isEmailValid}) =
-      _$ForgotPasswordStateImpl;
+  const factory _ForgotPasswordState(
+      {final LoadState loadState,
+      final bool isEmailValid}) = _$ForgotPasswordStateImpl;
 
+  @override
+  LoadState get loadState;
   @override
   bool get isEmailValid;
   @override
