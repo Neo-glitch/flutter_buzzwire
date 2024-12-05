@@ -6,6 +6,7 @@ import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_controller.dart';
 import 'package:flutter/gestures.dart';
@@ -48,6 +49,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             ref.read(forgotPasswordControllerProvider.notifier).hasSeenError();
           },
         );
+      }
+
+      if (next.loadState is Loaded) {
+        context.pop();
+        context.showToast("password reset email sent successfully");
       }
     });
 
@@ -106,24 +112,20 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     onChanged: (value) {
                       ref
                           .read(forgotPasswordControllerProvider.notifier)
-                          .validateEmail(_emailTextController.text);
-                    },
-                    validator: (value) {
-                      if (!forgotpasswordState.isEmailValid) {
-                        return "Please enter an email";
-                      }
-
-                      return null;
+                          .validateEmail(value);
                     },
                   ),
-                  const Gap(80),
+                  const Gap(20),
                   ProgressButton(
                     isLoading: forgotpasswordState.loadState is Loading,
                     isDisabled: !isBtnEnabled,
                     text: const Text("Reset password"),
-                    onPressed: () {},
+                    onPressed: () {
+                      ref
+                          .read(forgotPasswordControllerProvider.notifier)
+                          .resetPassword(email: _emailTextController.text);
+                    },
                   ),
-                  const Gap(10),
                   Center(
                       child: TextButton(
                     child: Text(

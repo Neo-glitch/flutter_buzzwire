@@ -1,5 +1,6 @@
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
 import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
 
 import '../../../../../core/common/widgets/app_icon.dart';
@@ -66,7 +67,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       child: Scaffold(
         body: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Padding(
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: SingleChildScrollView(
@@ -107,7 +108,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     ),
                     onChanged: (value) => ref
                         .read(signInControllerProvider.notifier)
-                        .validateEmail(_emailTextController.text),
+                        .validateEmail(value),
                   ),
                   const Gap(15),
                   TextFormField(
@@ -132,16 +133,22 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     ),
                     onChanged: (value) => ref
                         .read(signInControllerProvider.notifier)
-                        .validatePassword(_passwordTextController.text),
+                        .validatePassword(value),
+                    validator: (value) {
+                      return !value?.isValidPassword()
+                          ? "Please ensure your password is up to 6 characters"
+                          : null;
+                    },
                   ),
                   Container(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () =>
-                          context.pushNamed(BuzzWireRoute.verifyEmail.name),
+                          context.pushNamed(BuzzWireRoute.passwordReset.name),
                       child: const Text("Forgot Password"),
                     ),
                   ),
+                  const Gap(4),
                   ProgressButton(
                     isDisabled: !isBtnEnabled,
                     isLoading: signInState.loadState is Loading,
@@ -153,27 +160,54 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     },
                     text: const Text("Login"),
                   ),
-                  const Gap(40),
+                  const Gap(20),
                   Center(
-                    child: RichText(
-                      text: TextSpan(
-                        style: context.bodyMedium!
-                            .copyWith(fontWeight: FontWeight.w700),
-                        children: [
-                          const TextSpan(text: "Don't have an account? "),
-                          TextSpan(
-                            text: "Create an Account",
-                            style: context.bodyMedium!.copyWith(
-                              color: BuzzWireColors.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.pushNamed(BuzzWireRoute.signUp.name);
-                              },
-                          )
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            style: context.bodyMedium!
+                                .copyWith(fontWeight: FontWeight.w700),
+                            children: [
+                              const TextSpan(text: "Don't have an account? "),
+                              TextSpan(
+                                text: "Create an Account",
+                                style: context.bodyMedium!.copyWith(
+                                  color: BuzzWireColors.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context
+                                        .pushNamed(BuzzWireRoute.signUp.name);
+                                  },
+                              )
+                            ],
+                          ),
+                        ),
+                        const Gap(10),
+                        RichText(
+                          text: TextSpan(
+                            style: context.bodyMedium!
+                                .copyWith(fontWeight: FontWeight.w700),
+                            children: [
+                              const TextSpan(text: "Email not verified? "),
+                              TextSpan(
+                                text: "Verify email",
+                                style: context.bodyMedium!.copyWith(
+                                  color: BuzzWireColors.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context.pushNamed(
+                                        BuzzWireRoute.verifyEmail.name);
+                                  },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],

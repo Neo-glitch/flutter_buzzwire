@@ -1,3 +1,5 @@
+import 'package:buzzwire/core/theme/custom_themes/dialog_theme.dart';
+
 import '../constants/colors.dart';
 import '../constants/strings.dart';
 import 'color_schemes/color_schemes.dart';
@@ -29,6 +31,7 @@ class BuzzWireAppTheme {
     inputDecorationTheme: BuzzWireTextFieldTheme.lightInputDecorationTheme,
     elevatedButtonTheme: BuzzWireElevatedButtonTheme.lightTheme,
     outlinedButtonTheme: BuzzWireOutlinedButonTheme.lightTheme,
+    dialogTheme: BuzzWireDialogTheme.lightDialogTheme,
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -46,5 +49,6 @@ class BuzzWireAppTheme {
     inputDecorationTheme: BuzzWireTextFieldTheme.darkInputDecorationTheme,
     elevatedButtonTheme: BuzzWireElevatedButtonTheme.darkTheme,
     outlinedButtonTheme: BuzzWireOutlinedButonTheme.darkTheme,
+    dialogTheme: BuzzWireDialogTheme.darkDialogTheme,
   );
 }

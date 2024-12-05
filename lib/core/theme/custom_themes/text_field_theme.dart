@@ -8,6 +8,7 @@ class BuzzWireTextFieldTheme {
     filled: true,
     fillColor: Colors.white,
     errorMaxLines: 3,
+    contentPadding: const EdgeInsets.symmetric(vertical: 12),
     // prefixIconColor: MaterialStateColor.resolveWith((states) {
     //   if (states.contains(MaterialState.focused)) {
     //     return BuzzWireColors.primary;
@@ -61,6 +62,7 @@ class BuzzWireTextFieldTheme {
     fillColor: Colors.black,
     filled: true,
     errorMaxLines: 3,
+    contentPadding: const EdgeInsets.symmetric(vertical: 12),
     // prefixIconColor: MaterialStateColor.resolveWith((states) {
     //   if (states.contains(MaterialState.focused)) {
     //     return BuzzWireColors.primary;

@@ -5,6 +5,7 @@ import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
 import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -75,10 +76,10 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
             onPressed: () => context.pop(),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.disabled,
+        body: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Expanded(
@@ -121,7 +122,7 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
                       onChanged: (value) {
                         ref
                             .read(emailVerificationControllerProvider.notifier)
-                            .validateEmail(_emailTextController.text);
+                            .validateEmail(value);
                       },
                       validator: (value) {
                         if (!uiState.isEmailValid) {
@@ -154,9 +155,14 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
                       ),
                       onChanged: (value) => ref
                           .read(emailVerificationControllerProvider.notifier)
-                          .validatePassword(_passwordTextController.text),
+                          .validatePassword(value),
+                      validator: (value) {
+                        return !value?.isValidPassword()
+                            ? "Please ensure your password is up to 6 characters"
+                            : null;
+                      },
                     ),
-                    const Gap(75),
+                    const Gap(20),
                     ProgressButton(
                         isLoading: uiState.loadState is Loading,
                         isDisabled: !isBtnEnabled,
@@ -166,12 +172,19 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
                               .read(
                                 emailVerificationControllerProvider.notifier,
                               )
-                              .signInAndResendVerificationEmail(
+                              .signInAndSendEmailVerificationMail(
                                 email: _emailTextController.text,
                                 password: _passwordTextController.text,
                               );
                         }),
-                    const Gap(10),
+                    Center(
+                        child: TextButton(
+                      child: Text(
+                        "Back to log in",
+                        style: context.labelLarge,
+                      ),
+                      onPressed: () => context.pop(),
+                    ))
                   ],
                 ),
               ),

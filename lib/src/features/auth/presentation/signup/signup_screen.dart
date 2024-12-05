@@ -1,4 +1,5 @@
 import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
 
@@ -81,7 +82,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         ),
         body: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -119,7 +120,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                     onChanged: (value) => ref
                         .read(signUpControllerProvider.notifier)
-                        .vaidateUserName(_fullNameTextController.text),
+                        .vaidateUserName(value),
                   ),
                   const Gap(15),
                   TextFormField(
@@ -136,33 +137,39 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                     onChanged: (value) => ref
                         .read(signUpControllerProvider.notifier)
-                        .validateEmail(_emailTextController.text),
+                        .validateEmail(value),
                   ),
                   const Gap(15),
                   TextFormField(
-                      controller: _passwordTextController,
-                      enabled: signupState.loadState is! Loading,
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !_showPassword,
-                      decoration: InputDecoration(
-                        hintText: "Enter password",
-                        prefixIcon: const Icon(Icons.lock_outline_rounded),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            _togglePasswordVisibility();
-                          },
-                          child: Icon(
-                            _showPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
+                    controller: _passwordTextController,
+                    enabled: signupState.loadState is! Loading,
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: !_showPassword,
+                    decoration: InputDecoration(
+                      hintText: "Enter password",
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          _togglePasswordVisibility();
+                        },
+                        child: Icon(
+                          _showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
                       ),
-                      onChanged: (value) => ref
-                          .read(signUpControllerProvider.notifier)
-                          .validatePassword(_passwordTextController.text)),
-                  const Gap(30),
+                    ),
+                    onChanged: (value) => ref
+                        .read(signUpControllerProvider.notifier)
+                        .validatePassword(value),
+                    validator: (value) {
+                      return !value?.isValidPassword()
+                          ? "Please ensure your password is up to 6 characters"
+                          : null;
+                    },
+                  ),
+                  const Gap(20),
                   ProgressButton(
                     isDisabled: !isBtnEnabled,
                     isLoading: signupState.loadState is Loading,

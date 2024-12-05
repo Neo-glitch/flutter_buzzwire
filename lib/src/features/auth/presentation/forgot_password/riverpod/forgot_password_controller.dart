@@ -12,16 +12,17 @@ class ForgotPasswordController extends _$ForgotPasswordController {
   @override
   ForgotPasswordState build() {
     _resetPassword = ref.read(resetPasswordProvider);
-    return ForgotPasswordState();
+    return const ForgotPasswordState();
   }
 
-  void resetPassword(String email) async {
-    state = state.copyWith(loadState: Loading());
+  void resetPassword({required String email}) async {
+    state = state.copyWith(loadState: const Loading());
     final result = await _resetPassword(ResetPasswordParams(email: email));
 
     result.fold(
-      (failure) => state.copyWith(loadState: Error(message: failure.message)),
-      (success) => state.copyWith(loadState: Loaded()),
+      (failure) =>
+          state = state.copyWith(loadState: Error(message: failure.message)),
+      (success) => state = state.copyWith(loadState: const Loaded()),
     );
   }
 
@@ -31,6 +32,6 @@ class ForgotPasswordController extends _$ForgotPasswordController {
   }
 
   void hasSeenError() {
-    state = state.copyWith(loadState: Empty());
+    state = state.copyWith(loadState: const Empty());
   }
 }
