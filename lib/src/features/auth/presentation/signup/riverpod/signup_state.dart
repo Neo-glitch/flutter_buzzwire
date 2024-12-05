@@ -5,8 +5,8 @@ part 'signup_state.freezed.dart';
 
 @freezed
 class SignupState with _$SignupState {
-  factory SignupState({
-    @Default(Empty) LoadState loadState,
+  const factory SignupState({
+    @Default(Empty()) LoadState loadState,
     @Default(false) bool isEmailValid,
     @Default(false) bool isPasswordValid,
     @Default(false) bool isFullNameFilled,

@@ -83,6 +83,6 @@ class SignUpController extends _$SignUpController {
   }
 
   void hasSeenError() {
-    state = state.copyWith(loadState: Empty());
+    state = state.copyWith(loadState: const Empty());
   }
 }

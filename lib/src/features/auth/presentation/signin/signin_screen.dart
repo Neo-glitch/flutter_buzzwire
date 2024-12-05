@@ -1,3 +1,7 @@
+import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
+
 import '../../../../../core/common/widgets/app_icon.dart';
 import '../../../../../core/constants/asset_strings.dart';
 import '../../../../../core/constants/colors.dart';
@@ -25,7 +29,16 @@ class SignInScreen extends ConsumerStatefulWidget {
 
 class _SignInScreenState extends ConsumerState<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
   bool _showPassword = false;
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
+  }
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -35,6 +48,20 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final signInState = ref.watch(signInControllerProvider);
+    bool isBtnEnabled = signInState.isEmailValid && signInState.isPasswordValid;
+
+    ref.listen(signInControllerProvider, (previous, next) {
+      if (next.loadState is Error) {
+        final message = (next.loadState as Error).message;
+        context.showSingleButtonAlert("Error", message).then(
+          (value) {
+            ref.read(signInControllerProvider.notifier).hasSeenError();
+          },
+        );
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -67,15 +94,25 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   ),
                   const Gap(15),
                   TextFormField(
+                    controller: _emailTextController,
+                    enabled: signInState.loadState is! Loading,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Enter email",
-                      prefixIcon: Icon(Icons.email_outlined),
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      suffixIcon: signInState.isEmailValid
+                          ? const Icon(Icons.check_circle)
+                          : null,
                     ),
+                    onChanged: (value) => ref
+                        .read(signInControllerProvider.notifier)
+                        .validateEmail(_emailTextController.text),
                   ),
-                  const Gap(10),
+                  const Gap(15),
                   TextFormField(
+                    controller: _passwordTextController,
+                    enabled: signInState.loadState is! Loading,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: !_showPassword,
@@ -93,16 +130,29 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         ),
                       ),
                     ),
+                    onChanged: (value) => ref
+                        .read(signInControllerProvider.notifier)
+                        .validatePassword(_passwordTextController.text),
                   ),
                   Container(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () =>
-                          context.pushNamed(BuzzWireRoute.passwordReset.name),
+                          context.pushNamed(BuzzWireRoute.verifyEmail.name),
                       child: const Text("Forgot Password"),
                     ),
                   ),
-                  ElevatedButton(onPressed: () {}, child: const Text("Login")),
+                  ProgressButton(
+                    isDisabled: !isBtnEnabled,
+                    isLoading: signInState.loadState is Loading,
+                    onPressed: () {
+                      ref.read(signInControllerProvider.notifier).signIn(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text,
+                          );
+                    },
+                    text: const Text("Login"),
+                  ),
                   const Gap(40),
                   Center(
                     child: RichText(

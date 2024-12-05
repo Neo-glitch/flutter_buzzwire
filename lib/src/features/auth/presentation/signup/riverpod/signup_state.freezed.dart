@@ -133,8 +133,8 @@ class __$$SignupStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SignupStateImpl implements _SignupState {
-  _$SignupStateImpl(
-      {this.loadState = Empty,
+  const _$SignupStateImpl(
+      {this.loadState = const Empty(),
       this.isEmailValid = false,
       this.isPasswordValid = false,
       this.isFullNameFilled = false});
@@ -184,7 +184,7 @@ class _$SignupStateImpl implements _SignupState {
 }
 
 abstract class _SignupState implements SignupState {
-  factory _SignupState(
+  const factory _SignupState(
       {final LoadState loadState,
       final bool isEmailValid,
       final bool isPasswordValid,

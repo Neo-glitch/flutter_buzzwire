@@ -115,7 +115,7 @@ class __$$SigninStateImplCopyWithImpl<$Res>
 
 class _$SigninStateImpl implements _SigninState {
   const _$SigninStateImpl(
-      {this.loadState = Empty,
+      {this.loadState = const Empty(),
       this.isEmailValid = false,
       this.isPasswordValid = false});
 

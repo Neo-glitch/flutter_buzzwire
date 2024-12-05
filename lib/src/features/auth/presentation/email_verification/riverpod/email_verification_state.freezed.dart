@@ -119,7 +119,7 @@ class __$$EmailVerificationStateImplCopyWithImpl<$Res>
 
 class _$EmailVerificationStateImpl implements _EmailVerificationState {
   const _$EmailVerificationStateImpl(
-      {this.loadState = Empty,
+      {this.loadState = const Empty(),
       this.isEmailValid = false,
       this.isPasswordValid = false});
 

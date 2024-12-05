@@ -18,7 +18,8 @@ class BuzzWireAssets {
   static const String signupLogo = "assets/logos/signup-logo.svg";
   static const String signUpSuccessLogo =
       "assets/logos/signup-success-logo.svg";
-  static const String verifyEmailLogo = "assets/logos/verify-email-logo.svg";
+  static const String emailVerificationLogo =
+      "assets/logos/verify-email-logo.svg";
   static const String forgotPasswordLogo =
       "assets/logos/forgot-password-logo.svg";
 

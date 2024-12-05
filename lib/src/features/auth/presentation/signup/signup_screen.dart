@@ -1,3 +1,8 @@
+import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
+
+import '../../../../../core/common/riverpod/load_state.dart';
 import '../../../../../core/common/widgets/app_icon.dart';
 import '../../../../../core/constants/asset_strings.dart';
 import '../../../../../core/constants/colors.dart';
@@ -20,7 +25,19 @@ class SignUpScreen extends ConsumerStatefulWidget {
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  final _fullNameTextController = TextEditingController();
+
   bool _showPassword = false;
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    _fullNameTextController.dispose();
+    super.dispose();
+  }
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -30,6 +47,27 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final signupState = ref.watch(signUpControllerProvider);
+    bool isBtnEnabled = signupState.isEmailValid &&
+        signupState.isFullNameFilled &&
+        signupState.isPasswordValid;
+
+    ref.listen(signUpControllerProvider, (previous, next) {
+      if (next.loadState is Error) {
+        final message = (next.loadState as Error).message;
+        context.showSingleButtonAlert("Error", message).then(
+          (value) {
+            ref.read(signUpControllerProvider.notifier).hasSeenError();
+          },
+        );
+      }
+
+      if (next.loadState is Loaded) {
+        context.pop();
+        context.showToast("A verification email has been sent to you");
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -71,46 +109,70 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                   const Gap(15),
                   TextFormField(
+                    enabled: signupState.loadState is! Loading,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.name,
+                    controller: _fullNameTextController,
                     decoration: const InputDecoration(
                       hintText: "Enter full name",
                       prefixIcon: Icon(Icons.person),
                     ),
+                    onChanged: (value) => ref
+                        .read(signUpControllerProvider.notifier)
+                        .vaidateUserName(_fullNameTextController.text),
                   ),
-                  const Gap(10),
+                  const Gap(15),
                   TextFormField(
+                    controller: _emailTextController,
+                    enabled: signupState.loadState is! Loading,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: "Enter email",
-                      prefixIcon: Icon(Icons.email_outlined),
-                    ),
-                  ),
-                  const Gap(10),
-                  TextFormField(
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: !_showPassword,
                     decoration: InputDecoration(
-                      hintText: "Enter password",
-                      prefixIcon: const Icon(Icons.lock_outline_rounded),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          _togglePasswordVisibility();
-                        },
-                        child: Icon(
-                          _showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                      hintText: "Enter email",
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      suffixIcon: signupState.isEmailValid
+                          ? const Icon(Icons.check_circle)
+                          : null,
+                    ),
+                    onChanged: (value) => ref
+                        .read(signUpControllerProvider.notifier)
+                        .validateEmail(_emailTextController.text),
+                  ),
+                  const Gap(15),
+                  TextFormField(
+                      controller: _passwordTextController,
+                      enabled: signupState.loadState is! Loading,
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: !_showPassword,
+                      decoration: InputDecoration(
+                        hintText: "Enter password",
+                        prefixIcon: const Icon(Icons.lock_outline_rounded),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            _togglePasswordVisibility();
+                          },
+                          child: Icon(
+                            _showPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                      onChanged: (value) => ref
+                          .read(signUpControllerProvider.notifier)
+                          .validatePassword(_passwordTextController.text)),
                   const Gap(30),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("Signup"),
+                  ProgressButton(
+                    isDisabled: !isBtnEnabled,
+                    isLoading: signupState.loadState is Loading,
+                    onPressed: () {
+                      ref.read(signUpControllerProvider.notifier).signUp(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text,
+                          );
+                    },
+                    text: const Text("Signup"),
                   ),
                   const Gap(20),
                   Center(

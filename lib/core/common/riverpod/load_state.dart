@@ -1,13 +1,21 @@
-sealed class LoadState {}
+sealed class LoadState {
+  const LoadState();
+}
 
-class Empty extends LoadState {}
+class Empty extends LoadState {
+  const Empty() : super();
+}
 
-class Loading extends LoadState {}
+class Loading extends LoadState {
+  const Loading() : super();
+}
 
-class Loaded extends LoadState {}
+class Loaded extends LoadState {
+  const Loaded() : super();
+}
 
 class Error extends LoadState {
   final String message;
 
-  Error({required this.message});
+  const Error({required this.message}) : super();
 }

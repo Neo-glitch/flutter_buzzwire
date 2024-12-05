@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/common/riverpod/load_state.dart';
 import 'package:buzzwire/core/common/widgets/progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
@@ -36,8 +37,19 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final forgotpasswordUiState = ref.watch(forgotPasswordControllerProvider);
-    final authUiState = ref.watch(authControllerProvider);
+    final forgotpasswordState = ref.watch(forgotPasswordControllerProvider);
+    bool isBtnEnabled = forgotpasswordState.isEmailValid;
+
+    ref.listen(forgotPasswordControllerProvider, (previous, next) {
+      if (next.loadState is Error) {
+        final message = (next.loadState as Error).message;
+        context.showSingleButtonAlert("Error", message).then(
+          (value) {
+            ref.read(forgotPasswordControllerProvider.notifier).hasSeenError();
+          },
+        );
+      }
+    });
 
     return SafeArea(
       child: Scaffold(
@@ -80,22 +92,24 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   ),
                   const Gap(15),
                   TextFormField(
+                    enabled: forgotpasswordState.loadState is! Loading,
                     controller: _emailTextController,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        hintText: "Enter email",
-                        prefixIcon: const Icon(Icons.email_outlined),
-                        suffixIcon: forgotpasswordUiState.isEmailValid
-                            ? const Icon(Icons.check_circle)
-                            : null),
+                      hintText: "Enter email",
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      suffixIcon: forgotpasswordState.isEmailValid
+                          ? const Icon(Icons.check_circle)
+                          : null,
+                    ),
                     onChanged: (value) {
                       ref
                           .read(forgotPasswordControllerProvider.notifier)
                           .validateEmail(_emailTextController.text);
                     },
                     validator: (value) {
-                      if (!forgotpasswordUiState.isEmailValid) {
+                      if (!forgotpasswordState.isEmailValid) {
                         return "Please enter an email";
                       }
 
@@ -104,8 +118,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   ),
                   const Gap(80),
                   ProgressButton(
-                    isLoading: false,
-                    isDisabled: !forgotpasswordUiState.isEmailValid,
+                    isLoading: forgotpasswordState.loadState is Loading,
+                    isDisabled: !isBtnEnabled,
                     text: const Text("Reset password"),
                     onPressed: () {},
                   ),

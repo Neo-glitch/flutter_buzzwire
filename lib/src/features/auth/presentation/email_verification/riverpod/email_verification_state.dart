@@ -6,7 +6,7 @@ part 'email_verification_state.freezed.dart';
 @freezed
 class EmailVerificationState with _$EmailVerificationState {
   const factory EmailVerificationState(
-      {@Default(Empty) LoadState loadState,
+      {@Default(Empty()) LoadState loadState,
       @Default(false) bool isEmailValid,
       @Default(false) bool isPasswordValid}) = _EmailVerificationState;
 }

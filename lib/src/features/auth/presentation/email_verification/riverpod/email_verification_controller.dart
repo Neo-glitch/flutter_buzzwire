@@ -22,14 +22,14 @@ class EmailVerificationController extends _$EmailVerificationController {
     _signIn = ref.read(signInProvider);
     _signOut = ref.read(signOutProvider);
     _sendVerificationEmail = ref.read(sendVerificationEmailProvider);
-    return EmailVerificationState();
+    return const EmailVerificationState();
   }
 
-  void signIn({
+  void signInAndResendVerificationEmail({
     required String email,
     required String password,
   }) async {
-    state = state.copyWith(loadState: Loading());
+    state = state.copyWith(loadState: const Loading());
     final result =
         await _signIn(SignInParams(email: email, password: password));
 
@@ -45,17 +45,18 @@ class EmailVerificationController extends _$EmailVerificationController {
     final result = await _sendVerificationEmail(NoParams());
 
     result.fold(
-      (failure) {
-        state = state.copyWith(
-          loadState: Error(message: failure.message),
-        );
-        signOut();
+      (failure) async {
+        await signOut();
+        state = state.copyWith(loadState: Error(message: failure.message));
       },
-      (success) async => signOut(),
+      (success) async {
+        await signOut();
+        state = state.copyWith(loadState: const Loaded());
+      },
     );
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     final result = await _signOut(NoParams());
 
     result.fold(
@@ -64,9 +65,7 @@ class EmailVerificationController extends _$EmailVerificationController {
           loadState: Error(message: failure.message),
         );
       },
-      (_) {
-        state = state.copyWith(loadState: Loaded());
-      },
+      (_) {},
     );
   }
 
@@ -81,6 +80,6 @@ class EmailVerificationController extends _$EmailVerificationController {
   }
 
   void hasSeenError() {
-    state = state.copyWith(loadState: Empty());
+    state = state.copyWith(loadState: const Empty());
   }
 }

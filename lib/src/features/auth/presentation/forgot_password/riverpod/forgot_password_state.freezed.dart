@@ -104,7 +104,7 @@ class __$$ForgotPasswordStateImplCopyWithImpl<$Res>
 
 class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
   const _$ForgotPasswordStateImpl(
-      {this.loadState = Empty, this.isEmailValid = false});
+      {this.loadState = const Empty(), this.isEmailValid = false});
 
   @override
   @JsonKey()

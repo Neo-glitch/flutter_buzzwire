@@ -24,11 +24,11 @@ class SignInController extends _$SignInController {
     _signIn = ref.read(signInProvider);
     _signOut = ref.read(signOutProvider);
     _verifyEmail = ref.read(verifyEmailProvider);
-    return SigninState();
+    return const SigninState();
   }
 
   void signIn({required String email, required String password}) async {
-    state = state.copyWith(loadState: Loading());
+    state = state.copyWith(loadState: const Loading());
     final result =
         await _signIn(SignInParams(email: email, password: password));
 
@@ -49,14 +49,14 @@ class SignInController extends _$SignInController {
       },
       (isVerified) async {
         if (isVerified) {
-          state = state.copyWith(loadState: Loaded());
+          state = state.copyWith(loadState: const Loaded());
           ref
               .read(authControllerProvider.notifier)
               .setAuthState(AuthStatus.authenticated);
         } else {
           await _signOut(NoParams());
-          state =
-              state.copyWith(loadState: Error(message: "Email not verified"));
+          state = state.copyWith(
+              loadState: const Error(message: "Email not verified"));
         }
       },
     );
@@ -73,6 +73,6 @@ class SignInController extends _$SignInController {
   }
 
   void hasSeenError() {
-    state = state.copyWith(loadState: Empty());
+    state = state.copyWith(loadState: const Empty());
   }
 }
