@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewsDetailsScree extends ConsumerWidget {
-  const NewsDetailsScree({super.key});
+class DiscoverScreen extends ConsumerWidget {
+  const DiscoverScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

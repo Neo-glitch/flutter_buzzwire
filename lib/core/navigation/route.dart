@@ -29,7 +29,7 @@ class BuzzWireRoute {
       BuzzWireRoute(path: "password_reset", name: "password_reset");
 
   static BuzzWireRoute home = BuzzWireRoute(path: "/", name: "home");
-  static BuzzWireRoute headlines =
+  static BuzzWireRoute discover =
       BuzzWireRoute(path: "/headlines", name: "headlines");
   static BuzzWireRoute savedNews =
       BuzzWireRoute(path: "/saved_news", name: "saved_news");

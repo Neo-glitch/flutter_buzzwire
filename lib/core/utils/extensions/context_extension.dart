@@ -20,6 +20,7 @@ extension ContextExtension<T> on BuildContext {
   TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
   TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
   TextStyle? get labelMedium => Theme.of(this).textTheme.labelMedium;
+  TextStyle? get labelSmall => Theme.of(this).textTheme.labelSmall;
   TextStyle? get titleTextStyle => Theme.of(this).appBarTheme.titleTextStyle;
 
   // Colors
@@ -114,12 +115,13 @@ extension ContextExtension<T> on BuildContext {
         });
   }
 
-  Future<bool?> showToast(String message) {
+  Future<bool?> showToast(String message,
+      [Toast toastLength = Toast.LENGTH_SHORT]) {
 // It's a plugin to show toast and we can with extension
     Fluttertoast.cancel();
     return Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: toastLength,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: secondaryColor,

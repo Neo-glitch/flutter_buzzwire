@@ -1,26 +1,25 @@
-import 'route.dart';
-import '../../main_wrapper.dart';
-import '../../src/features/auth/domain/usecase/signin_usecase.dart';
+import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../src/features/auth/presentation/app_entry/app_entry_controller.dart';
 import '../../src/features/auth/presentation/auth_controller.dart';
 import '../../src/features/auth/presentation/auth_state.dart';
-import '../../src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
+import '../../src/features/auth/presentation/email_verification/screens/email_verification_screen.dart';
+import '../../src/features/auth/presentation/forgot_password/screens/forgot_password_screen.dart';
 import '../../src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
-import '../../src/features/auth/presentation/forgot_password/forgot_password_screen.dart';
-import '../../src/features/auth/presentation/signin/signin_screen.dart';
-import '../../src/features/auth/presentation/signup/signup_screen.dart';
-import '../../src/features/auth/presentation/email_verification/email_verification_screen.dart';
-import '../../src/features/news/presentation/news_details/news_details_screen.dart';
-import '../../src/features/news/presentation/news_details/news_webview_screen.dart';
-import '../../src/features/news/presentation/news_headlines/news_headlines_screen.dart';
-import '../../src/features/news/presentation/news_home/home_screen.dart';
-import '../../src/features/news/presentation/saved_news/saved_news_screen.dart';
+import '../../src/features/auth/presentation/signin/screens/signin_screen.dart';
+import '../../src/features/auth/presentation/signup/screens/signup_screen.dart';
+import '../../src/features/news/presentation/screens/discover_screen.dart';
+import '../../src/features/news/presentation/screens/news_details_screen.dart';
+import '../../src/features/news/presentation/screens/news_webview_screen.dart';
+import '../../src/features/news/presentation/screens/saved_news_screen.dart';
 import '../../src/features/profile/presentation/profile_screen.dart';
 import '../../src/features/settings/presentation/settings_screen.dart';
-import 'package:flutter/foundation.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../src/home_wrapper.dart';
+import 'route.dart';
 
 part 'app_router.g.dart';
 
@@ -59,35 +58,35 @@ GoRouter router(RouterRef ref) {
           path: BuzzWireRoute.signIn.path,
           name: BuzzWireRoute.signIn.name,
           builder: (context, state) {
-            return SignInScreen();
+            return const SignInScreen();
           },
           routes: [
             GoRoute(
               path: BuzzWireRoute.signUp.path,
               name: BuzzWireRoute.signUp.name,
               builder: (context, state) {
-                return SignUpScreen();
+                return const SignUpScreen();
               },
             ),
             GoRoute(
               path: BuzzWireRoute.verifyEmail.path,
               name: BuzzWireRoute.verifyEmail.name,
               builder: (context, state) {
-                return EmailVerificationScreen();
+                return const EmailVerificationScreen();
               },
             ),
             GoRoute(
               path: BuzzWireRoute.passwordReset.path,
               name: BuzzWireRoute.passwordReset.name,
               builder: (context, state) {
-                return ForgotPasswordScreen();
+                return const ForgotPasswordScreen();
               },
             )
           ],
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
-            return MainWrapperScreen(navigationShell: navigationShell);
+            return HomeWrapperScreen(navigationShell: navigationShell);
           },
           branches: [
             StatefulShellBranch(
@@ -97,14 +96,14 @@ GoRouter router(RouterRef ref) {
                   path: BuzzWireRoute.home.path,
                   name: BuzzWireRoute.home.name,
                   builder: (context, state) {
-                    return HomeScreen();
+                    return const HomeScreen();
                   },
                   routes: [
                     GoRoute(
                       path: BuzzWireRoute.newsDetails.path,
                       name: BuzzWireRoute.newsDetails.name,
                       builder: (context, state) {
-                        return NewsDetailsScree();
+                        return const NewsDetailsScree();
                       },
                     )
                   ],
@@ -115,10 +114,10 @@ GoRouter router(RouterRef ref) {
               navigatorKey: discoverNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.headlines.path,
-                  name: BuzzWireRoute.headlines.name,
+                  path: BuzzWireRoute.discover.path,
+                  name: BuzzWireRoute.discover.name,
                   builder: (context, state) {
-                    return NewsHeadlinesScreen();
+                    return const DiscoverScreen();
                   },
                 )
               ],
@@ -130,7 +129,7 @@ GoRouter router(RouterRef ref) {
                   path: BuzzWireRoute.savedNews.path,
                   name: BuzzWireRoute.savedNews.name,
                   builder: (context, state) {
-                    return SavedNewsScreen();
+                    return const SavedNewsScreen();
                   },
                 )
               ],
@@ -142,7 +141,7 @@ GoRouter router(RouterRef ref) {
                   path: BuzzWireRoute.profile.path,
                   name: BuzzWireRoute.profile.name,
                   builder: (context, state) {
-                    return ProfileScreen();
+                    return const ProfileScreen();
                   },
                 )
               ],
@@ -179,6 +178,7 @@ GoRouter router(RouterRef ref) {
 
         // not logged in and not in signin, signup, reset password, or verify email screen
         if (!isLoggedIn) {
+          // return inLoginRoute ? null : BuzzWireRoute.signIn.path;
           return inLoginRoute ? null : BuzzWireRoute.signIn.path;
         }
 

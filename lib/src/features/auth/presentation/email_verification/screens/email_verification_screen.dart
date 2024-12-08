@@ -5,7 +5,7 @@ import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

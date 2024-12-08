@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../../constants/asset_strings.dart';
 import '../../constants/strings.dart';
 import '../../utils/extensions/context_extension.dart';
@@ -6,8 +8,13 @@ import 'package:gap/gap.dart';
 
 class BuzzWireAppIcon extends StatelessWidget {
   final MainAxisAlignment alignment;
+  final double fontSize;
 
-  const BuzzWireAppIcon({super.key, required this.alignment});
+  const BuzzWireAppIcon({
+    super.key,
+    required this.alignment,
+    this.fontSize = 20,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,8 @@ class BuzzWireAppIcon extends StatelessWidget {
         const Gap(2),
         Text(
           BuzzWireStrings.appTitle,
-          style: context.titleLarge?.copyWith(fontSize: 20),
+          style: context.titleLarge
+              ?.copyWith(fontSize: fontSize, fontWeight: FontWeight.w600),
         )
       ],
     );

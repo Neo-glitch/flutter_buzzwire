@@ -1,15 +1,15 @@
 import 'package:buzzwire/core/common/widgets/progress_button.dart';
-import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
 
-import '../../../../../core/common/riverpod/load_state.dart';
-import '../../../../../core/common/widgets/app_icon.dart';
-import '../../../../../core/constants/asset_strings.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../../../../core/constants/strings.dart';
-import '../../../../../core/utils/device/device_utility.dart';
-import '../../../../../core/utils/extensions/context_extension.dart';
+import '../../../../../../core/common/riverpod/load_state.dart';
+import '../../../../../../core/common/widgets/app_icon.dart';
+import '../../../../../../core/constants/asset_strings.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../../../core/constants/strings.dart';
+import '../../../../../../core/utils/device/device_utility.dart';
+import '../../../../../../core/utils/extensions/context_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

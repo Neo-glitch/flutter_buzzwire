@@ -1,3 +1,5 @@
+import 'package:buzzwire/core/error/exception.dart';
+
 import 'api_key_interceptor.dart';
 import 'dio_helper.dart';
 import 'dio_logger_interceptor.dart';
@@ -19,11 +21,13 @@ class DioClient {
     ..interceptors.addAll([ApiKeyInterceptor(), LoggerInterceptor()]);
 
   ///Get Method
-  Future<Map<String, dynamic>> get(String path,
-      {Map<String, dynamic>? queryParameters,
-      Options? options,
-      CancelToken? cancelToken,
-      ProgressCallback? onReceiveProgress}) async {
+  Future<Map<String, dynamic>> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final Response response = await _dio.get(
         path,
@@ -35,7 +39,7 @@ class DioClient {
       if (response.statusCode == 200) {
         return response.data;
       }
-      throw "something went wrong";
+      throw Exception("something went wrong");
     } catch (e) {
       rethrow;
     }
@@ -54,13 +58,15 @@ class DioClient {
   /// onSendProgress: The onSendProgress parameter is a callback function that is called periodically during the sending phase of the request. It allows you to track the progress of the request being sent, which can be useful for displaying progress indicators or implementing upload progress tracking.
   ///
   /// onReceiveProgress: The onReceiveProgress parameter is a callback function that is called periodically during the receiving phase of the response. It enables you to track the progress of the response being received.
-  Future<Map<String, dynamic>> post(String path,
-      {data,
-      Map<String, dynamic>? queryParameters,
-      Options? options,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+  Future<Map<String, dynamic>> post(
+    String path, {
+    data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final Response response = await _dio.post(
         path,
@@ -74,20 +80,22 @@ class DioClient {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
       }
-      throw "something went wrong";
+      throw Exception("something went wrong");
     } catch (e) {
       rethrow;
     }
   }
 
   ///Put Method
-  Future<Map<String, dynamic>> put(String path,
-      {data,
-      Map<String, dynamic>? queryParameters,
-      Options? options,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+  Future<Map<String, dynamic>> put(
+    String path, {
+    data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final Response response = await _dio.put(
         path,
@@ -101,20 +109,22 @@ class DioClient {
       if (response.statusCode == 200) {
         return response.data;
       }
-      throw "something went wrong";
+      throw Exception("something went wrong");
     } catch (e) {
       rethrow;
     }
   }
 
   ///Delete Method
-  Future<dynamic> delete(String path,
-      {data,
-      Map<String, dynamic>? queryParameters,
-      Options? options,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+  Future<dynamic> delete(
+    String path, {
+    data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     try {
       final Response response = await _dio.delete(
         path,
@@ -126,7 +136,7 @@ class DioClient {
       if (response.statusCode == 204) {
         return response.data;
       }
-      throw "something went wrong";
+      throw Exception("something went wrong");
     } catch (e) {
       rethrow;
     }

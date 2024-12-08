@@ -28,6 +28,7 @@ class ExceptionHandler {
       DioExceptionType.sendTimeout => ErrorText.sendTimeoutError,
       DioExceptionType.badResponse =>
         _handleDioStatusCode(exception.response?.statusCode),
+      DioExceptionType.connectionError => ErrorText.noInternetError,
       DioExceptionType.unknown => _handleDioUnknownException(exception),
       _ => ErrorText.unknownError,
     };

@@ -5,14 +5,14 @@ import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/common/widgets/app_icon.dart';
+import '../../../../../../core/common/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';

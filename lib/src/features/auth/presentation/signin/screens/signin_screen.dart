@@ -1,17 +1,17 @@
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
 import 'package:buzzwire/core/common/widgets/progress_button.dart';
-import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
 
-import '../../../../../core/common/widgets/app_icon.dart';
-import '../../../../../core/constants/asset_strings.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../../../../core/constants/strings.dart';
-import '../../../../../core/navigation/route.dart';
-import '../../../../../core/utils/device/device_utility.dart';
-import '../../../../../core/utils/extensions/context_extension.dart';
-import '../../../../../core/utils/logging/logger_helper.dart';
-import 'widgets/signin_header.dart';
+import '../../../../../../core/common/widgets/app_icon.dart';
+import '../../../../../../core/constants/asset_strings.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../../../core/constants/strings.dart';
+import '../../../../../../core/navigation/route.dart';
+import '../../../../../../core/utils/device/device_utility.dart';
+import '../../../../../../core/utils/extensions/context_extension.dart';
+import '../../../../../../core/utils/logging/logger_helper.dart';
+import '../widgets/signin_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
