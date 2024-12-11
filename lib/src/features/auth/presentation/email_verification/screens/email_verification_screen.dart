@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/app_icon.dart';
-import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/core/common/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
@@ -163,7 +163,7 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
                       },
                     ),
                     const Gap(20),
-                    ProgressButton(
+                    BuzzWireProgressButton(
                         isLoading: uiState.loadState is Loading,
                         isDisabled: !isBtnEnabled,
                         text: const Text("Resend Email"),

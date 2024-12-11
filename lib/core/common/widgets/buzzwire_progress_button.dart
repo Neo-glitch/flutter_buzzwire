@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 
-class ProgressButton extends StatelessWidget {
+class BuzzWireProgressButton extends StatelessWidget {
   final Widget text;
   final bool isLoading;
   final bool isDisabled;
   final void Function() onPressed;
   final ButtonStyle buttonStyle;
 
-  const ProgressButton(
+  const BuzzWireProgressButton(
       {super.key,
       required this.text,
       required this.isLoading,

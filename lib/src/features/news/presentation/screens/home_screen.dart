@@ -1,19 +1,10 @@
-import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:buzzwire/core/common/widgets/app_icon.dart';
 import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
-import 'package:buzzwire/src/features/news/presentation/widgets/news_headline_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:buzzwire/src/features/news/presentation/categories.dart';
+import 'package:buzzwire/src/features/news/presentation/screens/home_tab_screens/entertainment_news_screen.dart';
+import 'package:buzzwire/src/features/news/presentation/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -22,74 +13,90 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: categories.length, vsync: this);
     _scrollController = ScrollController();
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: ListView(
-          controller: _scrollController,
-          children: [
-            NewsHeadlineItemWidget(),
-          ],
+    return DefaultTabController(
+      length: categories.length,
+      child: SafeArea(
+        child: Scaffold(
+          body: NestedScrollView(
+            controller: _scrollController,
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [_buildAppBar(context, innerBoxIsScrolled)];
+            },
+            body: _buildTabBarView(),
+          ),
         ),
       ),
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: const BuzzWireAppIcon(
-        alignment: MainAxisAlignment.start,
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              border: Border.all(color: BuzzWireColors.grey, width: 2),
-              color: context.surfaceColor,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              FontAwesomeIcons.magnifyingGlass,
-              size: 14,
-            ),
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: ClipOval(
-            child: SizedBox.fromSize(
-              size: const Size.fromRadius(16),
-              child: CachedNetworkImage(
-                placeholder: (context, url) {
-                  // Todo: replace with reasonable place holder image
-                  return const CircularProgressIndicator();
-                },
-                imageUrl:
-                    "https://pixlr.com/images/generator/photo-generator.webp",
-              ),
-            ),
-          ),
-        ),
-      ],
+  SliverAppBar _buildAppBar(BuildContext context, bool innerBoxScrolled) {
+    return SliverAppBar(
+      pinned: false,
+      floating: true,
+      snap: true,
+      forceElevated: innerBoxScrolled,
+      flexibleSpace: const FlexibleSpaceBar(background: HomeAppBar()),
+      bottom: _buildTabBar(context),
     );
+  }
+
+  TabBar _buildTabBar(BuildContext context) {
+    return TabBar(
+      labelColor: context.onBackgroundColor,
+      labelStyle: context.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+      unselectedLabelStyle:
+          context.bodyMedium?.copyWith(fontWeight: FontWeight.normal),
+      tabAlignment: TabAlignment.start,
+      controller: _tabController,
+      isScrollable: true,
+      indicatorWeight: 0.1,
+      dividerHeight: 0.3,
+      dividerColor: BuzzWireColors.darkGrey,
+      tabs: _buildTabItems(),
+    );
+  }
+
+  List<Widget> _buildTabItems() {
+    return List.generate(
+      categories.length,
+      (index) => Tab(
+        text: categories[index],
+      ),
+    );
+  }
+
+  Widget _buildTabBarView() {
+    return TabBarView(
+      controller: _tabController,
+      children: List.generate(
+        categories.length,
+        (index) => _buildTabContent(categories[index]),
+      ),
+    );
+  }
+
+  Widget _buildTabContent(String key) {
+    return NewsScreen(key);
   }
 }

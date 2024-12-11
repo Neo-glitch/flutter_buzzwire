@@ -102,27 +102,4 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
       rethrow;
     }
   }
-
-  @override
-  Future<NewsModel> searchNews({
-    required String query,
-    required int page,
-  }) async {
-    try {
-      final response = await dioClient.get(
-        BuzzWireDioHelper.news,
-        queryParameters: {
-          "q": query,
-          "language": "en",
-          "sortBy": "publishedAt",
-          "page": page,
-          "pageSize": BuzzWireDioHelper.pageSize,
-        },
-      );
-      return NewsModel.fromJson(response);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
-  }
 }

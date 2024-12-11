@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
@@ -12,7 +12,7 @@ import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod
 import 'package:flutter/gestures.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/common/widgets/app_icon.dart';
+import '../../../../../../core/common/widgets/buzzwire_app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -116,7 +116,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     },
                   ),
                   const Gap(20),
-                  ProgressButton(
+                  BuzzWireProgressButton(
                     isLoading: forgotpasswordState.loadState is Loading,
                     isDisabled: !isBtnEnabled,
                     text: const Text("Reset password"),

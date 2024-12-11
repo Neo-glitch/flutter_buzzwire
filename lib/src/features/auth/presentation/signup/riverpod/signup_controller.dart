@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signout_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signup_usecase.dart';

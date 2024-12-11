@@ -83,7 +83,7 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
       handleAndroidBackButtonPress: true,
       tabs: _bottomNavTabs(),
       navBarBuilder: (navBarConfig) =>
-          Style8BottomNavBar(navBarConfig: navBarConfig),
+          Style3BottomNavBar(navBarConfig: navBarConfig),
       navigationShell: widget.navigationShell,
     );
   }

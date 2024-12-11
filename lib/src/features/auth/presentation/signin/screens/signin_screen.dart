@@ -1,9 +1,9 @@
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/progress_button.dart';
+import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
 
-import '../../../../../../core/common/widgets/app_icon.dart';
+import '../../../../../../core/common/widgets/buzzwire_app_icon.dart';
 import '../../../../../../core/constants/asset_strings.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';
@@ -149,7 +149,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     ),
                   ),
                   const Gap(4),
-                  ProgressButton(
+                  BuzzWireProgressButton(
                     isDisabled: !isBtnEnabled,
                     isLoading: signInState.loadState is Loading,
                     onPressed: () {
