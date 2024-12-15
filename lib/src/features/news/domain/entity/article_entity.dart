@@ -9,6 +9,7 @@ class ArticleEntity {
   final String? image;
   final String? publishedAt;
   final String? content;
+  bool isSaved = false;
 
   ArticleEntity(
       {required this.source,

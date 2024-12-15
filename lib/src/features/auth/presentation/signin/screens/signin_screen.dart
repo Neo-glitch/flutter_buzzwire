@@ -72,17 +72,20 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
                   const Gap(20),
-                  SvgPicture.asset(
-                    BuzzWireAssets.signInLogo,
-                    semanticsLabel: "SingIn Logo",
-                    fit: BoxFit.cover,
-                    width: BuzzWireDeviceUtils.getScreenWidth(context),
-                    height: BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                  Center(
+                    child: SvgPicture.asset(
+                      BuzzWireAssets.signInLogo,
+                      semanticsLabel: "SingIn Logo",
+                      fit: BoxFit.cover,
+                      width: BuzzWireDeviceUtils.getScreenWidth(context),
+                      height:
+                          BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                    ),
                   ),
                   Text(
                     BuzzWireStrings.loginTitleText,

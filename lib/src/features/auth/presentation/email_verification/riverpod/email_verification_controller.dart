@@ -33,10 +33,10 @@ class EmailVerificationController extends _$EmailVerificationController {
     required String password,
   }) async {
     state = state.copyWith(loadState: const Loading());
-    final result =
+    final response =
         await _signIn(SignInParams(email: email, password: password));
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
@@ -45,9 +45,9 @@ class EmailVerificationController extends _$EmailVerificationController {
   }
 
   void sendVerificationIfNeeded() async {
-    final result = await _verifyEmail(NoParams());
+    final response = await _verifyEmail(NoParams());
 
-    result.fold(
+    response.fold(
       (failure) =>
           state = state.copyWith(loadState: Error(message: failure.message)),
       (isVerified) async {
@@ -63,9 +63,9 @@ class EmailVerificationController extends _$EmailVerificationController {
   }
 
   void sendVerificationEmail() async {
-    final result = await _sendVerificationEmail(NoParams());
+    final response = await _sendVerificationEmail(NoParams());
 
-    result.fold(
+    response.fold(
       (failure) async {
         await signOut();
         state = state.copyWith(loadState: Error(message: failure.message));
@@ -78,9 +78,9 @@ class EmailVerificationController extends _$EmailVerificationController {
   }
 
   Future<void> signOut() async {
-    final result = await _signOut(NoParams());
+    final response = await _signOut(NoParams());
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(
           loadState: Error(message: failure.message),

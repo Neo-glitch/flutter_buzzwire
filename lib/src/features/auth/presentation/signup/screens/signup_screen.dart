@@ -87,18 +87,21 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
-                  SvgPicture.asset(
-                    BuzzWireAssets.signupLogo,
-                    semanticsLabel: "Signup Logo",
-                    fit: BoxFit.cover,
-                    width: BuzzWireDeviceUtils.getScreenWidth(context),
-                    height: BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                  Center(
+                    child: SvgPicture.asset(
+                      BuzzWireAssets.signupLogo,
+                      semanticsLabel: "Signup Logo",
+                      fit: BoxFit.cover,
+                      width: BuzzWireDeviceUtils.getScreenWidth(context),
+                      height:
+                          BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                    ),
                   ),
-                  const Gap(30),
+                  const Gap(20),
                   Text(
                     BuzzWireStrings.signupTitleText,
                     style: context.titleSmall!

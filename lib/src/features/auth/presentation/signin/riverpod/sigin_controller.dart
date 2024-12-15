@@ -29,10 +29,10 @@ class SignInController extends _$SignInController {
 
   void signIn({required String email, required String password}) async {
     state = state.copyWith(loadState: const Loading());
-    final result =
+    final response =
         await _signIn(SignInParams(email: email, password: password));
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
@@ -41,9 +41,9 @@ class SignInController extends _$SignInController {
   }
 
   void verifyEmail() async {
-    final result = await _verifyEmail(NoParams());
+    final response = await _verifyEmail(NoParams());
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },

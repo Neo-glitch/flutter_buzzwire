@@ -6,7 +6,7 @@ part of 'get_headlines_usecase.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getHeadlinesHash() => r'c39cb705b7a0e09b676f1b8a5192eb7bdc2c8c62';
+String _$getHeadlinesHash() => r'7e90fc22a65d281da3a58a221308bb88f2dfaa06';
 
 /// See also [getHeadlines].
 @ProviderFor(getHeadlines)

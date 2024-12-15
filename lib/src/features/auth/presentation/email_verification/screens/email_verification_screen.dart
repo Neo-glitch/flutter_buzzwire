@@ -8,6 +8,7 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
@@ -67,7 +68,6 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 30,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -84,20 +84,23 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
-                    SvgPicture.asset(
-                      BuzzWireAssets.emailVerificationLogo,
-                      semanticsLabel: "Email verification logo",
-                      fit: BoxFit.cover,
-                      width: BuzzWireDeviceUtils.getScreenWidth(context),
-                      height:
-                          BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                    Center(
+                      child: SvgPicture.asset(
+                        BuzzWireAssets.emailVerificationLogo,
+                        semanticsLabel: "Email verification logo",
+                        fit: BoxFit.cover,
+                        width: BuzzWireDeviceUtils.getScreenWidth(context),
+                        height:
+                            BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                      ),
                     ),
                     const Gap(30),
                     Text(
+                      textAlign: TextAlign.start,
                       BuzzWireStrings.emailVerificationTitle,
                       style: context.titleSmall!
                           .copyWith(fontWeight: FontWeight.w700),

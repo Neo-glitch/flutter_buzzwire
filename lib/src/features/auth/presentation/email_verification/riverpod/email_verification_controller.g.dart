@@ -7,7 +7,7 @@ part of 'email_verification_controller.dart';
 // **************************************************************************
 
 String _$emailVerificationControllerHash() =>
-    r'7b03815556f4abd275b264a3e594a74a2665da2c';
+    r'3a3893283f91bb9c4e338dc5eb01f68c567c97a2';
 
 /// See also [EmailVerificationController].
 @ProviderFor(EmailVerificationController)

@@ -77,7 +77,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
           "country": "us",
           "page": page,
           "category": category,
-          "pageSize": 5,
+          "pageSize": BuzzWireDioHelper.pageSize,
         },
       );
       return NewsModel.fromJson(response);

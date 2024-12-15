@@ -22,7 +22,19 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final requestPath = '${options.baseUrl}${options.path}';
-    logger.i('${options.method} request => $requestPath'); // Info log
+    final queryParams = options.queryParameters;
+
+    // Construct the URL with query parameters
+    final uri = Uri.parse(requestPath).replace(
+      queryParameters: queryParams.map(
+        (key, value) => MapEntry(
+          key,
+          value.toString(),
+        ),
+      ),
+    );
+    // Example: GET request => https://example.com/data?page=1&limit=20
+    logger.i('${options.method} request => $uri'); // Info Log
     return super.onRequest(options, handler);
   }
 

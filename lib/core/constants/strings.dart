@@ -36,6 +36,8 @@ class BuzzWireStrings {
   // Home
   static const String homeAppBarTitle = "Welcome Back!";
   static const String homeAppBarSubTitle = "Dat App Boy";
+  static const String errorScreenHeaderTitle = "An Error Occured";
+  static const String emptyScreenHeaderTitle = "No Results Found";
 
   // fontFamily
   static const String poppins = "Poppins";

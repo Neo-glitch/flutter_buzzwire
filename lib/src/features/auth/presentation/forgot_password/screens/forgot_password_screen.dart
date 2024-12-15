@@ -75,16 +75,19 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
-                  SvgPicture.asset(
-                    BuzzWireAssets.forgotPasswordLogo,
-                    semanticsLabel: "Forgot password logo",
-                    fit: BoxFit.cover,
-                    width: BuzzWireDeviceUtils.getScreenWidth(context),
-                    height: BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                  Center(
+                    child: SvgPicture.asset(
+                      BuzzWireAssets.forgotPasswordLogo,
+                      semanticsLabel: "Forgot password logo",
+                      fit: BoxFit.cover,
+                      width: BuzzWireDeviceUtils.getScreenWidth(context),
+                      height:
+                          BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+                    ),
                   ),
                   const Gap(30),
                   Text(

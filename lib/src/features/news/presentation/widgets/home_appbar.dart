@@ -24,7 +24,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: context.surfaceColor,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: const FaIcon(
               FontAwesomeIcons.magnifyingGlass,
               size: 14,
             ),

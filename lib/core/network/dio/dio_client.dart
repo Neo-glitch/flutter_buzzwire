@@ -1,4 +1,5 @@
 import 'package:buzzwire/core/error/exception.dart';
+import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 
 import 'api_key_interceptor.dart';
 import 'dio_helper.dart';

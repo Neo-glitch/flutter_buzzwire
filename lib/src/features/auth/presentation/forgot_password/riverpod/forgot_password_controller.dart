@@ -18,9 +18,9 @@ class ForgotPasswordController extends _$ForgotPasswordController {
 
   void resetPassword({required String email}) async {
     state = state.copyWith(loadState: const Loading());
-    final result = await _resetPassword(ResetPasswordParams(email: email));
+    final response = await _resetPassword(ResetPasswordParams(email: email));
 
-    result.fold(
+    response.fold(
       (failure) =>
           state = state.copyWith(loadState: Error(message: failure.message)),
       (success) => state = state.copyWith(loadState: const Loaded()),

@@ -21,15 +21,15 @@ class SignUpController extends _$SignUpController {
     _signUp = ref.read(signUpProvider);
     _sendVerificationEmail = ref.read(sendVerificationEmailProvider);
     _signOut = ref.read(signOutProvider);
-    return SignupState();
+    return const SignupState();
   }
 
   void signUp({required String email, required String password}) async {
-    state = state.copyWith(loadState: Loading());
-    final result =
+    state = state.copyWith(loadState: const Loading());
+    final response =
         await _signUp(SignUpParams(email: email, password: password));
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(
           loadState: Error(message: failure.message),
@@ -63,7 +63,7 @@ class SignUpController extends _$SignUpController {
         );
       },
       (_) {
-        state = state.copyWith(loadState: Loaded());
+        state = state.copyWith(loadState: const Loaded());
       },
     );
   }
