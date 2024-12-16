@@ -1,16 +1,10 @@
-import 'package:buzzwire/core/common/widgets/buzzwire_empty_or_error_screen.dart';
 import 'package:buzzwire/core/common/widgets/keep_alive_page.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/categories.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/business_news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/entertainment_news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/general_news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/health_news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/science_news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/sports_news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/technology_news_page.dart';
+import 'package:buzzwire/src/features/news/presentation/pages/news_page.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/home_appbar.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -46,8 +40,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       length: categories.length,
       child: SafeArea(
         child: Scaffold(
-          body: NestedScrollView(
-            controller: _scrollController,
+          body: ExtendedNestedScrollView(
+            onlyOneScrollInBody: true,
+            floatHeaderSlivers: true,
+            // controller: _scrollController,
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [_buildAppBar(context, innerBoxIsScrolled)];
             },
@@ -59,23 +55,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Widget _buildAppBar(BuildContext context, bool innerBoxScrolled) {
-    return SliverOverlapAbsorber(
-      // This widget takes the overlapping behavior of the SliverAppBar,
-      // and redirects it to the SliverOverlapInjector below. If it is
-      // missing, then it is possible for the nested "inner" scroll view
-      // below to end up under the SliverAppBar even when the inner
-      // scroll view thinks it has not been scrolled.
-      // This is not necessary if the "headerSliverBuilder" only builds
-      // widgets that do not overlap the next sliver
-      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-      sliver: SliverAppBar(
-        pinned: false,
-        floating: true,
-        snap: true,
-        forceElevated: innerBoxScrolled,
-        flexibleSpace: const FlexibleSpaceBar(background: HomeAppBar()),
-        bottom: _buildTabBar(context),
-      ),
+    return SliverAppBar(
+      pinned: false,
+      floating: true,
+      snap: true,
+      forceElevated: innerBoxScrolled,
+      flexibleSpace: const FlexibleSpaceBar(background: HomeAppBar()),
+      bottom: _buildTabBar(context),
     );
   }
 
@@ -116,24 +102,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   Widget _buildNewsPage(String category) {
     NewsCategory newsCategory =
         NewsCategory.values.byName(category.toLowerCase());
+
     return switch (newsCategory) {
       NewsCategory.business => KeepPageAlive(
-            child: BusinessNewsPage(
-          category,
-          _tabController,
-        )),
-      NewsCategory.entertainment =>
-        KeepPageAlive(child: EntertainmentNewsPage(category, _tabController)),
-      NewsCategory.general =>
-        KeepPageAlive(child: GeneralNewsPage(category, _tabController)),
-      NewsCategory.health =>
-        KeepPageAlive(child: HealthNewsPage(category, _tabController)),
-      NewsCategory.science =>
-        KeepPageAlive(child: ScienceNewsPage(category, _tabController)),
-      NewsCategory.sports =>
-        KeepPageAlive(child: SportsNewsPage(category, _tabController)),
-      NewsCategory.technology =>
-        KeepPageAlive(child: TechnologyNewsPage(category, _tabController)),
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category)),
+        ),
+      NewsCategory.entertainment => KeepPageAlive(
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category)),
+        ),
+      NewsCategory.general => KeepPageAlive(
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category)),
+        ),
+      NewsCategory.health => KeepPageAlive(
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category))),
+      NewsCategory.science => KeepPageAlive(
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category))),
+      NewsCategory.sports => KeepPageAlive(
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category))),
+      NewsCategory.technology => KeepPageAlive(
+          child: NewsPage(category,
+              () => _tabController.index == categories.indexOf(category))),
     };
   }
 }

@@ -5,113 +5,112 @@ import 'package:buzzwire/core/common/widgets/buzzwire_empty_or_error_screen.dart
 import 'package:buzzwire/core/common/widgets/buzzwire_progress_loader.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_state.dart';
-import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-class BusinessNewsPage extends ConsumerStatefulWidget {
-  final String _category;
-  final TabController tabController;
-  const BusinessNewsPage(this._category, this.tabController, {super.key});
+class NewsPage extends ConsumerStatefulWidget {
+  final String category;
+  final bool Function() isActivePage;
+
+  const NewsPage(this.category, this.isActivePage, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _BusinessNewsPageState();
+  ConsumerState<NewsPage> createState() => _NewsPageState();
 }
 
-class _BusinessNewsPageState extends ConsumerState<BusinessNewsPage> {
+class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref
-        .read(categoryNewsControllerProvider(widget._category).notifier)
-        .fetchNews(1));
+    Future.microtask(() {
+      ref
+          .read(categoryNewsControllerProvider(widget.category).notifier)
+          .fetchNews(1);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final uiState = ref.watch(categoryNewsControllerProvider(widget._category));
+    final uiState = ref.watch(categoryNewsControllerProvider(widget.category));
 
     return ScrollNotificationHandler(
       loadMore: () {
         ref
-            .read(categoryNewsControllerProvider(widget._category).notifier)
+            .read(categoryNewsControllerProvider(widget.category).notifier)
             .fetchNews(uiState.currentPage + 1);
       },
-      canLoadMoreData: () => _canLoadMore(uiState),
+      canLoadMoreData: () => canLoadMore(uiState),
       child: CustomScrollView(
-        slivers: _buildSlivers(uiState),
+        slivers: buildSlivers(uiState),
       ),
     );
   }
 
-  List<Widget> _buildSlivers(CategoryNewsState uiState) {
-    // empty state
+  List<Widget> buildSlivers(CategoryNewsState uiState) {
     if (uiState.loadState is Empty) {
       return [];
     }
 
-    // Handle initial loading state
-    if (_isInitialLoading(uiState)) {
-      return [_buildInitialLoader()];
+    if (isInitialLoading(uiState)) {
+      return [buildInitialLoader()];
     }
 
-    // Handle initial error state
-    if (_isInitialError(uiState)) {
-      return [_buildErrorScreen(uiState)];
+    if (isInitialError(uiState)) {
+      return [buildErrorScreen(uiState)];
     }
 
-    // Default state: loaded content with optional pagination loader
     return [
       SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         sliver: PaginationSliverListView(
           separatorBuilder: (ctx, idx) => const Gap(15),
-          canLoadMoreData: () => _canLoadMore(uiState),
+          canLoadMoreData: () => canLoadMore(uiState),
           loadingWidget: const Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
             child: BuzzWireProgressLoader(isInitialLoad: false),
           ),
           hasError: uiState.loadState is Error,
           itemCount: uiState.articles.length,
-          itemBuilder: (ctx, idx) {
-            return NewsCard(widget._category);
-          },
+          itemBuilder: (ctx, idx) => buildItem(),
         ),
       )
     ];
   }
 
-  bool _isInitialLoading(CategoryNewsState uiState) =>
+  Widget buildItem() {
+    return NewsCard(widget.category);
+  }
+
+  bool isInitialLoading(CategoryNewsState uiState) =>
       uiState.loadState is Loading && uiState.currentPage <= 1;
 
-  bool _isInitialError(CategoryNewsState uiState) =>
+  bool isInitialError(CategoryNewsState uiState) =>
       uiState.loadState is Error && uiState.articles.isEmpty;
 
-  Widget _buildInitialLoader() {
+  Widget buildInitialLoader() {
     return const SliverFillRemaining(
       child: BuzzWireProgressLoader(),
     );
   }
 
-  Widget _buildErrorScreen(CategoryNewsState uiState) {
+  Widget buildErrorScreen(CategoryNewsState uiState) {
     return SliverToBoxAdapter(
       child: BuzzWireEmptyOrErrorScreen.error(
         message: (uiState.loadState as Error).message,
         onPressed: () {
           ref
-              .read(categoryNewsControllerProvider(widget._category).notifier)
+              .read(categoryNewsControllerProvider(widget.category).notifier)
               .fetchNews(uiState.currentPage);
         },
       ),
     );
   }
 
-  bool _canLoadMore(CategoryNewsState uiState) {
+  bool canLoadMore(CategoryNewsState uiState) {
     return uiState.currentPage < uiState.lastPage &&
         uiState.loadState is! Loading &&
-        widget.tabController.index == HomeScreenPage.business.pageIdx;
+        widget.isActivePage();
   }
 }
