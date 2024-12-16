@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
+import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
@@ -81,9 +82,17 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
   Widget build(BuildContext context) {
     return PersistentTabView.router(
       handleAndroidBackButtonPress: true,
+      backgroundColor: context.backgroundColor,
       tabs: _bottomNavTabs(),
-      navBarBuilder: (navBarConfig) =>
-          Style3BottomNavBar(navBarConfig: navBarConfig),
+      navBarBuilder: (navBarConfig) => Style3BottomNavBar(
+        navBarConfig: navBarConfig,
+        navBarDecoration: NavBarDecoration(
+          color: context.backgroundColor,
+          border: const Border.symmetric(
+            horizontal: BorderSide(width: 0.2, color: BuzzWireColors.darkGrey),
+          ),
+        ),
+      ),
       navigationShell: widget.navigationShell,
     );
   }

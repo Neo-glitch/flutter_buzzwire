@@ -14,7 +14,19 @@ class LoggerInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     final options = err.requestOptions;
     final requestPath = '${options.baseUrl}${options.path}';
-    logger.e('${options.method} request => $requestPath'); // Debug log
+    final queryParams = options.queryParameters;
+
+    // Construct the URL with query parameters
+    final uri = Uri.parse(requestPath).replace(
+      queryParameters: queryParams.map(
+        (key, value) => MapEntry(
+          key,
+          value.toString(),
+        ),
+      ),
+    );
+
+    logger.e('${options.method} request => $uri'); // Debug log
     logger.d('Error: ${err.error}, Message: ${err.message}'); // Error log
     return super.onError(err, handler);
   }

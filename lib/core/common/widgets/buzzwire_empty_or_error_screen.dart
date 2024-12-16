@@ -20,11 +20,12 @@ class BuzzWireEmptyOrErrorScreen extends StatelessWidget {
 
   factory BuzzWireEmptyOrErrorScreen.error({
     Key? key,
+    String header = BuzzWireStrings.defaultErrorScreenHeaderTitle,
     required String message,
     required void Function() onPressed,
   }) {
     return BuzzWireEmptyOrErrorScreen._(
-      header: BuzzWireStrings.errorScreenHeaderTitle,
+      header: header,
       description: message,
       isError: true,
       onPressed: onPressed,
@@ -34,10 +35,11 @@ class BuzzWireEmptyOrErrorScreen extends StatelessWidget {
 
   factory BuzzWireEmptyOrErrorScreen.empty({
     Key? key,
+    String header = BuzzWireStrings.DefaultemptyScreenHeaderTitle,
     required String message,
   }) {
     return BuzzWireEmptyOrErrorScreen._(
-      header: BuzzWireStrings.emptyScreenHeaderTitle,
+      header: header,
       description: message,
       isError: false,
       key: key,
@@ -55,17 +57,17 @@ class BuzzWireEmptyOrErrorScreen extends StatelessWidget {
             SvgPicture.asset(
               fit: BoxFit.cover,
               height: 180,
-              isError
-                  ? BuzzWireAssets.emptyDataLogo
-                  : BuzzWireAssets.emptyDataLogo,
+              isError ? BuzzWireAssets.errorLogo : BuzzWireAssets.emptyDataLogo,
             ),
             Text(
               header,
+              textAlign: TextAlign.center,
               style: context.bodyLarge
                   ?.copyWith(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             Text(
               description,
+              textAlign: TextAlign.center,
             ),
             if (isError && onPressed != null)
               Padding(

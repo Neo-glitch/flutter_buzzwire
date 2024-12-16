@@ -1,18 +1,12 @@
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gap/gap.dart';
-
-import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsCard extends StatefulWidget {
   final String news;
-  const NewsCard(this.news, {super.key});
+  final ArticleEntity? article;
+  const NewsCard(this.news, {super.key, required this.article});
 
   @override
   State<NewsCard> createState() => _NewsCardState();
@@ -98,6 +92,18 @@ class _NewsCardState extends State<NewsCard> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: CachedNetworkImage(
+          placeholder: (context, url) {
+            return const Icon(
+              Icons.image,
+              size: 100,
+            );
+          },
+          errorWidget: (context, url, error) {
+            return const Icon(
+              Icons.broken_image,
+              size: 100,
+            );
+          },
           height: 120,
           fit: BoxFit.cover,
           imageUrl:

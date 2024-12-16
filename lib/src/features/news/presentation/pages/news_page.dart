@@ -3,6 +3,7 @@ import 'package:buzzwire/core/common/pagination/scroll_notification_handler.dart
 import 'package:buzzwire/core/common/riverpod/load_state.dart';
 import 'package:buzzwire/core/common/widgets/buzzwire_empty_or_error_screen.dart';
 import 'package:buzzwire/core/common/widgets/buzzwire_progress_loader.dart';
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_state.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/news_card.dart';
@@ -71,16 +72,21 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
             padding: EdgeInsets.symmetric(vertical: 10.0),
             child: BuzzWireProgressLoader(isInitialLoad: false),
           ),
+          emptyWidget: BuzzWireEmptyOrErrorScreen.empty(
+            header: "No Articles Found",
+            message:
+                "It seems there are currently no articles available in the ${widget.category} category. Please check back later or explore other categories.",
+          ),
           hasError: uiState.loadState is Error,
           itemCount: uiState.articles.length,
-          itemBuilder: (ctx, idx) => buildItem(),
+          itemBuilder: (ctx, idx) => buildItem(uiState.articles[idx]),
         ),
       )
     ];
   }
 
-  Widget buildItem() {
-    return NewsCard(widget.category);
+  Widget buildItem(ArticleEntity? article) {
+    return NewsCard(widget.category, article: article);
   }
 
   bool isInitialLoading(CategoryNewsState uiState) =>
@@ -96,7 +102,7 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   }
 
   Widget buildErrorScreen(CategoryNewsState uiState) {
-    return SliverToBoxAdapter(
+    return SliverFillRemaining(
       child: BuzzWireEmptyOrErrorScreen.error(
         message: (uiState.loadState as Error).message,
         onPressed: () {
