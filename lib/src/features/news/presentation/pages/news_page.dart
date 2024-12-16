@@ -85,7 +85,7 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
     ];
   }
 
-  Widget buildItem(ArticleEntity? article) {
+  Widget buildItem(ArticleEntity article) {
     return NewsCard(widget.category, article: article);
   }
 

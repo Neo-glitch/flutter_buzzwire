@@ -1,10 +1,10 @@
-extension IntExtension on int? {
+extension NullableIntExtension on int? {
   int get orZero {
     return this ?? 0;
   }
 }
 
-extension DoubleExtension on double? {
+extension NullableDoubleExtension on double? {
   double get orZero {
     return this ?? 0.0;
   }

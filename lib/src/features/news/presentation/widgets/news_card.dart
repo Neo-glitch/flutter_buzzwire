@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsCard extends StatefulWidget {
   final String news;
-  final ArticleEntity? article;
-  const NewsCard(this.news, {super.key, required this.article});
+  final ArticleEntity article;
+  final void Function(ArticleEntity article)? onSave;
+  final void Function(ArticleEntity articleEntity)? onClick;
+  const NewsCard(this.news,
+      {super.key, required this.article, this.onSave, this.onClick});
 
   @override
   State<NewsCard> createState() => _NewsCardState();
@@ -23,14 +27,17 @@ class _NewsCardState extends State<NewsCard> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildImageSection(),
-          _buildNewsContentSection(context),
+          _buildImageSection(widget.article),
+          _buildNewsContentSection(context, widget.article),
         ],
       ),
     );
   }
 
-  Expanded _buildNewsContentSection(BuildContext context) {
+  Expanded _buildNewsContentSection(
+    BuildContext context,
+    ArticleEntity article,
+  ) {
     return Expanded(
       flex: 2,
       child: Padding(
@@ -39,7 +46,7 @@ class _NewsCardState extends State<NewsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "News ${widget.news}",
+              article.source?.name.orEmpty ?? "",
               overflow: TextOverflow.ellipsis,
               style:
                   Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
@@ -50,7 +57,7 @@ class _NewsCardState extends State<NewsCard> {
               children: [
                 Expanded(
                   child: Text(
-                    "Chelsea confirm Silva out with knee ligament damage\nghghghgh",
+                    article.title.orEmpty,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
@@ -76,7 +83,7 @@ class _NewsCardState extends State<NewsCard> {
             ),
             const Spacer(),
             Text(
-              "Feb 28, 2023",
+              article.publishedAt.orEmpty,
               maxLines: 1,
               style:
                   Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
@@ -87,7 +94,7 @@ class _NewsCardState extends State<NewsCard> {
     );
   }
 
-  Expanded _buildImageSection() {
+  Expanded _buildImageSection(ArticleEntity article) {
     return Expanded(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
@@ -95,19 +102,18 @@ class _NewsCardState extends State<NewsCard> {
           placeholder: (context, url) {
             return const Icon(
               Icons.image,
-              size: 100,
+              size: 80,
             );
           },
           errorWidget: (context, url, error) {
             return const Icon(
               Icons.broken_image,
-              size: 100,
+              size: 80,
             );
           },
           height: 120,
           fit: BoxFit.cover,
-          imageUrl:
-              "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/2GHBST6XYL4635DHJUZD3SXIZY.jpg&w=1440",
+          imageUrl: article.image.orEmpty,
         ),
       ),
     );

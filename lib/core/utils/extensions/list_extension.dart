@@ -1,4 +1,4 @@
-extension ListExtension<T> on List<T>? {
+extension NullableListExtension<T> on List<T>? {
   List<T> get orEmpty {
     return this ?? [];
   }

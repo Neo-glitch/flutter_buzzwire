@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-extension BoolExtension on bool? {
+extension NullableBoolExtension on bool? {
   bool get orFalse {
     return this ?? false;
   }

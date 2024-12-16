@@ -11,3 +11,9 @@ extension StringExtension on String {
       .map((str) => str.toCapitalized)
       .join(' ');
 }
+
+extension NullableStringExtension on String? {
+  String get orEmpty {
+    return this ?? "";
+  }
+}
