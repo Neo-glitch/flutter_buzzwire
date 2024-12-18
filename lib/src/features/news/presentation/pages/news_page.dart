@@ -36,6 +36,29 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   Widget build(BuildContext context) {
     final uiState = ref.watch(categoryNewsControllerProvider(widget.category));
 
+    return _buildBody(uiState);
+  }
+
+  Widget _buildBody(CategoryNewsState uiState) {
+    if (uiState.loadState is Empty) {
+      return const SizedBox.shrink();
+    }
+
+    if (_isInitialLoading(uiState)) {
+      return const BuzzWireProgressLoader();
+    }
+
+    if (_isInitialError(uiState)) {
+      return BuzzWireEmptyOrErrorScreen.error(
+        message: (uiState.loadState as Error).message,
+        onPressed: () {
+          ref
+              .read(categoryNewsControllerProvider(widget.category).notifier)
+              .fetchNews(uiState.currentPage);
+        },
+      );
+    }
+
     return ScrollNotificationHandler(
       loadMore: () {
         ref
@@ -50,18 +73,6 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   }
 
   List<Widget> buildSlivers(CategoryNewsState uiState) {
-    if (uiState.loadState is Empty) {
-      return [];
-    }
-
-    if (isInitialLoading(uiState)) {
-      return [buildInitialLoader()];
-    }
-
-    if (isInitialError(uiState)) {
-      return [buildErrorScreen(uiState)];
-    }
-
     return [
       SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -94,30 +105,11 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
     );
   }
 
-  bool isInitialLoading(CategoryNewsState uiState) =>
+  bool _isInitialLoading(CategoryNewsState uiState) =>
       uiState.loadState is Loading && uiState.currentPage <= 1;
 
-  bool isInitialError(CategoryNewsState uiState) =>
+  bool _isInitialError(CategoryNewsState uiState) =>
       uiState.loadState is Error && uiState.articles.isEmpty;
-
-  Widget buildInitialLoader() {
-    return const SliverFillRemaining(
-      child: BuzzWireProgressLoader(),
-    );
-  }
-
-  Widget buildErrorScreen(CategoryNewsState uiState) {
-    return SliverFillRemaining(
-      child: BuzzWireEmptyOrErrorScreen.error(
-        message: (uiState.loadState as Error).message,
-        onPressed: () {
-          ref
-              .read(categoryNewsControllerProvider(widget.category).notifier)
-              .fetchNews(uiState.currentPage);
-        },
-      ),
-    );
-  }
 
   bool canLoadMore(CategoryNewsState uiState) {
     return uiState.currentPage < uiState.lastPage &&

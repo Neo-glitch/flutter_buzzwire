@@ -1,18 +1,23 @@
 import 'package:buzzwire/core/common/widgets/buzzwire_image_card.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class TrendingNewsCard extends StatelessWidget {
   final double width;
+  final ArticleEntity article;
   const TrendingNewsCard({
     super.key,
     required this.width,
+    required this.article,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,8 +28,7 @@ class TrendingNewsCard extends StatelessWidget {
               radius: 6,
               width: double.infinity,
               // height: constraint.maxHeight * 0.55,
-              imageUrl:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt2WjE3TlnoHHKhrUCzcHiyHZdmE2UUE0VDg&s",
+              imageUrl: article.image.orEmpty,
             ),
           ),
           Expanded(
@@ -32,9 +36,9 @@ class TrendingNewsCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(2),
+                const Gap(2),
                 Text(
-                  "Please stop joking around and get fit\nfffg",
+                  article.title.orEmpty,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   style: context.bodyMedium?.copyWith(
@@ -42,9 +46,10 @@ class TrendingNewsCard extends StatelessWidget {
                   ),
                   softWrap: true,
                 ),
-                Gap(2),
+                const Gap(2),
                 Text(
-                  "Feb 14, 2024",
+                  BuzzWireDateHelperFunctions.formatTimeAgo(
+                      article.publishedAt.orEmpty),
                   style: context.bodySmall,
                 )
               ],

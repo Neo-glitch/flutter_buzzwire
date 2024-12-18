@@ -1,3 +1,4 @@
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/news_headline_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,13 @@ import 'package:gap/gap.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewsHeadline extends ConsumerStatefulWidget {
-  const NewsHeadline({super.key});
+  final List<ArticleEntity> articles;
+  final void Function(ArticleEntity articleEntity) onItemClick;
+  const NewsHeadline({
+    super.key,
+    required this.articles,
+    required this.onItemClick,
+  });
 
   @override
   ConsumerState<NewsHeadline> createState() => _NewsHeadlineState();
@@ -28,12 +35,16 @@ class _NewsHeadlineState extends ConsumerState<NewsHeadline> {
 
   Widget _buildCarousel() {
     return CarouselSlider.builder(
-      itemCount: 5,
+      itemCount: widget.articles.length,
       itemBuilder: (ctx, itemIdx, pageViewIdx) {
-        return const NewsHeadlineCard(
-          imageUrl: "https://pixlr.com/images/generator/photo-generator.webp",
-          category: "Sports",
-          time: "Today",
+        final article = widget.articles[itemIdx];
+        return GestureDetector(
+          onTap: () {
+            widget.onItemClick(article);
+          },
+          child: NewsHeadlineCard(
+            article: article,
+          ),
         );
       },
       options: CarouselOptions(
@@ -54,7 +65,7 @@ class _NewsHeadlineState extends ConsumerState<NewsHeadline> {
   Widget _buildIndicator(BuildContext context) {
     return AnimatedSmoothIndicator(
       activeIndex: _carouselIndex,
-      count: 5,
+      count: widget.articles.length,
       effect: ExpandingDotsEffect(
         dotWidth: 8,
         dotHeight: 3,

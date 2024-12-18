@@ -1,17 +1,16 @@
 import 'package:buzzwire/core/common/widgets/buzzwire_image_card.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class NewsHeadlineCard extends StatelessWidget {
-  final String imageUrl;
-  final String category;
-  final String time;
+  final ArticleEntity article;
 
   const NewsHeadlineCard({
-    required this.imageUrl,
-    required this.category,
-    required this.time,
     super.key,
+    required this.article,
   });
 
   @override
@@ -20,9 +19,14 @@ class NewsHeadlineCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Stack(
         children: [
-          _buildBackgroundImage(imageUrl),
+          _buildBackgroundImage(article.image.orEmpty),
           _buildOverlay(),
-          _buildHeadlineContent(context, time),
+          _buildHeadlineContent(
+            context,
+            article.source?.name,
+            article.description,
+            article.publishedAt,
+          ),
         ],
       ),
     );
@@ -48,7 +52,12 @@ class NewsHeadlineCard extends StatelessWidget {
     );
   }
 
-  Widget _buildHeadlineContent(BuildContext context, String time) {
+  Widget _buildHeadlineContent(
+    BuildContext context,
+    String? source,
+    String? description,
+    String? publishedAt,
+  ) {
     return Positioned(
       left: 16,
       right: 16,
@@ -59,7 +68,7 @@ class NewsHeadlineCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                "CNN Indonesia",
+                source.orEmpty,
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
@@ -76,7 +85,7 @@ class NewsHeadlineCard extends StatelessWidget {
               ),
               const Gap(5),
               Text(
-                time,
+                BuzzWireDateHelperFunctions.formatTimeAgo(publishedAt.orEmpty),
                 style: Theme.of(context)
                     .textTheme
                     .labelSmall
@@ -86,7 +95,7 @@ class NewsHeadlineCard extends StatelessWidget {
           ),
           const Gap(5),
           Text(
-            "Alexandar wears modified helmet in road races",
+            article.title.orEmpty,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context)

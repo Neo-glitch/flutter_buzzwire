@@ -13,12 +13,10 @@ class BuzzWireProgressLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isInitialLoad
-        ? SizedBox.expand(
-            child: Center(
-              child: SpinKitWave(
-                color: context.primaryColor,
-                size: 24,
-              ),
+        ? Center(
+            child: SpinKitWave(
+              color: context.primaryColor,
+              size: 24,
             ),
           )
         : SpinKitFadingCircle(
