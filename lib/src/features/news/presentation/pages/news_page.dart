@@ -86,7 +86,12 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   }
 
   Widget buildItem(ArticleEntity article) {
-    return NewsCard(widget.category, article: article);
+    return NewsCard(
+      widget.category,
+      article: article,
+      onClick: (article) {},
+      onSave: (article) {},
+    );
   }
 
   bool isInitialLoading(CategoryNewsState uiState) =>

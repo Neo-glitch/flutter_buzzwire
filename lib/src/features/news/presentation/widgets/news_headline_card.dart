@@ -1,5 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:buzzwire/core/common/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -23,7 +22,6 @@ class NewsHeadlineCard extends StatelessWidget {
         children: [
           _buildBackgroundImage(imageUrl),
           _buildOverlay(),
-          _buildCategoryBadge(context, category),
           _buildHeadlineContent(context, time),
         ],
       ),
@@ -31,14 +29,12 @@ class NewsHeadlineCard extends StatelessWidget {
   }
 
   Widget _buildBackgroundImage(String imageUrl) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
-      child: CachedNetworkImage(
-        height: 200,
-        width: double.infinity,
-        fit: BoxFit.cover,
-        imageUrl: imageUrl,
-      ),
+    return BuzzWireImageCard(
+      imageUrl: imageUrl,
+      height: 200,
+      width: double.infinity,
+      radius: 6,
+      placeHoldersSize: 160,
     );
   }
 
@@ -48,28 +44,6 @@ class NewsHeadlineCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.black26,
         borderRadius: BorderRadius.circular(6),
-      ),
-    );
-  }
-
-  Widget _buildCategoryBadge(BuildContext context, String category) {
-    return Positioned(
-      top: 12,
-      left: 16,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          category,
-          style: Theme.of(context)
-              .textTheme
-              .labelMedium
-              ?.copyWith(color: Colors.white),
-        ),
       ),
     );
   }

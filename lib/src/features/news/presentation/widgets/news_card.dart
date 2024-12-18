@@ -1,4 +1,6 @@
+import 'package:buzzwire/core/common/widgets/buzzwire_image_card.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/utils/helpers/date_helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +19,6 @@ class NewsCard extends StatefulWidget {
 }
 
 class _NewsCardState extends State<NewsCard> {
-  bool isSaved = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,11 +70,11 @@ class _NewsCardState extends State<NewsCard> {
                   iconSize: 16,
                   onPressed: () {
                     setState(() {
-                      isSaved = !isSaved;
+                      article.isSaved = !article.isSaved;
                     });
                   },
                   icon: FaIcon(
-                    isSaved
+                    article.isSaved
                         ? FontAwesomeIcons.solidBookmark
                         : FontAwesomeIcons.bookmark,
                   ),
@@ -83,7 +83,9 @@ class _NewsCardState extends State<NewsCard> {
             ),
             const Spacer(),
             Text(
-              article.publishedAt.orEmpty,
+              BuzzWireDateHelperFunctions.formatTimeAgo(
+                article.publishedAt.orEmpty,
+              ),
               maxLines: 1,
               style:
                   Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
@@ -96,25 +98,11 @@ class _NewsCardState extends State<NewsCard> {
 
   Expanded _buildImageSection(ArticleEntity article) {
     return Expanded(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: CachedNetworkImage(
-          placeholder: (context, url) {
-            return const Icon(
-              Icons.image,
-              size: 80,
-            );
-          },
-          errorWidget: (context, url, error) {
-            return const Icon(
-              Icons.broken_image,
-              size: 80,
-            );
-          },
-          height: 120,
-          fit: BoxFit.cover,
-          imageUrl: article.image.orEmpty,
-        ),
+      child: BuzzWireImageCard(
+        imageUrl: article.image.orEmpty,
+        radius: 10,
+        height: 120,
+        placeHoldersSize: 80,
       ),
     );
   }
