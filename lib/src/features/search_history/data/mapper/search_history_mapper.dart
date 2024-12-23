@@ -13,7 +13,11 @@ class SearchHistoryMapper {
       article = ArticleMapper.fromLocalArticleModel(model.article!);
     }
 
-    return SearchHistoryEntity(search: model.search, article: article);
+    return SearchHistoryEntity(
+      id: model.id,
+      search: model.search,
+      article: article,
+    );
   }
 
   static SearchHistoryModel toModel(SearchHistoryEntity entity) {
@@ -23,7 +27,11 @@ class SearchHistoryMapper {
     }
 
     return SearchHistoryModel(
-        createdAt: DateTime.now(), search: entity.search, article: article);
+      id: entity.id,
+      createdAt: DateTime.now(),
+      search: entity.search,
+      article: article,
+    );
   }
 
   static List<SearchHistoryEntity> toEntities(List<SearchHistoryModel> models) {

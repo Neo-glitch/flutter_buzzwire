@@ -4,7 +4,6 @@ import 'package:buzzwire/src/features/search_history/data/repository/search_hist
 import 'package:buzzwire/src/features/search_history/domain/repository/search_history_repository.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/clear_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/delete_search_history_usecase.dart';
-import 'package:buzzwire/src/features/search_history/domain/usecase/get_does_search_history_exist_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/get_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/save_search_history_usecase.dart';
 
@@ -21,8 +20,6 @@ Future<void> provideSearchHistoryDependencies() async {
   injector.registerFactory<DeleteSearchHistory>(
       () => DeleteSearchHistory(repository: injector()));
 
-  injector.registerFactory<GetDoesSearchHistoryExist>(
-      () => GetDoesSearchHistoryExist(repository: injector()));
   injector.registerFactory<GetSearchHistory>(
       () => GetSearchHistory(repository: injector()));
   injector.registerFactory<SaveSearchHistory>(

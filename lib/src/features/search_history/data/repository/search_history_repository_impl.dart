@@ -33,22 +33,6 @@ class SearchHistoryRepositoryImpl implements SearchHistoryRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> doesSearchHistoryExist(
-    String? search,
-    String? articleTitle,
-  ) async {
-    try {
-      return Right(await localDataSource.doesSearchHistoryExist(
-        search,
-        articleTitle,
-      ));
-    } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
-    }
-  }
-
-  @override
   Stream<Either<Failure, List<SearchHistoryEntity>>> getSearchHistory() {
     return localDataSource.getSearchHistory().map((searchHistory) =>
         Right(SearchHistoryMapper.toEntities(searchHistory)));

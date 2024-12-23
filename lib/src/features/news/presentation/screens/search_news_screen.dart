@@ -89,7 +89,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   }
 
   Widget _buildBody(SearchNewsState uiState) {
-    if (uiState.loadState is Empty && uiState.searchHistories.isNotEmpty) {
+    if (uiState.loadState is Empty) {
       return _buildSearchHistory(uiState.searchHistories);
     }
 
@@ -104,16 +104,18 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
       return const BuzzWireProgressLoader();
     }
 
-    if (uiState.loadState is Loaded) {
-      return ScrollNotificationHandler(
-        child: _buildSearchResultList(uiState),
-        loadMore: () {},
-        canLoadMoreData: () =>
-            uiState.loadState is! Loading &&
-            uiState.currentPage < uiState.lastPage,
-      );
-    }
-    return const SizedBox.shrink();
+    return ScrollNotificationHandler(
+      child: _buildSearchResultList(uiState),
+      loadMore: () => ref
+          .read(searchNewsControllerProvider.notifier)
+          .onEvent(FetchNewsEvent(
+            query: _searchController.text,
+            page: uiState.currentPage + 1,
+          )),
+      canLoadMoreData: () =>
+          uiState.loadState is! Loading &&
+          uiState.currentPage < uiState.lastPage,
+    );
   }
 
   Widget _buildSearchHistory(List<SearchHistoryEntity> histories) {
@@ -166,15 +168,20 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
     );
   }
 
-  void _onDeleteSearchHistory(SearchHistoryEntity history) {}
+  void _onDeleteSearchHistory(SearchHistoryEntity history) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(DeleteSearchHistoryEvent(searchHistory: history));
+  }
 
   void _onClickSearchHistory(SearchHistoryEntity history) {
     if (history.search != null) {
+      FocusManager.instance.primaryFocus?.unfocus();
       _searchController.text = history.search!;
       ref
           .read(searchNewsControllerProvider.notifier)
           .onEvent(QueryNewsEvent(history.search!));
-      FocusManager.instance.primaryFocus?.unfocus();
     } else if (history.article != null) {
       _navToNewsDetailsScreen(history.article!);
     }

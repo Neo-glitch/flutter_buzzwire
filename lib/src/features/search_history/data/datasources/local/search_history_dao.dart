@@ -16,15 +16,4 @@ abstract class SearchHistoryDao {
 
   @Query('DELETE FROM ${BuzzWireStrings.searchHistoryTableName}')
   Future<void> clearSearchHistory();
-
-  @Query('''
-    SELECT EXISTS(
-      SELECT 1 FROM ${BuzzWireStrings.searchHistoryTableName}
-      WHERE 
-        (:search != '' AND search = :search) 
-        OR (:articleTitle != '' AND article.title = :articleTitle)
-      LIMIT 1
-    )
-  ''')
-  Future<bool?> doesSearchHistoryExist(String search, String articleTitle);
 }

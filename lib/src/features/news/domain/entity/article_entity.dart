@@ -1,6 +1,7 @@
 import 'package:buzzwire/src/features/news/domain/entity/source_entity.dart';
 
 class ArticleEntity {
+  final int? id;
   final SourceEntity? source;
   final String? author;
   final String? title;
@@ -11,13 +12,15 @@ class ArticleEntity {
   final String? content;
   bool isSaved = false;
 
-  ArticleEntity(
-      {required this.source,
-      required this.author,
-      required this.title,
-      required this.description,
-      required this.articleUrl,
-      required this.image,
-      required this.publishedAt,
-      required this.content});
+  ArticleEntity({
+    this.id,
+    required this.source,
+    required this.author,
+    required this.title,
+    required this.description,
+    required this.articleUrl,
+    required this.image,
+    required this.publishedAt,
+    required this.content,
+  });
 }

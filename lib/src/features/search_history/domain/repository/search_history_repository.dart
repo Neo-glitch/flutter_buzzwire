@@ -7,8 +7,4 @@ abstract class SearchHistoryRepository {
   Future<Either<Failure, void>> saveSearchHistory(SearchHistoryEntity entity);
   Future<Either<Failure, void>> deleteSearchHistory(SearchHistoryEntity entity);
   Future<Either<Failure, void>> clearSearchHistory();
-  Future<Either<Failure, bool>> doesSearchHistoryExist(
-    String? search,
-    String? articleTitle,
-  );
 }

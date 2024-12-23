@@ -8,7 +8,6 @@ import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_eve
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_state.dart';
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/delete_search_history_usecase.dart';
-import 'package:buzzwire/src/features/search_history/domain/usecase/get_does_search_history_exist_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/get_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/save_search_history_usecase.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
@@ -20,7 +19,6 @@ part 'search_news_controller.g.dart';
 class SearchNewsController extends _$SearchNewsController {
   late GetSearchHistory _getSearchHistory;
   late DeleteSearchHistory _deleteSearchHistory;
-  late GetDoesSearchHistoryExist _doesSearchHistoryExist;
   late SaveSearchHistory _saveSearchHistory;
   late GetNews _getNews;
 
@@ -28,7 +26,6 @@ class SearchNewsController extends _$SearchNewsController {
   SearchNewsState build() {
     _getSearchHistory = injector();
     _deleteSearchHistory = injector();
-    _doesSearchHistoryExist = injector();
     _saveSearchHistory = injector();
     _getNews = injector();
     return const SearchNewsState();
@@ -65,13 +62,12 @@ class SearchNewsController extends _$SearchNewsController {
   }
 
   void _saveSearch(SaveSearchHistoryEvent event) async {
-    final doesSearchExistResult = await _doesSearchHistoryExist(
-      GetDoesSearchHistoryExistParam(
-          search: event.search, articleTitle: event.article?.title),
+    final doesHistoryExist = state.searchHistories.any(
+      (searchHistory) =>
+          (event.search != null && searchHistory.search == event.search) ||
+          (event.article != null && searchHistory.article == event.article),
     );
 
-    final doesHistoryExist = doesSearchExistResult.fold(
-        (l) => false, (doesHistoryExist) => doesHistoryExist);
     if (event.search != null && !doesHistoryExist) {
       _saveSearchHistory(SearchHistoryEntity(search: event.search));
     } else if (event.article != null && !doesHistoryExist) {
@@ -97,6 +93,7 @@ class SearchNewsController extends _$SearchNewsController {
         final articles = state.searchResults.toList() + result.articles.orEmpty;
 
         state = state.copyWith(
+          currentPage: event.page,
           lastPage: lastPage,
           searchResults: articles,
           loadState: const Loaded(),

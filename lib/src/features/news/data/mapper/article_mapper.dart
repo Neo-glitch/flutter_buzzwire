@@ -52,6 +52,7 @@ class ArticleMapper {
   /// For local article model
   static ArticleEntity fromLocalArticleModel(LocalArticleModel model) =>
       ArticleEntity(
+        id: model.id,
         source: SourceMapper.toEntity(model.source),
         author: model.author,
         title: model.title,
@@ -64,6 +65,7 @@ class ArticleMapper {
 
   static LocalArticleModel toLocalArticleModel(ArticleEntity entity) =>
       LocalArticleModel(
+        id: entity.id,
         savedAt: DateTime.now(),
         source: SourceMapper.fromEntity(entity.source),
         author: entity.author,

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
 import 'package:floor/floor.dart';
 
