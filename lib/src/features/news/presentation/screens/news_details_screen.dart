@@ -1,8 +1,13 @@
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewsDetailsScree extends ConsumerWidget {
-  const NewsDetailsScree({super.key});
+class NewsDetailsScreen extends ConsumerWidget {
+  final ArticleEntity article;
+  const NewsDetailsScreen({
+    super.key,
+    required this.article,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

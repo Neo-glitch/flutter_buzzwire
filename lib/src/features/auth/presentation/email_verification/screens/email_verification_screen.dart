@@ -1,6 +1,7 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_app_icon.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
@@ -67,15 +68,7 @@ class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 24,
-            ),
-            onPressed: () => context.pop(),
-          ),
-        ),
+        appBar: const BuzzWireAppBar(),
         body: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,

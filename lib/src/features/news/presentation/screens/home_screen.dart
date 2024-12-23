@@ -1,9 +1,11 @@
-import 'package:buzzwire/core/common/widgets/keep_alive_page.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/categories.dart';
 import 'package:buzzwire/src/features/news/presentation/pages/news_page.dart';
-import 'package:buzzwire/src/features/news/presentation/widgets/home_appbar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -60,7 +62,31 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       floating: true,
       snap: true,
       forceElevated: innerBoxScrolled,
-      flexibleSpace: const FlexibleSpaceBar(background: HomeAppBar()),
+      flexibleSpace: FlexibleSpaceBar(
+        background: BuzzWireAppBar(
+          title: const BuzzWireAppIcon(
+            alignment: MainAxisAlignment.start,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: ClipOval(
+                child: SizedBox.fromSize(
+                  size: const Size.fromRadius(16),
+                  child: CachedNetworkImage(
+                    placeholder: (context, url) {
+                      // Todo: replace with reasonable place holder image
+                      return const CircularProgressIndicator();
+                    },
+                    imageUrl:
+                        "https://pixlr.com/images/generator/photo-generator.webp",
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       bottom: _buildTabBar(context),
     );
   }

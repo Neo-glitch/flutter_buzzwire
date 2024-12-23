@@ -1,17 +1,9 @@
-import '../../../../../core/error/failure.dart';
-import '../../../../../core/usecase/usecase.dart';
-import '../../data/repository/auth_repository_impl.dart';
-import '../repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/src/either.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'signin_usecase.g.dart';
-
-@riverpod
-SignIn signIn(SignInRef ref) {
-  return SignIn(authRepo: ref.read(authRepositoryProvider));
-}
+import '../../../../../core/error/failure.dart';
+import '../../../../../core/usecase/usecase.dart';
+import '../repository/auth_repository.dart';
 
 class SignIn implements UseCaseFuture<User, SignInParams> {
   final AuthRepository authRepo;

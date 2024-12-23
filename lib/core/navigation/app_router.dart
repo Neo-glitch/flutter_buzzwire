@@ -1,4 +1,6 @@
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
+import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -98,15 +100,6 @@ GoRouter router(RouterRef ref) {
                   builder: (context, state) {
                     return const HomeScreen();
                   },
-                  routes: [
-                    GoRoute(
-                      path: BuzzWireRoute.newsDetails.path,
-                      name: BuzzWireRoute.newsDetails.name,
-                      builder: (context, state) {
-                        return const NewsDetailsScree();
-                      },
-                    )
-                  ],
                 )
               ],
             ),
@@ -114,12 +107,20 @@ GoRouter router(RouterRef ref) {
               navigatorKey: discoverNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.discover.path,
-                  name: BuzzWireRoute.discover.name,
-                  builder: (context, state) {
-                    return const DiscoverScreen();
-                  },
-                )
+                    path: BuzzWireRoute.discover.path,
+                    name: BuzzWireRoute.discover.name,
+                    builder: (context, state) {
+                      return const DiscoverScreen();
+                    },
+                    routes: [
+                      GoRoute(
+                        path: BuzzWireRoute.searchNews.path,
+                        name: BuzzWireRoute.searchNews.name,
+                        builder: (context, state) {
+                          return const SearchNewsScreen();
+                        },
+                      )
+                    ])
               ],
             ),
             StatefulShellBranch(
@@ -147,6 +148,14 @@ GoRouter router(RouterRef ref) {
               ],
             ),
           ],
+        ),
+        GoRoute(
+          path: BuzzWireRoute.newsDetails.path,
+          name: BuzzWireRoute.newsDetails.name,
+          builder: (context, state) {
+            final article = state.extra! as ArticleEntity;
+            return NewsDetailsScreen(article: article);
+          },
         ),
         GoRoute(
           path: BuzzWireRoute.webview.path,

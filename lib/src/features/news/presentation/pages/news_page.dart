@@ -1,8 +1,8 @@
-import 'package:buzzwire/core/common/pagination/pagination_sliver_list_view.dart';
-import 'package:buzzwire/core/common/pagination/scroll_notification_handler.dart';
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_empty_or_error_screen.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_progress_loader.dart';
+import 'package:buzzwire/src/shared/presentation/pagination/pagination_sliver_list_view.dart';
+import 'package:buzzwire/src/shared/presentation/pagination/scroll_notification_handler.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_state.dart';
@@ -98,7 +98,6 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
 
   Widget buildItem(ArticleEntity article) {
     return NewsCard(
-      widget.category,
       article: article,
       onClick: (article) {},
       onSave: (article) {},

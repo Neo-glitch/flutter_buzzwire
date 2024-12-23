@@ -1,4 +1,5 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/core/network/dio/dio_helper.dart';
 import 'package:buzzwire/core/utils/extensions/list_extension.dart';
 import 'package:buzzwire/core/utils/extensions/num_extension.dart';
@@ -15,7 +16,7 @@ class CategoryNewsController extends _$CategoryNewsController {
 
   @override
   CategoryNewsState build(String category) {
-    _getNewsHeadlines = ref.read(getHeadlinesByCategoryProvider);
+    _getNewsHeadlines = injector();
     _category = category;
     return const CategoryNewsState();
   }

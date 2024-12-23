@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
 import 'package:flutter/gestures.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../core/common/widgets/buzzwire_app_icon.dart';
+import '../../../../../shared/presentation/widgets/buzzwire_app_icon.dart';
 import '../../../../../../core/constants/asset_strings.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';

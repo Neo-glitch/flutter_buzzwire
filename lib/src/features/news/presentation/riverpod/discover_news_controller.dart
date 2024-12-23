@@ -1,4 +1,5 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/core/error/failure.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/list_extension.dart';
@@ -19,8 +20,8 @@ class DiscoverNewsController extends _$DiscoverNewsController {
 
   @override
   DiscoverNewsState build() {
-    _getHeadlines = ref.read(getHeadlinesProvider);
-    _getNews = ref.read(getNewsProvider);
+    _getHeadlines = injector();
+    _getNews = injector();
     return const DiscoverNewsState();
   }
 

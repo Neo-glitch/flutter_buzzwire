@@ -1,18 +1,10 @@
-import '../../../../../core/error/exception_handler.dart';
-import '../../../../../core/error/failure.dart';
-import '../datasource/auth_remote_datasource.dart';
-import '../../domain/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/src/either.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_repository_impl.g.dart';
-
-@riverpod
-AuthRepository authRepository(AuthRepositoryRef ref) {
-  return AuthRepositoryImpl(
-      authRemoteDataSource: ref.read(authRemoteDataSourceProvider));
-}
+import '../../../../../core/error/exception_handler.dart';
+import '../../../../../core/error/failure.dart';
+import '../../domain/repository/auth_repository.dart';
+import '../datasource/auth_remote_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;

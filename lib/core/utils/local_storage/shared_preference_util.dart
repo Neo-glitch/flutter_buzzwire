@@ -1,23 +1,4 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-part 'shared_preference_util.g.dart';
-
-// note: can have an injection file to handle all this provider creation and all
-
-// final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
-//   throw UnimplementedError();
-// });
-
-@riverpod
-SharedPreferences preferences(PreferencesRef ref) {
-  throw UnimplementedError();
-}
-
-@Riverpod(keepAlive: true)
-BuzzWireSharedPref buzzWireSharedPref(BuzzWireSharedPrefRef ref) {
-  return BuzzWireSharedPref(preferences: ref.read(preferencesProvider));
-}
 
 class BuzzWireSharedPref {
   final SharedPreferences _preferences;

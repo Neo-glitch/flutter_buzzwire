@@ -1,6 +1,7 @@
 import 'package:buzzwire/src/features/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/verify_email_usecase.dart';
+import 'package:buzzwire/injector.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../data/repository/auth_repository_impl.dart';
@@ -27,12 +28,12 @@ class AuthController extends _$AuthController {
 
   @override
   AuthState build() {
-    _sign = ref.read(signInProvider);
-    _signOut = ref.read(signOutProvider);
-    _signUp = ref.read(signUpProvider);
-    _verifyEmail = ref.read(verifyEmailProvider);
-    _sendVerificationEmail = ref.read(sendVerificationEmailProvider);
-    _resetPassword = ref.read(resetPasswordProvider);
+    _sign = injector();
+    _signOut = injector();
+    _signUp = injector();
+    _verifyEmail = injector();
+    _sendVerificationEmail = injector();
+    _resetPassword = injector();
     return const AuthState();
   }
 

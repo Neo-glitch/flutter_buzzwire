@@ -1,17 +1,9 @@
+import 'package:fpdart/fpdart.dart';
+
 import '../../../../../core/constants/preference_keys.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/utils/local_storage/shared_preference_util.dart';
 import '../../domain/manager/local_user_manager.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'local_user_manager_impl.g.dart';
-
-@riverpod
-LocalUserManager localUserManager(LocalUserManagerRef ref) {
-  return LocalUserManagerImpl(
-      appPreference: ref.read(buzzWireSharedPrefProvider));
-}
 
 class LocalUserManagerImpl implements LocalUserManager {
   final BuzzWireSharedPref appPreference;

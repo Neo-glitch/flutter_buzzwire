@@ -8,7 +8,7 @@ class NewsMapper {
   static NewsEntity toEntity(NewsModel model) {
     return NewsEntity(
       totalResults: model.totalResults,
-      articles: ArticleMapper.toEntities(model.articles),
+      articles: ArticleMapper.toEntitiesFromArticleModel(model.articles),
     );
   }
 }

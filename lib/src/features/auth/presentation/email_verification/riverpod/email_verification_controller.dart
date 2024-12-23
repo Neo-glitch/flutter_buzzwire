@@ -1,5 +1,6 @@
 // controller for verify email screen
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
@@ -21,10 +22,10 @@ class EmailVerificationController extends _$EmailVerificationController {
 
   @override
   EmailVerificationState build() {
-    _signIn = ref.read(signInProvider);
-    _signOut = ref.read(signOutProvider);
-    _sendVerificationEmail = ref.read(sendVerificationEmailProvider);
-    _verifyEmail = ref.read(verifyEmailProvider);
+    _signIn = injector();
+    _signOut = injector();
+    _sendVerificationEmail = injector();
+    _verifyEmail = injector();
     return const EmailVerificationState();
   }
 

@@ -1,18 +1,8 @@
-import 'package:buzzwire/core/constants/app_secrets.dart';
 import 'package:buzzwire/core/network/dio/dio_client.dart';
 import 'package:buzzwire/core/network/dio/dio_helper.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
-import 'package:buzzwire/src/features/news/data/model/source_model.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'news_remote_datasource.g.dart';
-
-@riverpod
-NewsRemoteDataSource newsRemoteDataSource(NewsRemoteDataSourceRef ref) {
-  return NewsRemoteDataSourceImpl(dioClient: DioClient());
-}
 
 abstract class NewsRemoteDataSource {
   Future<NewsSourceModel> getNewsSources();

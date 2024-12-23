@@ -1,5 +1,6 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
@@ -12,7 +13,7 @@ import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod
 import 'package:flutter/gestures.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/common/widgets/buzzwire_app_icon.dart';
+import '../../../../../shared/presentation/widgets/buzzwire_app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -59,15 +60,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 24,
-            ),
-            onPressed: () => context.pop(),
-          ),
-        ),
+        appBar: const BuzzWireAppBar(),
         body: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.disabled,

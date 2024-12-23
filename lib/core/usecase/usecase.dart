@@ -18,7 +18,7 @@ abstract class UseCaseResult<SuccessType, Params> {
   Either<Failure, SuccessType> call(Params param);
 }
 
-abstract class UseCaseStrean<SuccessType, Params> {
+abstract class UseCaseStream<SuccessType, Params> {
   Stream<Either<Failure, SuccessType>> call(Params param);
 }
 

@@ -1,8 +1,9 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_empty_or_error_screen.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_image_card.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_progress_loader.dart';
-import 'package:buzzwire/core/common/widgets/buzzwire_search_bar.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_search_bar.dart';
+import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/discover_news_controller.dart';
@@ -104,7 +105,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: BuzzWireSearchBar(
         onTap: () {
-          // todo: Navigate to search screen
+          context.pushNamed(BuzzWireRoute.searchNews.name);
         },
         hintText: "What are you looking for today?",
       ),

@@ -1,10 +1,11 @@
-import 'package:buzzwire/core/common/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
 
-import '../../../../../../core/common/riverpod/load_state.dart';
-import '../../../../../../core/common/widgets/buzzwire_app_icon.dart';
+import '../../../../../shared/presentation/riverpod/load_state.dart';
+import '../../../../../shared/presentation/widgets/buzzwire_app_icon.dart';
 import '../../../../../../core/constants/asset_strings.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';
@@ -71,15 +72,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 24,
-            ),
-            onPressed: () => context.pop(),
-          ),
-        ),
+        appBar: const BuzzWireAppBar(),
         body: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,

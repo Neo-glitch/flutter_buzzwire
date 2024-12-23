@@ -1,4 +1,5 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
@@ -18,9 +19,9 @@ class SignUpController extends _$SignUpController {
 
   @override
   SignupState build() {
-    _signUp = ref.read(signUpProvider);
-    _sendVerificationEmail = ref.read(sendVerificationEmailProvider);
-    _signOut = ref.read(signOutProvider);
+    _signUp = injector();
+    _sendVerificationEmail = injector();
+    _signOut = injector();
     return const SignupState();
   }
 

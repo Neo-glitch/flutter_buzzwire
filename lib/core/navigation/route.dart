@@ -30,14 +30,16 @@ class BuzzWireRoute {
 
   static BuzzWireRoute home = BuzzWireRoute(path: "/", name: "home");
   static BuzzWireRoute discover =
-      BuzzWireRoute(path: "/headlines", name: "headlines");
+      BuzzWireRoute(path: "/discover", name: "discover");
+  static BuzzWireRoute searchNews =
+      BuzzWireRoute(path: "search_news", name: "search_news");
   static BuzzWireRoute savedNews =
       BuzzWireRoute(path: "/saved_news", name: "saved_news");
   static BuzzWireRoute profile =
       BuzzWireRoute(path: "/profile", name: "profile");
 
   static BuzzWireRoute newsDetails =
-      BuzzWireRoute(path: "news_details", name: "news_detail");
+      BuzzWireRoute(path: "/news_details", name: "news_details");
 
   static BuzzWireRoute webview =
       BuzzWireRoute(path: "/webview", name: "webview");

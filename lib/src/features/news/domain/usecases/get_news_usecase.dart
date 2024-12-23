@@ -6,11 +6,11 @@ import 'package:buzzwire/src/features/news/domain/repository/news_repository.dar
 import 'package:fpdart/src/either.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'get_news_usecase.g.dart';
+// part 'get_news_usecase.g.dart';
 
-@riverpod
-GetNews getNews(GetNewsRef ref) =>
-    GetNews(repository: ref.read(newsRepositoryProvider));
+// @riverpod
+// GetNews getNews(GetNewsRef ref) =>
+//     GetNews(repository: ref.read(newsRepositoryProvider));
 
 class GetNews implements UseCaseFuture<NewsEntity, GetNewsParams> {
   final NewsRepository repository;

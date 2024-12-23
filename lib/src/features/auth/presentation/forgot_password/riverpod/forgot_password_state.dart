@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'forgot_password_state.freezed.dart';

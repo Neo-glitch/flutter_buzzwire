@@ -1,18 +1,16 @@
-import 'package:buzzwire/core/common/widgets/buzzwire_image_card.dart';
+import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/core/utils/helpers/date_helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsCard extends StatefulWidget {
-  final String news;
   final ArticleEntity article;
   final void Function(ArticleEntity article)? onSave;
   final void Function(ArticleEntity articleEntity)? onClick;
-  const NewsCard(this.news,
-      {super.key, required this.article, this.onSave, this.onClick});
+  const NewsCard({super.key, required this.article, this.onSave, this.onClick});
 
   @override
   State<NewsCard> createState() => _NewsCardState();
@@ -21,15 +19,23 @@ class NewsCard extends StatefulWidget {
 class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildImageSection(widget.article),
-          _buildNewsContentSection(context, widget.article),
-        ],
+    return GestureDetector(
+      onTap: () {
+        if (widget.onClick != null) {
+          widget.onClick!(widget.article);
+        }
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: SizedBox(
+        height: 120,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildImageSection(widget.article),
+            _buildNewsContentSection(context, widget.article),
+          ],
+        ),
       ),
     );
   }
@@ -48,8 +54,7 @@ class _NewsCardState extends State<NewsCard> {
             Text(
               article.source?.name.orEmpty ?? "",
               overflow: TextOverflow.ellipsis,
-              style:
-                  Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
+              style: context.bodySmall?.copyWith(fontSize: 10),
               maxLines: 1,
             ),
             const SizedBox(height: 2),
@@ -60,9 +65,7 @@ class _NewsCardState extends State<NewsCard> {
                     article.title.orEmpty,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
+                    style: context.bodyMedium
                         ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -70,6 +73,9 @@ class _NewsCardState extends State<NewsCard> {
                   iconSize: 16,
                   onPressed: () {
                     setState(() {
+                      if (widget.onSave != null) {
+                        widget.onSave!(article);
+                      }
                       article.isSaved = !article.isSaved;
                     });
                   },
@@ -87,8 +93,7 @@ class _NewsCardState extends State<NewsCard> {
                 article.publishedAt.orEmpty,
               ),
               maxLines: 1,
-              style:
-                  Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
+              style: context.bodySmall?.copyWith(fontSize: 10),
             ),
           ],
         ),
