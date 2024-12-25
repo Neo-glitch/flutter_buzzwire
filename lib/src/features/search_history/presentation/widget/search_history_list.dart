@@ -30,7 +30,7 @@ class _SearchHistoryListState extends State<SearchHistoryList> {
         return _buildItem(searchHistory);
       },
       separatorBuilder: (ctx, idx) {
-        return const Gap(15);
+        return const Gap(20);
       },
       itemCount: widget.searchHistories.length,
     );

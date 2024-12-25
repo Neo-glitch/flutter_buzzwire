@@ -178,17 +178,6 @@ class _$SearchHistoryDao extends SearchHistoryDao {
   }
 
   @override
-  Future<bool?> doesSearchHistoryExist(
-    String search,
-    String articleTitle,
-  ) async {
-    return _queryAdapter.query(
-        'SELECT EXISTS(       SELECT 1 FROM search_history       WHERE          (?1 != \'\' AND search = ?1)          OR (?2 != \'\' AND article.title = ?2)       LIMIT 1     )',
-        mapper: (Map<String, Object?> row) => (row.values.first as int) != 0,
-        arguments: [search, articleTitle]);
-  }
-
-  @override
   Future<void> insertSearchHistory(
       SearchHistoryModel searchHistoryModel) async {
     await _searchHistoryModelInsertionAdapter.insert(

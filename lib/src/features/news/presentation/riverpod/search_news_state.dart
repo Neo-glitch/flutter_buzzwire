@@ -10,6 +10,7 @@ class SearchNewsState with _$SearchNewsState {
   const factory SearchNewsState({
     @Default(Empty()) LoadState loadState,
     @Default([]) List<SearchHistoryEntity> searchHistories,
+    @Default([]) List<ArticleEntity> savedArticles,
     @Default([]) List<ArticleEntity> searchResults,
     @Default(1) int currentPage,
     @Default(1) int lastPage,

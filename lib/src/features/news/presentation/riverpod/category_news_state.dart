@@ -11,5 +11,6 @@ class CategoryNewsState with _$CategoryNewsState {
     @Default(1) int currentPage,
     @Default(1) int lastPage,
     @Default([]) List<ArticleEntity> articles,
+    @Default([]) List<ArticleEntity> savedArticles,
   }) = _CategoryNewsState;
 }

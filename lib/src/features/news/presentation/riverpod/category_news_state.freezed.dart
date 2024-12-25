@@ -20,6 +20,7 @@ mixin _$CategoryNewsState {
   int get currentPage => throw _privateConstructorUsedError;
   int get lastPage => throw _privateConstructorUsedError;
   List<ArticleEntity> get articles => throw _privateConstructorUsedError;
+  List<ArticleEntity> get savedArticles => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryNewsStateCopyWith<CategoryNewsState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $CategoryNewsStateCopyWith<$Res> {
       {LoadState loadState,
       int currentPage,
       int lastPage,
-      List<ArticleEntity> articles});
+      List<ArticleEntity> articles,
+      List<ArticleEntity> savedArticles});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$CategoryNewsStateCopyWithImpl<$Res, $Val extends CategoryNewsState>
     Object? currentPage = null,
     Object? lastPage = null,
     Object? articles = null,
+    Object? savedArticles = null,
   }) {
     return _then(_value.copyWith(
       loadState: null == loadState
@@ -74,6 +77,10 @@ class _$CategoryNewsStateCopyWithImpl<$Res, $Val extends CategoryNewsState>
           ? _value.articles
           : articles // ignore: cast_nullable_to_non_nullable
               as List<ArticleEntity>,
+      savedArticles: null == savedArticles
+          ? _value.savedArticles
+          : savedArticles // ignore: cast_nullable_to_non_nullable
+              as List<ArticleEntity>,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$CategoryNewsStateImplCopyWith<$Res>
       {LoadState loadState,
       int currentPage,
       int lastPage,
-      List<ArticleEntity> articles});
+      List<ArticleEntity> articles,
+      List<ArticleEntity> savedArticles});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$CategoryNewsStateImplCopyWithImpl<$Res>
     Object? currentPage = null,
     Object? lastPage = null,
     Object? articles = null,
+    Object? savedArticles = null,
   }) {
     return _then(_$CategoryNewsStateImpl(
       loadState: null == loadState
@@ -126,6 +135,10 @@ class __$$CategoryNewsStateImplCopyWithImpl<$Res>
           ? _value._articles
           : articles // ignore: cast_nullable_to_non_nullable
               as List<ArticleEntity>,
+      savedArticles: null == savedArticles
+          ? _value._savedArticles
+          : savedArticles // ignore: cast_nullable_to_non_nullable
+              as List<ArticleEntity>,
     ));
   }
 }
@@ -137,8 +150,10 @@ class _$CategoryNewsStateImpl implements _CategoryNewsState {
       {this.loadState = const Empty(),
       this.currentPage = 1,
       this.lastPage = 1,
-      final List<ArticleEntity> articles = const []})
-      : _articles = articles;
+      final List<ArticleEntity> articles = const [],
+      final List<ArticleEntity> savedArticles = const []})
+      : _articles = articles,
+        _savedArticles = savedArticles;
 
   @override
   @JsonKey()
@@ -158,9 +173,18 @@ class _$CategoryNewsStateImpl implements _CategoryNewsState {
     return EqualUnmodifiableListView(_articles);
   }
 
+  final List<ArticleEntity> _savedArticles;
+  @override
+  @JsonKey()
+  List<ArticleEntity> get savedArticles {
+    if (_savedArticles is EqualUnmodifiableListView) return _savedArticles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_savedArticles);
+  }
+
   @override
   String toString() {
-    return 'CategoryNewsState(loadState: $loadState, currentPage: $currentPage, lastPage: $lastPage, articles: $articles)';
+    return 'CategoryNewsState(loadState: $loadState, currentPage: $currentPage, lastPage: $lastPage, articles: $articles, savedArticles: $savedArticles)';
   }
 
   @override
@@ -174,12 +198,19 @@ class _$CategoryNewsStateImpl implements _CategoryNewsState {
                 other.currentPage == currentPage) &&
             (identical(other.lastPage, lastPage) ||
                 other.lastPage == lastPage) &&
-            const DeepCollectionEquality().equals(other._articles, _articles));
+            const DeepCollectionEquality().equals(other._articles, _articles) &&
+            const DeepCollectionEquality()
+                .equals(other._savedArticles, _savedArticles));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loadState, currentPage, lastPage,
-      const DeepCollectionEquality().hash(_articles));
+  int get hashCode => Object.hash(
+      runtimeType,
+      loadState,
+      currentPage,
+      lastPage,
+      const DeepCollectionEquality().hash(_articles),
+      const DeepCollectionEquality().hash(_savedArticles));
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +225,8 @@ abstract class _CategoryNewsState implements CategoryNewsState {
       {final LoadState loadState,
       final int currentPage,
       final int lastPage,
-      final List<ArticleEntity> articles}) = _$CategoryNewsStateImpl;
+      final List<ArticleEntity> articles,
+      final List<ArticleEntity> savedArticles}) = _$CategoryNewsStateImpl;
 
   @override
   LoadState get loadState;
@@ -204,6 +236,8 @@ abstract class _CategoryNewsState implements CategoryNewsState {
   int get lastPage;
   @override
   List<ArticleEntity> get articles;
+  @override
+  List<ArticleEntity> get savedArticles;
   @override
   @JsonKey(ignore: true)
   _$$CategoryNewsStateImplCopyWith<_$CategoryNewsStateImpl> get copyWith =>

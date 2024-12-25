@@ -1,6 +1,7 @@
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/core/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/core/utils/helpers/helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsCard extends StatefulWidget {
   final ArticleEntity article;
-  final void Function(ArticleEntity article)? onSave;
+  final Future<bool> Function(ArticleEntity article)? onSave;
   final void Function(ArticleEntity articleEntity)? onClick;
   const NewsCard({super.key, required this.article, this.onSave, this.onClick});
 
@@ -24,7 +25,7 @@ class _NewsCardState extends State<NewsCard> {
         if (widget.onClick != null) {
           widget.onClick!(widget.article);
         }
-        FocusManager.instance.primaryFocus?.unfocus();
+        BuzzWireHelperFunctions.hideKeyboard();
       },
       child: SizedBox(
         height: 120,
@@ -71,13 +72,19 @@ class _NewsCardState extends State<NewsCard> {
                 ),
                 IconButton(
                   iconSize: 16,
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
-                      if (widget.onSave != null) {
-                        widget.onSave!(article);
-                      }
                       article.isSaved = !article.isSaved;
                     });
+
+                    if (widget.onSave != null) {
+                      final isSuccess = await widget.onSave!(article);
+                      if (!isSuccess) {
+                        setState(() {
+                          article.isSaved = !article.isSaved;
+                        });
+                      }
+                    }
                   },
                   icon: FaIcon(
                     article.isSaved

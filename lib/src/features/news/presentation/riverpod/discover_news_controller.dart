@@ -38,7 +38,7 @@ class DiscoverNewsController extends _$DiscoverNewsController {
     bool isAllFailure = responses.every((response) => response.isLeft());
 
     if (isAllFailure) {
-      // show erro view only when all responses return failure
+      // show error view only when all responses return failure
       Either<Failure, NewsEntity> firstFailure =
           responses.firstWhere((response) => response.isLeft());
       final errorMessage = firstFailure.fold((l) => l, (r) => null)!.message;

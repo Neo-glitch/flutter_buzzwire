@@ -4,6 +4,7 @@ import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_d
 import 'package:buzzwire/src/features/news/data/repository/news_repository_impl.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/clear_saved_articles_usecase.dart';
+import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/get_headlines_by_category_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/get_headlines_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/get_news_sources_usecase.dart';
@@ -47,4 +48,7 @@ Future<void> provideNewsDependencies() async {
 
   injector
       .registerFactory<SaveArticle>(() => SaveArticle(repository: injector()));
+
+  injector.registerFactory<DeleteSavedArticle>(
+      () => DeleteSavedArticle(repository: injector()));
 }

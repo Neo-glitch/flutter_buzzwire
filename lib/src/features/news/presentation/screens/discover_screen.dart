@@ -1,8 +1,3 @@
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_search_bar.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
@@ -10,9 +5,12 @@ import 'package:buzzwire/src/features/news/presentation/riverpod/discover_news_c
 import 'package:buzzwire/src/features/news/presentation/riverpod/discover_news_state.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/news_headline.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/trending_news_list.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +43,12 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: _buildBody(uiState),
+        body: Column(
+          children: [
+            _buildSearchBar(),
+            _buildBody(uiState),
+          ],
+        ),
       ),
     );
   }
@@ -56,53 +59,53 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     }
 
     if (uiState.loadState is Loading) {
-      return const BuzzWireProgressLoader();
+      return const Expanded(child: BuzzWireProgressLoader());
     }
 
-    if (uiState is Error) {
+    if (uiState.loadState is Error) {
       final message = (uiState.loadState as Error).message;
-      return BuzzWireEmptyOrErrorScreen.error(
-        message: message,
-        onPressed: () {},
+      return Expanded(
+        child: BuzzWireEmptyOrErrorScreen.error(
+          message: message,
+          onPressed: () {
+            ref.read(discoverNewsControllerProvider.notifier).fetchItems();
+          },
+        ),
       );
     }
 
-    return SingleChildScrollView(
-      child: Padding(
+    return Expanded(
+      child: ListView(
         padding: const EdgeInsets.only(bottom: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSearchBar(),
-            if (uiState.breakingNewsItems.isNotEmpty)
-              _buildBreakingNewsSection(uiState.breakingNewsItems),
-            if (uiState.firstTrendingNewsList.isNotEmpty)
-              _buildTrendingNewsSection(
-                context,
-                trendingNewsTopics[0],
-                uiState.firstTrendingNewsList,
-              ),
-            if (uiState.secondTrendingNewsList.isNotEmpty)
-              _buildTrendingNewsSection(
-                context,
-                trendingNewsTopics[1],
-                uiState.secondTrendingNewsList,
-              ),
-            if (uiState.thirdTrendingNewsList.isNotEmpty)
-              _buildTrendingNewsSection(
-                context,
-                trendingNewsTopics[2],
-                uiState.thirdTrendingNewsList,
-              ),
-          ],
-        ),
+        children: [
+          if (uiState.breakingNewsItems.isNotEmpty)
+            _buildBreakingNewsSection(uiState.breakingNewsItems),
+          if (uiState.firstTrendingNewsList.isNotEmpty)
+            _buildTrendingNewsSection(
+              context,
+              trendingNewsTopics[0],
+              uiState.firstTrendingNewsList,
+            ),
+          if (uiState.secondTrendingNewsList.isNotEmpty)
+            _buildTrendingNewsSection(
+              context,
+              trendingNewsTopics[1],
+              uiState.secondTrendingNewsList,
+            ),
+          if (uiState.thirdTrendingNewsList.isNotEmpty)
+            _buildTrendingNewsSection(
+              context,
+              trendingNewsTopics[2],
+              uiState.thirdTrendingNewsList,
+            ),
+        ],
       ),
     );
   }
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: BuzzWireSearchBar(
         onTap: () {
           context.pushNamed(BuzzWireRoute.searchNews.name);
@@ -131,7 +134,9 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
           child: TrendingNewsList(
             itemWidth: 200,
             articles: articles,
-            onItemClick: (article) {},
+            onItemClick: (article) {
+              _navToNewsDetailsScreen(article);
+            },
           ),
         ),
       ],
@@ -179,15 +184,17 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
           const Gap(14),
           NewsHeadline(
             articles: breakingNewsItems,
-            onItemClick: (articleEntity) {},
+            onItemClick: (articleEntity) {
+              _navToNewsDetailsScreen(articleEntity);
+            },
           ),
         ],
       ),
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
+  PreferredSizeWidget _buildAppBar() {
+    return BuzzWireAppBar(
       title: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +212,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     );
   }
 
-  void navToNewsDetailsScreen(ArticleEntity article) {
-    // context.goNamed(name)
+  void _navToNewsDetailsScreen(ArticleEntity article) {
+    context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
   }
 }

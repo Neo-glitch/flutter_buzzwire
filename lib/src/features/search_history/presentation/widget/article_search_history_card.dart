@@ -35,7 +35,8 @@ class ArticleSearchHistoryCard extends StatelessWidget {
               children: [
                 Text(
                   title.orEmpty,
-                  maxLines: 4,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                   style: context.bodyMedium?.copyWith(fontSize: 12),
                 ),
                 const Gap(20),

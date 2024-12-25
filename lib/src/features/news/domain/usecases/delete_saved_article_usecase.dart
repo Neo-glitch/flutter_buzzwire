@@ -4,10 +4,10 @@ import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class DeleteSavedArticleUsecase implements UseCaseFutureVoid<ArticleEntity> {
+class DeleteSavedArticle implements UseCaseFutureVoid<ArticleEntity> {
   final NewsRepository repository;
 
-  DeleteSavedArticleUsecase({required this.repository});
+  DeleteSavedArticle({required this.repository});
 
   @override
   Future<Either<Failure, void>> call(ArticleEntity entity) {

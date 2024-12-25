@@ -33,3 +33,17 @@ class DeleteSearchHistoryEvent extends SearchNewsEvent {
 class GetSearchHistoryEvent extends SearchNewsEvent {}
 
 class ResetLoadSateEvent extends SearchNewsEvent {}
+
+class SaveArticleEvent extends SearchNewsEvent {
+  final ArticleEntity article;
+
+  SaveArticleEvent({required this.article}) : super();
+}
+
+class DeleteSavedArticleEvent extends SearchNewsEvent {
+  final ArticleEntity article;
+
+  DeleteSavedArticleEvent({required this.article}) : super();
+}
+
+class GetSavedArticlesEvent extends SearchNewsEvent {}

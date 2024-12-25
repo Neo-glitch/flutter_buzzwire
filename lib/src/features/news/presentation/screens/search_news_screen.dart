@@ -1,4 +1,6 @@
+import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/helpers/debouncer.dart';
+import 'package:buzzwire/core/utils/helpers/helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_event.dart';
@@ -16,6 +18,7 @@ import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_search_bar.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchNewsScreen extends ConsumerStatefulWidget {
   const SearchNewsScreen({super.key});
@@ -33,9 +36,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      ref
-          .read(searchNewsControllerProvider.notifier)
-          .onEvent(GetSearchHistoryEvent());
+      init();
     });
   }
 
@@ -57,28 +58,22 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
             onSearch: (value) {
               if (value.isNotEmpty) {
                 _debouncer.run(() {
-                  ref
-                      .read(searchNewsControllerProvider.notifier)
-                      .onEvent(QueryNewsEvent(value));
+                  _searchNews(value);
                 });
               } else {
                 _debouncer.cancel();
-                ref
-                    .read(searchNewsControllerProvider.notifier)
-                    .onEvent(ResetLoadSateEvent());
+                _resetLoadState();
               }
             },
             onClear: () {
               _debouncer.cancel();
-              ref
-                  .read(searchNewsControllerProvider.notifier)
-                  .onEvent(ResetLoadSateEvent());
+              _resetLoadState();
             },
             onEditingComplete: () {
               if (_searchController.text.isNotEmpty) {
                 ref.read(searchNewsControllerProvider.notifier).onEvent(
                     SaveSearchHistoryEvent(search: _searchController.text));
-                FocusManager.instance.primaryFocus?.unfocus();
+                BuzzWireHelperFunctions.hideKeyboard();
               }
             },
           ),
@@ -106,12 +101,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
 
     return ScrollNotificationHandler(
       child: _buildSearchResultList(uiState),
-      loadMore: () => ref
-          .read(searchNewsControllerProvider.notifier)
-          .onEvent(FetchNewsEvent(
-            query: _searchController.text,
-            page: uiState.currentPage + 1,
-          )),
+      loadMore: () => _fetchMoreNews(uiState),
       canLoadMoreData: () =>
           uiState.loadState is! Loading &&
           uiState.currentPage < uiState.lastPage,
@@ -160,7 +150,12 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
           onClick: (article) {
             _navToNewsDetailsScreen(article);
           },
-          onSave: (article) {},
+          onSave: (article) async {
+            final result = article.isSaved
+                ? await _bookmarkArticle(article)
+                : await _unbookmarkArticle(article);
+            return result;
+          },
         );
       }),
       separatorBuilder: (ctx, idx) => const Gap(15),
@@ -169,7 +164,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   }
 
   void _onDeleteSearchHistory(SearchHistoryEntity history) {
-    FocusManager.instance.primaryFocus?.unfocus();
+    BuzzWireHelperFunctions.hideKeyboard();
     ref
         .read(searchNewsControllerProvider.notifier)
         .onEvent(DeleteSearchHistoryEvent(searchHistory: history));
@@ -177,21 +172,60 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
 
   void _onClickSearchHistory(SearchHistoryEntity history) {
     if (history.search != null) {
-      FocusManager.instance.primaryFocus?.unfocus();
+      BuzzWireHelperFunctions.hideKeyboard();
       _searchController.text = history.search!;
-      ref
-          .read(searchNewsControllerProvider.notifier)
-          .onEvent(QueryNewsEvent(history.search!));
-    } else if (history.article != null) {
+      _searchNews(history.search!);
+    } else {
       _navToNewsDetailsScreen(history.article!);
     }
   }
 
   void _navToNewsDetailsScreen(ArticleEntity article) {
-    ref
-        .read(searchNewsControllerProvider.notifier)
-        .onEvent(SaveSearchHistoryEvent(article: article));
+    context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
   }
 
-  void _saveNews(ArticleEntity article) {}
+  Future<bool> _bookmarkArticle(ArticleEntity article) async {
+    final result = await ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(SaveArticleEvent(article: article));
+    return result as bool;
+  }
+
+  Future<bool> _unbookmarkArticle(ArticleEntity article) async {
+    final result = await ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(DeleteSavedArticleEvent(article: article));
+    return result as bool;
+  }
+
+  void _fetchMoreNews(SearchNewsState uiState) {
+    ref.read(searchNewsControllerProvider.notifier).onEvent(
+          FetchNewsEvent(
+            query: _searchController.text,
+            page: uiState.currentPage + 1,
+          ),
+        );
+  }
+
+  void _searchNews(String query) {
+    ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(QueryNewsEvent(query));
+  }
+
+  void _resetLoadState() {
+    ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(ResetLoadSateEvent());
+  }
+
+  void init() {
+    ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(GetSearchHistoryEvent());
+
+    ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(GetSavedArticlesEvent());
+  }
 }

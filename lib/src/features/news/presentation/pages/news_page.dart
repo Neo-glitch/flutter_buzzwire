@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/src/shared/presentation/pagination/pagination_sliver_list_view.dart';
 import 'package:buzzwire/src/shared/presentation/pagination/scroll_notification_handler.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
@@ -10,6 +11,7 @@ import 'package:buzzwire/src/features/news/presentation/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class NewsPage extends ConsumerStatefulWidget {
   final String category;
@@ -26,9 +28,7 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      ref
-          .read(categoryNewsControllerProvider(widget.category).notifier)
-          .fetchNews(1);
+      _init();
     });
   }
 
@@ -99,8 +99,17 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
   Widget buildItem(ArticleEntity article) {
     return NewsCard(
       article: article,
-      onClick: (article) {},
-      onSave: (article) {},
+      onClick: (article) {
+        context.pushNamed(
+          BuzzWireRoute.newsDetails.name,
+          extra: article,
+        );
+      },
+      onSave: (article) async {
+        return article.isSaved
+            ? await _bookmarkArticle(article)
+            : await _unbookmarkArticle(article);
+      },
     );
   }
 
@@ -114,5 +123,28 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
     return uiState.currentPage < uiState.lastPage &&
         uiState.loadState is! Loading &&
         widget.isActivePage();
+  }
+
+  void _init() {
+    ref
+        .read(categoryNewsControllerProvider(widget.category).notifier)
+        .fetchSavedArticles();
+    ref
+        .read(categoryNewsControllerProvider(widget.category).notifier)
+        .fetchNews(1);
+  }
+
+  Future<bool> _bookmarkArticle(ArticleEntity article) async {
+    final result = await ref
+        .read(categoryNewsControllerProvider(widget.category).notifier)
+        .bookmarkArticle(article);
+    return result;
+  }
+
+  Future<bool> _unbookmarkArticle(ArticleEntity article) async {
+    final result = await ref
+        .read(categoryNewsControllerProvider(widget.category).notifier)
+        .unBookmarkArticle(article);
+    return result;
   }
 }

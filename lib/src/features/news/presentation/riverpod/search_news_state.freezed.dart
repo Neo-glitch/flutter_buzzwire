@@ -19,6 +19,7 @@ mixin _$SearchNewsState {
   LoadState get loadState => throw _privateConstructorUsedError;
   List<SearchHistoryEntity> get searchHistories =>
       throw _privateConstructorUsedError;
+  List<ArticleEntity> get savedArticles => throw _privateConstructorUsedError;
   List<ArticleEntity> get searchResults => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
   int get lastPage => throw _privateConstructorUsedError;
@@ -37,6 +38,7 @@ abstract class $SearchNewsStateCopyWith<$Res> {
   $Res call(
       {LoadState loadState,
       List<SearchHistoryEntity> searchHistories,
+      List<ArticleEntity> savedArticles,
       List<ArticleEntity> searchResults,
       int currentPage,
       int lastPage});
@@ -57,6 +59,7 @@ class _$SearchNewsStateCopyWithImpl<$Res, $Val extends SearchNewsState>
   $Res call({
     Object? loadState = null,
     Object? searchHistories = null,
+    Object? savedArticles = null,
     Object? searchResults = null,
     Object? currentPage = null,
     Object? lastPage = null,
@@ -70,6 +73,10 @@ class _$SearchNewsStateCopyWithImpl<$Res, $Val extends SearchNewsState>
           ? _value.searchHistories
           : searchHistories // ignore: cast_nullable_to_non_nullable
               as List<SearchHistoryEntity>,
+      savedArticles: null == savedArticles
+          ? _value.savedArticles
+          : savedArticles // ignore: cast_nullable_to_non_nullable
+              as List<ArticleEntity>,
       searchResults: null == searchResults
           ? _value.searchResults
           : searchResults // ignore: cast_nullable_to_non_nullable
@@ -97,6 +104,7 @@ abstract class _$$SearchNewsStateImplCopyWith<$Res>
   $Res call(
       {LoadState loadState,
       List<SearchHistoryEntity> searchHistories,
+      List<ArticleEntity> savedArticles,
       List<ArticleEntity> searchResults,
       int currentPage,
       int lastPage});
@@ -115,6 +123,7 @@ class __$$SearchNewsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? loadState = null,
     Object? searchHistories = null,
+    Object? savedArticles = null,
     Object? searchResults = null,
     Object? currentPage = null,
     Object? lastPage = null,
@@ -128,6 +137,10 @@ class __$$SearchNewsStateImplCopyWithImpl<$Res>
           ? _value._searchHistories
           : searchHistories // ignore: cast_nullable_to_non_nullable
               as List<SearchHistoryEntity>,
+      savedArticles: null == savedArticles
+          ? _value._savedArticles
+          : savedArticles // ignore: cast_nullable_to_non_nullable
+              as List<ArticleEntity>,
       searchResults: null == searchResults
           ? _value._searchResults
           : searchResults // ignore: cast_nullable_to_non_nullable
@@ -150,10 +163,12 @@ class _$SearchNewsStateImpl implements _SearchNewsState {
   const _$SearchNewsStateImpl(
       {this.loadState = const Empty(),
       final List<SearchHistoryEntity> searchHistories = const [],
+      final List<ArticleEntity> savedArticles = const [],
       final List<ArticleEntity> searchResults = const [],
       this.currentPage = 1,
       this.lastPage = 1})
       : _searchHistories = searchHistories,
+        _savedArticles = savedArticles,
         _searchResults = searchResults;
 
   @override
@@ -166,6 +181,15 @@ class _$SearchNewsStateImpl implements _SearchNewsState {
     if (_searchHistories is EqualUnmodifiableListView) return _searchHistories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_searchHistories);
+  }
+
+  final List<ArticleEntity> _savedArticles;
+  @override
+  @JsonKey()
+  List<ArticleEntity> get savedArticles {
+    if (_savedArticles is EqualUnmodifiableListView) return _savedArticles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_savedArticles);
   }
 
   final List<ArticleEntity> _searchResults;
@@ -186,7 +210,7 @@ class _$SearchNewsStateImpl implements _SearchNewsState {
 
   @override
   String toString() {
-    return 'SearchNewsState(loadState: $loadState, searchHistories: $searchHistories, searchResults: $searchResults, currentPage: $currentPage, lastPage: $lastPage)';
+    return 'SearchNewsState(loadState: $loadState, searchHistories: $searchHistories, savedArticles: $savedArticles, searchResults: $searchResults, currentPage: $currentPage, lastPage: $lastPage)';
   }
 
   @override
@@ -198,6 +222,8 @@ class _$SearchNewsStateImpl implements _SearchNewsState {
                 other.loadState == loadState) &&
             const DeepCollectionEquality()
                 .equals(other._searchHistories, _searchHistories) &&
+            const DeepCollectionEquality()
+                .equals(other._savedArticles, _savedArticles) &&
             const DeepCollectionEquality()
                 .equals(other._searchResults, _searchResults) &&
             (identical(other.currentPage, currentPage) ||
@@ -211,6 +237,7 @@ class _$SearchNewsStateImpl implements _SearchNewsState {
       runtimeType,
       loadState,
       const DeepCollectionEquality().hash(_searchHistories),
+      const DeepCollectionEquality().hash(_savedArticles),
       const DeepCollectionEquality().hash(_searchResults),
       currentPage,
       lastPage);
@@ -227,6 +254,7 @@ abstract class _SearchNewsState implements SearchNewsState {
   const factory _SearchNewsState(
       {final LoadState loadState,
       final List<SearchHistoryEntity> searchHistories,
+      final List<ArticleEntity> savedArticles,
       final List<ArticleEntity> searchResults,
       final int currentPage,
       final int lastPage}) = _$SearchNewsStateImpl;
@@ -235,6 +263,8 @@ abstract class _SearchNewsState implements SearchNewsState {
   LoadState get loadState;
   @override
   List<SearchHistoryEntity> get searchHistories;
+  @override
+  List<ArticleEntity> get savedArticles;
   @override
   List<ArticleEntity> get searchResults;
   @override

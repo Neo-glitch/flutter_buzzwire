@@ -3,7 +3,11 @@ import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/list_extension.dart';
 import 'package:buzzwire/core/utils/extensions/num_extension.dart';
 import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
+import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/get_news_usecase.dart';
+import 'package:buzzwire/src/features/news/domain/usecases/get_saved_articles_usecase.dart';
+import 'package:buzzwire/src/features/news/domain/usecases/save_article_usecase.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_event.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_state.dart';
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';
@@ -20,6 +24,9 @@ class SearchNewsController extends _$SearchNewsController {
   late GetSearchHistory _getSearchHistory;
   late DeleteSearchHistory _deleteSearchHistory;
   late SaveSearchHistory _saveSearchHistory;
+  late SaveArticle _saveArticle;
+  late DeleteSavedArticle _deleteSavedArticle;
+  late GetSavedArticles _getSavedArticles;
   late GetNews _getNews;
 
   @override
@@ -28,27 +35,39 @@ class SearchNewsController extends _$SearchNewsController {
     _deleteSearchHistory = injector();
     _saveSearchHistory = injector();
     _getNews = injector();
+    _saveArticle = injector();
+    _deleteSavedArticle = injector();
+    _getSavedArticles = injector();
     return const SearchNewsState();
   }
 
-  void onEvent(SearchNewsEvent event) {
+  Future<Object?> onEvent(SearchNewsEvent event) async {
     switch (event) {
       case QueryNewsEvent():
         _searchNews(event);
+        return null;
       case FetchNewsEvent():
         _fetchNews(event);
+        return null;
       case SaveSearchHistoryEvent():
         _saveSearch(event);
-        break;
+        return null;
       case DeleteSearchHistoryEvent():
         _deleteSearch(event);
-        break;
+        return null;
       case GetSearchHistoryEvent():
         _getSearch();
-        break;
+        return null;
       case ResetLoadSateEvent():
         state = state.copyWith(loadState: const Empty());
-        break;
+        return null;
+      case SaveArticleEvent():
+        return await _bookmarkArticle(event);
+      case DeleteSavedArticleEvent():
+        return await _unBookmarkArticle(event);
+      case GetSavedArticlesEvent():
+        _fetchSavedArticles();
+        return null;
     }
   }
 
@@ -95,7 +114,7 @@ class SearchNewsController extends _$SearchNewsController {
         state = state.copyWith(
           currentPage: event.page,
           lastPage: lastPage,
-          searchResults: articles,
+          searchResults: _mapArticles(articles),
           loadState: const Loaded(),
         );
       },
@@ -117,9 +136,10 @@ class SearchNewsController extends _$SearchNewsController {
       (result) {
         final lastPage =
             (result.totalResults.orZero / BuzzWireDioHelper.pageSize).ceil();
+
         state = state.copyWith(
           loadState: const Loaded(),
-          searchResults: result.articles.orEmpty,
+          searchResults: _mapArticles(result.articles.orEmpty),
           currentPage: 1,
           lastPage: lastPage,
         );
@@ -127,7 +147,36 @@ class SearchNewsController extends _$SearchNewsController {
     );
   }
 
+  List<ArticleEntity> _mapArticles(List<ArticleEntity> articles) {
+    return articles.map((article) {
+      article.isSaved = state.savedArticles.contains(article);
+      return article;
+    }).toList();
+  }
+
   void _deleteSearch(DeleteSearchHistoryEvent event) async {
     await _deleteSearchHistory(event.searchHistory);
+  }
+
+  Future<bool> _bookmarkArticle(SaveArticleEvent event) async {
+    final result = await _saveArticle(event.article);
+    return result.fold((l) => false, (r) => true);
+  }
+
+  Future<bool> _unBookmarkArticle(DeleteSavedArticleEvent event) async {
+    final result = await _deleteSavedArticle(event.article);
+    return result.fold((l) => false, (r) => true);
+  }
+
+  void _fetchSavedArticles() {
+    _getSavedArticles(NoParams()).listen(
+      (result) {
+        final savedArticles = result.getOrElse((l) => []);
+        state = state.copyWith(savedArticles: savedArticles);
+        // to get updated state of the remote fetched articles
+        state =
+            state.copyWith(searchResults: _mapArticles(state.searchResults));
+      },
+    );
   }
 }

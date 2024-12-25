@@ -1,6 +1,7 @@
 import 'package:buzzwire/src/features/news/domain/entity/source_entity.dart';
+import 'package:equatable/equatable.dart';
 
-class ArticleEntity {
+class ArticleEntity extends Equatable {
   final int? id;
   final SourceEntity? source;
   final String? author;
@@ -10,7 +11,7 @@ class ArticleEntity {
   final String? image;
   final String? publishedAt;
   final String? content;
-  bool isSaved = false;
+  bool isSaved;
 
   ArticleEntity({
     this.id,
@@ -22,5 +23,18 @@ class ArticleEntity {
     required this.image,
     required this.publishedAt,
     required this.content,
+    this.isSaved = false,
   });
+
+  @override
+  List<Object?> get props => [
+        source,
+        author,
+        title,
+        description,
+        articleUrl,
+        image,
+        publishedAt,
+        content,
+      ];
 }
