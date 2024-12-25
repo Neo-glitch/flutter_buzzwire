@@ -12,31 +12,31 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 20),
-          child: SvgPicture.asset(
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
             onboardingItem.image,
             semanticsLabel: "OnBoarding Image",
-            fit: BoxFit.cover,
-            height: BuzzWireDeviceUtils.getScreenHeight(context) / 1.8,
+            fit: BoxFit.contain,
+            height: BuzzWireDeviceUtils.getScreenHeight(context) / 2,
           ),
-        ),
-        const Gap(10),
-        Text(
-          textAlign: TextAlign.center,
-          onboardingItem.title,
-          style: context.headlineLarge!.copyWith(fontWeight: FontWeight.w700),
-        ),
-        const Gap(20),
-        Text(
-          textAlign: TextAlign.center,
-          onboardingItem.description,
-          style: context.bodyMedium,
-        ),
-      ],
+          const Gap(10),
+          Text(
+            textAlign: TextAlign.center,
+            onboardingItem.title,
+            style: context.headlineLarge!.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const Gap(20),
+          Text(
+            textAlign: TextAlign.center,
+            onboardingItem.description,
+            style: context.bodyMedium,
+          ),
+        ],
+      ),
     );
   }
 }

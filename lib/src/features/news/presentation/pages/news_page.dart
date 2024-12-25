@@ -1,13 +1,14 @@
 import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_controller.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_state.dart';
+import 'package:buzzwire/src/features/news/presentation/widgets/news_card.dart';
 import 'package:buzzwire/src/shared/presentation/pagination/pagination_sliver_list_view.dart';
 import 'package:buzzwire/src/shared/presentation/pagination/scroll_notification_handler.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
-import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
-import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_controller.dart';
-import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_state.dart';
-import 'package:buzzwire/src/features/news/presentation/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -98,19 +99,14 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
 
   Widget buildItem(ArticleEntity article) {
     return NewsCard(
-      article: article,
-      onClick: (article) {
-        context.pushNamed(
-          BuzzWireRoute.newsDetails.name,
-          extra: article,
-        );
-      },
-      onSave: (article) async {
-        return article.isSaved
-            ? await _bookmarkArticle(article)
-            : await _unbookmarkArticle(article);
-      },
-    );
+        article: article,
+        onClick: (article) {
+          context.pushNamed(
+            BuzzWireRoute.newsDetails.name,
+            extra: article,
+          );
+        },
+        onSave: (article) => onSaveClick(article));
   }
 
   bool _isInitialLoading(CategoryNewsState uiState) =>
@@ -132,6 +128,29 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
     ref
         .read(categoryNewsControllerProvider(widget.category).notifier)
         .fetchNews(1);
+  }
+
+  Future<bool> onSaveClick(ArticleEntity article) async {
+    final bool isBookmarking = article.isSaved;
+    final bool result = isBookmarking
+        ? await _bookmarkArticle(article)
+        : await _unbookmarkArticle(article);
+
+    final String message = _getBookmarkMessage(isBookmarking, result);
+
+    if (mounted) {
+      context.showSnackBar(message);
+    }
+
+    return result;
+  }
+
+  String _getBookmarkMessage(bool isBookmarking, bool result) {
+    if (isBookmarking) {
+      return result ? "Article bookmarked" : "Failed to bookmark";
+    } else {
+      return result ? "Article unbookmarked" : "Failed to remove unbookmark";
+    }
   }
 
   Future<bool> _bookmarkArticle(ArticleEntity article) async {

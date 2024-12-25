@@ -2,7 +2,7 @@ import 'package:buzzwire/src/features/news/domain/entity/source_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class ArticleEntity extends Equatable {
-  final int? id;
+  int? id;
   final SourceEntity? source;
   final String? author;
   final String? title;

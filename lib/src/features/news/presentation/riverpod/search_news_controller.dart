@@ -149,7 +149,13 @@ class SearchNewsController extends _$SearchNewsController {
 
   List<ArticleEntity> _mapArticles(List<ArticleEntity> articles) {
     return articles.map((article) {
-      article.isSaved = state.savedArticles.contains(article);
+      final localArticle =
+          state.savedArticles.firstWhereOrNull((element) => article == element);
+
+      article
+        ..isSaved = localArticle != null
+        ..id = localArticle?.id;
+
       return article;
     }).toList();
   }

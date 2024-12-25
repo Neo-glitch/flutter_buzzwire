@@ -1,4 +1,5 @@
 import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/helpers/debouncer.dart';
 import 'package:buzzwire/core/utils/helpers/helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
@@ -146,21 +147,38 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
       itemBuilder: ((ctx, idx) {
         final article = uiState.searchResults[idx];
         return NewsCard(
-          article: article,
-          onClick: (article) {
-            _navToNewsDetailsScreen(article);
-          },
-          onSave: (article) async {
-            final result = article.isSaved
-                ? await _bookmarkArticle(article)
-                : await _unbookmarkArticle(article);
-            return result;
-          },
-        );
+            article: article,
+            onClick: (article) {
+              _navToNewsDetailsScreen(article);
+            },
+            onSave: (article) async => onSaveClick(article));
       }),
       separatorBuilder: (ctx, idx) => const Gap(15),
       itemCount: uiState.searchResults.length,
     );
+  }
+
+  Future<bool> onSaveClick(ArticleEntity article) async {
+    final bool isBookmarking = article.isSaved;
+    final bool result = isBookmarking
+        ? await _bookmarkArticle(article)
+        : await _unbookmarkArticle(article);
+
+    final String message = _getBookmarkMessage(isBookmarking, result);
+
+    if (mounted) {
+      context.showSnackBar(message);
+    }
+
+    return result;
+  }
+
+  String _getBookmarkMessage(bool isBookmarking, bool result) {
+    if (isBookmarking) {
+      return result ? "Article bookmarked" : "Failed to bookmark";
+    } else {
+      return result ? "Article unbookmarked" : "Failed to remove unbookmark";
+    }
   }
 
   void _onDeleteSearchHistory(SearchHistoryEntity history) {

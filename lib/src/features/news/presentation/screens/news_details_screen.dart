@@ -8,6 +8,7 @@ import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -58,10 +59,12 @@ class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
       actions: [
         IconButton(
           iconSize: 24,
-          onPressed: () {
+          onPressed: () async {
+            HapticFeedback.mediumImpact();
             ref
                 .read(newsDetailsControllerProvider.notifier)
                 .saveOrDeleteNewsArticle(widget.article);
+            await HapticFeedback.mediumImpact();
           },
           icon: FaIcon(icon),
         )

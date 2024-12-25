@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -46,10 +47,19 @@ extension ContextExtension<T> on BuildContext {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          backgroundColor: BuzzWireColors.darkerGrey,
+          behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),
-          content: Text(message),
+          showCloseIcon: true,
+          dismissDirection: DismissDirection.horizontal,
+          closeIconColor: secondaryColor,
+          content: Text(
+            message,
+            style: bodyMedium?.copyWith(color: Colors.white),
+          ),
           action: action != null
               ? SnackBarAction(
+                  textColor: secondaryColor,
                   label: "Retry",
                   onPressed: () {
                     action();

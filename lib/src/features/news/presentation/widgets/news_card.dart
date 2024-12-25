@@ -5,6 +5,7 @@ import 'package:buzzwire/core/utils/helpers/helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsCard extends StatefulWidget {
@@ -33,18 +34,15 @@ class _NewsCardState extends State<NewsCard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildImageSection(widget.article),
-            _buildNewsContentSection(context, widget.article),
+            _buildImageSection(),
+            _buildNewsContentSection(),
           ],
         ),
       ),
     );
   }
 
-  Expanded _buildNewsContentSection(
-    BuildContext context,
-    ArticleEntity article,
-  ) {
+  Expanded _buildNewsContentSection() {
     return Expanded(
       flex: 2,
       child: Padding(
@@ -53,7 +51,7 @@ class _NewsCardState extends State<NewsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              article.source?.name.orEmpty ?? "",
+              widget.article.source?.name.orEmpty ?? "",
               overflow: TextOverflow.ellipsis,
               style: context.bodySmall?.copyWith(fontSize: 10),
               maxLines: 1,
@@ -63,7 +61,7 @@ class _NewsCardState extends State<NewsCard> {
               children: [
                 Expanded(
                   child: Text(
-                    article.title.orEmpty,
+                    widget.article.title.orEmpty,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: context.bodyMedium
@@ -73,21 +71,22 @@ class _NewsCardState extends State<NewsCard> {
                 IconButton(
                   iconSize: 16,
                   onPressed: () async {
+                    HapticFeedback.mediumImpact();
                     setState(() {
-                      article.isSaved = !article.isSaved;
+                      widget.article.isSaved = !widget.article.isSaved;
                     });
 
                     if (widget.onSave != null) {
-                      final isSuccess = await widget.onSave!(article);
+                      final isSuccess = await widget.onSave!(widget.article);
                       if (!isSuccess) {
                         setState(() {
-                          article.isSaved = !article.isSaved;
+                          widget.article.isSaved = !widget.article.isSaved;
                         });
                       }
                     }
                   },
                   icon: FaIcon(
-                    article.isSaved
+                    widget.article.isSaved
                         ? FontAwesomeIcons.solidBookmark
                         : FontAwesomeIcons.bookmark,
                   ),
@@ -97,7 +96,7 @@ class _NewsCardState extends State<NewsCard> {
             const Spacer(),
             Text(
               BuzzWireDateHelperFunctions.formatTimeAgo(
-                article.publishedAt.orEmpty,
+                widget.article.publishedAt.orEmpty,
               ),
               maxLines: 1,
               style: context.bodySmall?.copyWith(fontSize: 10),
@@ -108,10 +107,10 @@ class _NewsCardState extends State<NewsCard> {
     );
   }
 
-  Expanded _buildImageSection(ArticleEntity article) {
+  Expanded _buildImageSection() {
     return Expanded(
       child: BuzzWireImageCard(
-        imageUrl: article.image.orEmpty,
+        imageUrl: widget.article.image.orEmpty,
         radius: 10,
         height: 120,
         placeHoldersSize: 80,
