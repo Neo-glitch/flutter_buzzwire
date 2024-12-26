@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -20,6 +21,7 @@ extension ContextExtension<T> on BuildContext {
   TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
   TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
   TextStyle? get labelMedium => Theme.of(this).textTheme.labelMedium;
+  TextStyle? get labelSmall => Theme.of(this).textTheme.labelSmall;
   TextStyle? get titleTextStyle => Theme.of(this).appBarTheme.titleTextStyle;
 
   // Colors
@@ -45,10 +47,19 @@ extension ContextExtension<T> on BuildContext {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          backgroundColor: BuzzWireColors.darkerGrey,
+          behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),
-          content: Text(message),
+          showCloseIcon: true,
+          dismissDirection: DismissDirection.horizontal,
+          closeIconColor: secondaryColor,
+          content: Text(
+            message,
+            style: bodyMedium?.copyWith(color: Colors.white),
+          ),
           action: action != null
               ? SnackBarAction(
+                  textColor: secondaryColor,
                   label: "Retry",
                   onPressed: () {
                     action();
@@ -114,12 +125,13 @@ extension ContextExtension<T> on BuildContext {
         });
   }
 
-  Future<bool?> showToast(String message) {
+  Future<bool?> showToast(String message,
+      [Toast toastLength = Toast.LENGTH_SHORT]) {
 // It's a plugin to show toast and we can with extension
     Fluttertoast.cancel();
     return Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: toastLength,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: secondaryColor,

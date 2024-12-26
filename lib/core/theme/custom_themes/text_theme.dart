@@ -14,7 +14,7 @@ class BuzzWireTextTheme {
     displayMedium: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.playFairDisplay,
         fontSize: 45.0,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
     displaySmall: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.playFairDisplay,
@@ -38,7 +38,7 @@ class BuzzWireTextTheme {
         color: BuzzWireColors.textBlack),
     titleLarge: const TextStyle().copyWith(
         fontSize: 22.0,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w500,
         color: BuzzWireColors.textBlack),
     titleMedium: const TextStyle().copyWith(
         fontSize: 20.0,
@@ -46,7 +46,7 @@ class BuzzWireTextTheme {
         color: BuzzWireColors.textBlack),
     titleSmall: const TextStyle().copyWith(
         fontSize: 18.0,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
         color: BuzzWireColors.textBlack),
     bodyLarge: const TextStyle().copyWith(
         fontSize: 16.0,
@@ -61,13 +61,19 @@ class BuzzWireTextTheme {
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack.withOpacity(0.5)),
     labelLarge: const TextStyle().copyWith(
-        fontSize: 12.0,
-        fontWeight: FontWeight.bold,
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
         color: BuzzWireColors.primary),
     labelMedium: const TextStyle().copyWith(
-        fontSize: 12.0,
-        fontWeight: FontWeight.bold,
-        color: BuzzWireColors.primary.withOpacity(0.5)),
+      fontSize: 12.0,
+      fontWeight: FontWeight.w500,
+      color: BuzzWireColors.primary.withOpacity(0.5),
+    ),
+    labelSmall: const TextStyle().copyWith(
+      fontSize: 11.0,
+      fontWeight: FontWeight.w500,
+      color: BuzzWireColors.primary.withOpacity(0.5),
+    ),
   );
 
   static TextTheme darkTextTheme = TextTheme(
@@ -79,7 +85,7 @@ class BuzzWireTextTheme {
     displayMedium: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.playFairDisplay,
         fontSize: 45.0,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),
     displaySmall: const TextStyle().copyWith(
         fontFamily: BuzzWireStrings.playFairDisplay,
@@ -103,15 +109,15 @@ class BuzzWireTextTheme {
         color: BuzzWireColors.textWhite),
     titleLarge: const TextStyle().copyWith(
         fontSize: 22.0,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w500,
         color: BuzzWireColors.textWhite),
     titleMedium: const TextStyle().copyWith(
-        fontSize: 20.0,
+        fontSize: 16.0,
         fontWeight: FontWeight.w500,
         color: BuzzWireColors.textWhite),
     titleSmall: const TextStyle().copyWith(
-        fontSize: 18.0,
-        fontWeight: FontWeight.w400,
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
         color: BuzzWireColors.textWhite),
     bodyLarge: const TextStyle().copyWith(
         fontSize: 16.0,
@@ -126,12 +132,18 @@ class BuzzWireTextTheme {
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite.withOpacity(0.5)),
     labelLarge: const TextStyle().copyWith(
-        fontSize: 12.0,
-        fontWeight: FontWeight.bold,
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
         color: BuzzWireColors.primary),
     labelMedium: const TextStyle().copyWith(
-        fontSize: 12.0,
-        fontWeight: FontWeight.bold,
-        color: BuzzWireColors.primary.withOpacity(0.5)),
+      fontSize: 12.0,
+      fontWeight: FontWeight.w500,
+      color: BuzzWireColors.primary.withOpacity(0.5),
+    ),
+    labelSmall: const TextStyle().copyWith(
+      fontSize: 11.0,
+      fontWeight: FontWeight.w500,
+      color: BuzzWireColors.primary.withOpacity(0.5),
+    ),
   );
 }

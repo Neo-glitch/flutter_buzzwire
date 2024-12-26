@@ -1,3 +1,5 @@
+import 'package:buzzwire/injector.dart';
+
 import '../../../../../core/usecase/usecase.dart';
 import '../../domain/usecase/read_entry_usecase.dart';
 import '../../domain/usecase/save_entry_usecase.dart';
@@ -12,8 +14,8 @@ class AppEntryController extends _$AppEntryController {
 
   @override
   bool build() {
-    _readEntry = ref.read(readEntryProvider);
-    _saveEntry = ref.read(saveEntryProvider);
+    _readEntry = injector();
+    _saveEntry = injector();
 
     return _readEntry(NoParams()).fold(
       (failure) => false,

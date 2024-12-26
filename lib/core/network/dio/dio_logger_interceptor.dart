@@ -14,7 +14,19 @@ class LoggerInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     final options = err.requestOptions;
     final requestPath = '${options.baseUrl}${options.path}';
-    logger.e('${options.method} request => $requestPath'); // Debug log
+    final queryParams = options.queryParameters;
+
+    // Construct the URL with query parameters
+    final uri = Uri.parse(requestPath).replace(
+      queryParameters: queryParams.map(
+        (key, value) => MapEntry(
+          key,
+          value.toString(),
+        ),
+      ),
+    );
+
+    logger.e('${options.method} request => $uri'); // Debug log
     logger.d('Error: ${err.error}, Message: ${err.message}'); // Error log
     return super.onError(err, handler);
   }
@@ -22,7 +34,19 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final requestPath = '${options.baseUrl}${options.path}';
-    logger.i('${options.method} request => $requestPath'); // Info log
+    final queryParams = options.queryParameters;
+
+    // Construct the URL with query parameters
+    final uri = Uri.parse(requestPath).replace(
+      queryParameters: queryParams.map(
+        (key, value) => MapEntry(
+          key,
+          value.toString(),
+        ),
+      ),
+    );
+    // Example: GET request => https://example.com/data?page=1&limit=20
+    logger.i('${options.method} request => $uri'); // Info Log
     return super.onRequest(options, handler);
   }
 

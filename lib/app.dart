@@ -1,3 +1,5 @@
+import 'package:buzzwire/src/shared/presentation/widgets/keyboard_dismiss_wrapper.dart';
+
 import 'app_view.dart';
 import 'core/constants/asset_strings.dart';
 import 'core/constants/colors.dart';
@@ -30,6 +32,11 @@ class App extends ConsumerWidget {
       themeMode: ThemeMode.system,
       theme: BuzzWireAppTheme.lightTheme,
       darkTheme: BuzzWireAppTheme.darkTheme,
+      builder: (context, child) {
+        return KeyboardDismissWrapper(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       // home: FlutterSplashScreen.fadeIn(
       //   backgroundColor: BuzzWireDeviceUtils.isDarkMode(context)
       //       ? BuzzWireColors.dark

@@ -103,6 +103,10 @@ class BuzzWireHelperFunctions {
     Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
   }
 
+  static void hideKeyboard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   // static void pushToScreen(BuildContext context, String path) {
   //   context.pushNamed(path);
   // }

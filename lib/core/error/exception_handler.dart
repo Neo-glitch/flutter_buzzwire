@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+
 import 'enums/fb_auth_error_type.dart';
 import 'error_text.dart';
 import 'firebase_error_codes.dart';
@@ -15,6 +17,8 @@ class ExceptionHandler {
       return _handleFirebaseAuthException(exception);
     } else if (exception is FirebaseException) {
       return _handleFirebaseFirestoreException(exception);
+    } else if (exception is DatabaseException) {
+      return _handleDatabaseException(exception);
     } else {
       return Exception(ErrorText.unknownError);
     }
@@ -28,11 +32,16 @@ class ExceptionHandler {
       DioExceptionType.sendTimeout => ErrorText.sendTimeoutError,
       DioExceptionType.badResponse =>
         _handleDioStatusCode(exception.response?.statusCode),
+      DioExceptionType.connectionError => ErrorText.noInternetError,
       DioExceptionType.unknown => _handleDioUnknownException(exception),
       _ => ErrorText.unknownError,
     };
 
     return ApiException(message: message);
+  }
+
+  static CacheException _handleDatabaseException(DatabaseException exception) {
+    return CacheException(message: ErrorText.unknownError);
   }
 
   static String _handleDioStatusCode(int? statusCode) {

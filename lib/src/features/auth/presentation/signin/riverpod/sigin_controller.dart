@@ -1,7 +1,8 @@
-import 'package:buzzwire/core/common/riverpod/load_state.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/core/error/enums/fb_auth_error_type.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/string_extensions.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
@@ -21,18 +22,18 @@ class SignInController extends _$SignInController {
 
   @override
   SigninState build() {
-    _signIn = ref.read(signInProvider);
-    _signOut = ref.read(signOutProvider);
-    _verifyEmail = ref.read(verifyEmailProvider);
+    _signIn = injector();
+    _signOut = injector();
+    _verifyEmail = injector();
     return const SigninState();
   }
 
   void signIn({required String email, required String password}) async {
     state = state.copyWith(loadState: const Loading());
-    final result =
+    final response =
         await _signIn(SignInParams(email: email, password: password));
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
@@ -41,9 +42,9 @@ class SignInController extends _$SignInController {
   }
 
   void verifyEmail() async {
-    final result = await _verifyEmail(NoParams());
+    final response = await _verifyEmail(NoParams());
 
-    result.fold(
+    response.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },

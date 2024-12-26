@@ -1,9 +1,6 @@
-import '../../../../../core/utils/logging/logger_helper.dart';
-import '../../presentation/signin/signin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_remote_datasource.g.dart';
+import '../../../../../core/utils/logging/logger_helper.dart';
 
 abstract class AuthRemoteDataSource {
   Stream<User?> authStateChanges();
@@ -13,11 +10,6 @@ abstract class AuthRemoteDataSource {
   Future<bool> verifyEmail();
   Future<void> sendVerificationEmail();
   Future<void> resetPassword(String emauil);
-}
-
-@riverpod
-AuthRemoteDataSource authRemoteDataSource(AuthRemoteDataSourceRef ref) {
-  return AuthRemoteDataSourceImpl(firebaseAuth: FirebaseAuth.instance);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {

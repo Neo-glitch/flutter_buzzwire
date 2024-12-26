@@ -3,6 +3,8 @@ class BuzzWireStrings {
   BuzzWireStrings._();
   // Global Texts
   static const String appTitle = 'BuzzWire';
+  static const String searchHistoryTableName = "search_history";
+  static const String savedNewsTableName = "saved_news";
 
   // OnBoarding Texts
   static const String onBoardingTitle1 = "Stay Informed";
@@ -36,6 +38,8 @@ class BuzzWireStrings {
   // Home
   static const String homeAppBarTitle = "Welcome Back!";
   static const String homeAppBarSubTitle = "Dat App Boy";
+  static const String defaultErrorScreenHeaderTitle = "An Error Occured";
+  static const String defaultEmptyScreenHeaderTitle = "No Results Found";
 
   // fontFamily
   static const String poppins = "Poppins";
