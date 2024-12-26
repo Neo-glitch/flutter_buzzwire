@@ -32,7 +32,7 @@ class BuzzWireAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onBackPressed != null ? onBackPressed!() : context.pop(),
             )
           : null,
-      leadingWidth: 30,
+      leadingWidth: 45,
     );
   }
 
