@@ -17,8 +17,9 @@ class BuzzWireColorScheme {
     onError: BuzzWireColors.white,
     background: BuzzWireColors.light,
     onBackground: BuzzWireColors.dark,
-    surface: BuzzWireColors.light,
+    surface: BuzzWireColors.white,
     onSurface: BuzzWireColors.dark,
+    surfaceTint: Colors.transparent,
   );
 
   static const darkTheme = ColorScheme(
@@ -33,7 +34,8 @@ class BuzzWireColorScheme {
     onError: BuzzWireColors.white,
     background: BuzzWireColors.dark,
     onBackground: BuzzWireColors.white,
-    surface: BuzzWireColors.dark,
+    surface: BuzzWireColors.black,
     onSurface: BuzzWireColors.white,
+    surfaceTint: Colors.transparent,
   );
 }

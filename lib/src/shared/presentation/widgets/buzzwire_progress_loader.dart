@@ -16,12 +16,12 @@ class BuzzWireProgressLoader extends StatelessWidget {
         ? Center(
             child: SpinKitWave(
               color: context.primaryColor,
-              size: 24,
+              size: 30,
             ),
           )
         : SpinKitFadingCircle(
             color: context.primaryColor,
-            size: 24,
+            size: 30,
           );
   }
 }

@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -88,8 +84,8 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
         navBarConfig: navBarConfig,
         navBarDecoration: NavBarDecoration(
           color: context.backgroundColor,
-          border: const Border.symmetric(
-            horizontal: BorderSide(width: 0.2, color: BuzzWireColors.darkGrey),
+          border: const Border(
+            top: BorderSide(width: 0.05, color: BuzzWireColors.darkGrey),
           ),
         ),
       ),

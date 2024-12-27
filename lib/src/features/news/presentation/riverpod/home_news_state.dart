@@ -2,15 +2,15 @@ import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'category_news_state.freezed.dart';
+part 'home_news_state.freezed.dart';
 
 @freezed
-class CategoryNewsState with _$CategoryNewsState {
-  const factory CategoryNewsState({
+class HomeNewsState with _$HomeNewsState {
+  const factory HomeNewsState({
     @Default(Empty()) LoadState loadState,
     @Default(1) int currentPage,
     @Default(1) int lastPage,
     @Default([]) List<ArticleEntity> articles,
     @Default([]) List<ArticleEntity> savedArticles,
-  }) = _CategoryNewsState;
+  }) = _HomeNewsState;
 }

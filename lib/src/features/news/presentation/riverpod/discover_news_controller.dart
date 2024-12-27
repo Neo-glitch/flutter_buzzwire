@@ -25,7 +25,7 @@ class DiscoverNewsController extends _$DiscoverNewsController {
     return const DiscoverNewsState();
   }
 
-  void fetchItems() async {
+  Future<void> fetchItems() async {
     state = state.copyWith(loadState: const Loading());
 
     List<Either<Failure, NewsEntity>> responses = await Future.wait([

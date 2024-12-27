@@ -1,4 +1,5 @@
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -119,7 +120,15 @@ GoRouter router(RouterRef ref) {
                         builder: (context, state) {
                           return const SearchNewsScreen();
                         },
-                      )
+                      ),
+                      GoRoute(
+                        path: BuzzWireRoute.newsByTopic.path,
+                        name: BuzzWireRoute.newsByTopic.name,
+                        builder: (context, state) {
+                          final topic = state.extra! as String;
+                          return NewsByTopicScreen(topic: topic);
+                        },
+                      ),
                     ])
               ],
             ),
@@ -139,10 +148,10 @@ GoRouter router(RouterRef ref) {
               navigatorKey: profileNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.profile.path,
-                  name: BuzzWireRoute.profile.name,
+                  path: BuzzWireRoute.settings.path,
+                  name: BuzzWireRoute.settings.name,
                   builder: (context, state) {
-                    return const ProfileScreen();
+                    return const SettingsScreen();
                   },
                 )
               ],
@@ -165,10 +174,10 @@ GoRouter router(RouterRef ref) {
           },
         ),
         GoRoute(
-          path: BuzzWireRoute.settings.path,
-          name: BuzzWireRoute.settings.name,
+          path: BuzzWireRoute.profile.path,
+          name: BuzzWireRoute.profile.name,
           builder: (context, state) {
-            return const SettingsScreen();
+            return const ProfileScreen();
           },
         )
       ],

@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_news_controller.dart';
+part of 'news_by_topic_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$searchNewsControllerHash() =>
-    r'3faabb6235029e6351eaa910af736c5ad3f7253d';
+String _$newsByTopicControllerHash() =>
+    r'72346c3d919297f70fe7f186a8575e05d6fbaeeb';
 
-/// See also [SearchNewsController].
-@ProviderFor(SearchNewsController)
-final searchNewsControllerProvider =
-    AutoDisposeNotifierProvider<SearchNewsController, SearchNewsState>.internal(
-  SearchNewsController.new,
-  name: r'searchNewsControllerProvider',
+/// See also [NewsByTopicController].
+@ProviderFor(NewsByTopicController)
+final newsByTopicControllerProvider = AutoDisposeNotifierProvider<
+    NewsByTopicController, NewsByTopicState>.internal(
+  NewsByTopicController.new,
+  name: r'newsByTopicControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$searchNewsControllerHash,
+      : _$newsByTopicControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SearchNewsController = AutoDisposeNotifier<SearchNewsState>;
+typedef _$NewsByTopicController = AutoDisposeNotifier<NewsByTopicState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

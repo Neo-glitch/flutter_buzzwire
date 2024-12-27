@@ -31,6 +31,8 @@ class BuzzWireRoute {
   static BuzzWireRoute home = BuzzWireRoute(path: "/", name: "home");
   static BuzzWireRoute discover =
       BuzzWireRoute(path: "/discover", name: "discover");
+  static BuzzWireRoute newsByTopic =
+      BuzzWireRoute(path: "news_by_topic", name: "news_by_topic");
   static BuzzWireRoute searchNews =
       BuzzWireRoute(path: "search_news", name: "search_news");
   static BuzzWireRoute savedNews =

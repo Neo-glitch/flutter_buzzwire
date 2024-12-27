@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'home_news_state.dart';
+part of 'news_by_topic_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CategoryNewsState {
+mixin _$NewsByTopicState {
   LoadState get loadState => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
   int get lastPage => throw _privateConstructorUsedError;
@@ -23,15 +23,15 @@ mixin _$CategoryNewsState {
   List<ArticleEntity> get savedArticles => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CategoryNewsStateCopyWith<CategoryNewsState> get copyWith =>
+  $NewsByTopicStateCopyWith<NewsByTopicState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategoryNewsStateCopyWith<$Res> {
-  factory $CategoryNewsStateCopyWith(
-          CategoryNewsState value, $Res Function(CategoryNewsState) then) =
-      _$CategoryNewsStateCopyWithImpl<$Res, CategoryNewsState>;
+abstract class $NewsByTopicStateCopyWith<$Res> {
+  factory $NewsByTopicStateCopyWith(
+          NewsByTopicState value, $Res Function(NewsByTopicState) then) =
+      _$NewsByTopicStateCopyWithImpl<$Res, NewsByTopicState>;
   @useResult
   $Res call(
       {LoadState loadState,
@@ -42,9 +42,9 @@ abstract class $CategoryNewsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CategoryNewsStateCopyWithImpl<$Res, $Val extends CategoryNewsState>
-    implements $CategoryNewsStateCopyWith<$Res> {
-  _$CategoryNewsStateCopyWithImpl(this._value, this._then);
+class _$NewsByTopicStateCopyWithImpl<$Res, $Val extends NewsByTopicState>
+    implements $NewsByTopicStateCopyWith<$Res> {
+  _$NewsByTopicStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -86,11 +86,11 @@ class _$CategoryNewsStateCopyWithImpl<$Res, $Val extends CategoryNewsState>
 }
 
 /// @nodoc
-abstract class _$$CategoryNewsStateImplCopyWith<$Res>
-    implements $CategoryNewsStateCopyWith<$Res> {
-  factory _$$CategoryNewsStateImplCopyWith(_$CategoryNewsStateImpl value,
-          $Res Function(_$CategoryNewsStateImpl) then) =
-      __$$CategoryNewsStateImplCopyWithImpl<$Res>;
+abstract class _$$NewsByTopicNewsStateImplCopyWith<$Res>
+    implements $NewsByTopicStateCopyWith<$Res> {
+  factory _$$NewsByTopicNewsStateImplCopyWith(_$NewsByTopicNewsStateImpl value,
+          $Res Function(_$NewsByTopicNewsStateImpl) then) =
+      __$$NewsByTopicNewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,11 +102,11 @@ abstract class _$$CategoryNewsStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CategoryNewsStateImplCopyWithImpl<$Res>
-    extends _$CategoryNewsStateCopyWithImpl<$Res, _$CategoryNewsStateImpl>
-    implements _$$CategoryNewsStateImplCopyWith<$Res> {
-  __$$CategoryNewsStateImplCopyWithImpl(_$CategoryNewsStateImpl _value,
-      $Res Function(_$CategoryNewsStateImpl) _then)
+class __$$NewsByTopicNewsStateImplCopyWithImpl<$Res>
+    extends _$NewsByTopicStateCopyWithImpl<$Res, _$NewsByTopicNewsStateImpl>
+    implements _$$NewsByTopicNewsStateImplCopyWith<$Res> {
+  __$$NewsByTopicNewsStateImplCopyWithImpl(_$NewsByTopicNewsStateImpl _value,
+      $Res Function(_$NewsByTopicNewsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,7 +118,7 @@ class __$$CategoryNewsStateImplCopyWithImpl<$Res>
     Object? articles = null,
     Object? savedArticles = null,
   }) {
-    return _then(_$CategoryNewsStateImpl(
+    return _then(_$NewsByTopicNewsStateImpl(
       loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
@@ -145,8 +145,8 @@ class __$$CategoryNewsStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CategoryNewsStateImpl implements _CategoryNewsState {
-  const _$CategoryNewsStateImpl(
+class _$NewsByTopicNewsStateImpl implements _NewsByTopicNewsState {
+  const _$NewsByTopicNewsStateImpl(
       {this.loadState = const Empty(),
       this.currentPage = 1,
       this.lastPage = 1,
@@ -184,14 +184,14 @@ class _$CategoryNewsStateImpl implements _CategoryNewsState {
 
   @override
   String toString() {
-    return 'CategoryNewsState(loadState: $loadState, currentPage: $currentPage, lastPage: $lastPage, articles: $articles, savedArticles: $savedArticles)';
+    return 'NewsByTopicState(loadState: $loadState, currentPage: $currentPage, lastPage: $lastPage, articles: $articles, savedArticles: $savedArticles)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CategoryNewsStateImpl &&
+            other is _$NewsByTopicNewsStateImpl &&
             (identical(other.loadState, loadState) ||
                 other.loadState == loadState) &&
             (identical(other.currentPage, currentPage) ||
@@ -215,18 +215,19 @@ class _$CategoryNewsStateImpl implements _CategoryNewsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CategoryNewsStateImplCopyWith<_$CategoryNewsStateImpl> get copyWith =>
-      __$$CategoryNewsStateImplCopyWithImpl<_$CategoryNewsStateImpl>(
-          this, _$identity);
+  _$$NewsByTopicNewsStateImplCopyWith<_$NewsByTopicNewsStateImpl>
+      get copyWith =>
+          __$$NewsByTopicNewsStateImplCopyWithImpl<_$NewsByTopicNewsStateImpl>(
+              this, _$identity);
 }
 
-abstract class _CategoryNewsState implements CategoryNewsState {
-  const factory _CategoryNewsState(
+abstract class _NewsByTopicNewsState implements NewsByTopicState {
+  const factory _NewsByTopicNewsState(
       {final LoadState loadState,
       final int currentPage,
       final int lastPage,
       final List<ArticleEntity> articles,
-      final List<ArticleEntity> savedArticles}) = _$CategoryNewsStateImpl;
+      final List<ArticleEntity> savedArticles}) = _$NewsByTopicNewsStateImpl;
 
   @override
   LoadState get loadState;
@@ -240,6 +241,6 @@ abstract class _CategoryNewsState implements CategoryNewsState {
   List<ArticleEntity> get savedArticles;
   @override
   @JsonKey(ignore: true)
-  _$$CategoryNewsStateImplCopyWith<_$CategoryNewsStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$NewsByTopicNewsStateImplCopyWith<_$NewsByTopicNewsStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

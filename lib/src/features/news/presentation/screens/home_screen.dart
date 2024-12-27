@@ -4,7 +4,7 @@ import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/categories.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/news_page.dart';
+import 'package:buzzwire/src/features/news/presentation/pages/home_news_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
@@ -131,28 +131,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
     return switch (newsCategory) {
       NewsCategory.business => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category)),
         ),
       NewsCategory.entertainment => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category)),
         ),
       NewsCategory.general => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category)),
         ),
       NewsCategory.health => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
       NewsCategory.science => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
       NewsCategory.sports => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
       NewsCategory.technology => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
     };
   }
