@@ -4,6 +4,7 @@ import 'package:buzzwire/src/shared/presentation/riverpod/theme_controller.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class AppThemeDialog extends ConsumerStatefulWidget {
   const AppThemeDialog({super.key});
@@ -40,7 +41,7 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: _buildThemeModeOptionList(),
+              child: _buildThemeOptionsList(),
             ),
           )
         ],
@@ -48,7 +49,7 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
     );
   }
 
-  ListView _buildThemeModeOptionList() {
+  ListView _buildThemeOptionsList() {
     return ListView.separated(
       shrinkWrap: true,
       itemBuilder: (ctx, idx) {
@@ -58,13 +59,16 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
           isSelected: _selectedIndex == idx,
           onCLick: (value) async {
             if (value == true && _selectedIndex != idx) {
+              setState(() {
+                _selectedIndex = idx;
+              });
               final themeMode = _optionsThemeModeMap[option]!;
               await ref
                   .read(themeControllerProvider.notifier)
                   .setAppTheme(themeMode);
-              setState(() {
-                _selectedIndex = idx;
-              });
+              if (ctx.mounted) {
+                ctx.pop();
+              }
             }
           },
         );
