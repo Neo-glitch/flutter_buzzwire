@@ -7,7 +7,7 @@ part of 'news_by_topic_controller.dart';
 // **************************************************************************
 
 String _$newsByTopicControllerHash() =>
-    r'72346c3d919297f70fe7f186a8575e05d6fbaeeb';
+    r'7ec6e8a2b3ab6c72c566579f2e6f467cad59fe42';
 
 /// See also [NewsByTopicController].
 @ProviderFor(NewsByTopicController)

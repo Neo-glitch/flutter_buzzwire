@@ -6,6 +6,9 @@ import 'package:buzzwire/src/features/profile/di/profile_dependencies.dart';
 import 'package:buzzwire/src/features/search_history/di/search_history_dependencies.dart';
 import 'package:buzzwire/src/features/settings/di/settings_dependencies.dart';
 import 'package:buzzwire/src/shared/data/datasources/local/app_database.dart';
+import 'package:buzzwire/src/shared/data/manager/app_theme_manager_impl.dart';
+import 'package:buzzwire/src/shared/di/shared_dependencies.dart';
+import 'package:buzzwire/src/shared/domain/manager/app_theme_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,8 +24,11 @@ Future<void> init() async {
   injector.registerLazySingleton<BuzzWireSharedPref>(
       () => BuzzWireSharedPref(preferences: pref));
   injector.registerLazySingleton<DioClient>(() => DioClient());
-  injector.registerFactory<FirebaseAuth>(() => FirebaseAuth.instance);
+  injector.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  injector.registerLazySingleton<AppThemeManager>(
+      () => AppThemeManagerImpl(sharedPref: injector()));
 
+  await provideSharedDependencies();
   await provideAuthDependencies();
   await provideNewsDependencies();
   await provideProfileDependencies();
