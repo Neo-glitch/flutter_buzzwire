@@ -19,8 +19,7 @@ class ThemeController extends _$ThemeController {
     _getAppThemeStream = injector();
     _saveAppTheme = injector();
     _getAppTheme = injector();
-    final themeMode =
-        _getAppTheme(NoParams()).getOrElse((l) => ThemeMode.system);
+    final themeMode = getCurrentTheme();
     return themeMode;
   }
 
@@ -29,6 +28,10 @@ class ThemeController extends _$ThemeController {
       final themeMode = event.getOrElse((l) => ThemeMode.system);
       state = themeMode;
     });
+  }
+
+  ThemeMode getCurrentTheme() {
+    return _getAppTheme(NoParams()).getOrElse((l) => ThemeMode.system);
   }
 
   Future<void> setAppTheme(ThemeMode themeMode) async {

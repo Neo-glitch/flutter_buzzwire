@@ -1,6 +1,8 @@
 import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_divider.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         appBar: BuzzWireAppBar(
           title: Text(
             "Settings",
-            style: context.titleLarge?.copyWith(fontSize: 20),
+            style: context.titleLarge?.copyWith(
+              fontSize: 20,
+            ),
           ),
         ),
         body: Padding(
@@ -91,7 +95,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const BuzzWireDivider(),
             SettingsTile(
               title: "Theme",
-              onClick: () {},
+              onClick: () {
+                _showAppThemeDialog();
+              },
             ),
             const BuzzWireDivider(),
             SettingsTile(
@@ -144,6 +150,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           color: BuzzWireColors.darkGrey,
         ),
       ),
+    );
+  }
+
+  void _showAppThemeDialog() {
+    showModalBottomSheet(
+      enableDrag: true,
+      context: context,
+      useSafeArea: true,
+      builder: (ctx) {
+        return const AppThemeDialog();
+      },
     );
   }
 }
