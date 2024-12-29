@@ -1,5 +1,6 @@
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
+import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_dialog.dart';
@@ -8,6 +9,7 @@ import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -64,7 +66,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           children: [
             SettingsTile(
               title: "Profile",
-              onClick: () {},
+              onClick: () {
+                context.pushNamed(BuzzWireRoute.editProfile.name);
+              },
             ),
             const BuzzWireDivider(),
             SettingsTile(

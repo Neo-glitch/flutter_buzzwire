@@ -132,7 +132,7 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
             FontAwesomeIcons.solidUser,
             size: 20,
           ),
-          title: "Profile",
+          title: "Settings",
         ),
       ),
     ];

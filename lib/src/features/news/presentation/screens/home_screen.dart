@@ -1,5 +1,6 @@
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
@@ -70,18 +71,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           actions: [
             IconButton(
               onPressed: () {},
-              icon: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(16),
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) {
-                      // Todo: replace with reasonable place holder image
-                      return const CircularProgressIndicator();
-                    },
-                    imageUrl:
-                        "https://pixlr.com/images/generator/photo-generator.webp",
-                  ),
-                ),
+              icon: const BuzzWireCircularImage(
+                radius: 16,
+                imageUrl:
+                    "https://pixlr.com/images/generator/photo-generator.webp",
               ),
             ),
           ],

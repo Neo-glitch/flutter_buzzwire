@@ -28,6 +28,9 @@ class BuzzWireSearchBar extends StatefulWidget {
 }
 
 class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
+  bool get _shouldEnableTextField =>
+      widget.onSearch != null && widget.onTap == null;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,62 +39,75 @@ class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
         padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
           color: Color.lerp(context.backgroundColor, Colors.black12, 0.12),
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
+          borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
           children: [
-            FaIcon(
-              FontAwesomeIcons.magnifyingGlass,
-              size: 14,
-              color: context.onBackgroundColor.withOpacity(0.5),
-            ),
+            _buildSearchIcon(context),
             const Gap(15),
-            Expanded(
-              child: TextField(
-                enabled: widget.onSearch != null && widget.onTap == null,
-                autofocus: widget.onSearch != null && widget.onTap == null,
-                maxLines: 1,
-                style: context.bodyMedium?.copyWith(fontSize: 14),
-                controller: widget.searchController,
-                onChanged: (value) {
-                  if (widget.onSearch != null) {
-                    widget.onSearch!(value);
-                    setState(() {});
-                  }
-                },
-                onEditingComplete: widget.onEditingComplete,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  hintStyle: context.bodySmall?.copyWith(fontSize: 14),
-                  hintText: widget.hintText,
-                  filled: false,
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.zero,
-                ),
-              ),
-            ),
-            if (widget.onClear != null &&
-                widget.onTap == null &&
-                widget.searchController?.text.isNotEmpty.orFalse == true)
-              IconButton(
-                iconSize: 18,
-                onPressed: () {
-                  if (widget.onClear != null) {
-                    widget.onClear!();
-                    widget.searchController?.clear();
-                    setState(() {});
-                  }
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.solidCircleXmark,
-                  color: BuzzWireColors.grey,
-                ),
-              )
+            _buildTextField(context),
+            if (_shouldShowClearButton) _buildClearButton(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildSearchIcon(BuildContext context) {
+    return FaIcon(
+      FontAwesomeIcons.magnifyingGlass,
+      size: 14,
+      color: context.onBackgroundColor.withOpacity(0.5),
+    );
+  }
+
+  Widget _buildTextField(BuildContext context) {
+    return Expanded(
+      child: TextField(
+        enabled: _shouldEnableTextField,
+        autofocus: _shouldEnableTextField,
+        maxLines: 1,
+        style: context.bodyMedium?.copyWith(fontSize: 14),
+        controller: widget.searchController,
+        onChanged: _handleSearchInputChange,
+        onEditingComplete: widget.onEditingComplete,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          hintStyle: context.bodySmall?.copyWith(fontSize: 14),
+          hintText: widget.hintText,
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.zero,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildClearButton() {
+    return IconButton(
+      iconSize: 18,
+      onPressed: _handleClearButtonPressed,
+      icon: const FaIcon(
+        FontAwesomeIcons.solidCircleXmark,
+        color: BuzzWireColors.grey,
+      ),
+    );
+  }
+
+  bool get _shouldShowClearButton =>
+      widget.onClear != null &&
+      widget.onTap == null &&
+      widget.searchController?.text.isNotEmpty.orFalse == true;
+
+  void _handleSearchInputChange(String value) {
+    if (widget.onSearch != null) {
+      widget.onSearch!(value);
+      setState(() {});
+    }
+  }
+
+  void _handleClearButtonPressed() {
+    widget.onClear?.call();
+    widget.searchController?.clear();
+    setState(() {});
   }
 }

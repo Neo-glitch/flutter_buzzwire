@@ -37,8 +37,8 @@ class BuzzWireRoute {
       BuzzWireRoute(path: "search_news", name: "search_news");
   static BuzzWireRoute savedNews =
       BuzzWireRoute(path: "/saved_news", name: "saved_news");
-  static BuzzWireRoute profile =
-      BuzzWireRoute(path: "/profile", name: "profile");
+  static BuzzWireRoute editProfile =
+      BuzzWireRoute(path: "/edit_profile", name: "edit_profile");
 
   static BuzzWireRoute newsDetails =
       BuzzWireRoute(path: "/news_details", name: "news_details");
