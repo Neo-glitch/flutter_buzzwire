@@ -43,7 +43,7 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
           BuzzWireBottomSheetDragHandle(
             onClose: () => context.pop(),
           ),
-          Text("Theme", style: context.titleMedium),
+          Text("Theme", style: context.titleSmall),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
