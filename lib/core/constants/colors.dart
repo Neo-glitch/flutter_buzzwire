@@ -41,6 +41,7 @@ class BuzzWireColors {
 
   // Neutral Colors (can be used for background)
   static const Color black = Color(0XFF000000);
+  static const Color translucentBlack = Color(0x80000000);
   static const Color darkerGrey = Color(0XFF4F4F4F);
   static const Color darkGrey = Color(0XFF939393);
   static const Color grey = Color(0XFFE0E0E0);
