@@ -43,12 +43,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             child: SingleChildScrollView(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildProfileImage(),
-                    const Gap(40),
+                    const Gap(30),
                     ..._buildInputSection()
                   ],
                 ),
@@ -116,7 +116,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       child: Stack(
         children: [
           BuzzWireCircularImage(
-            radius: 80,
+            radius: 60,
             borderColor: context.primaryColor.withOpacity(0.7),
             borderWidth: 2,
             imageUrl: "https://pixlr.com/images/generator/photo-generator.webp",
