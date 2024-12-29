@@ -8,7 +8,7 @@ class BuzzWireBottomSheetTheme {
     showDragHandle: true,
     backgroundColor: BuzzWireColors.light,
     modalBackgroundColor: BuzzWireColors.light,
-    modalBarrierColor: BuzzWireColors.black.withOpacity(0.15),
+    modalBarrierColor: BuzzWireColors.black.withOpacity(0.32),
     constraints: const BoxConstraints(minWidth: double.infinity),
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -19,7 +19,7 @@ class BuzzWireBottomSheetTheme {
     showDragHandle: true,
     backgroundColor: BuzzWireColors.dark,
     modalBackgroundColor: BuzzWireColors.dark,
-    modalBarrierColor: BuzzWireColors.black.withOpacity(0.15),
+    modalBarrierColor: BuzzWireColors.black.withOpacity(0.32),
     constraints: const BoxConstraints(minWidth: double.infinity),
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

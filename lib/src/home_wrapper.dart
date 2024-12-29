@@ -49,12 +49,12 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
 
   bool _backButtonInterceptor(final bool stop, final RouteInfo routeInfo) {
     // stop back gesture
-    GoRouter _router = GoRouter.of(context);
+    GoRouter router = GoRouter.of(context);
     final RouteMatch lastMatch =
-        _router.routerDelegate.currentConfiguration.last;
+        router.routerDelegate.currentConfiguration.last;
     final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
         ? lastMatch.matches
-        : _router.routerDelegate.currentConfiguration;
+        : router.routerDelegate.currentConfiguration;
     final String location = matchList.uri.toString();
     final bool canPop = GoRouter.of(context).routerDelegate.canPop();
 
@@ -80,7 +80,7 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
       handleAndroidBackButtonPress: true,
       backgroundColor: context.backgroundColor,
       tabs: _bottomNavTabs(),
-      navBarBuilder: (navBarConfig) => Style3BottomNavBar(
+      navBarBuilder: (navBarConfig) => Style1BottomNavBar(
         navBarConfig: navBarConfig,
         navBarDecoration: NavBarDecoration(
           color: context.backgroundColor,

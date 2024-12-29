@@ -1,6 +1,7 @@
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/theme_controller.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottomsheet_drag_handle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -33,10 +34,15 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15.0,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          BuzzWireBottomSheetDragHandle(
+            onClose: () => context.pop(),
+          ),
           Text("Theme", style: context.titleMedium),
           Flexible(
             child: Padding(
@@ -59,16 +65,13 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
           isSelected: _selectedIndex == idx,
           onCLick: (value) async {
             if (value == true && _selectedIndex != idx) {
-              setState(() {
-                _selectedIndex = idx;
-              });
               final themeMode = _optionsThemeModeMap[option]!;
               await ref
                   .read(themeControllerProvider.notifier)
                   .setAppTheme(themeMode);
-              if (ctx.mounted) {
-                ctx.pop();
-              }
+              setState(() {
+                _selectedIndex = idx;
+              });
             }
           },
         );

@@ -155,9 +155,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   void _showAppThemeDialog() {
     showModalBottomSheet(
-      enableDrag: true,
+      showDragHandle: false,
       context: context,
-      useSafeArea: true,
       builder: (ctx) {
         return const AppThemeDialog();
       },

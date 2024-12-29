@@ -1,5 +1,6 @@
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/sizes.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_simple_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -37,6 +38,9 @@ extension ContextExtension<T> on BuildContext {
   Color get onBackgroundColor => Theme.of(this).colorScheme.onBackground;
   Color get surfaceColor => Theme.of(this).colorScheme.surface;
   Color get onSurfaceColor => Theme.of(this).colorScheme.onSurface;
+  Color get surfaceVariantColor => Theme.of(this).colorScheme.surfaceVariant;
+  Color get onSurfaceVariantColor =>
+      Theme.of(this).colorScheme.onSurfaceVariant;
 
   // can other functions like showing a toast and all, show bottom sheet
   void showSnackBar(
@@ -72,57 +76,77 @@ extension ContextExtension<T> on BuildContext {
 
   Future<T?> showSingleButtonAlert(
     String title,
-    String message,
-  ) {
-    return showDialog(
-        context: this,
-        builder: (ctx) {
-          return AlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(this).pop(),
-                child: const Text("Ok"),
-              )
-            ],
-          );
-        });
+    String message, {
+    String? buttonText,
+    Function()? onClick,
+  }) {
+    return showGeneralDialog(
+      context: this,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(this).modalBarrierDismissLabel,
+      pageBuilder: (ctx, anim1, anim2) {
+        return const SizedBox.shrink();
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(
+            parent: anim1,
+            curve: Curves.elasticOut,
+            reverseCurve: Curves.easeOutCubic,
+          ),
+          child: BuzzWireSimpleDialog(
+            title: title,
+            description: message,
+            primaryButtonText: buttonText,
+            onPrimaryClick: () {
+              ctx.pop();
+              if (onClick != null) onClick();
+            },
+          ),
+        );
+      },
+    );
   }
 
   Future<T?> showDoubleButtonAlert(
     String title,
     String message,
-    String positiveText,
-    String negativeText, {
-    Function()? positiveAction,
-    Function()? negativeAction,
+    String primaryButtonText,
+    String secondaryButtonText, {
+    Function()? onPrimaryButtonClick,
+    Function()? onSecondaryButtonClick,
   }) {
-    return showDialog(
-        context: this,
-        builder: (ctx) {
-          return AlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(this).pop();
-                  if (positiveAction != null) positiveAction();
-                },
-                child: Text(positiveText),
-              ),
-              const Gap(BuzzWireSizes.sm),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(this).pop();
-                  if (negativeAction != null) negativeAction();
-                },
-                child: Text(positiveText),
-              ),
-            ],
-          );
-        });
+    return showGeneralDialog(
+      context: this,
+      barrierLabel: MaterialLocalizations.of(this).modalBarrierDismissLabel,
+      barrierDismissible: true,
+      pageBuilder: (ctx, anim1, anim2) {
+        return const SizedBox.shrink();
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(
+            parent: anim1,
+            curve: Curves.elasticOut,
+            reverseCurve: Curves.easeOutCubic,
+          ),
+          child: BuzzWireSimpleDialog(
+            title: title,
+            description: message,
+            primaryButtonText: primaryButtonText,
+            secondaryButtonText: secondaryButtonText,
+            onPrimaryClick: () {
+              ctx.pop();
+              if (onPrimaryButtonClick != null) onPrimaryButtonClick();
+            },
+            onSecondaryClick: () {
+              ctx.pop();
+              if (onSecondaryButtonClick != null) onSecondaryButtonClick();
+            },
+          ),
+        );
+      },
+    );
   }
 
   Future<bool?> showToast(String message,

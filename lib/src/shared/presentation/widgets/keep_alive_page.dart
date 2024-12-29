@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 // useful for tabview pages, where we need to maintain state
 class KeepPageAlive extends StatefulWidget {
   const KeepPageAlive({
-    Key? key,
+    super.key,
     this.child,
-  }) : super(key: key);
+  });
 
   final Widget? child;
 
   @override
-  _KeepPageAliveState createState() => _KeepPageAliveState();
+  State<KeepPageAlive> createState() => _KeepPageAliveState();
 }
 
 class _KeepPageAliveState extends State<KeepPageAlive>
