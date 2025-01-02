@@ -8,6 +8,7 @@ enum FbAuthErrorType {
   emailAlreadyInUse,
   accountypeNotSupported,
   weakPassword,
+  userMismatch,
   unknown,
 }
 
@@ -16,6 +17,7 @@ extension FirebaseAuthErrorCodeExtension on FbAuthErrorType {
     switch (this) {
       case FbAuthErrorType.invalidEmail:
       case FbAuthErrorType.wrongPassword:
+      case FbAuthErrorType.userMismatch:
         return ErrorText.wrongAuthCredentialsError;
       case FbAuthErrorType.userNotFound:
         return ErrorText.userNotFoundError;
@@ -25,6 +27,8 @@ extension FirebaseAuthErrorCodeExtension on FbAuthErrorType {
         return ErrorText.weakPassword;
       case FbAuthErrorType.accountypeNotSupported:
         return ErrorText.accountTypeNotSupportedEror;
+      case FbAuthErrorType.emailAlreadyInUse:
+        return ErrorText.accountExistsError;
       case FbAuthErrorType.unknown:
       default:
         return ErrorText.unknownError;

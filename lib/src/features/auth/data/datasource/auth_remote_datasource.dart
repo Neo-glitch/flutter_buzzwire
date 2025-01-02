@@ -10,6 +10,8 @@ abstract class AuthRemoteDataSource {
   Future<bool> verifyEmail();
   Future<void> sendVerificationEmail();
   Future<void> resetPassword(String emauil);
+  Future<void> deleteAccount();
+  Future<void> reAuthenticateUser(String email, String password);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -80,6 +82,32 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<void> sendVerificationEmail() async {
     try {
       await firebaseAuth.currentUser?.sendEmailVerification();
+    } catch (e, s) {
+      BuzzWireLoggerHelper.error(s.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    try {
+      await firebaseAuth.currentUser?.delete();
+    } catch (e, s) {
+      BuzzWireLoggerHelper.error(s.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> reAuthenticateUser(String email, String password) async {
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+
+      final currentUser = firebaseAuth.currentUser;
+      await currentUser?.reauthenticateWithCredential(credential);
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;

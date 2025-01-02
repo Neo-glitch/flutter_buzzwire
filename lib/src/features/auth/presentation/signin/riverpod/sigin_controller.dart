@@ -1,30 +1,33 @@
-import 'package:buzzwire/injector.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/core/error/enums/fb_auth_error_type.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/check_email_verification_status_usecases.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/usecase/signin_usecase.dart';
 import '../../../domain/usecase/signout_usecase.dart';
-import '../../../domain/usecase/verify_email_usecase.dart';
 
 part 'sigin_controller.g.dart';
 
 @riverpod
 class SignInController extends _$SignInController {
-  late SignIn _signIn;
-  late SignOut _signOut;
-  late VerifyEmail _verifyEmail;
+  late SignInUseCase _signIn;
+  late SignOutUseCase _signOut;
+  late CheckEmailVerificationStatusUseCase _verifyEmail;
+  late FetchAndCacheUserUseCase _fetchAndCacheUser;
 
   @override
   SigninState build() {
     _signIn = injector();
     _signOut = injector();
     _verifyEmail = injector();
+    _fetchAndCacheUser = injector();
     return const SigninState();
   }
 
@@ -37,28 +40,39 @@ class SignInController extends _$SignInController {
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
-      (result) => verifyEmail(),
+      (user) async => await _handleUserVerification(user),
     );
   }
 
-  void verifyEmail() async {
-    final response = await _verifyEmail(NoParams());
+  Future<void> _handleUserVerification(User user) async {
+    final verificationResult = await _verifyEmail(NoParams());
 
-    response.fold(
+    verificationResult.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
-      (isVerified) async {
-        if (isVerified) {
-          state = state.copyWith(loadState: const Loaded());
-          ref
-              .read(authControllerProvider.notifier)
-              .setAuthState(AuthStatus.authenticated);
-        } else {
-          await _signOut(NoParams());
-          state = state.copyWith(
-              loadState: const Error(message: "Email not verified"));
-        }
+      (isVerified) async => await _handleVerificationSuccess(user, isVerified),
+    );
+  }
+
+  Future<void> _handleVerificationSuccess(User user, bool isVerified) async {
+    if (!isVerified) {
+      await _signOut(NoParams());
+      state = state.copyWith(
+        loadState: const Error(message: "Email not verified"),
+      );
+      return;
+    }
+
+    final userResult = await _fetchAndCacheUser(user.uid);
+    userResult.fold(
+      (failure) =>
+          state = state.copyWith(loadState: Error(message: failure.message)),
+      (_) {
+        state = state.copyWith(loadState: const Loaded());
+        ref
+            .read(authControllerProvider.notifier)
+            .setAuthState(AuthStatus.authenticated);
       },
     );
   }

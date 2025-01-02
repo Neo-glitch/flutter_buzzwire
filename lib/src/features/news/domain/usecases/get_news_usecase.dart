@@ -12,10 +12,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 // GetNews getNews(GetNewsRef ref) =>
 //     GetNews(repository: ref.read(newsRepositoryProvider));
 
-class GetNews implements UseCaseFuture<NewsEntity, GetNewsParams> {
+class GetNewsUseCase implements UseCaseFuture<NewsEntity, GetNewsParams> {
   final NewsRepository repository;
 
-  GetNews({required this.repository});
+  GetNewsUseCase({required this.repository});
 
   @override
   Future<Either<Failure, NewsEntity>> call(GetNewsParams param) {

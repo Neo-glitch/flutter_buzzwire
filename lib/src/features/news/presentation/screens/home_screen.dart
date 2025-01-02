@@ -1,12 +1,16 @@
+import 'dart:async';
+
+import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/src/features/news/presentation/categories.dart';
+import 'package:buzzwire/src/features/news/presentation/pages/home_news_page.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/home_controller.dart';
+import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/news/presentation/categories.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/home_news_page.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,6 +43,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final cachedUser = ref.watch(homeControllerProvider);
     return DefaultTabController(
       length: categories.length,
       child: SafeArea(
@@ -48,7 +53,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             floatHeaderSlivers: true,
             // controller: _scrollController,
             headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [_buildAppBar(context, innerBoxIsScrolled)];
+              return [_buildAppBar(context, innerBoxIsScrolled, cachedUser)];
             },
             body: _buildTabBarView(),
           ),
@@ -57,7 +62,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     );
   }
 
-  Widget _buildAppBar(BuildContext context, bool innerBoxScrolled) {
+  Widget _buildAppBar(
+      BuildContext context, bool innerBoxScrolled, UserEntity? cachedUser) {
     return SliverAppBar(
       pinned: false,
       floating: true,
@@ -71,10 +77,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const BuzzWireCircularImage(
+              icon: BuzzWireCircularImage(
                 radius: 16,
-                imageUrl:
-                    "https://pixlr.com/images/generator/photo-generator.webp",
+                imageUrl: cachedUser?.profileImage.orEmpty,
               ),
             ),
           ],

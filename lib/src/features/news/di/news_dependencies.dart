@@ -23,32 +23,33 @@ Future<void> provideNewsDependencies() async {
   injector.registerFactory<NewsRepository>(() => NewsRepositoryImpl(
       remoteDataSource: injector(), localDataSource: injector()));
 
-  injector.registerFactory<GetHeadlinesByCategory>(
-      () => GetHeadlinesByCategory(repository: injector()));
+  injector.registerFactory<GetHeadlinesByCategoryUseCase>(
+      () => GetHeadlinesByCategoryUseCase(repository: injector()));
 
-  injector.registerFactory<GetHeadlines>(
-      () => GetHeadlines(repository: injector()));
+  injector.registerFactory<GetHeadlinesUseCase>(
+      () => GetHeadlinesUseCase(repository: injector()));
 
-  injector.registerFactory<GetNewsSources>(
-      () => GetNewsSources(repository: injector()));
+  injector.registerFactory<GetNewsSourcesUseCase>(
+      () => GetNewsSourcesUseCase(repository: injector()));
 
-  injector.registerFactory<GetNews>(() => GetNews(repository: injector()));
+  injector.registerFactory<GetNewsUseCase>(
+      () => GetNewsUseCase(repository: injector()));
 
-  injector.registerFactory<ClearSavedArticles>(
-      () => ClearSavedArticles(repository: injector()));
+  injector.registerFactory<ClearSavedArticlesUseCase>(
+      () => ClearSavedArticlesUseCase(repository: injector()));
 
-  injector.registerFactory<GetPaginatedSavedArticles>(
-      () => GetPaginatedSavedArticles(repository: injector()));
+  injector.registerFactory<GetPaginatedSavedArticlesUseCase>(
+      () => GetPaginatedSavedArticlesUseCase(repository: injector()));
 
-  injector.registerFactory<GetSavedArticlesCount>(
-      () => GetSavedArticlesCount(repository: injector()));
+  injector.registerFactory<GetSavedArticlesCountUseCase>(
+      () => GetSavedArticlesCountUseCase(repository: injector()));
 
-  injector.registerFactory<GetSavedArticles>(
-      () => GetSavedArticles(repository: injector()));
+  injector.registerFactory<GetSavedArticlesUseCase>(
+      () => GetSavedArticlesUseCase(repository: injector()));
 
-  injector
-      .registerFactory<SaveArticle>(() => SaveArticle(repository: injector()));
+  injector.registerFactory<SaveArticleUseCase>(
+      () => SaveArticleUseCase(repository: injector()));
 
-  injector.registerFactory<DeleteSavedArticle>(
-      () => DeleteSavedArticle(repository: injector()));
+  injector.registerFactory<DeleteSavedArticleUseCase>(
+      () => DeleteSavedArticleUseCase(repository: injector()));
 }

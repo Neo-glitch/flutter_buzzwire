@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/num_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -59,9 +60,16 @@ class BuzzWireCircularImage extends StatelessWidget {
   }
 
   Widget _buildPlaceHolderImage() => Center(
-        child: FaIcon(
-          FontAwesomeIcons.solidUser,
-          size: radius,
+        child: SizedBox.expand(
+          child: Container(
+            color: BuzzWireColors.grey.withOpacity(0.7),
+            child: Center(
+              child: FaIcon(
+                FontAwesomeIcons.solidUser,
+                size: radius,
+              ),
+            ),
+          ),
         ),
       );
 }

@@ -16,10 +16,10 @@ part 'news_by_topic_controller.g.dart';
 
 @riverpod
 class NewsByTopicController extends _$NewsByTopicController {
-  late GetNews _getNews;
-  late SaveArticle _saveArticle;
-  late DeleteSavedArticle _deleteSavedArticle;
-  late GetSavedArticles _getSavedArticles;
+  late GetNewsUseCase _getNews;
+  late SaveArticleUseCase _saveArticle;
+  late DeleteSavedArticleUseCase _deleteSavedArticle;
+  late GetSavedArticlesUseCase _getSavedArticles;
 
   @override
   NewsByTopicState build() {

@@ -4,10 +4,11 @@ import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class GetSavedArticles implements UseCaseStream<List<ArticleEntity>, NoParams> {
+class GetSavedArticlesUseCase
+    implements UseCaseStream<List<ArticleEntity>, NoParams> {
   final NewsRepository repository;
 
-  GetSavedArticles({required this.repository});
+  GetSavedArticlesUseCase({required this.repository});
 
   @override
   Stream<Either<Failure, List<ArticleEntity>>> call(NoParams param) {

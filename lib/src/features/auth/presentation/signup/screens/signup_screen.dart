@@ -34,7 +34,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
-  final _fullNameTextController = TextEditingController();
+  final _userNameTextController = TextEditingController();
 
   bool _showPassword = false;
 
@@ -42,7 +42,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   void dispose() {
     _emailTextController.dispose();
     _passwordTextController.dispose();
-    _fullNameTextController.dispose();
+    _userNameTextController.dispose();
     super.dispose();
   }
 
@@ -153,12 +153,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   Widget _buildFullNameField(SignupState signupState) {
     return TextFormField(
-      controller: _fullNameTextController,
+      controller: _userNameTextController,
       enabled: signupState.loadState is! Loading,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.name,
       decoration: const InputDecoration(
-        hintText: "Enter full name",
+        hintText: "Enter user name",
         prefixIcon: Icon(Icons.person),
       ),
       onChanged: (value) =>
@@ -202,7 +202,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       ),
       onChanged: (value) =>
           ref.read(signUpControllerProvider.notifier).validatePassword(value),
-      validator: (value) => value?.isValidPassword()
+      validator: (value) => !value?.isValidPassword()
           ? "Please ensure your password is up to 6 characters"
           : null,
     );
@@ -216,6 +216,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         ref.read(signUpControllerProvider.notifier).signUp(
               email: _emailTextController.text,
               password: _passwordTextController.text,
+              userName: _userNameTextController.text,
             );
       },
       text: const Text("Signup"),

@@ -22,11 +22,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  // FocusNodes for the TextFields
+  final FocusNode _userNameFocusNode = FocusNode();
+  final FocusNode _phoneNumberFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
     _userNameController.dispose();
     _emailController.dispose();
+    _phoneNumberController.dispose();
+    _countryController.dispose();
+    _userNameFocusNode.dispose();
     _phoneNumberController.dispose();
     super.dispose();
   }
@@ -83,20 +95,29 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       _buildInputHeader("Username"),
       const Gap(10),
       TextField(
+        focusNode: _userNameFocusNode,
         controller: _userNameController,
+        keyboardType: TextInputType.name,
+        textInputAction: TextInputAction.next,
+        onEditingComplete: () {
+          FocusScope.of(context).requestFocus(_phoneNumberFocusNode);
+        },
       ),
       const Gap(20),
       _buildInputHeader("phone"),
       const Gap(10),
       TextField(
+        focusNode: _phoneNumberFocusNode,
         keyboardType: TextInputType.phone,
         controller: _phoneNumberController,
+        textInputAction: TextInputAction.done,
       ),
       const Gap(20),
       _buildInputHeader("country"),
       const Gap(10),
       BuzzWireCountryPicker(
         onSelected: (country) {},
+        countryController: _countryController,
       )
     ];
   }

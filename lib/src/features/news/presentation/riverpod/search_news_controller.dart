@@ -21,13 +21,13 @@ part 'search_news_controller.g.dart';
 
 @riverpod
 class SearchNewsController extends _$SearchNewsController {
-  late GetSearchHistory _getSearchHistory;
-  late DeleteSearchHistory _deleteSearchHistory;
-  late SaveSearchHistory _saveSearchHistory;
-  late SaveArticle _saveArticle;
-  late DeleteSavedArticle _deleteSavedArticle;
-  late GetSavedArticles _getSavedArticles;
-  late GetNews _getNews;
+  late GetSearchHistoryUseCase _getSearchHistory;
+  late DeleteSearchHistoryUseCase _deleteSearchHistory;
+  late SaveSearchHistoryUseCase _saveSearchHistory;
+  late SaveArticleUseCase _saveArticle;
+  late DeleteSavedArticleUseCase _deleteSavedArticle;
+  late GetSavedArticlesUseCase _getSavedArticles;
+  late GetNewsUseCase _getNews;
 
   @override
   SearchNewsState build() {

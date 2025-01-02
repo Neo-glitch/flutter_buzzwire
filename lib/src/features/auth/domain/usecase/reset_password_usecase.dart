@@ -3,10 +3,10 @@ import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class ResetPassword implements UseCaseFutureVoid<ResetPasswordParams> {
+class ResetPasswordUseCase implements UseCaseFutureVoid<ResetPasswordParams> {
   final AuthRepository authRepo;
 
-  ResetPassword({required this.authRepo});
+  ResetPasswordUseCase({required this.authRepo});
 
   @override
   Future<Either<Failure, void>> call(ResetPasswordParams param) async {

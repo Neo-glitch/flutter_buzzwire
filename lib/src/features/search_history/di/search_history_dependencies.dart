@@ -14,14 +14,14 @@ Future<void> provideSearchHistoryDependencies() async {
   injector.registerFactory<SearchHistoryRepository>(
       () => SearchHistoryRepositoryImpl(localDataSource: injector()));
 
-  injector.registerFactory<ClearSearchHistory>(
-      () => ClearSearchHistory(repository: injector()));
+  injector.registerFactory<ClearSearchHistoryUseCase>(
+      () => ClearSearchHistoryUseCase(repository: injector()));
 
-  injector.registerFactory<DeleteSearchHistory>(
-      () => DeleteSearchHistory(repository: injector()));
+  injector.registerFactory<DeleteSearchHistoryUseCase>(
+      () => DeleteSearchHistoryUseCase(repository: injector()));
 
-  injector.registerFactory<GetSearchHistory>(
-      () => GetSearchHistory(repository: injector()));
-  injector.registerFactory<SaveSearchHistory>(
-      () => SaveSearchHistory(repository: injector()));
+  injector.registerFactory<GetSearchHistoryUseCase>(
+      () => GetSearchHistoryUseCase(repository: injector()));
+  injector.registerFactory<SaveSearchHistoryUseCase>(
+      () => SaveSearchHistoryUseCase(repository: injector()));
 }

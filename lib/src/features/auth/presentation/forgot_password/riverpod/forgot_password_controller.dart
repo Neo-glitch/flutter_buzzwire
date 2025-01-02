@@ -10,7 +10,7 @@ part 'forgot_password_controller.g.dart';
 
 @riverpod
 class ForgotPasswordController extends _$ForgotPasswordController {
-  late ResetPassword _resetPassword;
+  late ResetPasswordUseCase _resetPassword;
   @override
   ForgotPasswordState build() {
     _resetPassword = injector();

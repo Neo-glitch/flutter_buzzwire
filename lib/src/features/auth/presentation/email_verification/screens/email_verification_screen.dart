@@ -166,6 +166,7 @@ class _EmailVerificationScreenState
       icon: Icons.lock_outline_rounded,
       isEnabled: uiState.loadState is! Loading,
       obscureText: !_showPassword,
+      textInputAction: TextInputAction.done,
       onChanged: (value) => ref
           .read(emailVerificationControllerProvider.notifier)
           .validatePassword(value),
@@ -191,11 +192,12 @@ class _EmailVerificationScreenState
     bool obscureText = false,
     Widget? suffixIcon,
     bool isValid = false,
+    TextInputAction textInputAction = TextInputAction.next,
   }) {
     return TextFormField(
       controller: controller,
       enabled: isEnabled,
-      textInputAction: TextInputAction.next,
+      textInputAction: textInputAction,
       keyboardType: obscureText
           ? TextInputType.visiblePassword
           : TextInputType.emailAddress,

@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/error/enums/fb_firestore_error_type.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'enums/fb_auth_error_type.dart';
@@ -73,6 +74,7 @@ class ExceptionHandler {
       emailAlreadyInUse => FbAuthErrorType.emailAlreadyInUse,
       accountNotEnabled => FbAuthErrorType.userDisabled,
       weakPassword => FbAuthErrorType.weakPassword,
+      userMismatch => FbAuthErrorType.userMismatch,
       _ => FbAuthErrorType.unknown
     };
 
@@ -82,7 +84,26 @@ class ExceptionHandler {
   static Exception _handleFirebaseFirestoreException(
     FirebaseException exception,
   ) {
-    // Todo handle firestore errors later
-    return FbFirestoreException(message: ErrorText.unknownError);
+    final errorType = switch (exception.code) {
+      cancelled => FbFireStoreErrorType.cancelled,
+      unknown => FbFireStoreErrorType.unknown,
+      invalidArgument => FbFireStoreErrorType.invalidArgument,
+      timeout => FbFireStoreErrorType.timeout,
+      docNotFound => FbFireStoreErrorType.docNotFound,
+      docAlreadyExists => FbFireStoreErrorType.docAlreadyExists,
+      permissionDenied => FbFireStoreErrorType.permissionDenied,
+      unauthenticated => FbFireStoreErrorType.unAuthenticated,
+      firebaseQuotaExhausted => FbFireStoreErrorType.firebaseQuotaExhausted,
+      failedPrecondition => FbFireStoreErrorType.failedPrecondition,
+      operationAbortedOnConflict =>
+        FbFireStoreErrorType.operationAbortedOnConflict,
+      dataOutOfRange => FbFireStoreErrorType.dataOutOfRange,
+      operationUnimplemented => FbFireStoreErrorType.operationUnimplemented,
+      internalError => FbFireStoreErrorType.internalError,
+      serviceUnavailable => FbFireStoreErrorType.serviceUnavailable,
+      dataLoss => FbFireStoreErrorType.dataLoss,
+      _ => FbFireStoreErrorType.unknown
+    };
+    return FbFirestoreException(message: errorType.message);
   }
 }

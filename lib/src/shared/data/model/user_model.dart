@@ -1,18 +1,20 @@
+import 'package:buzzwire/src/shared/data/model/country_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel {
-  final String id;
+  final String userId;
   final String email;
   final String userName;
   final String? phoneNumber;
-  final String? country;
+  final CountryModel? country;
   final String? profileImage;
 
   UserModel({
-    required this.id,
+    required this.userId,
     required this.email,
     required this.userName,
     this.phoneNumber,
@@ -20,14 +22,21 @@ class UserModel {
     this.profileImage,
   });
 
-  @override
-  String toString() {
-    return 'UserModel{id: $id, email: $email, userName: $userName, phoneNumber: $phoneNumber, country: $country, profileImage: $profileImage}';
-  }
-
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return _$UserModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  /// Factory constructor for Firestore document deserialization
+  factory UserModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> doc,
+    SnapshotOptions? options,
+  ) {
+    final data = doc.data()!;
+    return UserModel.fromJson(data);
+  }
+
+  /// Converts the model to a Firestore document map
+  Map<String, dynamic> toFirestore() => toJson();
 }

@@ -14,8 +14,8 @@ part 'discover_news_controller.g.dart';
 
 @riverpod
 class DiscoverNewsController extends _$DiscoverNewsController {
-  late GetNews _getNews;
-  late GetHeadlines _getHeadlines;
+  late GetNewsUseCase _getNews;
+  late GetHeadlinesUseCase _getHeadlines;
   final _trendingNewsTopics = ["Politics", "Music", "Finance"];
 
   @override

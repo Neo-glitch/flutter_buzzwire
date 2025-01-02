@@ -19,7 +19,7 @@ import '../../src/features/news/presentation/screens/discover_screen.dart';
 import '../../src/features/news/presentation/screens/news_details_screen.dart';
 import '../../src/features/news/presentation/screens/news_webview_screen.dart';
 import '../../src/features/news/presentation/screens/saved_news_screen.dart';
-import '../../src/features/profile/presentation/edit_profile_screen.dart';
+import '../../src/features/profile/presentation/screens/edit_profile_screen.dart';
 import '../../src/features/settings/presentation/screens/settings_screen.dart';
 import '../../src/home_wrapper.dart';
 import 'route.dart';

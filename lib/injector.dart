@@ -9,9 +9,11 @@ import 'package:buzzwire/src/shared/data/datasources/local/app_database.dart';
 import 'package:buzzwire/src/shared/data/manager/app_theme_manager_impl.dart';
 import 'package:buzzwire/src/shared/di/shared_dependencies.dart';
 import 'package:buzzwire/src/shared/domain/manager/app_theme_manager.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final injector = GetIt.instance;
 
@@ -25,6 +27,10 @@ Future<void> init() async {
       () => BuzzWireSharedPref(preferences: pref));
   injector.registerLazySingleton<DioClient>(() => DioClient());
   injector.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  injector.registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance);
+  injector.registerLazySingleton<SupabaseStorageClient>(
+      () => Supabase.instance.client.storage);
   injector.registerLazySingleton<AppThemeManager>(
       () => AppThemeManagerImpl(sharedPref: injector()));
 

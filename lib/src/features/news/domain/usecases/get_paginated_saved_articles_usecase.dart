@@ -4,12 +4,12 @@ import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class GetPaginatedSavedArticles
+class GetPaginatedSavedArticlesUseCase
     implements
         UseCaseFuture<List<ArticleEntity>, GetPaginatedSavedArticlesParams> {
   final NewsRepository repository;
 
-  GetPaginatedSavedArticles({required this.repository});
+  GetPaginatedSavedArticlesUseCase({required this.repository});
 
   @override
   Future<Either<Failure, List<ArticleEntity>>> call(

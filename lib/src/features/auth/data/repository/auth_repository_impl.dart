@@ -22,8 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, User>> signIn(String email, String password) async {
     try {
-      final user = await authRemoteDataSource.signIn(email, password);
-      return Right(user);
+      return Right(await authRemoteDataSource.signIn(email, password));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbAuthFailure(exception.toString()));
@@ -33,8 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signOut() async {
     try {
-      final response = await authRemoteDataSource.signOut();
-      return Right(response);
+      return Right(await authRemoteDataSource.signOut());
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbAuthFailure(exception.toString()));
@@ -44,8 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, User>> signUp(String email, String password) async {
     try {
-      final user = await authRemoteDataSource.signup(email, password);
-      return Right(user);
+      return Right(await authRemoteDataSource.signup(email, password));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbAuthFailure(exception.toString()));
@@ -79,6 +76,28 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await authRemoteDataSource.verifyEmail();
       return Right(response);
+    } on Exception catch (e) {
+      final exception = ExceptionHandler.handleException(e);
+      return Left(FbAuthFailure(exception.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAccount() async {
+    try {
+      return Right(await authRemoteDataSource.deleteAccount());
+    } on Exception catch (e) {
+      final exception = ExceptionHandler.handleException(e);
+      return Left(FbAuthFailure(exception.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> reAuthenticateUser(
+      String email, String password) async {
+    try {
+      return Right(
+          await authRemoteDataSource.reAuthenticateUser(email, password));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbAuthFailure(exception.toString()));

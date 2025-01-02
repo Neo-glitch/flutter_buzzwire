@@ -7,7 +7,7 @@ part of 'saved_news_controller.dart';
 // **************************************************************************
 
 String _$savedNewsControllerHash() =>
-    r'16ed0e540d136f4238ea2dc8ce8a461fffc7bc03';
+    r'd4e22d2eb916188864c7a3fec7594f00bc0a058b';
 
 /// See also [SavedNewsController].
 @ProviderFor(SavedNewsController)

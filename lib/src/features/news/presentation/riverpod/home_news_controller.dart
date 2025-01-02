@@ -1,26 +1,26 @@
+import 'package:buzzwire/core/network/dio/dio_helper.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
+import 'package:buzzwire/core/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/utils/extensions/num_extension.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';
+import 'package:buzzwire/src/features/news/domain/usecases/get_headlines_by_category_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/get_saved_articles_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/save_article_usecase.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
-import 'package:buzzwire/core/utils/extensions/list_extension.dart';
-import 'package:buzzwire/core/utils/extensions/num_extension.dart';
-import 'package:buzzwire/src/features/news/domain/usecases/get_headlines_by_category_usecase.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/home_news_state.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_news_controller.g.dart';
 
 @riverpod
 class HomeNewsController extends _$HomeNewsController {
-  late GetHeadlinesByCategory _getNewsHeadlines;
+  late GetHeadlinesByCategoryUseCase _getNewsHeadlines;
   late String _category;
-  late SaveArticle _saveArticle;
-  late DeleteSavedArticle _deleteSavedArticle;
-  late GetSavedArticles _getSavedArticles;
+  late SaveArticleUseCase _saveArticle;
+  late DeleteSavedArticleUseCase _deleteSavedArticle;
+  late GetSavedArticlesUseCase _getSavedArticles;
 
   @override
   HomeNewsState build(String category) {
@@ -29,6 +29,7 @@ class HomeNewsController extends _$HomeNewsController {
     _deleteSavedArticle = injector();
     _getSavedArticles = injector();
     _category = category;
+
     return const HomeNewsState();
   }
 

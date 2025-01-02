@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class BuzzWireCountryPicker extends StatefulWidget {
   final bool? isEnabled;
   final Function(Country country)? onSelected;
+  final TextEditingController? countryController;
   const BuzzWireCountryPicker({
     super.key,
     this.onSelected,
     this.isEnabled,
+    this.countryController,
   });
 
   @override
@@ -29,7 +31,10 @@ class _BuzzWireCountryPickerState extends State<BuzzWireCountryPicker> {
       enabled: widget.isEnabled,
       onTap: () => _showCountryPicker(),
       readOnly: true,
-      controller: _countryController,
+      controller: widget.countryController ?? _countryController,
+      decoration: const InputDecoration().copyWith(
+        suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
+      ),
     );
   }
 
@@ -49,12 +54,12 @@ class _BuzzWireCountryPickerState extends State<BuzzWireCountryPicker> {
         ),
       ),
       onSelect: (Country country) {
-        _countryController.text = country.name;
-        FocusScope.of(context).requestFocus(FocusNode());
+        (widget.countryController ?? _countryController).text = country.name;
         if (widget.onSelected != null) {
           widget.onSelected!(country);
         }
       },
+      onClosed: () => FocusScope.of(context).requestFocus(FocusNode()),
     );
   }
 }

@@ -1,6 +1,9 @@
+import 'package:buzzwire/core/constants/app_secrets.dart';
+import 'package:buzzwire/core/network/supabase/supabase_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app.dart';
 import 'firebase_options.dart';
@@ -18,6 +21,10 @@ void main() async {
   await di.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await Supabase.initialize(
+    url: SupabaseHelper.baseUrl,
+    anonKey: AppSecrets.supabaseApiKey,
   );
 
   runApp(
