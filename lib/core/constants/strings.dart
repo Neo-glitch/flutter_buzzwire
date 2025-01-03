@@ -59,9 +59,19 @@ class BuzzWireStrings {
   static const String changePassword = "Change Password";
   static const String signOut = "Sign out";
   static const String deleteAccount = "Delete Account";
+  static const String deleteYourAccountQuestion = "Delete your account?";
+  static const String permanentlyDeleteYourAccount =
+      "Permanently Delete Account";
+  static const String permanentlyDeleteAccountDesc =
+      "Deleting your account will permanently erase all your data. This includes your profile, activity, and preferences. If you’re sure, enter your password below and click on the button to confirm.";
+  static const String deleteAccountScreenDesc =
+      "You will loose all your data by deleting your account. This action cannot be undone";
+  static const String confirmDeleteAccountDialogDesc =
+      "Once you delete your account, there's no getting it back. Make sure you want to do this";
   static const String sendFeedback = "Send Feedback";
   static const String warning = "Warning";
   static const String signOutDialogDesc = "Are you sure you want to sign out?";
+  static const String deletingYourAccount = "Deleting Your Account...";
 
   // fontFamily
   static const String poppins = "Poppins";

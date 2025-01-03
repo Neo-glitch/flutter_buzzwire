@@ -91,8 +91,4 @@ class EditProfileController extends _$EditProfileController {
   void _setErrorState(String errorMessage) {
     state = state.copyWith(loadState: Error(message: errorMessage));
   }
-
-  void hasSeenError() {
-    state = state.copyWith(loadState: const Empty());
-  }
 }

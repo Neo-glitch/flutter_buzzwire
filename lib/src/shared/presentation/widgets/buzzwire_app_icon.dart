@@ -1,18 +1,17 @@
-import 'dart:ffi';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../core/constants/asset_strings.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/extensions/context_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 class BuzzWireAppIcon extends StatelessWidget {
-  final MainAxisAlignment alignment;
+  final MainAxisAlignment mainAxisAlignment;
   final double fontSize;
 
   const BuzzWireAppIcon({
     super.key,
-    required this.alignment,
+    required this.mainAxisAlignment,
     this.fontSize = 20,
   });
 
@@ -20,7 +19,7 @@ class BuzzWireAppIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: alignment,
+      mainAxisAlignment: mainAxisAlignment,
       children: [
         Image.asset(
           width: 13,

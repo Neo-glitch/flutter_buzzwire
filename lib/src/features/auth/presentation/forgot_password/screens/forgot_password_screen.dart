@@ -39,13 +39,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   void _listenToForgotPasswordState() {
     ref.listen(forgotPasswordControllerProvider, (previous, next) {
-      if (next.loadState is Error) {
+      if (next.loadState is Error && previous?.loadState is! Error) {
         final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert("Error", message).then(
-              (_) => ref
-                  .read(forgotPasswordControllerProvider.notifier)
-                  .hasSeenError(),
-            );
+        context.showSingleButtonAlert("Error", message);
       }
 
       if (next.loadState is Loaded) {
@@ -89,7 +85,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
+            const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
             _buildForgotPasswordLogo(),
             const Gap(30),
             _buildHeader(),

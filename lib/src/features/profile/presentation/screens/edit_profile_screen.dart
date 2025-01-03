@@ -70,11 +70,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   void _listenToUiState() {
     ref.listen<EditProfileState>(editProfileControllerProvider,
         (previous, next) {
-      if (next.loadState is Error) {
+      if (next.loadState is Error && previous?.loadState is! Error) {
         final message = (next.loadState as Error).message;
         context.showSingleButtonAlert(BuzzWireStrings.error, message,
             buttonText: BuzzWireStrings.retry);
-        ref.read(editProfileControllerProvider.notifier).hasSeenError();
       } else if (next.loadState is Loaded) {
         context.showToast("Profile updated successfully");
         context.pop();

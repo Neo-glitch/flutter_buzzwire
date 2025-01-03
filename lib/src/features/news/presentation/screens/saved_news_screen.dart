@@ -33,14 +33,16 @@ class SavedNewsScreenState extends ConsumerState<SavedNewsScreen> {
   @override
   Widget build(BuildContext context) {
     final uiState = ref.watch(savedNewsControllerProvider);
-    return Scaffold(
-      appBar: BuzzWireAppBar(
-        title: Text(
-          "Saved Articles",
-          style: context.titleLarge?.copyWith(fontSize: 20),
+    return SafeArea(
+      child: Scaffold(
+        appBar: BuzzWireAppBar(
+          title: Text(
+            "Saved Articles",
+            style: context.titleLarge?.copyWith(fontSize: 20),
+          ),
         ),
+        body: _buildBody(uiState),
       ),
-      body: _buildBody(uiState),
     );
   }
 

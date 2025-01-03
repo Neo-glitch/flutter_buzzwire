@@ -101,8 +101,4 @@ class EmailVerificationController extends _$EmailVerificationController {
     final isPasswordValid = password.isValidPassword();
     state = state.copyWith(isPasswordValid: isPasswordValid);
   }
-
-  void hasSeenError() {
-    state = state.copyWith(loadState: const Empty());
-  }
 }

@@ -15,13 +15,10 @@ part 'settings_controller.g.dart';
 @riverpod
 class SettingsController extends _$SettingsController {
   late SignOutUseCase _signOutUseCase;
-  late DeleteUserAccountUseCase _deleteUserAccountUseCase;
-  late GetCachedUserUseCase _getCachedUserUseCase;
+
   @override
   SettingsState build() {
     _signOutUseCase = injector();
-    _deleteUserAccountUseCase = injector();
-    _getCachedUserUseCase = injector();
     return const SettingsState();
   }
 
@@ -30,30 +27,5 @@ class SettingsController extends _$SettingsController {
     ref
         .read(authControllerProvider.notifier)
         .setAuthState(AuthStatus.unAuthenticated);
-  }
-
-  Future<void> deleteUserAccount(String password) async {
-    final userResult = _getCachedUserUseCase(NoParams());
-    final user = userResult.getOrElse((l) => null);
-
-    if (user == null) {
-      state = state.copyWith(
-          loadState: const Error(message: ErrorText.unknownError));
-      return;
-    }
-    final deleteAccountResult = await _deleteUserAccountUseCase(
-      DeleteUserAccountParam(userEntity: user, password: password),
-    );
-
-    deleteAccountResult.fold(
-      (failure) =>
-          state = state.copyWith(loadState: Error(message: failure.message)),
-      (result) {
-        state = state.copyWith(loadState: const Loaded());
-        ref
-            .read(authControllerProvider.notifier)
-            .setAuthState(AuthStatus.unAuthenticated);
-      },
-    );
   }
 }

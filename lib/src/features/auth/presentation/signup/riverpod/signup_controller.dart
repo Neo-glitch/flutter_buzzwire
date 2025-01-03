@@ -115,8 +115,4 @@ class SignUpController extends _$SignUpController {
   void vaidateUserName(String userName) {
     state = state.copyWith(isFullNameFilled: userName.isNotEmpty);
   }
-
-  void hasSeenError() {
-    state = state.copyWith(loadState: const Empty());
-  }
 }

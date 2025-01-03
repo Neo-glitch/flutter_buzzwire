@@ -39,6 +39,8 @@ class BuzzWireRoute {
       BuzzWireRoute(path: "/saved_news", name: "saved_news");
   static BuzzWireRoute editProfile =
       BuzzWireRoute(path: "/edit_profile", name: "edit_profile");
+  static BuzzWireRoute deleteAccount =
+      BuzzWireRoute(path: "/delete_account", name: "delete_account");
 
   static BuzzWireRoute newsDetails =
       BuzzWireRoute(path: "/news_details", name: "news_details");

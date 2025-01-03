@@ -32,8 +32,4 @@ class ForgotPasswordController extends _$ForgotPasswordController {
     final isEmailValid = email.isValidEmail();
     state = state.copyWith(isEmailValid: isEmailValid);
   }
-
-  void hasSeenError() {
-    state = state.copyWith(loadState: const Empty());
-  }
 }

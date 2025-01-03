@@ -2,7 +2,6 @@ import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class BuzzWireSimpleDialog extends StatelessWidget {
   final String title;

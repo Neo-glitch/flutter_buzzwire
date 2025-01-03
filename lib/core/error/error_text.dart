@@ -8,23 +8,33 @@ class ErrorText {
       "Unable to retreive data from the server, please check your internet";
   static const sendTimeoutError =
       "Unable to send data to server, please check your internet";
-  static const badRequestError = "Bad request, try again later";
-  static const unAuthorizedError = "User unauthorized, try again later";
-  static const tooManyRequestError = "Too many requests, try again later";
-  static const internalServerError = "Internal server error, try again later";
-  static const noInternetError = "Please check your internet";
-  static const cacheError = "Cache error, try again later";
-  static const unknownError = "Oops! Something went wrong, try again later";
-  static const unexpectedError = "An unexpected error occured, try again later";
+  static const badRequestError = "Something went wrong. Please try again.";
+  static const unAuthorizedError =
+      "You’re not authorized. Please log in and try again.";
+  static const tooManyRequestError =
+      "Too many attempts. Please wait a moment and try again.";
+  static const internalServerError =
+      "We’re experiencing server issues. Please try again later.";
+  static const noInternetError =
+      "No internet connection. Check your network and try again.";
+  static const cacheError = "A temporary error occurred. Please try again.";
+  static const unknownError = "Something went wrong. Please try again.";
+  static const unexpectedError =
+      "An unexpected error occurred. Please try again.";
 
   // For Firebase Auth related messages
-  static const accountExistsError = "Email already exists. Go to login page";
-  static const wrongAuthCredentialsError = "Wrong email/password combination";
-  static const userNotFoundError = "No user found with this email";
-  static const userDisabledError = "Account disabled";
-  static const weakPassword = "Password should be at least 6 characters";
+  static const accountExistsError =
+      "The email address you entered is already associated with an existing account. Please use a different email or log in to your existing account";
+  static const wrongAuthCredentialsError =
+      "The email or password you entered is incorrect. Please check your credentials and try again";
+  static const userNotFoundError =
+      "No account found with this email. Please check your email or sign up.";
+  static const userDisabledError =
+      "Your account has been disabled. Contact support for assistance.";
+  static const weakPassword =
+      "Your password must be at least 6 characters long.";
   static const accountTypeNotSupportedEror =
-      "This type of account is not enabled";
+      "This account type is not supported. Please use a different method.";
 
   // For cloud Firestore related errors
   static const String firestoreCancelledError =

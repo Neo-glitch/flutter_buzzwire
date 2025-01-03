@@ -87,7 +87,15 @@ extension ContextExtension<T> on BuildContext {
       barrierDismissible: true,
       barrierLabel: MaterialLocalizations.of(this).modalBarrierDismissLabel,
       pageBuilder: (ctx, anim1, anim2) {
-        return const SizedBox.shrink();
+        return BuzzWireSimpleDialog(
+          title: title,
+          description: message,
+          primaryButtonText: buttonText,
+          onPrimaryClick: () {
+            ctx.pop();
+            if (onClick != null) onClick();
+          },
+        );
       },
       transitionBuilder: (ctx, anim1, anim2, child) {
         return ScaleTransition(
@@ -96,15 +104,7 @@ extension ContextExtension<T> on BuildContext {
             curve: Curves.elasticOut,
             reverseCurve: Curves.easeOutCubic,
           ),
-          child: BuzzWireSimpleDialog(
-            title: title,
-            description: message,
-            primaryButtonText: buttonText,
-            onPrimaryClick: () {
-              ctx.pop();
-              if (onClick != null) onClick();
-            },
-          ),
+          child: child,
         );
       },
     );
@@ -123,7 +123,20 @@ extension ContextExtension<T> on BuildContext {
       barrierLabel: MaterialLocalizations.of(this).modalBarrierDismissLabel,
       barrierDismissible: true,
       pageBuilder: (ctx, anim1, anim2) {
-        return const SizedBox.shrink();
+        return BuzzWireSimpleDialog(
+          title: title,
+          description: message,
+          primaryButtonText: primaryButtonText,
+          secondaryButtonText: secondaryButtonText,
+          onPrimaryClick: () {
+            ctx.pop();
+            if (onPrimaryButtonClick != null) onPrimaryButtonClick();
+          },
+          onSecondaryClick: () {
+            ctx.pop();
+            if (onSecondaryButtonClick != null) onSecondaryButtonClick();
+          },
+        );
       },
       transitionBuilder: (ctx, anim1, anim2, child) {
         return ScaleTransition(
@@ -132,20 +145,31 @@ extension ContextExtension<T> on BuildContext {
             curve: Curves.elasticOut,
             reverseCurve: Curves.easeOutCubic,
           ),
-          child: BuzzWireSimpleDialog(
-            title: title,
-            description: message,
-            primaryButtonText: primaryButtonText,
-            secondaryButtonText: secondaryButtonText,
-            onPrimaryClick: () {
-              ctx.pop();
-              if (onPrimaryButtonClick != null) onPrimaryButtonClick();
-            },
-            onSecondaryClick: () {
-              ctx.pop();
-              if (onSecondaryButtonClick != null) onSecondaryButtonClick();
-            },
-          ),
+          child: child,
+        );
+      },
+    );
+  }
+
+  Future<T?> showFullScreenDialog({required Widget dialog}) {
+    return showGeneralDialog(
+      context: this,
+      transitionDuration: const Duration(milliseconds: 250),
+      pageBuilder: (ctx, anim1, anim2) {
+        return dialog;
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        const begin = Offset(0.0, 1.0); // Start from the bottom
+        const end = Offset.zero; // End at top
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = anim1.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
         );
       },
     );

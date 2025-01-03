@@ -25,6 +25,7 @@ Future<void> provideProfileDependencies() async {
     () => ProfileRepositoryImpl(
       localDatasource: injector(),
       remoteDatasource: injector(),
+      networkConnectionChecker: injector(),
     ),
   );
 

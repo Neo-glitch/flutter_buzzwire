@@ -159,7 +159,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const BuzzWireDivider(),
             SettingsTile(
               title: BuzzWireStrings.deleteAccount,
-              onClick: () {},
+              onClick: () => context.pushNamed(
+                BuzzWireRoute.deleteAccount.name,
+              ),
             ),
           ],
         ),

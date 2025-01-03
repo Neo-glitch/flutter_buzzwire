@@ -43,11 +43,9 @@ class _EmailVerificationScreenState
 
   void _listentToUiState() {
     ref.listen(emailVerificationControllerProvider, (previous, next) {
-      if (next.loadState is Error) {
+      if (next.loadState is Error && previous?.loadState is! Error) {
         final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert(BuzzWireStrings.error, message).then((_) {
-          ref.read(emailVerificationControllerProvider.notifier).hasSeenError();
-        });
+        context.showSingleButtonAlert(BuzzWireStrings.error, message);
       }
       if (next.loadState is Loaded) {
         context.pop();
@@ -86,7 +84,7 @@ class _EmailVerificationScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
+        const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
         _buildScreenLogo(context),
         const Gap(30),
         ..._buildHeader(),

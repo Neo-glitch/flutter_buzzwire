@@ -51,10 +51,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         signInState.isEmailValid && signInState.isPasswordValid;
 
     ref.listen(signInControllerProvider, (previous, next) {
-      if (next.loadState is Error) {
+      if (next.loadState is Error && previous?.loadState is! Error) {
         final error = (next.loadState as Error).message;
         context.showSingleButtonAlert(BuzzWireStrings.error, error).then((_) {
-          ref.read(signInControllerProvider.notifier).hasSeenError();
+          ref.read(signInControllerProvider.notifier);
         });
       }
     });
@@ -72,7 +72,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BuzzWireAppIcon(alignment: MainAxisAlignment.center),
+                      BuzzWireAppIcon(
+                          mainAxisAlignment: MainAxisAlignment.center),
                       const Gap(20),
                       _buildLogo(context),
                       _buildTitle(context),
@@ -163,7 +164,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         ref.read(signInControllerProvider.notifier).validatePassword(value);
       },
       validator: (value) {
-        return !value.orEmpty.isValidPassword()
+        return !value.orEmpty.isValidPassword() &&
+                signInState.loadState is Error
             ? "Please ensure your password is at least 6 characters"
             : null;
       },

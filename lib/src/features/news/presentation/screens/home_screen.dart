@@ -80,7 +80,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       flexibleSpace: FlexibleSpaceBar(
         background: BuzzWireAppBar(
           title: const BuzzWireAppIcon(
-            alignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
           ),
           actions: [
             IconButton(

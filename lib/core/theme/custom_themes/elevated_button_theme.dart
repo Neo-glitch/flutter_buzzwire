@@ -14,7 +14,6 @@ class BuzzWireElevatedButtonTheme {
     backgroundColor: BuzzWireColors.primary,
     disabledForegroundColor: BuzzWireColors.lightGrey,
     disabledBackgroundColor: BuzzWireColors.primary.withOpacity(0.4),
-    side: const BorderSide(color: BuzzWireColors.primary),
     padding: const EdgeInsets.symmetric(vertical: 10),
     textStyle: const TextStyle().copyWith(
         fontSize: 14,
@@ -32,7 +31,6 @@ class BuzzWireElevatedButtonTheme {
     backgroundColor: BuzzWireColors.primary,
     disabledForegroundColor: BuzzWireColors.lightGrey,
     disabledBackgroundColor: BuzzWireColors.primary.withOpacity(0.4),
-    side: const BorderSide(color: BuzzWireColors.primary),
     padding: const EdgeInsets.symmetric(vertical: 10),
     textStyle: const TextStyle().copyWith(
         fontSize: 14,

@@ -25,8 +25,8 @@ Future<void> provideAuthDependencies() async {
       () => AuthRemoteDataSourceImpl(firebaseAuth: injector()));
 
   // Repository
-  injector.registerFactory<AuthRepository>(
-      () => AuthRepositoryImpl(authRemoteDataSource: injector()));
+  injector.registerFactory<AuthRepository>(() => AuthRepositoryImpl(
+      authRemoteDataSource: injector(), networkConnectionChecker: injector()));
 
   injector.registerFactory<LocalUserManager>(
       () => LocalUserManagerImpl(appPreference: injector()));

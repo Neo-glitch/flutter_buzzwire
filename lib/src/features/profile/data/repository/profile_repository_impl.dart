@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/error/exception_handler.dart';
 import 'package:buzzwire/core/error/failure.dart';
+import 'package:buzzwire/core/network/network_connection_checker.dart';
 import 'package:buzzwire/src/features/profile/data/datasources/local/profle_local_datasource.dart';
 import 'package:buzzwire/src/features/profile/data/datasources/remote/profile_remote_datasource.dart';
 import 'package:buzzwire/src/features/profile/data/mapper/user_mapper.dart';
@@ -12,10 +14,12 @@ import 'package:fpdart/fpdart.dart';
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDatasource;
   final ProfileLocalDataSource localDatasource;
+  final NetworkConnectionChecker networkConnectionChecker;
 
   ProfileRepositoryImpl({
     required this.remoteDatasource,
     required this.localDatasource,
+    required this.networkConnectionChecker,
   });
 
   @override
@@ -31,10 +35,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, void>> createUser(UserEntity userEntity) async {
     try {
-      final userModel = UserMapper.fromEntity(userEntity);
-      await remoteDatasource.createUser(userModel!);
-      await localDatasource.saveUser(userModel);
-      return const Right(unit);
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        final userModel = UserMapper.fromEntity(userEntity);
+        await remoteDatasource.createUser(userModel!);
+        await localDatasource.saveUser(userModel);
+        return const Right(unit);
+      }
+      return Left(FbFirestoreFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbFirestoreFailure(exception.toString()));
@@ -44,10 +52,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, void>> deleteUser(UserEntity userEntity) async {
     try {
-      final userModel = UserMapper.fromEntity(userEntity);
-      await remoteDatasource.deleteUser(userModel!);
-      await clearCachedUser();
-      return const Right(unit);
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        final userModel = UserMapper.fromEntity(userEntity);
+        await remoteDatasource.deleteUser(userModel!);
+        await clearCachedUser();
+        return const Right(unit);
+      }
+      return Left(FbFirestoreFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbFirestoreFailure(exception.toString()));
@@ -68,8 +80,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, UserEntity?>> getUser(String userId) async {
     try {
-      final userModel = await remoteDatasource.getUser(userId);
-      return Right(UserMapper.fromModel(userModel));
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        final userModel = await remoteDatasource.getUser(userId);
+        return Right(UserMapper.fromModel(userModel));
+      }
+      return Left(FbFirestoreFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbFirestoreFailure(exception.toString()));
@@ -79,10 +95,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, void>> updateUser(UserEntity userEntity) async {
     try {
-      final userModel = UserMapper.fromEntity(userEntity);
-      await remoteDatasource.updateUser(userModel!);
-      await localDatasource.saveUser(userModel);
-      return const Right(unit);
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        final userModel = UserMapper.fromEntity(userEntity);
+        await remoteDatasource.updateUser(userModel!);
+        await localDatasource.saveUser(userModel);
+        return const Right(unit);
+      }
+      return Left(FbFirestoreFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(FbFirestoreFailure(exception.toString()));
@@ -93,8 +113,13 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, String>> uploadProfileImage(
       String userId, File image) async {
     try {
-      final imageUrl = await remoteDatasource.uploadProfileImage(userId, image);
-      return Right(imageUrl);
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        final imageUrl =
+            await remoteDatasource.uploadProfileImage(userId, image);
+        return Right(imageUrl);
+      }
+      return Left(FbFirestoreFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(SupabaseStorageFailure(exception.toString()));

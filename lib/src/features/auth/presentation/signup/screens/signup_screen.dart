@@ -54,11 +54,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   void _listenToSignupState() {
     ref.listen(signUpControllerProvider, (previous, next) {
-      if (next.loadState is Error) {
+      if (next.loadState is Error && previous?.loadState is! Error) {
         final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert(BuzzWireStrings.error, message).then(
-              (_) => ref.read(signUpControllerProvider.notifier).hasSeenError(),
-            );
+        context.showSingleButtonAlert(BuzzWireStrings.error, message);
       }
 
       if (next.loadState is Loaded) {
@@ -105,7 +103,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
+            const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
             _buildSignupLogo(),
             const Gap(20),
             _buildHeader(),
@@ -202,9 +200,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       ),
       onChanged: (value) =>
           ref.read(signUpControllerProvider.notifier).validatePassword(value),
-      validator: (value) => !value?.isValidPassword()
-          ? "Please ensure your password is up to 6 characters"
-          : null,
+      validator: (value) =>
+          !value?.isValidPassword() && signupState.loadState is Error
+              ? "Please ensure your password is up to 6 characters"
+              : null,
     );
   }
 
