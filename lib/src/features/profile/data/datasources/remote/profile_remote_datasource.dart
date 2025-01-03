@@ -35,7 +35,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           .doc(userModel.userId);
       await docRef.set(userModel);
     } catch (e, s) {
-      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
+      BuzzWireLoggerHelper.error(s.toString());
       rethrow;
     }
   }
@@ -53,7 +53,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       );
       await _getUsersCollectionRef.doc(userModel.userId).delete();
     } catch (e, s) {
-      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
+      BuzzWireLoggerHelper.error(s.toString());
       rethrow;
     }
   }
@@ -72,7 +72,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           await docRef.get(const GetOptions(source: Source.server));
       return userModelDocSnap.data();
     } catch (e, s) {
-      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
+      BuzzWireLoggerHelper.error(s.toString());
       rethrow;
     }
   }
@@ -88,7 +88,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           .doc(userModel.userId);
       await docRef.set(userModel);
     } catch (e, s) {
-      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
+      BuzzWireLoggerHelper.error(s.toString());
       rethrow;
     }
   }
@@ -115,7 +115,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       }).toString();
       return imageUrl;
     } catch (e, s) {
-      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
+      BuzzWireLoggerHelper.error(s.toString());
       rethrow;
     }
   }

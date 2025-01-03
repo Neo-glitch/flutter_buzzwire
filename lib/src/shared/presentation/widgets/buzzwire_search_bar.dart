@@ -31,6 +31,24 @@ class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
   bool get _shouldEnableTextField =>
       widget.onSearch != null && widget.onTap == null;
 
+  bool get _shouldShowClearButton =>
+      widget.onClear != null &&
+      widget.onTap == null &&
+      widget.searchController?.text.isNotEmpty.orFalse == true;
+
+  void _handleSearchInputChange(String value) {
+    if (widget.onSearch != null) {
+      widget.onSearch!(value);
+      setState(() {});
+    }
+  }
+
+  void _handleClearButtonPressed() {
+    widget.onClear?.call();
+    widget.searchController?.clear();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -39,7 +57,7 @@ class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
         padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
           color: Color.lerp(context.backgroundColor, Colors.black12, 0.12),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
         ),
         child: Row(
           children: [
@@ -75,7 +93,10 @@ class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
         decoration: InputDecoration(
           hintStyle: context.bodySmall?.copyWith(fontSize: 14),
           hintText: widget.hintText,
+          filled: false,
           border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
           contentPadding: EdgeInsets.zero,
         ),
       ),
@@ -91,23 +112,5 @@ class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
         color: BuzzWireColors.grey,
       ),
     );
-  }
-
-  bool get _shouldShowClearButton =>
-      widget.onClear != null &&
-      widget.onTap == null &&
-      widget.searchController?.text.isNotEmpty.orFalse == true;
-
-  void _handleSearchInputChange(String value) {
-    if (widget.onSearch != null) {
-      widget.onSearch!(value);
-      setState(() {});
-    }
-  }
-
-  void _handleClearButtonPressed() {
-    widget.onClear?.call();
-    widget.searchController?.clear();
-    setState(() {});
   }
 }

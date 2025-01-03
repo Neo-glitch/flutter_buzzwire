@@ -35,11 +35,33 @@ class BuzzWireStrings {
   static const String emailVerificationSubtitle =
       "Input your email and password to get a verification email.";
 
-  // Home
+  // App
   static const String homeAppBarTitle = "Welcome Back!";
   static const String homeAppBarSubTitle = "Dat App Boy";
   static const String defaultErrorScreenHeaderTitle = "An Error Occured";
   static const String defaultEmptyScreenHeaderTitle = "No Results Found";
+  static const String cancel = "Cancel";
+  static const String error = "Error";
+  static const String retry = "Retry";
+  static const String alert = "Alert";
+  static const String yes = "Yes";
+  static const String info = "Info";
+  static const String account = "Account";
+  static const String settings = "Settings";
+  static const String appPreferences = "App Preferences";
+  static const String general = "General";
+  static const String language = "Language";
+  static const String theme = "Theme";
+  static const String countryAndRegion = "Country & region";
+  static const String notifications = "Notifications";
+  static const String profile = "Profile";
+  static const String myArticles = "My Articles";
+  static const String changePassword = "Change Password";
+  static const String signOut = "Sign out";
+  static const String deleteAccount = "Delete Account";
+  static const String sendFeedback = "Send Feedback";
+  static const String warning = "Warning";
+  static const String signOutDialogDesc = "Are you sure you want to sign out?";
 
   // fontFamily
   static const String poppins = "Poppins";

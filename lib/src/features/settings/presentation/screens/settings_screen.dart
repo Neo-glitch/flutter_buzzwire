@@ -3,6 +3,7 @@ import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
+import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_divider.dart';
@@ -19,39 +20,60 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  void _showAppThemeDialog() {
+    showModalBottomSheet(
+      showDragHandle: false,
+      context: context,
+      builder: (ctx) {
+        return const AppThemeDialog();
+      },
+    );
+  }
+
+  void _showConfirmSignoutDialog() {
+    context.showDoubleButtonAlert(
+      BuzzWireStrings.signOut,
+      BuzzWireStrings.signOutDialogDesc,
+      BuzzWireStrings.cancel,
+      BuzzWireStrings.yes,
+      onSecondaryButtonClick: () {
+        ref.read(settingsControllerProvider.notifier).signOut();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: BuzzWireAppBar(
-          title: Text(
-            "Settings",
-            style: context.titleLarge?.copyWith(
-              fontSize: 20,
-            ),
+        child: Scaffold(
+      appBar: BuzzWireAppBar(
+        title: Text(
+          BuzzWireStrings.settings,
+          style: context.titleLarge?.copyWith(
+            fontSize: 20,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: _buildBody(),
-        ),
       ),
-    );
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: _buildBody(),
+      ),
+    ));
   }
 
   Widget _buildBody() {
     return ListView(
       shrinkWrap: false,
       children: [
-        _buildSectionHeader("Account"),
+        _buildSectionHeader(BuzzWireStrings.account),
         const Gap(8),
         _buildProfileSettingsSection(),
         const Gap(24),
-        _buildSectionHeader("App Preferences"),
+        _buildSectionHeader(BuzzWireStrings.appPreferences),
         const Gap(8),
         _buildAppPreferencesSettingsSection(),
         const Gap(24),
-        _buildSectionHeader("General"),
+        _buildSectionHeader(BuzzWireStrings.general),
         const Gap(8),
         _buildGeneralSettingsSection(),
       ],
@@ -65,19 +87,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         child: Column(
           children: [
             SettingsTile(
-              title: "Profile",
+              title: BuzzWireStrings.profile,
               onClick: () {
                 context.pushNamed(BuzzWireRoute.editProfile.name);
               },
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "My Articles",
+              title: BuzzWireStrings.myArticles,
               onClick: () {},
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "Change Password",
+              title: BuzzWireStrings.changePassword,
               onClick: () {},
             ),
           ],
@@ -93,24 +115,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         child: Column(
           children: [
             SettingsTile(
-              title: "Language",
+              title: BuzzWireStrings.language,
               onClick: () {},
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "Theme",
+              title: BuzzWireStrings.theme,
               onClick: () {
                 _showAppThemeDialog();
               },
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "Country & region",
+              title: BuzzWireStrings.countryAndRegion,
               onClick: () {},
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "Notifications",
+              title: BuzzWireStrings.notifications,
               onClick: () {},
             ),
           ],
@@ -126,17 +148,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         child: Column(
           children: [
             SettingsTile(
-              title: "Send Feedback",
+              title: BuzzWireStrings.sendFeedback,
               onClick: () {},
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "Log out",
-              onClick: () {},
+              title: BuzzWireStrings.signOut,
+              onClick: _showConfirmSignoutDialog,
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: "Delete Account",
+              title: BuzzWireStrings.deleteAccount,
               onClick: () {},
             ),
           ],
@@ -154,16 +176,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           color: BuzzWireColors.darkGrey,
         ),
       ),
-    );
-  }
-
-  void _showAppThemeDialog() {
-    showModalBottomSheet(
-      showDragHandle: false,
-      context: context,
-      builder: (ctx) {
-        return const AppThemeDialog();
-      },
     );
   }
 }

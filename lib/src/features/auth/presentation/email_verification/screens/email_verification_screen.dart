@@ -45,7 +45,7 @@ class _EmailVerificationScreenState
     ref.listen(emailVerificationControllerProvider, (previous, next) {
       if (next.loadState is Error) {
         final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert("Error", message).then((_) {
+        context.showSingleButtonAlert(BuzzWireStrings.error, message).then((_) {
           ref.read(emailVerificationControllerProvider.notifier).hasSeenError();
         });
       }

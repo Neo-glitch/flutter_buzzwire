@@ -67,8 +67,11 @@ class BuzzWireSimpleDialog extends StatelessWidget {
   }
 
   Widget _buildButtonSection(BuildContext context) {
+    final primaryButtonTetColor = secondaryButtonText != null
+        ? BuzzWireColors.darkGrey
+        : context.primaryColor;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
       child: Row(
         children: [
           Expanded(
@@ -81,7 +84,8 @@ class BuzzWireSimpleDialog extends StatelessWidget {
               child: Text(
                 textAlign: TextAlign.center,
                 primaryButtonText ?? "Close",
-                style: context.labelLarge,
+                style:
+                    context.labelLarge?.copyWith(color: primaryButtonTetColor),
               ),
             ),
           ),

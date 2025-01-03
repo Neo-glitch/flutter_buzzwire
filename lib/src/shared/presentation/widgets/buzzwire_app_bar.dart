@@ -23,16 +23,16 @@ class BuzzWireAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       automaticallyImplyLeading: true,
       leading: canPop
-          ? IconButton(
-              icon: const Icon(
+          ? InkWell(
+              onTap: () =>
+                  onBackPressed != null ? onBackPressed!() : context.pop(),
+              child: const Icon(
                 Icons.arrow_back_ios_new,
                 size: 24,
               ),
-              onPressed: () =>
-                  onBackPressed != null ? onBackPressed!() : context.pop(),
             )
           : null,
-      leadingWidth: 45,
+      leadingWidth: 30,
     );
   }
 

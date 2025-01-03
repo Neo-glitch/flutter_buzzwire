@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/constants/strings.dart';
+import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
@@ -16,7 +20,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -69,7 +72,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         (previous, next) {
       if (next.loadState is Error) {
         final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert("Error", message, buttonText: "Retry");
+        context.showSingleButtonAlert(BuzzWireStrings.error, message,
+            buttonText: BuzzWireStrings.retry);
         ref.read(editProfileControllerProvider.notifier).hasSeenError();
       } else if (next.loadState is Loaded) {
         context.showToast("Profile updated successfully");
@@ -103,28 +107,30 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final uiState = ref.watch(editProfileControllerProvider);
     _listenToUiState();
 
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildProfileImage(uiState),
-                    const Gap(30),
-                    ..._buildInputSection(uiState),
-                  ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildProfileImage(uiState),
+                      const Gap(30),
+                      ..._buildInputSection(uiState),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            _buildBottomFrame(uiState),
-          ],
+              _buildBottomFrame(uiState),
+            ],
+          ),
         ),
       ),
     );

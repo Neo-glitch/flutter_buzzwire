@@ -1,4 +1,5 @@
 import 'package:buzzwire/core/error/enums/fb_firestore_error_type.dart';
+import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'enums/fb_auth_error_type.dart';
@@ -12,6 +13,7 @@ class ExceptionHandler {
   ExceptionHandler._();
 
   static Exception handleException(Exception exception) {
+    BuzzWireLoggerHelper.error(exception.toString());
     if (exception is DioException) {
       return _handleDioException(exception);
     } else if (exception is FirebaseAuthException) {

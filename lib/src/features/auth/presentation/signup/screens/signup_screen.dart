@@ -56,7 +56,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     ref.listen(signUpControllerProvider, (previous, next) {
       if (next.loadState is Error) {
         final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert("Error", message).then(
+        context.showSingleButtonAlert(BuzzWireStrings.error, message).then(
               (_) => ref.read(signUpControllerProvider.notifier).hasSeenError(),
             );
       }

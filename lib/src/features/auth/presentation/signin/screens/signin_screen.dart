@@ -53,7 +53,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     ref.listen(signInControllerProvider, (previous, next) {
       if (next.loadState is Error) {
         final error = (next.loadState as Error).message;
-        context.showSingleButtonAlert("Error", error).then((_) {
+        context.showSingleButtonAlert(BuzzWireStrings.error, error).then((_) {
           ref.read(signInControllerProvider.notifier).hasSeenError();
         });
       }

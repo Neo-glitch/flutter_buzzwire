@@ -30,7 +30,7 @@ class _AppState extends ConsumerState<App> {
 
     bool isDarkMode = _isDarkMode(themeMode, context);
     final statusbarColor =
-        isDarkMode ? BuzzWireColors.black : BuzzWireColors.white;
+        isDarkMode ? BuzzWireColors.dark : BuzzWireColors.light;
 
     BuzzWireDeviceUtils.setStatusBarColor(
       statusbarColor,

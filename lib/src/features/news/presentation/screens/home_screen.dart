@@ -47,9 +47,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   Widget build(BuildContext context) {
     final cachedUser = ref.watch(homeControllerProvider);
 
-    return DefaultTabController(
-      length: categories.length,
-      child: SafeArea(
+    return SafeArea(
+      child: DefaultTabController(
+        length: categories.length,
         child: Scaffold(
           body: ExtendedNestedScrollView(
             onlyOneScrollInBody: true,
