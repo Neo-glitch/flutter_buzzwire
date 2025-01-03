@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/categories.dart';
@@ -14,6 +15,7 @@ import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -44,6 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   Widget build(BuildContext context) {
     final cachedUser = ref.watch(homeControllerProvider);
+
     return DefaultTabController(
       length: categories.length,
       child: SafeArea(
@@ -53,7 +56,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             floatHeaderSlivers: true,
             // controller: _scrollController,
             headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [_buildAppBar(context, innerBoxIsScrolled, cachedUser)];
+              return [
+                _buildAppBar(context, innerBoxIsScrolled, cachedUser),
+              ];
             },
             body: _buildTabBarView(),
           ),
@@ -63,7 +68,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Widget _buildAppBar(
-      BuildContext context, bool innerBoxScrolled, UserEntity? cachedUser) {
+    BuildContext context,
+    bool innerBoxScrolled,
+    UserEntity? cachedUser,
+  ) {
     return SliverAppBar(
       pinned: false,
       floating: true,
@@ -76,7 +84,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () =>
+                  context.pushNamed(BuzzWireRoute.editProfile.name),
               icon: BuzzWireCircularImage(
                 radius: 16,
                 imageUrl: cachedUser?.profileImage.orEmpty,

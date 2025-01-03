@@ -1,18 +1,30 @@
 import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'user_entity.freezed.dart';
+class UserEntity extends Equatable {
+  final String userId;
+  final String email;
+  String userName;
+  String? phoneNumber;
+  CountryEntity? country;
+  String? profileImage;
 
-@freezed
-class UserEntity with _$UserEntity {
-  const UserEntity._();
+  UserEntity({
+    required this.userId,
+    required this.email,
+    required this.userName,
+    this.phoneNumber,
+    this.country,
+    this.profileImage,
+  });
 
-  const factory UserEntity({
-    required String userId,
-    required String email,
-    required String userName,
-    String? phoneNumber,
-    CountryEntity? country,
-    String? profileImage,
-  }) = _UserEntity;
+  @override
+  List<Object?> get props => [
+        userId,
+        email,
+        userName,
+        phoneNumber,
+        country,
+        profileImage,
+      ];
 }

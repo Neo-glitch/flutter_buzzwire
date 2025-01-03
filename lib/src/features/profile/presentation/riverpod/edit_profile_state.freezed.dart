@@ -18,11 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EditProfileState {
   UserEntity? get user => throw _privateConstructorUsedError;
   File? get newImage => throw _privateConstructorUsedError;
+  CountryEntity? get newCountry => throw _privateConstructorUsedError;
   LoadState get loadState => throw _privateConstructorUsedError;
   bool get canResubmitUsername => throw _privateConstructorUsedError;
   bool get canResubmitPhone => throw _privateConstructorUsedError;
   bool get canResubmitCountry => throw _privateConstructorUsedError;
-  bool get isUpdateCompleted => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditProfileStateCopyWith<EditProfileState> get copyWith =>
@@ -38,13 +38,11 @@ abstract class $EditProfileStateCopyWith<$Res> {
   $Res call(
       {UserEntity? user,
       File? newImage,
+      CountryEntity? newCountry,
       LoadState loadState,
       bool canResubmitUsername,
       bool canResubmitPhone,
-      bool canResubmitCountry,
-      bool isUpdateCompleted});
-
-  $UserEntityCopyWith<$Res>? get user;
+      bool canResubmitCountry});
 }
 
 /// @nodoc
@@ -62,11 +60,11 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   $Res call({
     Object? user = freezed,
     Object? newImage = freezed,
+    Object? newCountry = freezed,
     Object? loadState = null,
     Object? canResubmitUsername = null,
     Object? canResubmitPhone = null,
     Object? canResubmitCountry = null,
-    Object? isUpdateCompleted = null,
   }) {
     return _then(_value.copyWith(
       user: freezed == user
@@ -77,6 +75,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.newImage
           : newImage // ignore: cast_nullable_to_non_nullable
               as File?,
+      newCountry: freezed == newCountry
+          ? _value.newCountry
+          : newCountry // ignore: cast_nullable_to_non_nullable
+              as CountryEntity?,
       loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
@@ -93,23 +95,7 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.canResubmitCountry
           : canResubmitCountry // ignore: cast_nullable_to_non_nullable
               as bool,
-      isUpdateCompleted: null == isUpdateCompleted
-          ? _value.isUpdateCompleted
-          : isUpdateCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserEntityCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $UserEntityCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
   }
 }
 
@@ -124,14 +110,11 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
   $Res call(
       {UserEntity? user,
       File? newImage,
+      CountryEntity? newCountry,
       LoadState loadState,
       bool canResubmitUsername,
       bool canResubmitPhone,
-      bool canResubmitCountry,
-      bool isUpdateCompleted});
-
-  @override
-  $UserEntityCopyWith<$Res>? get user;
+      bool canResubmitCountry});
 }
 
 /// @nodoc
@@ -147,11 +130,11 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
   $Res call({
     Object? user = freezed,
     Object? newImage = freezed,
+    Object? newCountry = freezed,
     Object? loadState = null,
     Object? canResubmitUsername = null,
     Object? canResubmitPhone = null,
     Object? canResubmitCountry = null,
-    Object? isUpdateCompleted = null,
   }) {
     return _then(_$EditProfileStateImpl(
       user: freezed == user
@@ -162,6 +145,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.newImage
           : newImage // ignore: cast_nullable_to_non_nullable
               as File?,
+      newCountry: freezed == newCountry
+          ? _value.newCountry
+          : newCountry // ignore: cast_nullable_to_non_nullable
+              as CountryEntity?,
       loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
@@ -178,10 +165,6 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.canResubmitCountry
           : canResubmitCountry // ignore: cast_nullable_to_non_nullable
               as bool,
-      isUpdateCompleted: null == isUpdateCompleted
-          ? _value.isUpdateCompleted
-          : isUpdateCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -192,16 +175,18 @@ class _$EditProfileStateImpl implements _EditProfileState {
   const _$EditProfileStateImpl(
       {this.user,
       this.newImage,
+      this.newCountry,
       this.loadState = const Empty(),
       this.canResubmitUsername = false,
       this.canResubmitPhone = false,
-      this.canResubmitCountry = false,
-      this.isUpdateCompleted = false});
+      this.canResubmitCountry = false});
 
   @override
   final UserEntity? user;
   @override
   final File? newImage;
+  @override
+  final CountryEntity? newCountry;
   @override
   @JsonKey()
   final LoadState loadState;
@@ -214,13 +199,10 @@ class _$EditProfileStateImpl implements _EditProfileState {
   @override
   @JsonKey()
   final bool canResubmitCountry;
-  @override
-  @JsonKey()
-  final bool isUpdateCompleted;
 
   @override
   String toString() {
-    return 'EditProfileState(user: $user, newImage: $newImage, loadState: $loadState, canResubmitUsername: $canResubmitUsername, canResubmitPhone: $canResubmitPhone, canResubmitCountry: $canResubmitCountry, isUpdateCompleted: $isUpdateCompleted)';
+    return 'EditProfileState(user: $user, newImage: $newImage, newCountry: $newCountry, loadState: $loadState, canResubmitUsername: $canResubmitUsername, canResubmitPhone: $canResubmitPhone, canResubmitCountry: $canResubmitCountry)';
   }
 
   @override
@@ -231,6 +213,8 @@ class _$EditProfileStateImpl implements _EditProfileState {
             (identical(other.user, user) || other.user == user) &&
             (identical(other.newImage, newImage) ||
                 other.newImage == newImage) &&
+            (identical(other.newCountry, newCountry) ||
+                other.newCountry == newCountry) &&
             (identical(other.loadState, loadState) ||
                 other.loadState == loadState) &&
             (identical(other.canResubmitUsername, canResubmitUsername) ||
@@ -238,21 +222,12 @@ class _$EditProfileStateImpl implements _EditProfileState {
             (identical(other.canResubmitPhone, canResubmitPhone) ||
                 other.canResubmitPhone == canResubmitPhone) &&
             (identical(other.canResubmitCountry, canResubmitCountry) ||
-                other.canResubmitCountry == canResubmitCountry) &&
-            (identical(other.isUpdateCompleted, isUpdateCompleted) ||
-                other.isUpdateCompleted == isUpdateCompleted));
+                other.canResubmitCountry == canResubmitCountry));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      user,
-      newImage,
-      loadState,
-      canResubmitUsername,
-      canResubmitPhone,
-      canResubmitCountry,
-      isUpdateCompleted);
+  int get hashCode => Object.hash(runtimeType, user, newImage, newCountry,
+      loadState, canResubmitUsername, canResubmitPhone, canResubmitCountry);
 
   @JsonKey(ignore: true)
   @override
@@ -266,16 +241,18 @@ abstract class _EditProfileState implements EditProfileState {
   const factory _EditProfileState(
       {final UserEntity? user,
       final File? newImage,
+      final CountryEntity? newCountry,
       final LoadState loadState,
       final bool canResubmitUsername,
       final bool canResubmitPhone,
-      final bool canResubmitCountry,
-      final bool isUpdateCompleted}) = _$EditProfileStateImpl;
+      final bool canResubmitCountry}) = _$EditProfileStateImpl;
 
   @override
   UserEntity? get user;
   @override
   File? get newImage;
+  @override
+  CountryEntity? get newCountry;
   @override
   LoadState get loadState;
   @override
@@ -284,8 +261,6 @@ abstract class _EditProfileState implements EditProfileState {
   bool get canResubmitPhone;
   @override
   bool get canResubmitCountry;
-  @override
-  bool get isUpdateCompleted;
   @override
   @JsonKey(ignore: true)
   _$$EditProfileStateImplCopyWith<_$EditProfileStateImpl> get copyWith =>

@@ -1,13 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'country_entity.freezed.dart';
+class CountryEntity extends Equatable {
+  final String name;
+  final String code;
 
-@freezed
-class CountryEntity with _$CountryEntity {
-  const CountryEntity._();
+  const CountryEntity({
+    required this.name,
+    required this.code,
+  });
 
-  const factory CountryEntity({
-    required String name,
-    required String code,
-  }) = _CountryEntity;
+  @override
+  List<Object?> get props => [name, code];
 }

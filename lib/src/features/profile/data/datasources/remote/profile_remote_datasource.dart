@@ -35,7 +35,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           .doc(userModel.userId);
       await docRef.set(userModel);
     } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
+      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
       rethrow;
     }
   }
@@ -53,7 +53,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       );
       await _getUsersCollectionRef.doc(userModel.userId).delete();
     } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
+      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
       rethrow;
     }
   }
@@ -72,7 +72,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           await docRef.get(const GetOptions(source: Source.server));
       return userModelDocSnap.data();
     } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
+      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
       rethrow;
     }
   }
@@ -88,7 +88,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           .doc(userModel.userId);
       await docRef.set(userModel);
     } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
+      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
       rethrow;
     }
   }
@@ -101,7 +101,6 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
             imagePath,
             image,
             fileOptions: const FileOptions(
-              cacheControl: '3',
               upsert: true,
               contentType: "image/*",
             ),
@@ -111,12 +110,12 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           .getPublicUrl(imagePath);
 
       // to get updated image in url due to catch
-      // imageUrl = Uri.parse(imageUrl).replace(queryParameters: {
-      //   "t": DateTime.now().millisecondsSinceEpoch.toString()
-      // }).toString();
+      imageUrl = Uri.parse(imageUrl).replace(queryParameters: {
+        "t": DateTime.now().millisecondsSinceEpoch.toString()
+      }).toString();
       return imageUrl;
     } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
+      BuzzWireLoggerHelper.error("${e.toString()}\n${s.toString()}");
       rethrow;
     }
   }

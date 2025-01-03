@@ -38,5 +38,14 @@ class UserModel {
   }
 
   /// Converts the model to a Firestore document map
-  Map<String, dynamic> toFirestore() => toJson();
+  Map<String, dynamic> toFirestore() {
+    return {
+      'userId': userId,
+      'email': email,
+      'userName': userName,
+      'phoneNumber': phoneNumber,
+      'country': country?.toJson(), // Convert CountryModel to Map
+      'profileImage': profileImage,
+    };
+  }
 }

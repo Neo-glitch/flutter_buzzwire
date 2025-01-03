@@ -11,7 +11,7 @@ import 'package:buzzwire/src/features/profile/domain/usecases/update_user_usecas
 import 'package:buzzwire/src/features/profile/domain/usecases/upload_profile_image_usecase.dart';
 
 Future<void> provideProfileDependencies() async {
-  injector.registerFactory<ProfileLocalDataSource>(
+  injector.registerLazySingleton<ProfileLocalDataSource>(
       () => ProfileLocalDataSourceImpl(pref: injector()));
 
   injector.registerFactory<ProfileRemoteDataSource>(

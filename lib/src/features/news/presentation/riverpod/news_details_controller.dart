@@ -21,6 +21,7 @@ class NewsDetailsController extends _$NewsDetailsController {
     _saveArticle = injector();
     _deleteSavedArticle = injector();
     _getSavedArticles = injector();
+    print("\nNews Detail controller Build called\n");
     return const NewsDetailsState();
   }
 

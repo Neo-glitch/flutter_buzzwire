@@ -1,5 +1,10 @@
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
+import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';
+import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
@@ -9,6 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -19,71 +27,127 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
-  // FocusNodes for the TextFields
   final FocusNode _userNameFocusNode = FocusNode();
   final FocusNode _phoneNumberFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
+    _initializeControllers();
+  }
+
+  void _initializeControllers() {
+    Future.microtask(() {
+      final uiState = ref.read(editProfileControllerProvider);
+      final user = uiState.user;
+
+      _emailController.text = user?.email.orEmpty ?? '';
+      _userNameController.text = user?.userName.orEmpty ?? '';
+      _phoneNumberController.text = user?.phoneNumber.orEmpty ?? '';
+      _countryController.text = user?.country?.name ?? '';
+    });
   }
 
   @override
   void dispose() {
-    _userNameController.dispose();
     _emailController.dispose();
+    _userNameController.dispose();
     _phoneNumberController.dispose();
     _countryController.dispose();
     _userNameFocusNode.dispose();
-    _phoneNumberController.dispose();
+    _phoneNumberFocusNode.dispose();
     super.dispose();
+  }
+
+  void _listenToUiState() {
+    ref.listen<EditProfileState>(editProfileControllerProvider,
+        (previous, next) {
+      if (next.loadState is Error) {
+        final message = (next.loadState as Error).message;
+        context.showSingleButtonAlert("Error", message, buttonText: "Retry");
+        ref.read(editProfileControllerProvider.notifier).hasSeenError();
+      } else if (next.loadState is Loaded) {
+        context.showToast("Profile updated successfully");
+        context.pop();
+      }
+    });
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    final imagePicker = ImagePicker();
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      ref
+          .read(editProfileControllerProvider.notifier)
+          .setImage(File(image.path));
+    }
+  }
+
+  void _onSavePressed() {
+    if (_formKey.currentState?.validate() ?? false) {
+      ref.read(editProfileControllerProvider.notifier).updateUserProfile(
+            _userNameController.text,
+            _phoneNumberController.text,
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    _emailController.text = "Devil";
+    final uiState = ref.watch(editProfileControllerProvider);
+    _listenToUiState();
 
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildProfileImage(),
+                    _buildProfileImage(uiState),
                     const Gap(30),
-                    ..._buildInputSection()
+                    ..._buildInputSection(uiState),
                   ],
                 ),
               ),
             ),
-          ),
-          _buildBottomFrame()
-        ],
+            _buildBottomFrame(uiState),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildBottomFrame() {
+  Widget _buildBottomFrame(EditProfileState uiState) {
+    final isButtonEnabled = _userNameController.text.isNotEmpty &&
+        (uiState.canResubmitCountry ||
+            uiState.canResubmitPhone ||
+            uiState.canResubmitUsername ||
+            uiState.newImage != null);
+
     return BuzzWireBottomFrame(
       child: BuzzWireProgressButton(
+        isDisabled: !isButtonEnabled,
         text: const Text("Save"),
-        isLoading: false,
-        onPressed: () {},
+        isLoading: uiState.loadState is Loading,
+        onPressed: _onSavePressed,
       ),
     );
   }
 
-  List<Widget> _buildInputSection() {
+  List<Widget> _buildInputSection(EditProfileState uiState) {
     return [
       _buildInputHeader("Email"),
       const Gap(10),
@@ -95,30 +159,46 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       _buildInputHeader("Username"),
       const Gap(10),
       TextField(
+        enabled: uiState.loadState is! Loading,
         focusNode: _userNameFocusNode,
         controller: _userNameController,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
-        onEditingComplete: () {
-          FocusScope.of(context).requestFocus(_phoneNumberFocusNode);
-        },
+        onEditingComplete: () =>
+            FocusScope.of(context).requestFocus(_phoneNumberFocusNode),
+        onChanged: (value) => ref
+            .read(editProfileControllerProvider.notifier)
+            .checkIfUserNameChanged(value),
       ),
       const Gap(20),
-      _buildInputHeader("phone"),
+      _buildInputHeader("Phone"),
       const Gap(10),
       TextField(
+        enabled: uiState.loadState is! Loading,
         focusNode: _phoneNumberFocusNode,
         keyboardType: TextInputType.phone,
         controller: _phoneNumberController,
         textInputAction: TextInputAction.done,
+        onChanged: (value) => ref
+            .read(editProfileControllerProvider.notifier)
+            .checkIfPhoneNumberChanged(value),
       ),
       const Gap(20),
-      _buildInputHeader("country"),
+      _buildInputHeader("Country"),
       const Gap(10),
       BuzzWireCountryPicker(
-        onSelected: (country) {},
+        isEnabled: uiState.loadState is! Loading,
+        onSelected: (country) {
+          final countryEntity = CountryEntity(
+            name: country.name,
+            code: country.countryCode,
+          );
+          ref
+              .read(editProfileControllerProvider.notifier)
+              .setCountry(countryEntity);
+        },
         countryController: _countryController,
-      )
+      ),
     ];
   }
 
@@ -132,7 +212,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     );
   }
 
-  Center _buildProfileImage() {
+  Center _buildProfileImage(EditProfileState uiState) {
     return Center(
       child: Stack(
         children: [
@@ -140,23 +220,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             radius: 60,
             borderColor: context.primaryColor.withOpacity(0.7),
             borderWidth: 2,
-            imageUrl: "https://pixlr.com/images/generator/photo-generator.webp",
+            imageUrl: uiState.newImage == null
+                ? uiState.user?.profileImage.orEmpty
+                : null,
+            imagePath: uiState.newImage?.path,
           ),
           Positioned(
             bottom: 20,
             right: 0,
             child: InkWell(
-              onTap: () {},
+              onTap: _pickImageFromGallery,
               borderRadius: BorderRadius.circular(16),
               child: const CircleAvatar(
                 radius: 16,
-                child: FaIcon(
-                  FontAwesomeIcons.pen,
-                  size: 16,
-                ),
+                child: FaIcon(FontAwesomeIcons.pen, size: 16),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -166,9 +246,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return BuzzWireAppBar(
       title: Text(
         "Profile",
-        style: context.titleLarge?.copyWith(
-          fontSize: 20,
-        ),
+        style: context.titleLarge?.copyWith(fontSize: 20),
       ),
     );
   }

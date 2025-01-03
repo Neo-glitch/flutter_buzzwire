@@ -36,8 +36,9 @@ class BuzzWireCircularImage extends StatelessWidget {
   Widget _buildImage() {
     if (imageUrl != null) {
       return CachedNetworkImage(
+        fit: BoxFit.cover,
         placeholder: (context, url) {
-          return const Center(child: FaIcon(FontAwesomeIcons.solidUser));
+          return const Center(child: FaIcon(Icons.image));
         },
         errorWidget: (context, url, error) {
           return _buildPlaceHolderImage();
