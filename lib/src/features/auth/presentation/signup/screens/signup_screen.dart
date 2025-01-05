@@ -239,10 +239,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         textInputAction: TextInputAction.done,
         onChanged: (value) =>
             ref.read(signUpControllerProvider.notifier).validatePassword(value),
-        validator: (value) =>
-            !value?.isValidPassword() && signupState.loadState is Error
-                ? "Please ensure your password is up to 6 characters"
-                : null,
       ),
     );
   }

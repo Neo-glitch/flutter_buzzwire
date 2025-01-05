@@ -172,10 +172,6 @@ class _EmailVerificationScreenState
         onChanged: (value) => ref
             .read(emailVerificationControllerProvider.notifier)
             .validatePassword(value),
-        validator: (value) =>
-            !value?.isValidPassword() && uiState.loadState is Error
-                ? "Please ensure your password is up to 6 characters"
-                : null,
       ),
     );
   }

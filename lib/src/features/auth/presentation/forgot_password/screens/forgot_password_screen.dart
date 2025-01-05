@@ -146,29 +146,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             .validateEmail(value),
       ),
     );
-    // return Column(
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: [
-    //     const BuzzWireInputFieldHeader(title: "Email"),
-    //     const Gap(10),
-    //     TextFormField(
-    //       controller: _emailTextController,
-    //       textInputAction: TextInputAction.done,
-    //       keyboardType: TextInputType.emailAddress,
-    //       enabled: forgotPasswordState.loadState is! Loading,
-    //       decoration: InputDecoration(
-    //         hintText: "Enter email",
-    //         prefixIcon: const Icon(Icons.email_outlined),
-    //         suffixIcon: forgotPasswordState.isEmailValid
-    //             ? const Icon(Icons.check_circle)
-    //             : null,
-    //       ),
-    //       onChanged: (value) => ref
-    //           .read(forgotPasswordControllerProvider.notifier)
-    //           .validateEmail(value),
-    //     ),
-    //   ],
-    // );
   }
 
   Widget _buildResetPasswordButton(

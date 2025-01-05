@@ -147,12 +147,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         onChanged: (value) {
           ref.read(signInControllerProvider.notifier).validatePassword(value);
         },
-        validator: (value) {
-          return !value.orEmpty.isValidPassword() &&
-                  signInState.loadState is Error
-              ? "Please ensure your password is at least 6 characters"
-              : null;
-        },
       ),
     );
   }
