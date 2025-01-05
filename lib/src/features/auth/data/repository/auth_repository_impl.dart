@@ -123,6 +123,20 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, void>> changePassword(String newPassword) async {
+    try {
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        return Right(await authRemoteDataSource.changePassword(newPassword));
+      }
+      return Left(FbAuthFailure(ErrorText.noInternetError));
+    } on Exception catch (e) {
+      final exception = ExceptionHandler.handleException(e);
+      return Left(FbAuthFailure(exception.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> reAuthenticateUser(
       String email, String password) async {
     try {

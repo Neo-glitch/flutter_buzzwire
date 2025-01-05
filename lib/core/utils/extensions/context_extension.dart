@@ -175,8 +175,10 @@ extension ContextExtension<T> on BuildContext {
     );
   }
 
-  Future<bool?> showToast(String message,
-      [Toast toastLength = Toast.LENGTH_SHORT]) {
+  Future<bool?> showToast(
+    String message, [
+    Toast toastLength = Toast.LENGTH_SHORT,
+  ]) {
 // It's a plugin to show toast and we can with extension
     Fluttertoast.cancel();
     return Fluttertoast.showToast(

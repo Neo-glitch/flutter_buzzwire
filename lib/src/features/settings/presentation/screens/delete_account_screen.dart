@@ -9,10 +9,7 @@ import 'package:buzzwire/src/features/settings/presentation/screens/delete_accou
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -59,10 +56,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
       if (next.loadState is Loaded) {
         context.pop();
-        await context.showSingleButtonAlert(
-          "Account Deleted",
-          "Your account has been successfully deleted",
-        );
+        await context.showToast("Your account has been successfully deleted");
         ref
             .read(authControllerProvider.notifier)
             .setAuthState(AuthStatus.unAuthenticated);

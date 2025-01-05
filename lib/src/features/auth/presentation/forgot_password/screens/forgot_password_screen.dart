@@ -9,8 +9,11 @@ import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_input_field_header.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
 
 // External packages
 import 'package:flutter/material.dart';
@@ -129,22 +132,43 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   }
 
   Widget _buildEmailField(ForgotPasswordState forgotPasswordState) {
-    return TextFormField(
-      controller: _emailTextController,
-      textInputAction: TextInputAction.done,
-      keyboardType: TextInputType.emailAddress,
-      enabled: forgotPasswordState.loadState is! Loading,
-      decoration: InputDecoration(
-        hintText: "Enter email",
-        prefixIcon: const Icon(Icons.email_outlined),
+    return FormInputGroup(
+      headerTitle: "Email",
+      child: BuzzWireEmailInputField(
+        controller: _emailTextController,
+        textInputAction: TextInputAction.done,
+        enabled: forgotPasswordState.loadState is! Loading,
         suffixIcon: forgotPasswordState.isEmailValid
             ? const Icon(Icons.check_circle)
             : null,
+        onChanged: (value) => ref
+            .read(forgotPasswordControllerProvider.notifier)
+            .validateEmail(value),
       ),
-      onChanged: (value) => ref
-          .read(forgotPasswordControllerProvider.notifier)
-          .validateEmail(value),
     );
+    // return Column(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     const BuzzWireInputFieldHeader(title: "Email"),
+    //     const Gap(10),
+    //     TextFormField(
+    //       controller: _emailTextController,
+    //       textInputAction: TextInputAction.done,
+    //       keyboardType: TextInputType.emailAddress,
+    //       enabled: forgotPasswordState.loadState is! Loading,
+    //       decoration: InputDecoration(
+    //         hintText: "Enter email",
+    //         prefixIcon: const Icon(Icons.email_outlined),
+    //         suffixIcon: forgotPasswordState.isEmailValid
+    //             ? const Icon(Icons.check_circle)
+    //             : null,
+    //       ),
+    //       onChanged: (value) => ref
+    //           .read(forgotPasswordControllerProvider.notifier)
+    //           .validateEmail(value),
+    //     ),
+    //   ],
+    // );
   }
 
   Widget _buildResetPasswordButton(

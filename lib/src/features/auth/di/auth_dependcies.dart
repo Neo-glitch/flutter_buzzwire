@@ -5,6 +5,7 @@ import 'package:buzzwire/src/features/auth/data/manager/local_user_manager_impl.
 import 'package:buzzwire/src/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:buzzwire/src/features/auth/domain/manager/local_user_manager.dart';
 import 'package:buzzwire/src/features/auth/domain/repository/auth_repository.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/change_password_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/check_email_verification_status_usecases.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/create_user_account_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/delete_user_account_usecase.dart';
@@ -70,6 +71,13 @@ Future<void> provideAuthDependencies() async {
     () => DeleteUserAccountUseCase(
       authRepo: injector(),
       profileRepo: injector(),
+      reAuthenticateUser: injector(),
+    ),
+  );
+
+  injector.registerFactory<ChangePasswordUseCase>(
+    () => ChangePasswordUseCase(
+      authRepo: injector(),
       reAuthenticateUser: injector(),
     ),
   );

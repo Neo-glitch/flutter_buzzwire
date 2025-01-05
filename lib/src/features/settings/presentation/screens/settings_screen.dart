@@ -88,9 +88,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           children: [
             SettingsTile(
               title: BuzzWireStrings.profile,
-              onClick: () {
-                context.pushNamed(BuzzWireRoute.editProfile.name);
-              },
+              onClick: () => context.pushNamed(BuzzWireRoute.editProfile.name),
             ),
             const BuzzWireDivider(),
             SettingsTile(
@@ -100,7 +98,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const BuzzWireDivider(),
             SettingsTile(
               title: BuzzWireStrings.changePassword,
-              onClick: () {},
+              onClick: () =>
+                  context.pushNamed(BuzzWireRoute.changePassword.name),
             ),
           ],
         ),

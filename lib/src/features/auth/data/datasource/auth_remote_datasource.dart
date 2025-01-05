@@ -11,6 +11,7 @@ abstract class AuthRemoteDataSource {
   Future<void> sendVerificationEmail();
   Future<void> resetPassword(String emauil);
   Future<void> deleteAccount();
+  Future<void> changePassword(String newPassword);
   Future<void> reAuthenticateUser(String email, String password);
 }
 
@@ -92,6 +93,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<void> deleteAccount() async {
     try {
       await firebaseAuth.currentUser?.delete();
+    } catch (e, s) {
+      BuzzWireLoggerHelper.error(s.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> changePassword(String newPassword) async {
+    try {
+      await firebaseAuth.currentUser?.updatePassword(newPassword);
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;

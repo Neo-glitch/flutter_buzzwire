@@ -2,6 +2,7 @@ import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -186,6 +187,13 @@ GoRouter router(RouterRef ref) {
           name: BuzzWireRoute.deleteAccount.name,
           builder: (context, state) {
             return const DeleteAccountScreen();
+          },
+        ),
+        GoRoute(
+          path: BuzzWireRoute.changePassword.path,
+          name: BuzzWireRoute.changePassword.name,
+          builder: (context, state) {
+            return const ChangePasswordScreen();
           },
         ),
       ],

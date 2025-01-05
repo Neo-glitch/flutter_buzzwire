@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
-import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
@@ -13,7 +11,9 @@ import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_country_picker.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -69,14 +69,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   void _listenToUiState() {
     ref.listen<EditProfileState>(editProfileControllerProvider,
-        (previous, next) {
+        (previous, next) async {
       if (next.loadState is Error && previous?.loadState is! Error) {
         final message = (next.loadState as Error).message;
         context.showSingleButtonAlert(BuzzWireStrings.error, message,
             buttonText: BuzzWireStrings.retry);
       } else if (next.loadState is Loaded) {
-        context.showToast("Profile updated successfully");
-        context.pop();
+        await context.showSingleButtonAlert(
+            "Success", "Profile updated successfully");
+        if (mounted) context.pop();
       }
     });
   }
@@ -154,70 +155,17 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   List<Widget> _buildInputSection(EditProfileState uiState) {
     return [
-      _buildInputHeader("Email"),
-      const Gap(10),
-      TextField(
-        enabled: false,
-        controller: _emailController,
-      ),
+      _buildEmailInputSection(uiState),
       const Gap(20),
-      _buildInputHeader("Username"),
-      const Gap(10),
-      TextField(
-        enabled: uiState.loadState is! Loading,
-        focusNode: _userNameFocusNode,
-        controller: _userNameController,
-        keyboardType: TextInputType.name,
-        textInputAction: TextInputAction.next,
-        onEditingComplete: () =>
-            FocusScope.of(context).requestFocus(_phoneNumberFocusNode),
-        onChanged: (value) => ref
-            .read(editProfileControllerProvider.notifier)
-            .checkIfUserNameChanged(value),
-      ),
+      _buildUsernameInputSection(uiState),
       const Gap(20),
-      _buildInputHeader("Phone"),
-      const Gap(10),
-      TextField(
-        enabled: uiState.loadState is! Loading,
-        focusNode: _phoneNumberFocusNode,
-        keyboardType: TextInputType.phone,
-        controller: _phoneNumberController,
-        textInputAction: TextInputAction.done,
-        onChanged: (value) => ref
-            .read(editProfileControllerProvider.notifier)
-            .checkIfPhoneNumberChanged(value),
-      ),
+      _buildPhoneInputSection(uiState),
       const Gap(20),
-      _buildInputHeader("Country"),
-      const Gap(10),
-      BuzzWireCountryPicker(
-        isEnabled: uiState.loadState is! Loading,
-        onSelected: (country) {
-          final countryEntity = CountryEntity(
-            name: country.name,
-            code: country.countryCode,
-          );
-          ref
-              .read(editProfileControllerProvider.notifier)
-              .setCountry(countryEntity);
-        },
-        countryController: _countryController,
-      ),
+      _buildCountryInputSection(uiState),
     ];
   }
 
-  Widget _buildInputHeader(String title) {
-    return Text(
-      title,
-      style: context.bodyMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-        color: BuzzWireColors.darkGrey,
-      ),
-    );
-  }
-
-  Center _buildProfileImage(EditProfileState uiState) {
+  Widget _buildProfileImage(EditProfileState uiState) {
     return Center(
       child: Stack(
         children: [
@@ -243,6 +191,72 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildEmailInputSection(EditProfileState uiState) {
+    return FormInputGroup(
+      headerTitle: "Email",
+      isRequiredInput: true,
+      child: BuzzWireEmailInputField(
+        controller: _emailController,
+        enabled: false,
+      ),
+    );
+  }
+
+  Widget _buildUsernameInputSection(EditProfileState uiState) {
+    return FormInputGroup(
+      headerTitle: "Username",
+      isRequiredInput: true,
+      child: TextField(
+        enabled: uiState.loadState is! Loading,
+        focusNode: _userNameFocusNode,
+        controller: _userNameController,
+        keyboardType: TextInputType.name,
+        textInputAction: TextInputAction.next,
+        onEditingComplete: () =>
+            FocusScope.of(context).requestFocus(_phoneNumberFocusNode),
+        onChanged: (value) => ref
+            .read(editProfileControllerProvider.notifier)
+            .checkIfUserNameChanged(value),
+      ),
+    );
+  }
+
+  Widget _buildPhoneInputSection(EditProfileState uiState) {
+    return FormInputGroup(
+      headerTitle: "Phone",
+      child: TextField(
+        enabled: uiState.loadState is! Loading,
+        focusNode: _phoneNumberFocusNode,
+        keyboardType: TextInputType.phone,
+        controller: _phoneNumberController,
+        textInputAction: TextInputAction.done,
+        onChanged: (value) => ref
+            .read(editProfileControllerProvider.notifier)
+            .checkIfPhoneNumberChanged(value),
+      ),
+    );
+  }
+
+  Widget _buildCountryInputSection(EditProfileState uiState) {
+    return FormInputGroup(
+      headerTitle: "Country",
+      isRequiredInput: true,
+      child: BuzzWireCountryPicker(
+        isEnabled: uiState.loadState is! Loading,
+        onSelected: (country) {
+          final countryEntity = CountryEntity(
+            name: country.name,
+            code: country.countryCode,
+          );
+          ref
+              .read(editProfileControllerProvider.notifier)
+              .setCountry(countryEntity);
+        },
+        countryController: _countryController,
       ),
     );
   }

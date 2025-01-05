@@ -29,11 +29,11 @@ class DeleteUserAccountUseCase
 
     return reAuthenticationResult.fold(
       (failure) => Left(failure),
-      (_) async => _handleAuthenticationSuccess(param.userEntity),
+      (_) async => _deleteUserAccount(param.userEntity),
     );
   }
 
-  Future<Either<Failure, void>> _handleAuthenticationSuccess(
+  Future<Either<Failure, void>> _deleteUserAccount(
     UserEntity userEntity,
   ) async {
     final profileDeletionResult = await profileRepo.deleteUser(userEntity);

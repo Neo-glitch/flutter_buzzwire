@@ -9,11 +9,17 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 // Features and shared widgets
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
+import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_country_picker.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_input_field_header.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
 
 // External packages
 import 'package:flutter/material.dart';
@@ -35,21 +41,19 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
   final _userNameTextController = TextEditingController();
-
-  bool _showPassword = false;
+  final _phoneNumberTextController = TextEditingController();
+  final _countryController = TextEditingController();
+  final FocusNode _phoneNumberFocusNode = FocusNode();
 
   @override
   void dispose() {
     _emailTextController.dispose();
     _passwordTextController.dispose();
     _userNameTextController.dispose();
+    _phoneNumberTextController.dispose();
+    _countryController.dispose();
+    _phoneNumberFocusNode.dispose();
     super.dispose();
-  }
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _showPassword = !_showPassword;
-    });
   }
 
   void _listenToSignupState() {
@@ -91,15 +95,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     );
   }
 
-  Expanded _buildContent() {
-    final signupState = ref.watch(signUpControllerProvider);
+  Widget _buildContent() {
+    final uiState = ref.watch(signUpControllerProvider);
 
-    final bool isButtonEnabled = signupState.isEmailValid &&
-        signupState.isFullNameFilled &&
-        signupState.isPasswordValid;
+    final bool isButtonEnabled = uiState.isEmailValid &&
+        uiState.isUserNameFilled &&
+        uiState.isPasswordValid &&
+        uiState.country != null;
     return Expanded(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -107,16 +112,38 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             _buildSignupLogo(),
             const Gap(20),
             _buildHeader(),
-            const Gap(15),
-            _buildFullNameField(signupState),
-            const Gap(15),
-            _buildEmailField(signupState),
-            const Gap(15),
-            _buildPasswordField(signupState),
-            const Gap(20),
-            _buildSignupButton(signupState, isButtonEnabled),
+            const Gap(24),
+            _buildUsernameInputSection(uiState),
+            const Gap(28),
+            _buildEmailInputSection(uiState),
+            const Gap(28),
+            _buildCountryPickerSection(uiState),
+            const Gap(28),
+            _buildPhoneNumberInputSection(uiState),
+            const Gap(28),
+            _buildPasswordInputSection(uiState),
+            const Gap(40),
+            _buildSignupButton(uiState, isButtonEnabled),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCountryPickerSection(SignupState uiState) {
+    return FormInputGroup(
+      headerTitle: "Country",
+      isRequiredInput: true,
+      child: BuzzWireCountryPicker(
+        isEnabled: uiState.loadState is! Loading,
+        onSelected: (country) {
+          final countryEntity = CountryEntity(
+            name: country.name,
+            code: country.countryCode,
+          );
+          ref.read(signUpControllerProvider.notifier).setCountry(countryEntity);
+        },
+        countryController: _countryController,
       ),
     );
   }
@@ -149,61 +176,74 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     );
   }
 
-  Widget _buildFullNameField(SignupState signupState) {
-    return TextFormField(
-      controller: _userNameTextController,
-      enabled: signupState.loadState is! Loading,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.name,
-      decoration: const InputDecoration(
-        hintText: "Enter user name",
-        prefixIcon: Icon(Icons.person),
+  Widget _buildUsernameInputSection(SignupState signupState) {
+    return FormInputGroup(
+      headerTitle: "Username",
+      isRequiredInput: true,
+      child: TextFormField(
+        controller: _userNameTextController,
+        enabled: signupState.loadState is! Loading,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.name,
+        decoration: const InputDecoration(
+          hintText: "Enter user name",
+        ),
+        onChanged: (value) =>
+            ref.read(signUpControllerProvider.notifier).vaidateUserName(value),
       ),
-      onChanged: (value) =>
-          ref.read(signUpControllerProvider.notifier).vaidateUserName(value),
     );
   }
 
-  Widget _buildEmailField(SignupState signupState) {
-    return TextFormField(
-      controller: _emailTextController,
-      enabled: signupState.loadState is! Loading,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: "Enter email",
-        prefixIcon: const Icon(Icons.email_outlined),
+  Widget _buildEmailInputSection(SignupState signupState) {
+    return FormInputGroup(
+      headerTitle: "Email",
+      isRequiredInput: true,
+      child: BuzzWireEmailInputField(
+        controller: _emailTextController,
+        enabled: signupState.loadState is! Loading,
+        textInputAction: TextInputAction.next,
         suffixIcon:
             signupState.isEmailValid ? const Icon(Icons.check_circle) : null,
+        onEditingComplete: () =>
+            FocusScope.of(context).requestFocus(_phoneNumberFocusNode),
+        onChanged: (value) =>
+            ref.read(signUpControllerProvider.notifier).validateEmail(value),
       ),
-      onChanged: (value) =>
-          ref.read(signUpControllerProvider.notifier).validateEmail(value),
     );
   }
 
-  Widget _buildPasswordField(SignupState signupState) {
-    return TextFormField(
-      controller: _passwordTextController,
-      enabled: signupState.loadState is! Loading,
-      textInputAction: TextInputAction.done,
-      keyboardType: TextInputType.visiblePassword,
-      obscureText: !_showPassword,
-      decoration: InputDecoration(
-        hintText: "Enter password",
-        prefixIcon: const Icon(Icons.lock_outline_rounded),
-        suffixIcon: GestureDetector(
-          onTap: _togglePasswordVisibility,
-          child: Icon(
-            _showPassword ? Icons.visibility : Icons.visibility_off,
-          ),
+  Widget _buildPhoneNumberInputSection(SignupState uiState) {
+    return FormInputGroup(
+      headerTitle: "Phone",
+      isRequiredInput: true,
+      child: TextField(
+        decoration: const InputDecoration(
+          hintText: "Enter phone number",
         ),
+        enabled: uiState.loadState is! Loading,
+        focusNode: _phoneNumberFocusNode,
+        keyboardType: TextInputType.phone,
+        controller: _phoneNumberTextController,
+        textInputAction: TextInputAction.next,
       ),
-      onChanged: (value) =>
-          ref.read(signUpControllerProvider.notifier).validatePassword(value),
-      validator: (value) =>
-          !value?.isValidPassword() && signupState.loadState is Error
-              ? "Please ensure your password is up to 6 characters"
-              : null,
+    );
+  }
+
+  Widget _buildPasswordInputSection(SignupState signupState) {
+    return FormInputGroup(
+      headerTitle: "Password",
+      isRequiredInput: true,
+      child: BuzzWirePasswordInputField(
+        controller: _passwordTextController,
+        enabled: signupState.loadState is! Loading,
+        textInputAction: TextInputAction.done,
+        onChanged: (value) =>
+            ref.read(signUpControllerProvider.notifier).validatePassword(value),
+        validator: (value) =>
+            !value?.isValidPassword() && signupState.loadState is Error
+                ? "Please ensure your password is up to 6 characters"
+                : null,
+      ),
     );
   }
 
@@ -216,6 +256,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               email: _emailTextController.text,
               password: _passwordTextController.text,
               userName: _userNameTextController.text,
+              phone: _phoneNumberTextController.text,
             );
       },
       text: const Text("Signup"),

@@ -33,8 +33,8 @@ class _BuzzWireCountryPickerState extends State<BuzzWireCountryPicker> {
       readOnly: true,
       controller: widget.countryController ?? _countryController,
       decoration: const InputDecoration().copyWith(
-        suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
-      ),
+          suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
+          hintText: "Select your country"),
     );
   }
 

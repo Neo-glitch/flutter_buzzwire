@@ -1,3 +1,4 @@
+import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,6 +10,7 @@ class SignupState with _$SignupState {
     @Default(Empty()) LoadState loadState,
     @Default(false) bool isEmailValid,
     @Default(false) bool isPasswordValid,
-    @Default(false) bool isFullNameFilled,
+    @Default(false) bool isUserNameFilled,
+    CountryEntity? country,
   }) = _SignupState;
 }
