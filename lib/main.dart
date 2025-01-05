@@ -1,5 +1,5 @@
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/constants/app_secrets.dart';
-import 'package:buzzwire/core/network/supabase/supabase_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +23,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Supabase.initialize(
-    url: SupabaseHelper.baseUrl,
+    url: BuzzWireAppConstants.baseUrl,
     anonKey: AppSecrets.supabaseApiKey,
   );
 

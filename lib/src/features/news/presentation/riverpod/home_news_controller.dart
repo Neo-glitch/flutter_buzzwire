@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/list_extension.dart';
 import 'package:buzzwire/core/utils/extensions/num_extension.dart';
@@ -10,6 +10,7 @@ import 'package:buzzwire/src/features/news/domain/usecases/get_saved_articles_us
 import 'package:buzzwire/src/features/news/domain/usecases/save_article_usecase.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/home_news_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_news_controller.g.dart';
@@ -48,7 +49,7 @@ class HomeNewsController extends _$HomeNewsController {
           loadState: Error(message: error.message), currentPage: previousPage),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / BuzzWireDioHelper.pageSize).ceil();
+            (result.totalResults.orZero / BuzzWireAppConstants.pageSize).ceil();
         final articles = page > 1
             ? state.articles.toList() + result.articles.orEmpty
             : result.articles.orEmpty;
@@ -75,16 +76,20 @@ class HomeNewsController extends _$HomeNewsController {
   }
 
   List<ArticleEntity> _mapArticles(List<ArticleEntity> articles) {
-    return articles.map((article) {
-      final localArticle =
-          state.savedArticles.firstWhereOrNull((element) => article == element);
+    return articles
+        .map((article) {
+          final localArticle = state.savedArticles
+              .firstWhereOrNull((element) => article == element);
 
-      article
-        ..isSaved = localArticle != null
-        ..id = localArticle?.id;
+          article
+            ..isSaved = localArticle != null
+            ..id = localArticle?.id;
 
-      return article;
-    }).toList();
+          return article;
+        })
+        .filter((article) =>
+            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
+        .toList();
   }
 
   Future<bool> bookmarkArticle(ArticleEntity article) async {

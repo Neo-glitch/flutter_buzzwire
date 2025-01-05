@@ -1,7 +1,5 @@
 import 'dart:io';
-
-import 'package:buzzwire/core/network/firebase_firestore/firebase_firestore_helper.dart';
-import 'package:buzzwire/core/network/supabase/supabase_helper.dart';
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:buzzwire/src/shared/data/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,9 +42,9 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<void> deleteUser(UserModel userModel) async {
     try {
       final imagePath =
-          "${SupabaseHelper.imageBucketProfilePath}/${userModel.userId}.png";
+          "${BuzzWireAppConstants.imageBucketProfilePath}/${userModel.userId}.png";
 
-      await supabaseStorage.from(SupabaseHelper.imagesBucket).remove(
+      await supabaseStorage.from(BuzzWireAppConstants.imagesBucket).remove(
         [
           imagePath,
         ],
@@ -96,8 +94,9 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   @override
   Future<String> uploadProfileImage(String userId, File image) async {
     try {
-      final imagePath = "${SupabaseHelper.imageBucketProfilePath}/$userId.png";
-      await supabaseStorage.from(SupabaseHelper.imagesBucket).upload(
+      final imagePath =
+          "${BuzzWireAppConstants.imageBucketProfilePath}/$userId.png";
+      await supabaseStorage.from(BuzzWireAppConstants.imagesBucket).upload(
             imagePath,
             image,
             fileOptions: const FileOptions(
@@ -106,7 +105,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
             ),
           );
       String imageUrl = supabaseStorage
-          .from(SupabaseHelper.imagesBucket)
+          .from(BuzzWireAppConstants.imagesBucket)
           .getPublicUrl(imagePath);
 
       // to get updated image in url due to catch
@@ -121,5 +120,5 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   CollectionReference<Map<String, dynamic>> get _getUsersCollectionRef =>
-      firestoreDb.collection(FirebaseFirestoreHelper.usersCollecton);
+      firestoreDb.collection(BuzzWireAppConstants.usersCollecton);
 }

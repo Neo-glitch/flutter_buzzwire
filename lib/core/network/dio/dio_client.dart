@@ -1,10 +1,8 @@
-import 'package:buzzwire/core/error/exception.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'package:buzzwire/core/constants/app_constants.dart';
+import 'package:dio/dio.dart';
 
 import 'api_key_interceptor.dart';
-import 'dio_helper.dart';
 import 'dio_logger_interceptor.dart';
-import 'package:dio/dio.dart';
 
 class DioClient {
   DioClient._();
@@ -14,7 +12,7 @@ class DioClient {
   factory DioClient() => _instance;
 
   final Dio _dio = Dio(BaseOptions(
-      baseUrl: BuzzWireDioHelper.baseUrl,
+      baseUrl: BuzzWireAppConstants.baseUrl,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
