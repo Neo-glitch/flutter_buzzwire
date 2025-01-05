@@ -1,6 +1,9 @@
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,8 +21,8 @@ import '../../src/features/news/presentation/screens/discover_screen.dart';
 import '../../src/features/news/presentation/screens/news_details_screen.dart';
 import '../../src/features/news/presentation/screens/news_webview_screen.dart';
 import '../../src/features/news/presentation/screens/saved_news_screen.dart';
-import '../../src/features/profile/presentation/profile_screen.dart';
-import '../../src/features/settings/presentation/settings_screen.dart';
+import '../../src/features/profile/presentation/screens/edit_profile_screen.dart';
+import '../../src/features/settings/presentation/screens/settings_screen.dart';
 import '../../src/home_wrapper.dart';
 import 'route.dart';
 
@@ -119,7 +122,15 @@ GoRouter router(RouterRef ref) {
                         builder: (context, state) {
                           return const SearchNewsScreen();
                         },
-                      )
+                      ),
+                      GoRoute(
+                        path: BuzzWireRoute.newsByTopic.path,
+                        name: BuzzWireRoute.newsByTopic.name,
+                        builder: (context, state) {
+                          final topic = state.extra! as String;
+                          return NewsByTopicScreen(topic: topic);
+                        },
+                      ),
                     ])
               ],
             ),
@@ -139,10 +150,10 @@ GoRouter router(RouterRef ref) {
               navigatorKey: profileNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.profile.path,
-                  name: BuzzWireRoute.profile.name,
+                  path: BuzzWireRoute.settings.path,
+                  name: BuzzWireRoute.settings.name,
                   builder: (context, state) {
-                    return const ProfileScreen();
+                    return const SettingsScreen();
                   },
                 )
               ],
@@ -165,12 +176,26 @@ GoRouter router(RouterRef ref) {
           },
         ),
         GoRoute(
-          path: BuzzWireRoute.settings.path,
-          name: BuzzWireRoute.settings.name,
+          path: BuzzWireRoute.editProfile.path,
+          name: BuzzWireRoute.editProfile.name,
           builder: (context, state) {
-            return const SettingsScreen();
+            return const EditProfileScreen();
           },
-        )
+        ),
+        GoRoute(
+          path: BuzzWireRoute.deleteAccount.path,
+          name: BuzzWireRoute.deleteAccount.name,
+          builder: (context, state) {
+            return const DeleteAccountScreen();
+          },
+        ),
+        GoRoute(
+          path: BuzzWireRoute.changePassword.path,
+          name: BuzzWireRoute.changePassword.name,
+          builder: (context, state) {
+            return const ChangePasswordScreen();
+          },
+        ),
       ],
       redirect: (ctx, state) {
         final hasOpenedApp = appEntryState == true;

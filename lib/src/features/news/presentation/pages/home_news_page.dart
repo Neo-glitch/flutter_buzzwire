@@ -1,8 +1,8 @@
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
-import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_controller.dart';
-import 'package:buzzwire/src/features/news/presentation/riverpod/category_news_state.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/home_news_controller.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/home_news_state.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/news_card.dart';
 import 'package:buzzwire/src/shared/presentation/pagination/pagination_sliver_list_view.dart';
 import 'package:buzzwire/src/shared/presentation/pagination/scroll_notification_handler.dart';
@@ -14,33 +14,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class NewsPage extends ConsumerStatefulWidget {
+class HomeNewsPage extends ConsumerStatefulWidget {
   final String category;
   final bool Function() isActivePage;
 
-  const NewsPage(this.category, this.isActivePage, {super.key});
+  const HomeNewsPage(this.category, this.isActivePage, {super.key});
 
   @override
-  ConsumerState<NewsPage> createState() => _NewsPageState();
+  ConsumerState<HomeNewsPage> createState() => _HomeNewsPageState();
 }
 
-class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
+class _HomeNewsPageState extends ConsumerState<HomeNewsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      _init();
-    });
+    _init();
   }
 
   @override
   Widget build(BuildContext context) {
-    final uiState = ref.watch(categoryNewsControllerProvider(widget.category));
-
+    final uiState = ref.watch(homeNewsControllerProvider(widget.category));
     return _buildBody(uiState);
   }
 
-  Widget _buildBody(CategoryNewsState uiState) {
+  Widget _buildBody(HomeNewsState uiState) {
     if (uiState.loadState is Empty) {
       return const SizedBox.shrink();
     }
@@ -54,7 +51,7 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
         message: (uiState.loadState as Error).message,
         onPressed: () {
           ref
-              .read(categoryNewsControllerProvider(widget.category).notifier)
+              .read(homeNewsControllerProvider(widget.category).notifier)
               .fetchNews(uiState.currentPage);
         },
       );
@@ -63,17 +60,21 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
     return ScrollNotificationHandler(
       loadMore: () {
         ref
-            .read(categoryNewsControllerProvider(widget.category).notifier)
+            .read(homeNewsControllerProvider(widget.category).notifier)
             .fetchNews(uiState.currentPage + 1);
       },
       canLoadMoreData: () => canLoadMore(uiState),
-      child: CustomScrollView(
-        slivers: buildSlivers(uiState),
+      child: RefreshIndicator(
+        displacement: 5,
+        onRefresh: _fetchNews,
+        child: CustomScrollView(
+          slivers: buildSlivers(uiState),
+        ),
       ),
     );
   }
 
-  List<Widget> buildSlivers(CategoryNewsState uiState) {
+  List<Widget> buildSlivers(HomeNewsState uiState) {
     return [
       SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -109,24 +110,30 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
         onSave: (article) => onSaveClick(article));
   }
 
-  bool _isInitialLoading(CategoryNewsState uiState) =>
-      uiState.loadState is Loading && uiState.currentPage <= 1;
+  bool _isInitialLoading(HomeNewsState uiState) =>
+      uiState.loadState is Loading && uiState.articles.isEmpty;
 
-  bool _isInitialError(CategoryNewsState uiState) =>
+  bool _isInitialError(HomeNewsState uiState) =>
       uiState.loadState is Error && uiState.articles.isEmpty;
 
-  bool canLoadMore(CategoryNewsState uiState) {
+  bool canLoadMore(HomeNewsState uiState) {
     return uiState.currentPage < uiState.lastPage &&
         uiState.loadState is! Loading &&
         widget.isActivePage();
   }
 
   void _init() {
-    ref
-        .read(categoryNewsControllerProvider(widget.category).notifier)
-        .fetchSavedArticles();
-    ref
-        .read(categoryNewsControllerProvider(widget.category).notifier)
+    Future.microtask(() {
+      _fetchNews();
+      ref
+          .read(homeNewsControllerProvider(widget.category).notifier)
+          .fetchSavedArticles();
+    });
+  }
+
+  Future<void> _fetchNews() async {
+    await ref
+        .read(homeNewsControllerProvider(widget.category).notifier)
         .fetchNews(1);
   }
 
@@ -155,14 +162,14 @@ class _NewsPageState<BaseNewsPage> extends ConsumerState<NewsPage> {
 
   Future<bool> _bookmarkArticle(ArticleEntity article) async {
     final result = await ref
-        .read(categoryNewsControllerProvider(widget.category).notifier)
+        .read(homeNewsControllerProvider(widget.category).notifier)
         .bookmarkArticle(article);
     return result;
   }
 
   Future<bool> _unbookmarkArticle(ArticleEntity article) async {
     final result = await ref
-        .read(categoryNewsControllerProvider(widget.category).notifier)
+        .read(homeNewsControllerProvider(widget.category).notifier)
         .unBookmarkArticle(article);
     return result;
   }

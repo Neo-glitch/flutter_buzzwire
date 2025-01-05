@@ -49,5 +49,11 @@
 		<false/>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>BuzzWire requires access to your photo library to allow you to pick images for use within the app.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>BuzzWire requires access to your camera to capture new images or videos directly from the app.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>BuzzWire requires access to your microphone to record audio for videos or other media.</string>
 	</dict>
 </plist>

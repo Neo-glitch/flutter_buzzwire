@@ -12,6 +12,12 @@ abstract class AuthRepository {
   Future<Either<Failure, bool>> verifyEmail();
   Future<Either<Failure, void>> sendVerificationEmail();
   Future<Either<Failure, void>> resetPassword(String email);
+  Future<Either<Failure, void>> deleteAccount();
+  Future<Either<Failure, void>> changePassword(String newPassword);
+  Future<Either<Failure, void>> reAuthenticateUser(
+    String email,
+    String password,
+  );
 
   bool checkIfAunthenticated();
 }

@@ -4,10 +4,11 @@ import 'package:buzzwire/src/features/search_history/domain/entity/search_histor
 import 'package:buzzwire/src/features/search_history/domain/repository/search_history_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class DeleteSearchHistory implements UseCaseFutureVoid<SearchHistoryEntity> {
+class DeleteSearchHistoryUseCase
+    implements UseCaseFutureVoid<SearchHistoryEntity> {
   final SearchHistoryRepository repository;
 
-  DeleteSearchHistory({required this.repository});
+  DeleteSearchHistoryUseCase({required this.repository});
 
   @override
   Future<Either<Failure, void>> call(SearchHistoryEntity param) {

@@ -4,13 +4,14 @@ class ScrollNotificationHandler extends StatelessWidget {
   final bool Function() canLoadMoreData;
   final Function() loadMore;
   final Widget child;
+  final bool shouldPropagateScrollNotification;
 
-  const ScrollNotificationHandler({
-    super.key,
-    required this.child,
-    required this.loadMore,
-    required this.canLoadMoreData,
-  });
+  const ScrollNotificationHandler(
+      {super.key,
+      required this.child,
+      required this.loadMore,
+      required this.canLoadMoreData,
+      this.shouldPropagateScrollNotification = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ScrollNotificationHandler extends StatelessWidget {
           }
         }
 
-        return true;
+        return !shouldPropagateScrollNotification;
       },
       child: child,
     );

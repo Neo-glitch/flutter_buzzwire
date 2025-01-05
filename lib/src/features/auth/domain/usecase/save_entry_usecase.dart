@@ -4,10 +4,10 @@ import '../../../../../core/error/failure.dart';
 import '../../../../../core/usecase/usecase.dart';
 import '../manager/local_user_manager.dart';
 
-class SaveEntry implements UseCaseFuture<bool, NoParams> {
+class SaveEntryUseCase implements UseCaseFuture<bool, NoParams> {
   final LocalUserManager userManager;
 
-  SaveEntry({required this.userManager});
+  SaveEntryUseCase({required this.userManager});
 
   @override
   Future<Either<Failure, bool>> call(NoParams param) {

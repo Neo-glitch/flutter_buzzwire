@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -53,12 +49,12 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
 
   bool _backButtonInterceptor(final bool stop, final RouteInfo routeInfo) {
     // stop back gesture
-    GoRouter _router = GoRouter.of(context);
+    GoRouter router = GoRouter.of(context);
     final RouteMatch lastMatch =
-        _router.routerDelegate.currentConfiguration.last;
+        router.routerDelegate.currentConfiguration.last;
     final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
         ? lastMatch.matches
-        : _router.routerDelegate.currentConfiguration;
+        : router.routerDelegate.currentConfiguration;
     final String location = matchList.uri.toString();
     final bool canPop = GoRouter.of(context).routerDelegate.canPop();
 
@@ -84,12 +80,12 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
       handleAndroidBackButtonPress: true,
       backgroundColor: context.backgroundColor,
       tabs: _bottomNavTabs(),
-      navBarBuilder: (navBarConfig) => Style3BottomNavBar(
+      navBarBuilder: (navBarConfig) => Style1BottomNavBar(
         navBarConfig: navBarConfig,
         navBarDecoration: NavBarDecoration(
           color: context.backgroundColor,
-          border: const Border.symmetric(
-            horizontal: BorderSide(width: 0.2, color: BuzzWireColors.darkGrey),
+          border: const Border(
+            top: BorderSide(width: 0.05, color: BuzzWireColors.darkGrey),
           ),
         ),
       ),
@@ -136,7 +132,7 @@ class _HomeWrapperScreenState extends ConsumerState<HomeWrapperScreen> {
             FontAwesomeIcons.solidUser,
             size: 20,
           ),
-          title: "Profile",
+          title: "Settings",
         ),
       ),
     ];

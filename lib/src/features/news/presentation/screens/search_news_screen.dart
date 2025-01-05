@@ -199,6 +199,9 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   }
 
   void _navToNewsDetailsScreen(ArticleEntity article) {
+    ref
+        .read(searchNewsControllerProvider.notifier)
+        .onEvent(SaveSearchHistoryEvent(article: article));
     context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
   }
 

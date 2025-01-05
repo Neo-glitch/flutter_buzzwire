@@ -12,15 +12,16 @@ part 'news_details_controller.g.dart';
 
 @riverpod
 class NewsDetailsController extends _$NewsDetailsController {
-  late SaveArticle _saveArticle;
-  late DeleteSavedArticle _deleteSavedArticle;
-  late GetSavedArticles _getSavedArticles;
+  late SaveArticleUseCase _saveArticle;
+  late DeleteSavedArticleUseCase _deleteSavedArticle;
+  late GetSavedArticlesUseCase _getSavedArticles;
 
   @override
   NewsDetailsState build() {
     _saveArticle = injector();
     _deleteSavedArticle = injector();
     _getSavedArticles = injector();
+    print("\nNews Detail controller Build called\n");
     return const NewsDetailsState();
   }
 

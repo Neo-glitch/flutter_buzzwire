@@ -4,24 +4,28 @@ import 'package:flutter/material.dart';
 class BuzzWireBottomSheetTheme {
   BuzzWireBottomSheetTheme._();
 
-  static BottomSheetThemeData lightBottomSheetTheme =
-      const BottomSheetThemeData(
+  static const BottomSheetThemeData lightBottomSheetTheme =
+      BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: BuzzWireColors.white,
-    modalBackgroundColor: BuzzWireColors.white,
+    backgroundColor: BuzzWireColors.light,
+    modalBackgroundColor: BuzzWireColors.light,
+    modalBarrierColor: BuzzWireColors.translucentBlack,
     constraints: BoxConstraints(minWidth: double.infinity),
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+    ),
   );
 
-  static BottomSheetThemeData darkBottomSheetTheme = const BottomSheetThemeData(
+  static const BottomSheetThemeData darkBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
     backgroundColor: BuzzWireColors.dark,
     modalBackgroundColor: BuzzWireColors.dark,
+    modalBarrierColor: BuzzWireColors.translucentBlack,
     constraints: BoxConstraints(minWidth: double.infinity),
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+    ),
   );
 }

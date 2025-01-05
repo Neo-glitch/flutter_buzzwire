@@ -35,11 +35,45 @@ class BuzzWireStrings {
   static const String emailVerificationSubtitle =
       "Input your email and password to get a verification email.";
 
-  // Home
+  // App
   static const String homeAppBarTitle = "Welcome Back!";
   static const String homeAppBarSubTitle = "Dat App Boy";
   static const String defaultErrorScreenHeaderTitle = "An Error Occured";
   static const String defaultEmptyScreenHeaderTitle = "No Results Found";
+  static const String cancel = "Cancel";
+  static const String error = "Error";
+  static const String retry = "Retry";
+  static const String alert = "Alert";
+  static const String yes = "Yes";
+  static const String info = "Info";
+  static const String account = "Account";
+  static const String settings = "Settings";
+  static const String appPreferences = "App Preferences";
+  static const String general = "General";
+  static const String language = "Language";
+  static const String theme = "Theme";
+  static const String countryAndRegion = "Country & region";
+  static const String notifications = "Notifications";
+  static const String profile = "Profile";
+  static const String myArticles = "My Articles";
+  static const String changePassword = "Change Password";
+  static const String signOut = "Sign out";
+  static const String deleteAccount = "Delete Account";
+  static const String deleteYourAccountQuestion = "Delete your account?";
+  static const String permanentlyDeleteYourAccount =
+      "Permanently Delete Account";
+  static const String permanentlyDeleteAccountDesc =
+      "Deleting your account will permanently erase all your data. This includes your profile, activity, and preferences. If you’re sure, enter your password below and click on the button to confirm.";
+  static const String deleteAccountScreenDesc =
+      "You will loose all your data by deleting your account. This action cannot be undone";
+  static const String confirmDeleteAccountDialogDesc =
+      "Once you delete your account, there's no getting it back. Make sure you want to do this";
+  static const String sendFeedback = "Send Feedback";
+  static const String warning = "Warning";
+  static const String signOutDialogDesc = "Are you sure you want to sign out?";
+  static const String deletingYourAccount = "Deleting Your Account...";
+  static const String changePasswordScreenDesc =
+      "To change your password, please fill in the fields below. Your password must contain at least 6 characters and must be different from the current password";
 
   // fontFamily
   static const String poppins = "Poppins";

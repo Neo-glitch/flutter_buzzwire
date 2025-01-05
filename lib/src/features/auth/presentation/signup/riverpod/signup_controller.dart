@@ -1,34 +1,45 @@
-import 'package:buzzwire/injector.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/features/auth/domain/usecase/create_user_account_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signout_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signup_usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/verify_email_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
+import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'signup_controller.g.dart';
 
 @riverpod
 class SignUpController extends _$SignUpController {
-  late SignUp _signUp;
-  late SignOut _signOut;
-  late SendVerificationEmail _sendVerificationEmail;
+  late SignUpUseCase _signUp;
+  late SignOutUseCase _signOut;
+  late CreateUserAccountUseCase _createUserAccount;
+  late SendVerificationEmailUseCase _sendVerificationEmail;
 
   @override
   SignupState build() {
     _signUp = injector();
     _sendVerificationEmail = injector();
     _signOut = injector();
+    _createUserAccount = injector();
     return const SignupState();
   }
 
-  void signUp({required String email, required String password}) async {
+  void signUp({
+    required String email,
+    required String password,
+    required String userName,
+    required String phone,
+  }) async {
     state = state.copyWith(loadState: const Loading());
-    final response =
-        await _signUp(SignUpParams(email: email, password: password));
+    final response = await _signUp(SignUpParams(
+      email: email,
+      password: password,
+    ));
+    final phoneNumber = phone.isEmpty ? null : phone;
 
     response.fold(
       (failure) {
@@ -36,7 +47,38 @@ class SignUpController extends _$SignUpController {
           loadState: Error(message: failure.message),
         );
       },
-      (user) async => sendVerificationEmail(),
+      (user) async =>
+          _handleUserAccountCreation(user.uid, email, userName, phoneNumber),
+    );
+  }
+
+  Future<void> _handleUserAccountCreation(
+    String userId,
+    String email,
+    String userName,
+    String? phone,
+  ) async {
+    final accountCreationResult = await _createUserAccount(
+      CreateUserAccountParam(
+        userId: userId,
+        email: email,
+        userName: userName,
+        country: state.country!,
+        phone: phone,
+      ),
+    );
+
+    accountCreationResult.fold(
+      (failure) {
+        state = state.copyWith(
+          loadState: Error(message: failure.message),
+        );
+        signOut();
+      },
+      (_) async {
+        await _sendVerificationEmail(NoParams());
+        await signOut();
+      },
     );
   }
 
@@ -44,17 +86,17 @@ class SignUpController extends _$SignUpController {
     final result = await _sendVerificationEmail(NoParams());
 
     result.fold(
-      (failure) {
+      (failure) async {
         state = state.copyWith(
           loadState: Error(message: failure.message),
         );
-        signOut();
+        await signOut();
       },
       (success) async => signOut(),
     );
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     final result = await _signOut(NoParams());
 
     result.fold(
@@ -80,10 +122,10 @@ class SignUpController extends _$SignUpController {
   }
 
   void vaidateUserName(String userName) {
-    state = state.copyWith(isFullNameFilled: userName.isNotEmpty);
+    state = state.copyWith(isUserNameFilled: userName.isNotEmpty);
   }
 
-  void hasSeenError() {
-    state = state.copyWith(loadState: const Empty());
+  void setCountry(CountryEntity country) {
+    state = state.copyWith(country: country);
   }
 }

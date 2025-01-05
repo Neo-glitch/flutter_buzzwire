@@ -4,10 +4,10 @@ import 'package:buzzwire/src/features/news/domain/entity/news_entity.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class GetHeadlines implements UseCaseFuture<NewsEntity, NoParams> {
+class GetHeadlinesUseCase implements UseCaseFuture<NewsEntity, NoParams> {
   final NewsRepository repository;
 
-  GetHeadlines({required this.repository});
+  GetHeadlinesUseCase({required this.repository});
 
   @override
   Future<Either<Failure, NewsEntity>> call(NoParams param) async {

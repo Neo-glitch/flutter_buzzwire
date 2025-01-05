@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/extensions/list_extension.dart';
 import 'package:buzzwire/core/utils/extensions/num_extension.dart';
@@ -15,19 +15,20 @@ import 'package:buzzwire/src/features/search_history/domain/usecase/delete_searc
 import 'package:buzzwire/src/features/search_history/domain/usecase/get_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/save_search_history_usecase.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'search_news_controller.g.dart';
 
 @riverpod
 class SearchNewsController extends _$SearchNewsController {
-  late GetSearchHistory _getSearchHistory;
-  late DeleteSearchHistory _deleteSearchHistory;
-  late SaveSearchHistory _saveSearchHistory;
-  late SaveArticle _saveArticle;
-  late DeleteSavedArticle _deleteSavedArticle;
-  late GetSavedArticles _getSavedArticles;
-  late GetNews _getNews;
+  late GetSearchHistoryUseCase _getSearchHistory;
+  late DeleteSearchHistoryUseCase _deleteSearchHistory;
+  late SaveSearchHistoryUseCase _saveSearchHistory;
+  late SaveArticleUseCase _saveArticle;
+  late DeleteSavedArticleUseCase _deleteSavedArticle;
+  late GetSavedArticlesUseCase _getSavedArticles;
+  late GetNewsUseCase _getNews;
 
   @override
   SearchNewsState build() {
@@ -108,7 +109,7 @@ class SearchNewsController extends _$SearchNewsController {
           loadState: Error(message: error.message), currentPage: previousPage),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / BuzzWireDioHelper.pageSize).ceil();
+            (result.totalResults.orZero / BuzzWireAppConstants.pageSize).ceil();
         final articles = state.searchResults.toList() + result.articles.orEmpty;
 
         state = state.copyWith(
@@ -135,7 +136,7 @@ class SearchNewsController extends _$SearchNewsController {
           state = state.copyWith(loadState: Error(message: error.message)),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / BuzzWireDioHelper.pageSize).ceil();
+            (result.totalResults.orZero / BuzzWireAppConstants.pageSize).ceil();
 
         state = state.copyWith(
           loadState: const Loaded(),
@@ -148,16 +149,20 @@ class SearchNewsController extends _$SearchNewsController {
   }
 
   List<ArticleEntity> _mapArticles(List<ArticleEntity> articles) {
-    return articles.map((article) {
-      final localArticle =
-          state.savedArticles.firstWhereOrNull((element) => article == element);
+    return articles
+        .map((article) {
+          final localArticle = state.savedArticles
+              .firstWhereOrNull((element) => article == element);
 
-      article
-        ..isSaved = localArticle != null
-        ..id = localArticle?.id;
+          article
+            ..isSaved = localArticle != null
+            ..id = localArticle?.id;
 
-      return article;
-    }).toList();
+          return article;
+        })
+        .filter((article) =>
+            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
+        .toList();
   }
 
   void _deleteSearch(DeleteSearchHistoryEvent event) async {

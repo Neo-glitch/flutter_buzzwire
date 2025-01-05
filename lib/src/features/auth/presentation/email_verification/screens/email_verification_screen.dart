@@ -1,17 +1,19 @@
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_controller.dart';
+import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_state.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -20,173 +22,156 @@ class EmailVerificationScreen extends ConsumerStatefulWidget {
   const EmailVerificationScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _VerifyEmailScreenState();
+  ConsumerState<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
-class _VerifyEmailScreenState extends ConsumerState<EmailVerificationScreen> {
+class _EmailVerificationScreenState
+    extends ConsumerState<EmailVerificationScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
-  bool _showPassword = false;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _emailTextController.dispose();
-    _passwordTextController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  void _togglePasswordVisibility() {
-    setState(() {
-      _showPassword = !_showPassword;
-    });
+  void _listentToUiState() {
+    ref.listen(
+      emailVerificationControllerProvider,
+      (previous, next) {
+        if (next.loadState is Error && previous?.loadState is! Error) {
+          final message = (next.loadState as Error).message;
+          context.showSingleButtonAlert(BuzzWireStrings.error, message);
+        }
+        if (next.loadState is Loaded) {
+          context.pop();
+          context.showToast("Verification email sent successfully");
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final uiState = ref.watch(emailVerificationControllerProvider);
-    bool isBtnEnabled = uiState.isEmailValid && uiState.isPasswordValid;
-
-    ref.listen(emailVerificationControllerProvider, (previous, next) {
-      if (next.loadState is Error) {
-        final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert("Error", message).then(
-          (value) {
-            ref
-                .read(emailVerificationControllerProvider.notifier)
-                .hasSeenError();
-          },
-        );
-      }
-
-      if (next.loadState is Loaded) {
-        context.pop();
-        context.showToast("Verification email sent successfully");
-      }
-    });
+    _listentToUiState();
 
     return SafeArea(
       child: Scaffold(
         appBar: const BuzzWireAppBar(),
-        body: Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const BuzzWireAppIcon(alignment: MainAxisAlignment.center),
-                    Center(
-                      child: SvgPicture.asset(
-                        BuzzWireAssets.emailVerificationLogo,
-                        semanticsLabel: "Email verification logo",
-                        fit: BoxFit.cover,
-                        width: BuzzWireDeviceUtils.getScreenWidth(context),
-                        height:
-                            BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
-                      ),
-                    ),
-                    const Gap(30),
-                    Text(
-                      textAlign: TextAlign.start,
-                      BuzzWireStrings.emailVerificationTitle,
-                      style: context.titleSmall!
-                          .copyWith(fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      BuzzWireStrings.emailVerificationSubtitle,
-                      style: context.bodyMedium,
-                    ),
-                    const Gap(15),
-                    TextFormField(
-                      enabled: uiState.loadState is! Loading,
-                      controller: _emailTextController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: "Enter email",
-                        prefixIcon: const Icon(Icons.email_outlined),
-                        suffixIcon: uiState.isEmailValid
-                            ? const Icon(Icons.check_circle)
-                            : null,
-                      ),
-                      onChanged: (value) {
-                        ref
-                            .read(emailVerificationControllerProvider.notifier)
-                            .validateEmail(value);
-                      },
-                      validator: (value) {
-                        if (!uiState.isEmailValid) {
-                          return "Please enter an email";
-                        }
+        body: _buildBody(),
+      ),
+    );
+  }
 
-                        return null;
-                      },
-                    ),
-                    const Gap(10),
-                    TextFormField(
-                      controller: _passwordTextController,
-                      enabled: uiState.loadState is! Loading,
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !_showPassword,
-                      decoration: InputDecoration(
-                        hintText: "Enter password",
-                        prefixIcon: const Icon(Icons.lock_outline_rounded),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            _togglePasswordVisibility();
-                          },
-                          child: Icon(
-                            _showPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                        ),
-                      ),
-                      onChanged: (value) => ref
-                          .read(emailVerificationControllerProvider.notifier)
-                          .validatePassword(value),
-                      validator: (value) {
-                        return !value?.isValidPassword()
-                            ? "Please ensure your password is up to 6 characters"
-                            : null;
-                      },
-                    ),
-                    const Gap(20),
-                    BuzzWireProgressButton(
-                        isLoading: uiState.loadState is Loading,
-                        isDisabled: !isBtnEnabled,
-                        text: const Text("Resend Email"),
-                        onPressed: () {
-                          ref
-                              .read(
-                                emailVerificationControllerProvider.notifier,
-                              )
-                              .signInAndSendEmailVerificationMail(
-                                email: _emailTextController.text,
-                                password: _passwordTextController.text,
-                              );
-                        }),
-                    Center(
-                        child: TextButton(
-                      child: Text(
-                        "Back to log in",
-                        style: context.labelLarge,
-                      ),
-                      onPressed: () => context.pop(),
-                    ))
-                  ],
-                ),
+  Form _buildBody() {
+    return Form(
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: _buildContent(),
+      ),
+    );
+  }
+
+  Column _buildContent() {
+    final uiState = ref.watch(emailVerificationControllerProvider);
+    final isBtnEnabled = uiState.isEmailValid && uiState.isPasswordValid;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
+        _buildScreenLogo(context),
+        const Gap(30),
+        _buildHeader(),
+        const Gap(16),
+        _buildEmailInputField(uiState),
+        const Gap(16),
+        _buildPasswordInputField(uiState),
+        const Gap(20),
+        BuzzWireProgressButton(
+          isLoading: uiState.loadState is Loading,
+          isDisabled: !isBtnEnabled,
+          text: const Text("Resend Email"),
+          onPressed: () => ref
+              .read(emailVerificationControllerProvider.notifier)
+              .signInAndSendEmailVerificationMail(
+                email: _emailController.text,
+                password: _passwordController.text,
               ),
+        ),
+        Center(
+          child: TextButton(
+            onPressed: () => context.pop(),
+            child: Text(
+              "Back to log in",
+              style: context.labelLarge,
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildHeader() {
+    return Column(
+      children: [
+        Text(
+          BuzzWireStrings.emailVerificationTitle,
+          style: context.titleSmall!.copyWith(fontWeight: FontWeight.w700),
+        ),
+        Text(
+          BuzzWireStrings.emailVerificationSubtitle,
+          style: context.bodyMedium,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildScreenLogo(BuildContext context) {
+    return Center(
+      child: SvgPicture.asset(
+        BuzzWireAssets.emailVerificationLogo,
+        semanticsLabel: "Email verification logo",
+        width: BuzzWireDeviceUtils.getScreenWidth(context),
+        height: BuzzWireDeviceUtils.getScreenHeight(context) * 0.3,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _buildEmailInputField(EmailVerificationState uiState) {
+    return FormInputGroup(
+      headerTitle: "Email",
+      child: BuzzWireEmailInputField(
+        controller: _emailController,
+        hintText: "Enter email",
+        enabled: uiState.loadState is! Loading,
+        suffixIcon:
+            uiState.isEmailValid ? const Icon(Icons.check_circle) : null,
+        textInputAction: TextInputAction.next,
+        onChanged: (value) => ref
+            .read(emailVerificationControllerProvider.notifier)
+            .validateEmail(value),
+      ),
+    );
+  }
+
+  Widget _buildPasswordInputField(EmailVerificationState uiState) {
+    return FormInputGroup(
+      headerTitle: "Password",
+      child: BuzzWirePasswordInputField(
+        controller: _passwordController,
+        enabled: uiState.loadState is! Loading,
+        textInputAction: TextInputAction.done,
+        onChanged: (value) => ref
+            .read(emailVerificationControllerProvider.notifier)
+            .validatePassword(value),
       ),
     );
   }

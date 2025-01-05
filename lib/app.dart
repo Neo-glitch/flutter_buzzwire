@@ -1,27 +1,37 @@
+import 'package:buzzwire/src/shared/presentation/riverpod/theme_controller.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keyboard_dismiss_wrapper.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app_view.dart';
-import 'core/constants/asset_strings.dart';
 import 'core/constants/colors.dart';
 import 'core/navigation/app_router.dart';
 import 'core/theme/theme.dart';
 import 'core/utils/device/device_utility.dart';
-import 'core/utils/extensions/context_extension.dart';
-import 'core/utils/logging/logger_helper.dart';
-import 'src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class App extends ConsumerWidget {
+class App extends ConsumerStatefulWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
+  ConsumerState<App> createState() => _AppState();
+}
 
-    bool isDarkMode = BuzzWireDeviceUtils.isDarkMode(context);
+class _AppState extends ConsumerState<App> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+        () => ref.read(themeControllerProvider.notifier).initAppThemeStream());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final router = ref.watch(routerProvider);
+    final themeMode = ref.watch(themeControllerProvider);
+
+    bool isDarkMode = _isDarkMode(themeMode, context);
     final statusbarColor =
-        isDarkMode ? BuzzWireColors.black : BuzzWireColors.white;
+        isDarkMode ? BuzzWireColors.dark : BuzzWireColors.light;
+
     BuzzWireDeviceUtils.setStatusBarColor(
       statusbarColor,
       isDarkMode: isDarkMode,
@@ -29,7 +39,7 @@ class App extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: themeMode,
       theme: BuzzWireAppTheme.lightTheme,
       darkTheme: BuzzWireAppTheme.darkTheme,
       builder: (context, child) {
@@ -37,6 +47,7 @@ class App extends ConsumerWidget {
           child: child ?? const SizedBox.shrink(),
         );
       },
+      // Uncomment to use splash screen
       // home: FlutterSplashScreen.fadeIn(
       //   backgroundColor: BuzzWireDeviceUtils.isDarkMode(context)
       //       ? BuzzWireColors.dark
@@ -51,5 +62,13 @@ class App extends ConsumerWidget {
       // ),
       routerConfig: router,
     );
+  }
+
+  bool _isDarkMode(ThemeMode themeMode, BuildContext context) {
+    return switch (themeMode) {
+      ThemeMode.system => BuzzWireDeviceUtils.isDarkMode(context),
+      ThemeMode.light => false,
+      ThemeMode.dark => true
+    };
   }
 }

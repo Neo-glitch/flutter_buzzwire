@@ -4,11 +4,11 @@ import 'package:buzzwire/src/features/search_history/domain/entity/search_histor
 import 'package:buzzwire/src/features/search_history/domain/repository/search_history_repository.dart';
 import 'package:fpdart/src/either.dart';
 
-class GetSearchHistory
+class GetSearchHistoryUseCase
     implements UseCaseStream<List<SearchHistoryEntity>, NoParams> {
   final SearchHistoryRepository repository;
 
-  GetSearchHistory({required this.repository});
+  GetSearchHistoryUseCase({required this.repository});
 
   @override
   Stream<Either<Failure, List<SearchHistoryEntity>>> call(NoParams param) {

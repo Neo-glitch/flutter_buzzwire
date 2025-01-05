@@ -1,5 +1,6 @@
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/network/dio/dio_client.dart';
-import 'package:buzzwire/core/network/dio/dio_helper.dart';
+
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
@@ -21,13 +22,13 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<NewsModel> getNews({required String query, required int page}) async {
     try {
       final response = await dioClient.get(
-        BuzzWireDioHelper.news,
+        BuzzWireAppConstants.news,
         queryParameters: {
           "q": query,
           "language": "en",
           "sortBy": "publishedAt",
           "page": page,
-          "pageSize": BuzzWireDioHelper.pageSize,
+          "pageSize": BuzzWireAppConstants.pageSize,
         },
       );
       return NewsModel.fromJson(response);
@@ -41,7 +42,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<NewsModel> getHeadlines() async {
     try {
       final response = await dioClient.get(
-        BuzzWireDioHelper.headlines,
+        BuzzWireAppConstants.headlines,
         queryParameters: {
           "country": "us",
           "page": 1,
@@ -62,12 +63,12 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   }) async {
     try {
       final response = await dioClient.get(
-        BuzzWireDioHelper.headlines,
+        BuzzWireAppConstants.headlines,
         queryParameters: {
           "country": "us",
           "page": page,
           "category": category,
-          "pageSize": BuzzWireDioHelper.pageSize,
+          "pageSize": BuzzWireAppConstants.pageSize,
         },
       );
       return NewsModel.fromJson(response);
@@ -81,7 +82,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<NewsSourceModel> getNewsSources() async {
     try {
       final response = await dioClient.get(
-        BuzzWireDioHelper.sources,
+        BuzzWireAppConstants.sources,
         queryParameters: {
           "language": "en",
         },

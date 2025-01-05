@@ -1,6 +1,8 @@
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/sizes.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_simple_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,12 +39,16 @@ extension ContextExtension<T> on BuildContext {
   Color get onBackgroundColor => Theme.of(this).colorScheme.onBackground;
   Color get surfaceColor => Theme.of(this).colorScheme.surface;
   Color get onSurfaceColor => Theme.of(this).colorScheme.onSurface;
+  Color get surfaceVariantColor => Theme.of(this).colorScheme.surfaceVariant;
+  Color get onSurfaceVariantColor =>
+      Theme.of(this).colorScheme.onSurfaceVariant;
 
   // can other functions like showing a toast and all, show bottom sheet
   void showSnackBar(
     String message, {
     Function()? action,
   }) {
+    HapticFeedback.mediumImpact();
     ScaffoldMessenger.of(this)
       ..hideCurrentSnackBar()
       ..showSnackBar(
@@ -72,61 +78,107 @@ extension ContextExtension<T> on BuildContext {
 
   Future<T?> showSingleButtonAlert(
     String title,
-    String message,
-  ) {
-    return showDialog(
-        context: this,
-        builder: (ctx) {
-          return AlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(this).pop(),
-                child: const Text("Ok"),
-              )
-            ],
-          );
-        });
+    String message, {
+    String? buttonText,
+    Function()? onClick,
+  }) {
+    return showGeneralDialog(
+      context: this,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(this).modalBarrierDismissLabel,
+      pageBuilder: (ctx, anim1, anim2) {
+        return BuzzWireSimpleDialog(
+          title: title,
+          description: message,
+          primaryButtonText: buttonText,
+          onPrimaryClick: () {
+            ctx.pop();
+            if (onClick != null) onClick();
+          },
+        );
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(
+            parent: anim1,
+            curve: Curves.elasticOut,
+            reverseCurve: Curves.easeOutCubic,
+          ),
+          child: child,
+        );
+      },
+    );
   }
 
   Future<T?> showDoubleButtonAlert(
     String title,
     String message,
-    String positiveText,
-    String negativeText, {
-    Function()? positiveAction,
-    Function()? negativeAction,
+    String primaryButtonText,
+    String secondaryButtonText, {
+    Function()? onPrimaryButtonClick,
+    Function()? onSecondaryButtonClick,
   }) {
-    return showDialog(
-        context: this,
-        builder: (ctx) {
-          return AlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(this).pop();
-                  if (positiveAction != null) positiveAction();
-                },
-                child: Text(positiveText),
-              ),
-              const Gap(BuzzWireSizes.sm),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(this).pop();
-                  if (negativeAction != null) negativeAction();
-                },
-                child: Text(positiveText),
-              ),
-            ],
-          );
-        });
+    return showGeneralDialog(
+      context: this,
+      barrierLabel: MaterialLocalizations.of(this).modalBarrierDismissLabel,
+      barrierDismissible: true,
+      pageBuilder: (ctx, anim1, anim2) {
+        return BuzzWireSimpleDialog(
+          title: title,
+          description: message,
+          primaryButtonText: primaryButtonText,
+          secondaryButtonText: secondaryButtonText,
+          onPrimaryClick: () {
+            ctx.pop();
+            if (onPrimaryButtonClick != null) onPrimaryButtonClick();
+          },
+          onSecondaryClick: () {
+            ctx.pop();
+            if (onSecondaryButtonClick != null) onSecondaryButtonClick();
+          },
+        );
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(
+            parent: anim1,
+            curve: Curves.elasticOut,
+            reverseCurve: Curves.easeOutCubic,
+          ),
+          child: child,
+        );
+      },
+    );
   }
 
-  Future<bool?> showToast(String message,
-      [Toast toastLength = Toast.LENGTH_SHORT]) {
+  Future<T?> showFullScreenDialog({required Widget dialog}) {
+    return showGeneralDialog(
+      context: this,
+      transitionDuration: const Duration(milliseconds: 250),
+      pageBuilder: (ctx, anim1, anim2) {
+        return dialog;
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        const begin = Offset(0.0, 1.0); // Start from the bottom
+        const end = Offset.zero; // End at top
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = anim1.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Future<bool?> showToast(
+    String message, [
+    Toast toastLength = Toast.LENGTH_SHORT,
+  ]) {
 // It's a plugin to show toast and we can with extension
     Fluttertoast.cancel();
     return Fluttertoast.showToast(

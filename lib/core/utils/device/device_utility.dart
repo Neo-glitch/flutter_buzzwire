@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// Helper class for interacting with a Device and getting device config
@@ -16,8 +14,8 @@ class BuzzWireDeviceUtils {
   }
 
   static Future<void> setStatusBarColor(Color color, {bool? isDarkMode}) async {
-    var statusBarIconBrightness = null;
-    var statusBarTextBrightness = null;
+    Brightness? statusBarIconBrightness;
+    Brightness? statusBarTextBrightness;
 
     if (isDarkMode != null) {
       statusBarTextBrightness = isDarkMode ? Brightness.light : Brightness.dark;

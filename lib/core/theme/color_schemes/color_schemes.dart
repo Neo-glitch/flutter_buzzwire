@@ -5,7 +5,7 @@ import '../../constants/colors.dart';
 class BuzzWireColorScheme {
   BuzzWireColorScheme._();
 
-  static const lightTheme = ColorScheme(
+  static final lightTheme = ColorScheme(
     brightness: Brightness.light,
     primary: BuzzWireColors.primary,
     onPrimary: BuzzWireColors.white,
@@ -17,11 +17,13 @@ class BuzzWireColorScheme {
     onError: BuzzWireColors.white,
     background: BuzzWireColors.light,
     onBackground: BuzzWireColors.dark,
-    surface: BuzzWireColors.light,
+    surface: BuzzWireColors.white,
     onSurface: BuzzWireColors.dark,
+    surfaceTint: Colors.transparent,
+    scrim: BuzzWireColors.black.withOpacity(0.32),
   );
 
-  static const darkTheme = ColorScheme(
+  static final darkTheme = ColorScheme(
     brightness: Brightness.dark,
     primary: BuzzWireColors.primary,
     onPrimary: BuzzWireColors.white,
@@ -33,7 +35,9 @@ class BuzzWireColorScheme {
     onError: BuzzWireColors.white,
     background: BuzzWireColors.dark,
     onBackground: BuzzWireColors.white,
-    surface: BuzzWireColors.dark,
+    surface: BuzzWireColors.black,
     onSurface: BuzzWireColors.white,
+    surfaceTint: Colors.transparent,
+    scrim: BuzzWireColors.black.withOpacity(0.32),
   );
 }

@@ -31,12 +31,18 @@ class BuzzWireRoute {
   static BuzzWireRoute home = BuzzWireRoute(path: "/", name: "home");
   static BuzzWireRoute discover =
       BuzzWireRoute(path: "/discover", name: "discover");
+  static BuzzWireRoute newsByTopic =
+      BuzzWireRoute(path: "news_by_topic", name: "news_by_topic");
   static BuzzWireRoute searchNews =
       BuzzWireRoute(path: "search_news", name: "search_news");
   static BuzzWireRoute savedNews =
       BuzzWireRoute(path: "/saved_news", name: "saved_news");
-  static BuzzWireRoute profile =
-      BuzzWireRoute(path: "/profile", name: "profile");
+  static BuzzWireRoute editProfile =
+      BuzzWireRoute(path: "/edit_profile", name: "edit_profile");
+  static BuzzWireRoute deleteAccount =
+      BuzzWireRoute(path: "/delete_account", name: "delete_account");
+  static BuzzWireRoute changePassword =
+      BuzzWireRoute(path: "/change_password", name: "change_password");
 
   static BuzzWireRoute newsDetails =
       BuzzWireRoute(path: "/news_details", name: "news_details");

@@ -1,14 +1,21 @@
+import 'dart:async';
+
+import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/src/features/news/presentation/categories.dart';
+import 'package:buzzwire/src/features/news/presentation/pages/home_news_page.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/home_controller.dart';
+import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/news/presentation/categories.dart';
-import 'package:buzzwire/src/features/news/presentation/pages/news_page.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -38,16 +45,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: categories.length,
-      child: SafeArea(
+    final cachedUser = ref.watch(homeControllerProvider);
+
+    return SafeArea(
+      child: DefaultTabController(
+        length: categories.length,
         child: Scaffold(
           body: ExtendedNestedScrollView(
             onlyOneScrollInBody: true,
             floatHeaderSlivers: true,
             // controller: _scrollController,
             headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [_buildAppBar(context, innerBoxIsScrolled)];
+              return [
+                _buildAppBar(context, innerBoxIsScrolled, cachedUser),
+              ];
             },
             body: _buildTabBarView(),
           ),
@@ -56,7 +67,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     );
   }
 
-  Widget _buildAppBar(BuildContext context, bool innerBoxScrolled) {
+  Widget _buildAppBar(
+    BuildContext context,
+    bool innerBoxScrolled,
+    UserEntity? cachedUser,
+  ) {
     return SliverAppBar(
       pinned: false,
       floating: true,
@@ -65,23 +80,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       flexibleSpace: FlexibleSpaceBar(
         background: BuzzWireAppBar(
           title: const BuzzWireAppIcon(
-            alignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
           ),
           actions: [
             IconButton(
-              onPressed: () {},
-              icon: ClipOval(
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(16),
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) {
-                      // Todo: replace with reasonable place holder image
-                      return const CircularProgressIndicator();
-                    },
-                    imageUrl:
-                        "https://pixlr.com/images/generator/photo-generator.webp",
-                  ),
-                ),
+              onPressed: () =>
+                  context.pushNamed(BuzzWireRoute.editProfile.name),
+              icon: BuzzWireCircularImage(
+                radius: 16,
+                imageUrl: cachedUser?.profileImage.orEmpty,
               ),
             ),
           ],
@@ -131,28 +138,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
     return switch (newsCategory) {
       NewsCategory.business => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category)),
         ),
       NewsCategory.entertainment => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category)),
         ),
       NewsCategory.general => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category)),
         ),
       NewsCategory.health => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
       NewsCategory.science => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
       NewsCategory.sports => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
       NewsCategory.technology => KeepPageAlive(
-          child: NewsPage(category,
+          child: HomeNewsPage(category,
               () => _tabController.index == categories.indexOf(category))),
     };
   }

@@ -1,5 +1,4 @@
 import '../../constants/app_secrets.dart';
-import 'dio_helper.dart';
 import 'package:dio/dio.dart';
 
 class ApiKeyInterceptor extends Interceptor {

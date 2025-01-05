@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_news_controller.dart';
+part of 'home_news_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoryNewsControllerHash() =>
-    r'fede7d6e53d501481ef8e355c893a4aef4027621';
+String _$homeNewsControllerHash() =>
+    r'052f428b79d1f7f7c695e24e831287a5b4dbf42d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,36 +30,36 @@ class _SystemHash {
   }
 }
 
-abstract class _$CategoryNewsController
-    extends BuildlessAutoDisposeNotifier<CategoryNewsState> {
+abstract class _$HomeNewsController
+    extends BuildlessAutoDisposeNotifier<HomeNewsState> {
   late final String category;
 
-  CategoryNewsState build(
+  HomeNewsState build(
     String category,
   );
 }
 
-/// See also [CategoryNewsController].
-@ProviderFor(CategoryNewsController)
-const categoryNewsControllerProvider = CategoryNewsControllerFamily();
+/// See also [HomeNewsController].
+@ProviderFor(HomeNewsController)
+const homeNewsControllerProvider = HomeNewsControllerFamily();
 
-/// See also [CategoryNewsController].
-class CategoryNewsControllerFamily extends Family<CategoryNewsState> {
-  /// See also [CategoryNewsController].
-  const CategoryNewsControllerFamily();
+/// See also [HomeNewsController].
+class HomeNewsControllerFamily extends Family<HomeNewsState> {
+  /// See also [HomeNewsController].
+  const HomeNewsControllerFamily();
 
-  /// See also [CategoryNewsController].
-  CategoryNewsControllerProvider call(
+  /// See also [HomeNewsController].
+  HomeNewsControllerProvider call(
     String category,
   ) {
-    return CategoryNewsControllerProvider(
+    return HomeNewsControllerProvider(
       category,
     );
   }
 
   @override
-  CategoryNewsControllerProvider getProviderOverride(
-    covariant CategoryNewsControllerProvider provider,
+  HomeNewsControllerProvider getProviderOverride(
+    covariant HomeNewsControllerProvider provider,
   ) {
     return call(
       provider.category,
@@ -78,30 +78,30 @@ class CategoryNewsControllerFamily extends Family<CategoryNewsState> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'categoryNewsControllerProvider';
+  String? get name => r'homeNewsControllerProvider';
 }
 
-/// See also [CategoryNewsController].
-class CategoryNewsControllerProvider extends AutoDisposeNotifierProviderImpl<
-    CategoryNewsController, CategoryNewsState> {
-  /// See also [CategoryNewsController].
-  CategoryNewsControllerProvider(
+/// See also [HomeNewsController].
+class HomeNewsControllerProvider
+    extends AutoDisposeNotifierProviderImpl<HomeNewsController, HomeNewsState> {
+  /// See also [HomeNewsController].
+  HomeNewsControllerProvider(
     String category,
   ) : this._internal(
-          () => CategoryNewsController()..category = category,
-          from: categoryNewsControllerProvider,
-          name: r'categoryNewsControllerProvider',
+          () => HomeNewsController()..category = category,
+          from: homeNewsControllerProvider,
+          name: r'homeNewsControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$categoryNewsControllerHash,
-          dependencies: CategoryNewsControllerFamily._dependencies,
+                  : _$homeNewsControllerHash,
+          dependencies: HomeNewsControllerFamily._dependencies,
           allTransitiveDependencies:
-              CategoryNewsControllerFamily._allTransitiveDependencies,
+              HomeNewsControllerFamily._allTransitiveDependencies,
           category: category,
         );
 
-  CategoryNewsControllerProvider._internal(
+  HomeNewsControllerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -114,8 +114,8 @@ class CategoryNewsControllerProvider extends AutoDisposeNotifierProviderImpl<
   final String category;
 
   @override
-  CategoryNewsState runNotifierBuild(
-    covariant CategoryNewsController notifier,
+  HomeNewsState runNotifierBuild(
+    covariant HomeNewsController notifier,
   ) {
     return notifier.build(
       category,
@@ -123,10 +123,10 @@ class CategoryNewsControllerProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  Override overrideWith(CategoryNewsController Function() create) {
+  Override overrideWith(HomeNewsController Function() create) {
     return ProviderOverride(
       origin: this,
-      override: CategoryNewsControllerProvider._internal(
+      override: HomeNewsControllerProvider._internal(
         () => create()..category = category,
         from: from,
         name: null,
@@ -139,15 +139,14 @@ class CategoryNewsControllerProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CategoryNewsController, CategoryNewsState>
+  AutoDisposeNotifierProviderElement<HomeNewsController, HomeNewsState>
       createElement() {
-    return _CategoryNewsControllerProviderElement(this);
+    return _HomeNewsControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CategoryNewsControllerProvider &&
-        other.category == category;
+    return other is HomeNewsControllerProvider && other.category == category;
   }
 
   @override
@@ -159,19 +158,18 @@ class CategoryNewsControllerProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
-mixin CategoryNewsControllerRef
-    on AutoDisposeNotifierProviderRef<CategoryNewsState> {
+mixin HomeNewsControllerRef on AutoDisposeNotifierProviderRef<HomeNewsState> {
   /// The parameter `category` of this provider.
   String get category;
 }
 
-class _CategoryNewsControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<CategoryNewsController,
-        CategoryNewsState> with CategoryNewsControllerRef {
-  _CategoryNewsControllerProviderElement(super.provider);
+class _HomeNewsControllerProviderElement
+    extends AutoDisposeNotifierProviderElement<HomeNewsController,
+        HomeNewsState> with HomeNewsControllerRef {
+  _HomeNewsControllerProviderElement(super.provider);
 
   @override
-  String get category => (origin as CategoryNewsControllerProvider).category;
+  String get category => (origin as HomeNewsControllerProvider).category;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

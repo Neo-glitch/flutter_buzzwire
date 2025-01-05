@@ -19,7 +19,8 @@ mixin _$SignupState {
   LoadState get loadState => throw _privateConstructorUsedError;
   bool get isEmailValid => throw _privateConstructorUsedError;
   bool get isPasswordValid => throw _privateConstructorUsedError;
-  bool get isFullNameFilled => throw _privateConstructorUsedError;
+  bool get isUserNameFilled => throw _privateConstructorUsedError;
+  CountryEntity? get country => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignupStateCopyWith<SignupState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $SignupStateCopyWith<$Res> {
       {LoadState loadState,
       bool isEmailValid,
       bool isPasswordValid,
-      bool isFullNameFilled});
+      bool isUserNameFilled,
+      CountryEntity? country});
 }
 
 /// @nodoc
@@ -55,7 +57,8 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? loadState = null,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
-    Object? isFullNameFilled = null,
+    Object? isUserNameFilled = null,
+    Object? country = freezed,
   }) {
     return _then(_value.copyWith(
       loadState: null == loadState
@@ -70,10 +73,14 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
           ? _value.isPasswordValid
           : isPasswordValid // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFullNameFilled: null == isFullNameFilled
-          ? _value.isFullNameFilled
-          : isFullNameFilled // ignore: cast_nullable_to_non_nullable
+      isUserNameFilled: null == isUserNameFilled
+          ? _value.isUserNameFilled
+          : isUserNameFilled // ignore: cast_nullable_to_non_nullable
               as bool,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as CountryEntity?,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$SignupStateImplCopyWith<$Res>
       {LoadState loadState,
       bool isEmailValid,
       bool isPasswordValid,
-      bool isFullNameFilled});
+      bool isUserNameFilled,
+      CountryEntity? country});
 }
 
 /// @nodoc
@@ -107,7 +115,8 @@ class __$$SignupStateImplCopyWithImpl<$Res>
     Object? loadState = null,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
-    Object? isFullNameFilled = null,
+    Object? isUserNameFilled = null,
+    Object? country = freezed,
   }) {
     return _then(_$SignupStateImpl(
       loadState: null == loadState
@@ -122,10 +131,14 @@ class __$$SignupStateImplCopyWithImpl<$Res>
           ? _value.isPasswordValid
           : isPasswordValid // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFullNameFilled: null == isFullNameFilled
-          ? _value.isFullNameFilled
-          : isFullNameFilled // ignore: cast_nullable_to_non_nullable
+      isUserNameFilled: null == isUserNameFilled
+          ? _value.isUserNameFilled
+          : isUserNameFilled // ignore: cast_nullable_to_non_nullable
               as bool,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as CountryEntity?,
     ));
   }
 }
@@ -137,7 +150,8 @@ class _$SignupStateImpl implements _SignupState {
       {this.loadState = const Empty(),
       this.isEmailValid = false,
       this.isPasswordValid = false,
-      this.isFullNameFilled = false});
+      this.isUserNameFilled = false,
+      this.country});
 
   @override
   @JsonKey()
@@ -150,11 +164,13 @@ class _$SignupStateImpl implements _SignupState {
   final bool isPasswordValid;
   @override
   @JsonKey()
-  final bool isFullNameFilled;
+  final bool isUserNameFilled;
+  @override
+  final CountryEntity? country;
 
   @override
   String toString() {
-    return 'SignupState(loadState: $loadState, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isFullNameFilled: $isFullNameFilled)';
+    return 'SignupState(loadState: $loadState, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isUserNameFilled: $isUserNameFilled, country: $country)';
   }
 
   @override
@@ -168,13 +184,14 @@ class _$SignupStateImpl implements _SignupState {
                 other.isEmailValid == isEmailValid) &&
             (identical(other.isPasswordValid, isPasswordValid) ||
                 other.isPasswordValid == isPasswordValid) &&
-            (identical(other.isFullNameFilled, isFullNameFilled) ||
-                other.isFullNameFilled == isFullNameFilled));
+            (identical(other.isUserNameFilled, isUserNameFilled) ||
+                other.isUserNameFilled == isUserNameFilled) &&
+            (identical(other.country, country) || other.country == country));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, loadState, isEmailValid, isPasswordValid, isFullNameFilled);
+  int get hashCode => Object.hash(runtimeType, loadState, isEmailValid,
+      isPasswordValid, isUserNameFilled, country);
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +205,8 @@ abstract class _SignupState implements SignupState {
       {final LoadState loadState,
       final bool isEmailValid,
       final bool isPasswordValid,
-      final bool isFullNameFilled}) = _$SignupStateImpl;
+      final bool isUserNameFilled,
+      final CountryEntity? country}) = _$SignupStateImpl;
 
   @override
   LoadState get loadState;
@@ -197,7 +215,9 @@ abstract class _SignupState implements SignupState {
   @override
   bool get isPasswordValid;
   @override
-  bool get isFullNameFilled;
+  bool get isUserNameFilled;
+  @override
+  CountryEntity? get country;
   @override
   @JsonKey(ignore: true)
   _$$SignupStateImplCopyWith<_$SignupStateImpl> get copyWith =>

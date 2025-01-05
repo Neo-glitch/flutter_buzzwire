@@ -28,7 +28,10 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize trendingNewsTopics in initState
+    _init();
+  }
+
+  void _init() {
     Future.microtask(() {
       ref.read(discoverNewsControllerProvider.notifier).fetchItems();
     });
@@ -43,11 +46,22 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Column(
-          children: [
-            _buildSearchBar(),
-            _buildBody(uiState),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: RefreshIndicator(
+            displacement: 0,
+            onRefresh: () async {
+              await ref
+                  .read(discoverNewsControllerProvider.notifier)
+                  .fetchItems();
+            },
+            child: Column(
+              children: [
+                _buildSearchBar(),
+                _buildBody(uiState),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -58,7 +72,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
       return const SizedBox.shrink();
     }
 
-    if (uiState.loadState is Loading) {
+    if (uiState.loadState is Loading && _areAllItemsEmpty(uiState)) {
       return const Expanded(child: BuzzWireProgressLoader());
     }
 
@@ -152,9 +166,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
           style: context.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         GestureDetector(
-          onTap: () {
-            // todo: Navigate to view all screen for this category
-          },
+          onTap: () => _navToNewsByTopicScreen(topic),
           child: Text(
             "View all",
             style: context.bodyMedium?.copyWith(fontSize: 12),
@@ -214,5 +226,16 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
 
   void _navToNewsDetailsScreen(ArticleEntity article) {
     context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
+  }
+
+  void _navToNewsByTopicScreen(String topic) {
+    context.pushNamed(BuzzWireRoute.newsByTopic.name, extra: topic);
+  }
+
+  bool _areAllItemsEmpty(DiscoverNewsState uiState) {
+    return uiState.breakingNewsItems.isEmpty &&
+        uiState.firstTrendingNewsList.isEmpty &&
+        uiState.secondTrendingNewsList.isEmpty &&
+        uiState.thirdTrendingNewsList.isEmpty;
   }
 }

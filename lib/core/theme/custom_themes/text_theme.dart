@@ -112,11 +112,11 @@ class BuzzWireTextTheme {
         fontWeight: FontWeight.w500,
         color: BuzzWireColors.textWhite),
     titleMedium: const TextStyle().copyWith(
-        fontSize: 16.0,
+        fontSize: 20.0,
         fontWeight: FontWeight.w500,
         color: BuzzWireColors.textWhite),
     titleSmall: const TextStyle().copyWith(
-        fontSize: 14.0,
+        fontSize: 18.0,
         fontWeight: FontWeight.w500,
         color: BuzzWireColors.textWhite),
     bodyLarge: const TextStyle().copyWith(

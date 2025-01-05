@@ -9,8 +9,8 @@ part 'app_entry_controller.g.dart';
 
 @riverpod
 class AppEntryController extends _$AppEntryController {
-  late ReadEntry _readEntry;
-  late SaveEntry _saveEntry;
+  late ReadEntryUseCase _readEntry;
+  late SaveEntryUseCase _saveEntry;
 
   @override
   bool build() {
