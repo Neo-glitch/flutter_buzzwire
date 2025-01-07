@@ -77,11 +77,9 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   @override
   Widget build(BuildContext context) {
     _listenToUiState();
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: _buildBody(),
-      ),
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(child: _buildBody()),
     );
   }
 

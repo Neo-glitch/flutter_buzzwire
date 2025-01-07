@@ -59,10 +59,10 @@ class _EmailVerificationScreenState
   Widget build(BuildContext context) {
     _listentToUiState();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const BuzzWireAppBar(),
-        body: _buildBody(),
+    return Scaffold(
+      appBar: const BuzzWireAppBar(),
+      body: SafeArea(
+        child: _buildBody(),
       ),
     );
   }

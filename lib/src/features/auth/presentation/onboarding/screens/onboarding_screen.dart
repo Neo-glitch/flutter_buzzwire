@@ -61,23 +61,24 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     var uiState = ref.watch(onBoardingControllerProvider);
-    BuzzWireDeviceUtils.setFullScreen(false);
 
-    return SafeArea(
-      child: Container(
-        color: context.backgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                // viewpager in flutter
-                child: _buildPageView(),
-              ),
-              const Gap(12),
-              _buildBottomNavigationRow(uiState, context)
-            ],
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: context.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  // viewpager in flutter
+                  child: _buildPageView(),
+                ),
+                const Gap(12),
+                _buildBottomNavigationRow(uiState, context)
+              ],
+            ),
           ),
         ),
       ),

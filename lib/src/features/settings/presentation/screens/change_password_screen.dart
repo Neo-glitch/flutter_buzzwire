@@ -72,14 +72,12 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     _listenToUiState();
 
-    return SafeArea(
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Scaffold(
-          appBar: _buildAppBar(),
-          body: _buildBody(),
-        ),
+    return Form(
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: SafeArea(child: _buildBody()),
       ),
     );
   }

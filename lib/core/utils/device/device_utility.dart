@@ -13,14 +13,12 @@ class BuzzWireDeviceUtils {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static Future<void> setStatusBarColor(Color color, {bool? isDarkMode}) async {
+  static Future<void> setStatusBarColor(Color color, bool isDarkMode) async {
     Brightness? statusBarIconBrightness;
     Brightness? statusBarTextBrightness;
 
-    if (isDarkMode != null) {
-      statusBarTextBrightness = isDarkMode ? Brightness.light : Brightness.dark;
-      statusBarIconBrightness = isDarkMode ? Brightness.light : Brightness.dark;
-    }
+    statusBarTextBrightness = isDarkMode ? Brightness.light : Brightness.dark;
+    statusBarIconBrightness = isDarkMode ? Brightness.light : Brightness.dark;
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: color,

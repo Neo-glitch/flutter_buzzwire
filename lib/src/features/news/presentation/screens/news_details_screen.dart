@@ -40,13 +40,11 @@ class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final uiState = ref.watch(newsDetailsControllerProvider);
-    return SafeArea(
-      child: WillPopScope(
-        onWillPop: _canGoBack,
-        child: Scaffold(
-          appBar: _buildAppBar(uiState),
-          body: _buildBody(uiState),
-        ),
+    return WillPopScope(
+      onWillPop: _canGoBack,
+      child: Scaffold(
+        appBar: _buildAppBar(uiState),
+        body: SafeArea(child: _buildBody(uiState)),
       ),
     );
   }

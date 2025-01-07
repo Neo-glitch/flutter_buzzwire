@@ -34,7 +34,7 @@ class _AppState extends ConsumerState<App> {
 
     BuzzWireDeviceUtils.setStatusBarColor(
       statusbarColor,
-      isDarkMode: isDarkMode,
+      isDarkMode,
     );
 
     return MaterialApp.router(

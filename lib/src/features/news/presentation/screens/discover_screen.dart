@@ -43,10 +43,10 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   Widget build(BuildContext context) {
     final uiState = ref.watch(discoverNewsControllerProvider);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Padding(
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: RefreshIndicator(
             displacement: 0,

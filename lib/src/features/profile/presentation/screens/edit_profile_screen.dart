@@ -107,10 +107,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final uiState = ref.watch(editProfileControllerProvider);
     _listenToUiState();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Form(
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(
+        child: Form(
           key: _formKey,
           child: Column(
             children: [

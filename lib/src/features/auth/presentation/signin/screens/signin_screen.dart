@@ -1,4 +1,5 @@
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_input_field_header.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
@@ -56,9 +57,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       }
     });
 
-    return SafeArea(
-      child: Scaffold(
-        body: Form(
+    return Scaffold(
+      body: SafeArea(
+        child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(

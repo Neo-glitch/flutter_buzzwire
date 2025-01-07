@@ -50,37 +50,35 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   @override
   Widget build(BuildContext context) {
     final uiState = ref.watch(searchNewsControllerProvider);
-    return SafeArea(
-      child: Scaffold(
-        appBar: BuzzWireAppBar(
-          title: BuzzWireSearchBar(
-            searchController: _searchController,
-            hintText: "Search...",
-            onSearch: (value) {
-              if (value.isNotEmpty) {
-                _debouncer.run(() {
-                  _searchNews(value);
-                });
-              } else {
-                _debouncer.cancel();
-                _resetLoadState();
-              }
-            },
-            onClear: () {
+    return Scaffold(
+      appBar: BuzzWireAppBar(
+        title: BuzzWireSearchBar(
+          searchController: _searchController,
+          hintText: "Search...",
+          onSearch: (value) {
+            if (value.isNotEmpty) {
+              _debouncer.run(() {
+                _searchNews(value);
+              });
+            } else {
               _debouncer.cancel();
               _resetLoadState();
-            },
-            onEditingComplete: () {
-              if (_searchController.text.isNotEmpty) {
-                ref.read(searchNewsControllerProvider.notifier).onEvent(
-                    SaveSearchHistoryEvent(search: _searchController.text));
-                BuzzWireHelperFunctions.hideKeyboard();
-              }
-            },
-          ),
+            }
+          },
+          onClear: () {
+            _debouncer.cancel();
+            _resetLoadState();
+          },
+          onEditingComplete: () {
+            if (_searchController.text.isNotEmpty) {
+              ref.read(searchNewsControllerProvider.notifier).onEvent(
+                  SaveSearchHistoryEvent(search: _searchController.text));
+              BuzzWireHelperFunctions.hideKeyboard();
+            }
+          },
         ),
-        body: _buildBody(uiState),
       ),
+      body: SafeArea(child: _buildBody(uiState)),
     );
   }
 

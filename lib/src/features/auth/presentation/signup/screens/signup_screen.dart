@@ -74,11 +74,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   Widget build(BuildContext context) {
     _listenToSignupState();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const BuzzWireAppBar(),
-        body: _buildBody(),
-      ),
+    return Scaffold(
+      appBar: const BuzzWireAppBar(),
+      body: SafeArea(child: _buildBody()),
     );
   }
 

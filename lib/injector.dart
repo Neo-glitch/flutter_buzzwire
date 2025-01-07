@@ -1,5 +1,4 @@
 import 'package:buzzwire/core/network/dio/dio_client.dart';
-import 'package:buzzwire/core/network/network_connection_checker.dart';
 import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
 import 'package:buzzwire/src/features/auth/di/auth_dependcies.dart';
 import 'package:buzzwire/src/features/news/di/news_dependencies.dart';
@@ -12,6 +11,7 @@ import 'package:buzzwire/src/shared/di/shared_dependencies.dart';
 import 'package:buzzwire/src/shared/domain/manager/app_theme_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +33,7 @@ Future<void> init() async {
       () => FirebaseFirestore.instance);
   injector.registerLazySingleton<SupabaseStorageClient>(
       () => Supabase.instance.client.storage);
+
   injector.registerLazySingleton<AppThemeManager>(
       () => AppThemeManagerImpl(sharedPref: injector()));
   injector.registerLazySingleton<InternetConnectionChecker>(

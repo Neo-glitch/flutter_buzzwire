@@ -44,8 +44,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: BuzzWireAppBar(
         title: Text(
           BuzzWireStrings.settings,
@@ -54,11 +53,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: _buildBody(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: _buildBody(),
+        ),
       ),
-    ));
+    );
   }
 
   Widget _buildBody() {
