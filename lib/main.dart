@@ -13,12 +13,14 @@ import 'firebase_options.dart';
 import 'injector.dart' as di;
 import 'src/shared/presentation/riverpod/provider_observer.dart';
 
-// to handle background notifications
-Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+/// to handle background messages i.e when app is in background or terminated state
+/// Used when data alone remote messages are sent to the app, can be used to make update preferences
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // init any dependencies you will need
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 }
 
 void main() async {
@@ -34,7 +36,6 @@ void main() async {
     url: BuzzWireAppConstants.baseUrl,
     anonKey: AppSecrets.supabaseApiKey,
   );
-  await BuzzWireMessagingService.init();
 
   runApp(
     ProviderScope(

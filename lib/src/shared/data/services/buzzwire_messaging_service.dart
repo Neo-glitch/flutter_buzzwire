@@ -1,16 +1,29 @@
+import 'dart:convert';
+
 import 'package:buzzwire/core/constants/colors.dart';
+import 'package:buzzwire/core/navigation/app_router.dart';
+import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/usecase/usecase.dart';
+import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'package:buzzwire/injector.dart';
+import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';
+import 'package:buzzwire/src/features/news/data/model/article_model.dart';
+import 'package:buzzwire/src/features/news/presentation/screens/news_details_screen.dart';
+import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
+import 'package:buzzwire/src/shared/data/model/notification_type.dart';
+import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:go_router/go_router.dart';
 
 class BuzzWireMessagingService {
-  /// FCM Message instance
+  static String? _token;
   static final _messaging = FirebaseMessaging.instance;
-
-  /// flutter local notification instance
   static final _flutterLocalNotication = FlutterLocalNotificationsPlugin();
 
-  /// android notification channel, channel id is same as what's in android manifest
   static const _androidNotificationChannel = AndroidNotificationChannel(
     'high_importance_channel',
     'High Importance Notifications',
@@ -18,38 +31,37 @@ class BuzzWireMessagingService {
     importance: Importance.max,
   );
 
-  /// IOS notification channel
   static const _iOSNotificationChannel = DarwinNotificationDetails(
     presentAlert: true,
     presentBadge: true,
     presentSound: true,
   );
 
-  /// FCM Token to send to server
-  static String? _token;
-
   static Future<void> init() async {
-    _requestPermission();
-    _getFCMToken();
-    _configureLocalNotificationPlugin();
-    _createAndroidNotificationChannel();
-
-    // gets message that caused app to start from terminated state
-    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-
-    if (initialMessage != null) {
-      _handleMessage(initialMessage);
-    }
-
+    await _requestPermission();
+    await _getFCMToken();
+    await _configureLocalNotificationPlugin();
+    await _createAndroidNotificationChannel();
+    await getInitialMessage();
     // Foreground notification handler (when push notification received when app in foreground)
     FirebaseMessaging.onMessage.listen(_showForegroundNotification);
-
     // for notification click when app in background
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+    FirebaseMessaging.onMessageOpenedApp
+        .listen((remoteMessage) => _handleMessageData(remoteMessage.data));
   }
 
-  /// for Android 13 and IOS, permission is required
-  static void _requestPermission() async {
+  static Future<void> getInitialMessage() async {
+    // gets message that caused app to start from terminated state
+    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    BuzzWireLoggerHelper.debug(
+        "Notification Initital message is: ${initialMessage.toString()}");
+
+    if (initialMessage != null) {
+      _handleMessageData(initialMessage.data);
+    }
+  }
+
+  static Future<void> _requestPermission() async {
     final settings = await _messaging.requestPermission();
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
@@ -66,8 +78,7 @@ class BuzzWireMessagingService {
     }
   }
 
-  /// Fetches FCM token and update [_token] field and also make call to cloud firestore to persist
-  static void _getFCMToken() async {
+  static Future<void> _getFCMToken() async {
     _token = await _messaging.getToken();
     await _messaging.unsubscribeFromTopic("Sports");
 
@@ -79,7 +90,7 @@ class BuzzWireMessagingService {
     BuzzWireLoggerHelper.debug("Device Token is: $_token");
   }
 
-  static void _configureLocalNotificationPlugin() async {
+  static Future<void> _configureLocalNotificationPlugin() async {
     const androidInitSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosInitSettings = DarwinInitializationSettings(
@@ -105,7 +116,7 @@ class BuzzWireMessagingService {
   }
 
   /// create android notification channel with id same as id in android manifest
-  static void _createAndroidNotificationChannel() async {
+  static Future<void> _createAndroidNotificationChannel() async {
     await _flutterLocalNotication
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -136,22 +147,53 @@ class BuzzWireMessagingService {
         android: androidNotificationDetails,
         iOS: _iOSNotificationChannel,
       ),
-      payload: message.data.toString(),
+      payload: jsonEncode(message.data),
     );
   }
 
-  static void _handleMessage(RemoteMessage message) async {
-    final notification = message.notification;
-    if (notification == null) return;
+  static void _handleMessageData(
+    Map<String, dynamic>? remoteMessageData,
+  ) async {
+    if (remoteMessageData != null) {
+      final notificationType =
+          NotificationType.fromJsonName(remoteMessageData["type"]);
 
-    BuzzWireLoggerHelper.debug(
-        "Notification handled with: ${notification.toString()}");
+      if (notificationType == null) return;
+
+      BuzzWireLoggerHelper.debug(
+          "Notification handled with: ${remoteMessageData.toString()}");
+
+      if (notificationType == NotificationType.newArticle &&
+          _getUser() != null) {
+        final Map<String, dynamic> articleJson =
+            jsonDecode(remoteMessageData["article"]);
+        final article =
+            ArticleMapper.fromArticleModel(ArticleModel.fromJson(articleJson));
+
+        // navigate to article screen
+        final context = rootNavigatorKey.currentContext;
+        if (context != null) {
+          // Navigate to the details screen
+          WidgetsBinding.instance.addPostFrameCallback((duration) {
+            GoRouter.of(context)
+                .pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
+          });
+        }
+
+        BuzzWireLoggerHelper.debug(
+            "Notification handled Article Model is: ${article.toString()}");
+      }
+    }
+  }
+
+  static UserEntity? _getUser() {
+    final GetCachedUserUseCase getUser = injector();
+    return getUser(NoParams()).getOrElse((l) => null);
   }
 
   static void _onForegroundNotificationTap(NotificationResponse response) {
-    if (response.payload == null) return;
-
-    // get payload and creat
-    BuzzWireLoggerHelper.debug("Payload from foregound: ${response.payload}");
+    if (response.payload != null) {
+      _handleMessageData(jsonDecode(response.payload!));
+    }
   }
 }

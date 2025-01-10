@@ -1,3 +1,4 @@
+import 'package:buzzwire/src/shared/data/services/buzzwire_messaging_service.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/theme_controller.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keyboard_dismiss_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,10 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => ref.read(themeControllerProvider.notifier).initAppThemeStream());
+    Future.microtask(() {
+      ref.read(themeControllerProvider.notifier).initAppThemeStream();
+      BuzzWireMessagingService.init();
+    });
   }
 
   @override

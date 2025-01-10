@@ -112,6 +112,9 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Visibility(
+            maintainAnimation: true,
+            maintainSize: true,
+            maintainState: true,
             visible: uiState.pageIndex < 3,
             child: Material(
               child: InkWell(

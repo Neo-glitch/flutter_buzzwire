@@ -38,8 +38,8 @@ final discoverNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "discover_navigator");
 final savedNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "saved_news_navigator");
-final profileNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: "profle_navigator");
+final settingsNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "settings_navigator");
 // We need to have access to the previous location of the router. Otherwise, we would start from '/' on rebuild.
 GoRouter? _previousRouter;
 
@@ -147,7 +147,7 @@ GoRouter router(RouterRef ref) {
               ],
             ),
             StatefulShellBranch(
-              navigatorKey: profileNavigatorKey,
+              navigatorKey: settingsNavigatorKey,
               routes: [
                 GoRoute(
                   path: BuzzWireRoute.settings.path,
