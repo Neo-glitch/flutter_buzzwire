@@ -1,7 +1,9 @@
+import 'package:buzzwire/src/features/auth/presentation/signup/screens/topics_following_setup_screen.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
+import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -67,10 +69,20 @@ GoRouter router(RouterRef ref) {
           },
           routes: [
             GoRoute(
+              path: BuzzWireRoute.topicsFollowingSetup.path,
+              name: BuzzWireRoute.topicsFollowingSetup.name,
+              builder: (context, state) {
+                return const TopicsFollowingSetupScreen();
+              },
+            ),
+            GoRoute(
               path: BuzzWireRoute.signUp.path,
               name: BuzzWireRoute.signUp.name,
               builder: (context, state) {
-                return const SignUpScreen();
+                final topics = state.extra! as List<TopicEntity>;
+                return SignUpScreen(
+                  topicsOfInterest: topics,
+                );
               },
             ),
             GoRoute(

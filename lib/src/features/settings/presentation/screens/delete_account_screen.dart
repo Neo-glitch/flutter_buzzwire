@@ -5,7 +5,7 @@ import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/delete_account_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/delete_account_state.dart';
-import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_loading_dialog.dart';
+import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
@@ -71,7 +71,10 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   }
 
   void _showLoadingDialog() {
-    context.showFullScreenDialog(dialog: const DeleteAccountLoadingDialog());
+    context.showFullScreenDialog(
+        dialog: const OperationLoadingDialog(
+      title: BuzzWireStrings.deletingYourAccount,
+    ));
   }
 
   @override

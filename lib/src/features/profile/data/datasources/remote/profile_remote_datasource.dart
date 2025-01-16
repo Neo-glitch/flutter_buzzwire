@@ -41,14 +41,17 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   @override
   Future<void> deleteUser(UserModel userModel) async {
     try {
-      final imagePath =
-          "${BuzzWireAppConstants.imageBucketProfilePath}/${userModel.userId}.png";
+      if (userModel.profileImage != null) {
+        final imagePath =
+            "${BuzzWireAppConstants.imageBucketProfilePath}/${userModel.userId}.png";
 
-      await supabaseStorage.from(BuzzWireAppConstants.imagesBucket).remove(
-        [
-          imagePath,
-        ],
-      );
+        await supabaseStorage.from(BuzzWireAppConstants.imagesBucket).remove(
+          [
+            imagePath,
+          ],
+        );
+      }
+
       await _getUsersCollectionRef.doc(userModel.userId).delete();
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());

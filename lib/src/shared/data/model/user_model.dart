@@ -10,15 +10,17 @@ class UserModel {
   final String email;
   final String userName;
   final String? phoneNumber;
-  final CountryModel? country;
+  final CountryModel country;
   final String? profileImage;
+  final List<String> topicsFollowing;
 
   UserModel({
     required this.userId,
     required this.email,
     required this.userName,
+    required this.country,
+    required this.topicsFollowing,
     this.phoneNumber,
-    this.country,
     this.profileImage,
   });
 
@@ -44,7 +46,8 @@ class UserModel {
       'email': email,
       'userName': userName,
       'phoneNumber': phoneNumber,
-      'country': country?.toJson(), // Convert CountryModel to Map
+      'topicsFollowing': topicsFollowing,
+      'country': country.toJson(), // Convert CountryModel to Map
       'profileImage': profileImage,
     };
   }

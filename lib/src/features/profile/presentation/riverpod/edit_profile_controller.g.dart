@@ -7,7 +7,7 @@ part of 'edit_profile_controller.dart';
 // **************************************************************************
 
 String _$editProfileControllerHash() =>
-    r'c30a123295c058bd8d468d93b31652ffee681589';
+    r'820651ec0dd9f8d2185c5674696f8a34dcb9f6fa';
 
 /// See also [EditProfileController].
 @ProviderFor(EditProfileController)

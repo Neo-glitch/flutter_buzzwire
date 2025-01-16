@@ -72,6 +72,7 @@ class BuzzWireStrings {
   static const String warning = "Warning";
   static const String signOutDialogDesc = "Are you sure you want to sign out?";
   static const String deletingYourAccount = "Deleting Your Account...";
+  static const String creatingYourAccount = "Creating Your Account...";
   static const String changePasswordScreenDesc =
       "To change your password, please fill in the fields below. Your password must contain at least 6 characters and must be different from the current password";
 

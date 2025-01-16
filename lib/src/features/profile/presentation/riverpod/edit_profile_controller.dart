@@ -78,7 +78,7 @@ class EditProfileController extends _$EditProfileController {
   void _updateUserFields(UserEntity user, String userName, String phone) {
     if (userName.isNotEmpty) user.userName = userName;
     if (phone.isNotEmpty) user.phoneNumber = phone;
-    if (state.newCountry != null) user.country = state.newCountry;
+    if (state.newCountry != null) user.country = state.newCountry!;
   }
 
   Future<String?> _uploadProfileImage(String userId, File image) async {

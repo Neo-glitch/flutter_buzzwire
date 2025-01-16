@@ -4,17 +4,19 @@ import 'package:equatable/equatable.dart';
 class UserEntity extends Equatable {
   final String userId;
   final String email;
+  final List<String> topicsFollowing;
   String userName;
   String? phoneNumber;
-  CountryEntity? country;
+  CountryEntity country;
   String? profileImage;
 
   UserEntity({
     required this.userId,
     required this.email,
     required this.userName,
+    required this.country,
+    required this.topicsFollowing,
     this.phoneNumber,
-    this.country,
     this.profileImage,
   });
 
@@ -25,6 +27,7 @@ class UserEntity extends Equatable {
         userName,
         phoneNumber,
         country,
+        topicsFollowing,
         profileImage,
       ];
 }

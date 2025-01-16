@@ -1,11 +1,9 @@
 import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/constants/sizes.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_simple_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 extension ContextExtension<T> on BuildContext {
   // Text Styles
@@ -189,6 +187,16 @@ extension ContextExtension<T> on BuildContext {
         backgroundColor: secondaryColor,
         textColor: onSecondaryColor,
         fontSize: labelMedium?.fontSize ?? 14);
+  }
+
+  void popUntilPath(String routePath) {
+    final router = GoRouter.of(this);
+    final currentLocation =
+        router.routerDelegate.currentConfiguration.matches.last.matchedLocation;
+
+    while (currentLocation != routePath && canPop()) {
+      pop();
+    }
   }
 
   // Replace this with go Router call

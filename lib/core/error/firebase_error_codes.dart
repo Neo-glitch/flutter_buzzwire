@@ -25,3 +25,8 @@ const String operationUnimplemented = "unimplemented";
 const String internalError = "internal";
 const String serviceUnavailable = "unavailable";
 const String dataLoss = "data-loss";
+
+// FirebaseMessaging error codes
+const String internal = "internal-error";
+const String invalidRegistrationToken = "invalid-registration-token";
+const String tooManyRequests = "too-many-requests";

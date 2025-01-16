@@ -46,7 +46,7 @@ class NewsHeadlineCard extends StatelessWidget {
     return Container(
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.black26,
+        color: Colors.black45,
         borderRadius: BorderRadius.circular(6),
       ),
     );

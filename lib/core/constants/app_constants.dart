@@ -11,6 +11,8 @@ class BuzzWireAppConstants {
   // firebase db
   static const String usersCollecton = "users";
   static const String articlesCollection = "articlesCollection";
+  static const String deviceTokenCollection = "devices";
+  static const String topicsCollection = "topics";
 
   // supabase
   static const String supabaseBaseUrl =

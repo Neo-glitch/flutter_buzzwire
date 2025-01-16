@@ -33,6 +33,7 @@ class SignUpController extends _$SignUpController {
     required String password,
     required String userName,
     required String phone,
+    required List<String> topicsFollowing,
   }) async {
     state = state.copyWith(loadState: const Loading());
     final response = await _signUp(SignUpParams(
@@ -47,8 +48,8 @@ class SignUpController extends _$SignUpController {
           loadState: Error(message: failure.message),
         );
       },
-      (user) async =>
-          _handleUserAccountCreation(user.uid, email, userName, phoneNumber),
+      (user) async => _handleUserAccountCreation(
+          user.uid, email, userName, phoneNumber, topicsFollowing),
     );
   }
 
@@ -57,15 +58,16 @@ class SignUpController extends _$SignUpController {
     String email,
     String userName,
     String? phone,
+    List<String> topicsFollowing,
   ) async {
     final accountCreationResult = await _createUserAccount(
       CreateUserAccountParam(
-        userId: userId,
-        email: email,
-        userName: userName,
-        country: state.country!,
-        phone: phone,
-      ),
+          userId: userId,
+          email: email,
+          userName: userName,
+          country: state.country!,
+          phone: phone,
+          topicsFollowing: topicsFollowing),
     );
 
     accountCreationResult.fold(

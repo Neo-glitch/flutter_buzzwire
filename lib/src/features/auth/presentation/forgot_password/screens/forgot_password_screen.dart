@@ -83,7 +83,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
             _buildForgotPasswordLogo(),
             const Gap(30),
             _buildHeader(),

@@ -84,7 +84,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   Future<void> _pickImageFromGallery() async {
     final imagePicker = ImagePicker();
-    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+    final image = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (image != null) {
       ref

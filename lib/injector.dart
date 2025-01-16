@@ -2,6 +2,7 @@ import 'package:buzzwire/core/network/dio/dio_client.dart';
 import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
 import 'package:buzzwire/src/features/auth/di/auth_dependcies.dart';
 import 'package:buzzwire/src/features/news/di/news_dependencies.dart';
+import 'package:buzzwire/src/features/notification/di/notification_dependencies.dart';
 import 'package:buzzwire/src/features/profile/di/profile_dependencies.dart';
 import 'package:buzzwire/src/features/search_history/di/search_history_dependencies.dart';
 import 'package:buzzwire/src/features/settings/di/settings_dependencies.dart';
@@ -31,6 +32,8 @@ Future<void> init() async {
   injector.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
   injector.registerLazySingleton<FirebaseFirestore>(
       () => FirebaseFirestore.instance);
+  injector.registerLazySingleton<FirebaseMessaging>(
+      () => FirebaseMessaging.instance);
   injector.registerLazySingleton<SupabaseStorageClient>(
       () => Supabase.instance.client.storage);
 
@@ -45,4 +48,5 @@ Future<void> init() async {
   await provideProfileDependencies();
   await provideSearchHistoryDependencies();
   await provideSettingsDependencies();
+  await provideNotificationDependencies();
 }

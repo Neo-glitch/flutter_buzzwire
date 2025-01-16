@@ -42,10 +42,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         await localDatasource.saveUser(userModel);
         return const Right(unit);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -59,10 +59,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         await clearCachedUser();
         return const Right(unit);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -85,10 +85,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         final userModel = await remoteDatasource.getUser(userId);
         return Right(UserMapper.fromModel(userModel));
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -102,10 +102,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         await localDatasource.saveUser(userModel);
         return const Right(unit);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -119,7 +119,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
             await remoteDatasource.uploadProfileImage(userId, image);
         return Right(imageUrl);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(SupabaseStorageFailure(exception.toString()));

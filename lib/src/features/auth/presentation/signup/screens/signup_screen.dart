@@ -1,36 +1,39 @@
 // Core imports
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
+import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-
 // Features and shared widgets
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
+import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_country_picker.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_input_field_header.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
-
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/gestures.dart';
 // External packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/gestures.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
-  const SignUpScreen({super.key});
+  final List<TopicEntity> topicsOfInterest;
+  const SignUpScreen({
+    super.key,
+    required this.topicsOfInterest,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SignUpScreenState();
@@ -56,6 +59,37 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     super.dispose();
   }
 
+  void _validateUserName(String userName) {
+    ref.read(signUpControllerProvider.notifier).vaidateUserName(userName);
+  }
+
+  void _validatePassword(String password) {
+    ref.read(signUpControllerProvider.notifier).validatePassword(password);
+  }
+
+  void _validateEmail(String email) {
+    ref.read(signUpControllerProvider.notifier).validateEmail(email);
+  }
+
+  void _setCountry(Country country) {
+    final countryEntity = CountryEntity(
+      name: country.name,
+      code: country.countryCode,
+    );
+    ref.read(signUpControllerProvider.notifier).setCountry(countryEntity);
+  }
+
+  void _signUp() {
+    ref.read(signUpControllerProvider.notifier).signUp(
+          email: _emailTextController.text,
+          password: _passwordTextController.text,
+          userName: _userNameTextController.text,
+          phone: _phoneNumberTextController.text,
+          topicsFollowing:
+              widget.topicsOfInterest.map((topic) => topic.title).toList(),
+        );
+  }
+
   void _listenToSignupState() {
     ref.listen(signUpControllerProvider, (previous, next) {
       if (next.loadState is Error && previous?.loadState is! Error) {
@@ -63,11 +97,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         context.showSingleButtonAlert(BuzzWireStrings.error, message);
       }
 
+      if (next.loadState is Loading) {
+        _showLoadingDialog();
+      }
+
       if (next.loadState is Loaded) {
-        context.pop();
+        context.popUntilPath(BuzzWireRoute.signIn.path);
         context.showToast("A verification email has been sent to you");
       }
     });
+  }
+
+  void _showLoadingDialog() {
+    context.showFullScreenDialog(
+        dialog: const OperationLoadingDialog(
+      title: BuzzWireStrings.creatingYourAccount,
+    ));
   }
 
   @override
@@ -106,8 +151,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
-            _buildSignupLogo(),
             const Gap(20),
             _buildHeader(),
             const Gap(24),
@@ -134,13 +177,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       isRequiredInput: true,
       child: BuzzWireCountryPicker(
         isEnabled: uiState.loadState is! Loading,
-        onSelected: (country) {
-          final countryEntity = CountryEntity(
-            name: country.name,
-            code: country.countryCode,
-          );
-          ref.read(signUpControllerProvider.notifier).setCountry(countryEntity);
-        },
+        onSelected: _setCountry,
         countryController: _countryController,
       ),
     );
@@ -186,8 +223,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         decoration: const InputDecoration(
           hintText: "Enter user name",
         ),
-        onChanged: (value) =>
-            ref.read(signUpControllerProvider.notifier).vaidateUserName(value),
+        onChanged: _validateUserName,
       ),
     );
   }
@@ -204,8 +240,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             signupState.isEmailValid ? const Icon(Icons.check_circle) : null,
         onEditingComplete: () =>
             FocusScope.of(context).requestFocus(_phoneNumberFocusNode),
-        onChanged: (value) =>
-            ref.read(signUpControllerProvider.notifier).validateEmail(value),
+        onChanged: _validateEmail,
       ),
     );
   }
@@ -213,7 +248,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   Widget _buildPhoneNumberInputSection(SignupState uiState) {
     return FormInputGroup(
       headerTitle: "Phone",
-      isRequiredInput: true,
+      isRequiredInput: false,
       child: TextField(
         decoration: const InputDecoration(
           hintText: "Enter phone number",
@@ -235,25 +270,18 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         controller: _passwordTextController,
         enabled: signupState.loadState is! Loading,
         textInputAction: TextInputAction.done,
-        onChanged: (value) =>
-            ref.read(signUpControllerProvider.notifier).validatePassword(value),
+        onChanged: _validatePassword,
       ),
     );
   }
 
   Widget _buildSignupButton(SignupState signupState, bool isButtonEnabled) {
-    return BuzzWireProgressButton(
-      isDisabled: !isButtonEnabled,
-      isLoading: signupState.loadState is Loading,
-      onPressed: () {
-        ref.read(signUpControllerProvider.notifier).signUp(
-              email: _emailTextController.text,
-              password: _passwordTextController.text,
-              userName: _userNameTextController.text,
-              phone: _phoneNumberTextController.text,
-            );
-      },
-      text: const Text("Signup"),
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: _signUp,
+        child: const Text("Signup"),
+      ),
     );
   }
 
@@ -271,7 +299,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   color: BuzzWireColors.primary,
                   fontWeight: FontWeight.w700,
                 ),
-                recognizer: TapGestureRecognizer()..onTap = () => context.pop(),
+                recognizer: TapGestureRecognizer()
+                  ..onTap =
+                      () => context.popUntilPath(BuzzWireRoute.signIn.path),
               ),
             ],
           ),

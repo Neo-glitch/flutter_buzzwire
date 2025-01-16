@@ -1,4 +1,4 @@
-import 'package:buzzwire/src/shared/data/services/buzzwire_messaging_service.dart';
+import 'package:buzzwire/src/features/notification/data/services/buzzwire_messaging_service.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/theme_controller.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keyboard_dismiss_wrapper.dart';
 import 'package:flutter/material.dart';
