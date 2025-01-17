@@ -1,4 +1,5 @@
 import 'package:buzzwire/src/features/profile/data/mapper/country_mapper.dart';
+import 'package:buzzwire/src/features/profile/data/mapper/profile_image_mapper.dart';
 import 'package:buzzwire/src/shared/data/model/user_model.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 
@@ -14,7 +15,7 @@ class UserMapper {
       topicsFollowing: model.topicsFollowing,
       country: CountryMapper.fromModel(model.country),
       phoneNumber: model.phoneNumber,
-      profileImage: model.profileImage,
+      profileImage: ProfileImageMapper.fromModel(model.profileImage),
     );
   }
 
@@ -27,7 +28,7 @@ class UserMapper {
       topicsFollowing: entity.topicsFollowing,
       country: CountryMapper.fromEntity(entity.country),
       phoneNumber: entity.phoneNumber,
-      profileImage: entity.profileImage,
+      profileImage: ProfileImageMapper.fromEntity(entity.profileImage),
     );
   }
 }

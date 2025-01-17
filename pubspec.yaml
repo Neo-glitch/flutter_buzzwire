@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 # ------------------------------ PACKAGES -------------------------------------------- #
 dependencies:
+  appwrite: ^13.1.1
   back_button_interceptor: ^8.0.0
   cached_network_image: ^3.3.1
   carousel_slider: ^5.0.0
@@ -67,7 +68,6 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   sqflite: ^2.0.0
   sticky_headers: ^0.3.0+2
-  supabase_flutter: ^2.8.2
   url_launcher: ^6.3.0
   uuid: ^4.3.3
   webview_flutter: ^4.7.0

@@ -7,7 +7,7 @@ part of 'topics_following_setup_controller.dart';
 // **************************************************************************
 
 String _$topicsFollowingSetupControllerHash() =>
-    r'25a9a0dad7a671ae602a50133a45ce3098ebe63d';
+    r'431c50fdd8a940fe6c6e6e8ac29aeaa76b54fb5a';
 
 /// See also [TopicsFollowingSetupController].
 @ProviderFor(TopicsFollowingSetupController)

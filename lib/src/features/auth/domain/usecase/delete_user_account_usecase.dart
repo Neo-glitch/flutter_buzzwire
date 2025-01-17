@@ -1,4 +1,3 @@
-import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/error/failure.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/repository/auth_repository.dart';

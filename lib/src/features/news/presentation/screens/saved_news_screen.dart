@@ -48,18 +48,22 @@ class SavedNewsScreenState extends ConsumerState<SavedNewsScreen> {
       return const BuzzWireProgressLoader();
     }
 
-    return _buildContent(uiState.savedArticles);
-  }
-
-  Widget _buildContent(List<ArticleEntity> savedArticles) {
-    if (savedArticles.isEmpty) {
+    if (uiState.loadState is Loaded && uiState.savedArticles.isEmpty) {
       return BuzzWireEmptyOrErrorScreen.empty(
         message:
             "It seems your saved articles list is empty. Explore our collection and save your favorites!",
       );
-    } else {
-      return _buildSavedArticleList(savedArticles);
     }
+
+    if (uiState.loadState is Loaded) {
+      return _buildContent(uiState.savedArticles);
+    }
+
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildContent(List<ArticleEntity> savedArticles) {
+    return _buildSavedArticleList(savedArticles);
   }
 
   Widget _buildSavedArticleList(List<ArticleEntity> savedArticles) {

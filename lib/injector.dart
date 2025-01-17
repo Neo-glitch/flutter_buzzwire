@@ -1,3 +1,5 @@
+import 'package:buzzwire/core/constants/app_constants.dart';
+import 'package:buzzwire/core/constants/app_secrets.dart';
 import 'package:buzzwire/core/network/dio/dio_client.dart';
 import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
 import 'package:buzzwire/src/features/auth/di/auth_dependcies.dart';
@@ -16,7 +18,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:appwrite/appwrite.dart';
 
 final injector = GetIt.instance;
 
@@ -24,6 +26,10 @@ Future<void> init() async {
   final pref = await SharedPreferences.getInstance();
   final appDatabase =
       await $FloorAppDatabase.databaseBuilder("app_database.db").build();
+
+  final appWriteClient = Client()
+      .setEndpoint(BuzzWireAppConstants.appWriteBaseUrl)
+      .setProject(AppSecrets.appWriteProjectId);
 
   injector.registerLazySingleton<AppDatabase>(() => appDatabase);
   injector.registerLazySingleton<BuzzWireSharedPref>(
@@ -34,13 +40,12 @@ Future<void> init() async {
       () => FirebaseFirestore.instance);
   injector.registerLazySingleton<FirebaseMessaging>(
       () => FirebaseMessaging.instance);
-  injector.registerLazySingleton<SupabaseStorageClient>(
-      () => Supabase.instance.client.storage);
 
   injector.registerLazySingleton<AppThemeManager>(
       () => AppThemeManagerImpl(sharedPref: injector()));
   injector.registerLazySingleton<InternetConnectionChecker>(
       () => InternetConnectionChecker());
+  injector.registerLazySingleton<Storage>(() => Storage(appWriteClient));
 
   await provideSharedDependencies();
   await provideAuthDependencies();

@@ -52,7 +52,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       _emailController.text = user?.email.orEmpty ?? '';
       _userNameController.text = user?.userName.orEmpty ?? '';
       _phoneNumberController.text = user?.phoneNumber.orEmpty ?? '';
-      _countryController.text = user?.country?.name ?? '';
+      _countryController.text = user?.country.name ?? '';
     });
   }
 
@@ -86,6 +86,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final imagePicker = ImagePicker();
     final image = await imagePicker.pickImage(
       source: ImageSource.gallery,
+      imageQuality: 50,
     );
 
     if (image != null) {
@@ -176,7 +177,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             borderColor: context.primaryColor.withOpacity(0.7),
             borderWidth: 2,
             imageUrl: uiState.newImage == null
-                ? uiState.user?.profileImage.orEmpty
+                ? uiState.user?.profileImage?.imageUrl.orEmpty
                 : null,
             imagePath: uiState.newImage?.path,
           ),

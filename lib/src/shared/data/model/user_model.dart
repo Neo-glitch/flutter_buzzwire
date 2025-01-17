@@ -1,4 +1,5 @@
 import 'package:buzzwire/src/shared/data/model/country_model.dart';
+import 'package:buzzwire/src/shared/data/model/profile_image_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,7 +12,7 @@ class UserModel {
   final String userName;
   final String? phoneNumber;
   final CountryModel country;
-  final String? profileImage;
+  final ProfileImageModel? profileImage;
   final List<String> topicsFollowing;
 
   UserModel({
@@ -48,7 +49,7 @@ class UserModel {
       'phoneNumber': phoneNumber,
       'topicsFollowing': topicsFollowing,
       'country': country.toJson(), // Convert CountryModel to Map
-      'profileImage': profileImage,
+      'profileImage': profileImage?.toJson(),
     };
   }
 }

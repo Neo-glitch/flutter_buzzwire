@@ -162,7 +162,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         Center(
           child: BuzzWireCircularImage(
             radius: 40,
-            imageUrl: uiState.user?.profileImage.orEmpty,
+            imageUrl: uiState.user?.profileImage?.imageUrl.orEmpty,
           ),
         ),
         const Gap(4),

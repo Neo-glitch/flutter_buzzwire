@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
@@ -88,7 +86,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   context.pushNamed(BuzzWireRoute.editProfile.name),
               icon: BuzzWireCircularImage(
                 radius: 16,
-                imageUrl: cachedUser?.profileImage.orEmpty,
+                imageUrl: cachedUser?.profileImage?.imageUrl.orEmpty,
               ),
             ),
           ],

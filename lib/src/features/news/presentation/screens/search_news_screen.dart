@@ -52,33 +52,38 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
     final uiState = ref.watch(searchNewsControllerProvider);
     return Scaffold(
       appBar: BuzzWireAppBar(
-        title: BuzzWireSearchBar(
-          searchController: _searchController,
-          hintText: "Search...",
-          onSearch: (value) {
-            if (value.isNotEmpty) {
-              _debouncer.run(() {
-                _searchNews(value);
-              });
-            } else {
-              _debouncer.cancel();
-              _resetLoadState();
-            }
-          },
-          onClear: () {
-            _debouncer.cancel();
-            _resetLoadState();
-          },
-          onEditingComplete: () {
-            if (_searchController.text.isNotEmpty) {
-              ref.read(searchNewsControllerProvider.notifier).onEvent(
-                  SaveSearchHistoryEvent(search: _searchController.text));
-              BuzzWireHelperFunctions.hideKeyboard();
-            }
-          },
-        ),
+        title: _buildSearchBar(),
       ),
       body: SafeArea(child: _buildBody(uiState)),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return BuzzWireSearchBar(
+      searchController: _searchController,
+      hintText: "Search...",
+      onSearch: (value) {
+        if (value.isNotEmpty) {
+          _debouncer.run(() {
+            _searchNews(value);
+          });
+        } else {
+          _debouncer.cancel();
+          _resetLoadState();
+        }
+      },
+      onClear: () {
+        _debouncer.cancel();
+        _resetLoadState();
+      },
+      onEditingComplete: () {
+        if (_searchController.text.isNotEmpty) {
+          ref
+              .read(searchNewsControllerProvider.notifier)
+              .onEvent(SaveSearchHistoryEvent(search: _searchController.text));
+          BuzzWireHelperFunctions.hideKeyboard();
+        }
+      },
     );
   }
 
@@ -114,7 +119,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Recent"),
+            if (histories.isNotEmpty) const Text("Recent"),
             const Gap(20),
             SearchHistoryList(
               searchHistories: histories,

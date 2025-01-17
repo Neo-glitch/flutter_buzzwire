@@ -14,9 +14,8 @@ class BuzzWireAppConstants {
   static const String deviceTokenCollection = "devices";
   static const String topicsCollection = "topics";
 
-  // supabase
-  static const String supabaseBaseUrl =
-      "https://thlpsjhdzlufnxswjplh.supabase.co";
-  static const String imagesBucket = "images";
-  static const String imageBucketProfilePath = "profile";
+  // appwrite
+  static const String appWriteBaseUrl = "https://cloud.appwrite.io/v1";
+  static const String appWriteprofileImageBucketId = "678a900d000e723191ca";
+  static const String appWriteTopicsImageBucketId = "678a8cf300024dd7f60c";
 }

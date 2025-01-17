@@ -15,7 +15,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           .map((e) => e as String)
           .toList(),
       phoneNumber: json['phoneNumber'] as String?,
-      profileImage: json['profileImage'] as String?,
+      profileImage: json['profileImage'] == null
+          ? null
+          : ProfileImageModel.fromJson(
+              json['profileImage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{

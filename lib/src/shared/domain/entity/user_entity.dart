@@ -1,4 +1,5 @@
 import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
+import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class UserEntity extends Equatable {
@@ -8,7 +9,7 @@ class UserEntity extends Equatable {
   String userName;
   String? phoneNumber;
   CountryEntity country;
-  String? profileImage;
+  ProfileImageEntity? profileImage;
 
   UserEntity({
     required this.userId,
