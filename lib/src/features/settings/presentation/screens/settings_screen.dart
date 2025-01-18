@@ -5,6 +5,8 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_dialog.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_divider.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  void _showConfirmSignoutDialog() {
+  void _showConfirmSignoutConfirmationDialog() {
     context.showDoubleButtonAlert(
       BuzzWireStrings.signOut,
       BuzzWireStrings.signOutDialogDesc,
@@ -42,8 +44,33 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
+  void _showLoadingDialog() {
+    context.showFullScreenDialog(
+        dialog: const OperationLoadingDialog(
+      title: BuzzWireStrings.signingOut,
+    ));
+  }
+
+  void _listenToUiState() {
+    ref.listen(
+      settingsControllerProvider,
+      (previous, next) async {
+        if (next.loadState is Error && previous?.loadState is! Error) {
+          // pop loading dialog off
+          context.pop();
+          final message = (next.loadState as Error).message;
+          context.showSingleButtonAlert(BuzzWireStrings.error, message);
+        }
+        if (next.loadState is Loading) {
+          _showLoadingDialog();
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    _listenToUiState();
     return Scaffold(
       appBar: BuzzWireAppBar(
         title: Text(
@@ -154,7 +181,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const BuzzWireDivider(),
             SettingsTile(
               title: BuzzWireStrings.signOut,
-              onClick: _showConfirmSignoutDialog,
+              onClick: _showConfirmSignoutConfirmationDialog,
             ),
             const BuzzWireDivider(),
             SettingsTile(

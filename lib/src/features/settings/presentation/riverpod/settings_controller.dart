@@ -6,6 +6,7 @@ import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/notification/domain/usecases/delete_device_token_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_state.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_controller.g.dart';
@@ -25,6 +26,7 @@ class SettingsController extends _$SettingsController {
   }
 
   Future<void> signOut() async {
+    state = state.copyWith(loadState: const Loading());
     final userResult = _getCachedUserUseCase(NoParams());
     final user = userResult.getOrElse((l) => null);
 

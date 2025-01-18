@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/navigation/transition_factory.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/screens/topics_following_setup_screen.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
@@ -71,33 +72,35 @@ GoRouter router(RouterRef ref) {
             GoRoute(
               path: BuzzWireRoute.topicsFollowingSetup.path,
               name: BuzzWireRoute.topicsFollowingSetup.name,
-              builder: (context, state) {
-                return const TopicsFollowingSetupScreen();
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) => const TopicsFollowingSetupScreen(),
+              ),
             ),
             GoRoute(
               path: BuzzWireRoute.signUp.path,
               name: BuzzWireRoute.signUp.name,
-              builder: (context, state) {
-                final topics = state.extra! as List<TopicEntity>;
-                return SignUpScreen(
-                  topicsOfInterest: topics,
-                );
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) {
+                  final topics = state.extra! as List<TopicEntity>;
+                  return SignUpScreen(
+                    topicsOfInterest: topics,
+                  );
+                },
+              ),
             ),
             GoRoute(
               path: BuzzWireRoute.verifyEmail.path,
               name: BuzzWireRoute.verifyEmail.name,
-              builder: (context, state) {
-                return const EmailVerificationScreen();
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) => const EmailVerificationScreen(),
+              ),
             ),
             GoRoute(
               path: BuzzWireRoute.passwordReset.path,
               name: BuzzWireRoute.passwordReset.name,
-              builder: (context, state) {
-                return const ForgotPasswordScreen();
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) => const ForgotPasswordScreen(),
+              ),
             )
           ],
         ),
@@ -131,17 +134,19 @@ GoRouter router(RouterRef ref) {
                       GoRoute(
                         path: BuzzWireRoute.searchNews.path,
                         name: BuzzWireRoute.searchNews.name,
-                        builder: (context, state) {
-                          return const SearchNewsScreen();
-                        },
+                        pageBuilder: TransitionFactory.getSlidePageBuilder(
+                          buildPage: (ctx, state) => const SearchNewsScreen(),
+                        ),
                       ),
                       GoRoute(
                         path: BuzzWireRoute.newsByTopic.path,
                         name: BuzzWireRoute.newsByTopic.name,
-                        builder: (context, state) {
-                          final topic = state.extra! as String;
-                          return NewsByTopicScreen(topic: topic);
-                        },
+                        pageBuilder: TransitionFactory.getSlidePageBuilder(
+                          buildPage: (ctx, state) {
+                            final topic = state.extra! as String;
+                            return NewsByTopicScreen(topic: topic);
+                          },
+                        ),
                       ),
                     ])
               ],
@@ -173,13 +178,13 @@ GoRouter router(RouterRef ref) {
           ],
         ),
         GoRoute(
-          path: BuzzWireRoute.newsDetails.path,
-          name: BuzzWireRoute.newsDetails.name,
-          builder: (context, state) {
-            final article = state.extra! as ArticleEntity;
-            return NewsDetailsScreen(article: article);
-          },
-        ),
+            path: BuzzWireRoute.newsDetails.path,
+            name: BuzzWireRoute.newsDetails.name,
+            pageBuilder:
+                TransitionFactory.getSlidePageBuilder(buildPage: (ctx, state) {
+              final article = state.extra! as ArticleEntity;
+              return NewsDetailsScreen(article: article);
+            })),
         GoRoute(
           path: BuzzWireRoute.webview.path,
           name: BuzzWireRoute.webview.name,
@@ -190,23 +195,23 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: BuzzWireRoute.editProfile.path,
           name: BuzzWireRoute.editProfile.name,
-          builder: (context, state) {
-            return const EditProfileScreen();
-          },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const EditProfileScreen(),
+          ),
         ),
         GoRoute(
           path: BuzzWireRoute.deleteAccount.path,
           name: BuzzWireRoute.deleteAccount.name,
-          builder: (context, state) {
-            return const DeleteAccountScreen();
-          },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const DeleteAccountScreen(),
+          ),
         ),
         GoRoute(
           path: BuzzWireRoute.changePassword.path,
           name: BuzzWireRoute.changePassword.name,
-          builder: (context, state) {
-            return const ChangePasswordScreen();
-          },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const ChangePasswordScreen(),
+          ),
         ),
       ],
       redirect: (ctx, state) {
