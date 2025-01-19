@@ -7,14 +7,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class AppThemeDialog extends ConsumerStatefulWidget {
-  const AppThemeDialog({super.key});
+class AppThemeBottomSheet extends ConsumerStatefulWidget {
+  const AppThemeBottomSheet({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AppThemeDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AppThemeBottomSheetState();
 }
 
-class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
+class _AppThemeBottomSheetState extends ConsumerState<AppThemeBottomSheet> {
   late int _selectedIndex;
 
   final Map<String, ThemeMode> _optionsThemeModeMap = {
@@ -29,6 +30,17 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
   void initState() {
     super.initState();
     _getSelectedIndex();
+  }
+
+  void _selectAppTheme(bool? isSelected, int itemIdx) async {
+    final option = _options[itemIdx];
+    if (isSelected == true && _selectedIndex != itemIdx) {
+      final themeMode = _optionsThemeModeMap[option]!;
+      await ref.read(themeControllerProvider.notifier).setAppTheme(themeMode);
+      setState(() {
+        _selectedIndex = itemIdx;
+      });
+    }
   }
 
   @override
@@ -63,17 +75,18 @@ class _AppThemeDialogState extends ConsumerState<AppThemeDialog> {
         return _buildItem(
           title: option,
           isSelected: _selectedIndex == idx,
-          onCLick: (value) async {
-            if (value == true && _selectedIndex != idx) {
-              final themeMode = _optionsThemeModeMap[option]!;
-              await ref
-                  .read(themeControllerProvider.notifier)
-                  .setAppTheme(themeMode);
-              setState(() {
-                _selectedIndex = idx;
-              });
-            }
-          },
+          onCLick: (value) => _selectAppTheme(value, idx),
+          // onCLick: (value) async {
+          //   if (value == true && _selectedIndex != idx) {
+          //     final themeMode = _optionsThemeModeMap[option]!;
+          //     await ref
+          //         .read(themeControllerProvider.notifier)
+          //         .setAppTheme(themeMode);
+          //     setState(() {
+          //       _selectedIndex = idx;
+          //     });
+          //   }
+          // },
         );
       },
       separatorBuilder: (context, index) => const Gap(10),

@@ -5,6 +5,7 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/select_image_source_bottomsheet.dart';
 import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
@@ -82,10 +83,19 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     });
   }
 
-  Future<void> _pickImageFromGallery() async {
+  void _showSelectImageSourceBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      builder: (ctx) =>
+          SelectImageSourceBottomSheet(onItemClick: _pickImageFromSource),
+    );
+  }
+
+  void _pickImageFromSource(ImageSource source) async {
     final imagePicker = ImagePicker();
     final image = await imagePicker.pickImage(
-      source: ImageSource.gallery,
+      source: source,
       imageQuality: 50,
     );
 
@@ -182,14 +192,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             imagePath: uiState.newImage?.path,
           ),
           Positioned(
-            bottom: 20,
+            bottom: 10,
             right: 0,
             child: InkWell(
-              onTap: _pickImageFromGallery,
+              onTap: _showSelectImageSourceBottomSheet,
               borderRadius: BorderRadius.circular(16),
               child: const CircleAvatar(
                 radius: 16,
-                child: FaIcon(FontAwesomeIcons.pen, size: 16),
+                child: FaIcon(FontAwesomeIcons.camera, size: 16),
               ),
             ),
           ),

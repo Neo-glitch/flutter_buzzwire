@@ -1,10 +1,12 @@
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_controller.dart';
-import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_dialog.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_bottomsheet.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/select_image_source_bottomsheet.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -22,12 +25,12 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  void _showAppThemeDialog() {
+  void _showAppThemeBottomSheet() {
     showModalBottomSheet(
       showDragHandle: false,
       context: context,
       builder: (ctx) {
-        return const AppThemeDialog();
+        return const AppThemeBottomSheet();
       },
     );
   }
@@ -49,6 +52,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         dialog: const OperationLoadingDialog(
       title: BuzzWireStrings.signingOut,
     ));
+  }
+
+  void _launchEmail() async {
+    final wasLaunched = await launchUrl(
+      Uri.parse(
+          "mailto:${BuzzWireAppConstants.devEmail}?subject=Feedback for BuzzWire"),
+    );
+    if (!wasLaunched) {
+      if (mounted) context.showToast("Failed to lauch email app!");
+    }
+  }
+
+  void _showComingSoonDialog() {
+    context.showSingleButtonAlert(
+        "Coming soon!", "This feature isn't available at the moment",
+        buttonText: "Ok");
   }
 
   void _listenToUiState() {
@@ -121,7 +140,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const BuzzWireDivider(),
             SettingsTile(
               title: BuzzWireStrings.myArticles,
-              onClick: () {},
+              onClick: _showComingSoonDialog,
             ),
             const BuzzWireDivider(),
             SettingsTile(
@@ -149,7 +168,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             SettingsTile(
               title: BuzzWireStrings.theme,
               onClick: () {
-                _showAppThemeDialog();
+                _showAppThemeBottomSheet();
               },
             ),
             const BuzzWireDivider(),
@@ -176,7 +195,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           children: [
             SettingsTile(
               title: BuzzWireStrings.sendFeedback,
-              onClick: () {},
+              onClick: _launchEmail,
             ),
             const BuzzWireDivider(),
             SettingsTile(
