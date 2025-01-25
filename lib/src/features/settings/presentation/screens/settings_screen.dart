@@ -6,7 +6,6 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_bottomsheet.dart';
-import 'package:buzzwire/src/features/settings/presentation/screens/select_image_source_bottomsheet.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
@@ -161,11 +160,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         child: Column(
           children: [
             SettingsTile(
-              title: BuzzWireStrings.language,
-              onClick: () {},
-            ),
-            const BuzzWireDivider(),
-            SettingsTile(
               title: BuzzWireStrings.theme,
               onClick: () {
                 _showAppThemeBottomSheet();
@@ -173,12 +167,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
             const BuzzWireDivider(),
             SettingsTile(
-              title: BuzzWireStrings.countryAndRegion,
-              onClick: () {},
-            ),
-            const BuzzWireDivider(),
-            SettingsTile(
-              title: BuzzWireStrings.notifications,
+              title: BuzzWireStrings.interests,
               onClick: () {},
             ),
           ],

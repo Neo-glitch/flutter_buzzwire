@@ -53,7 +53,7 @@ class BuzzWireStrings {
   static const String language = "Language";
   static const String theme = "Theme";
   static const String countryAndRegion = "Country & region";
-  static const String notifications = "Notifications";
+  static const String interests = "Interests";
   static const String profile = "Profile";
   static const String myArticles = "My Articles";
   static const String changePassword = "Change Password";

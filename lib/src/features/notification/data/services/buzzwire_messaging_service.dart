@@ -9,6 +9,8 @@ import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';
 import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/notification/data/model/notification_type.dart';
+import 'package:buzzwire/src/features/notification/domain/repository/notification_repository.dart';
+import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -21,6 +23,8 @@ class BuzzWireMessagingService {
   static String? _deviceToken;
   static final _messaging = FirebaseMessaging.instance;
   static final _flutterLocalNotication = FlutterLocalNotificationsPlugin();
+  static final NotificationRepository _notificationRepository = injector();
+  static final ProfileRepository _profileRepository = injector();
 
   static const _androidNotificationChannel = AndroidNotificationChannel(
     'high_importance_channel',
@@ -41,6 +45,7 @@ class BuzzWireMessagingService {
     await _configureLocalNotificationPlugin();
     await _createAndroidNotificationChannel();
     await getInitialMessage();
+    _subscribeToSystemAlertTopic();
     // Foreground notification handler (when push notification received when app in foreground)
     FirebaseMessaging.onMessage.listen(_showForegroundNotification);
     // for notification click when app in background
@@ -57,6 +62,10 @@ class BuzzWireMessagingService {
     if (initialMessage != null) {
       _handleMessageData(initialMessage.data);
     }
+  }
+
+  static void _subscribeToSystemAlertTopic() {
+    _notificationRepository.subscribeToTopic("SystemAlert");
   }
 
   static Future<void> _requestPermission() async {
@@ -178,8 +187,7 @@ class BuzzWireMessagingService {
   }
 
   static UserEntity? _getUser() {
-    final GetCachedUserUseCase getUser = injector();
-    return getUser(NoParams()).getOrElse((l) => null);
+    return _profileRepository.getCachedUser().getOrElse((l) => null);
   }
 
   static void _onForegroundNotificationTap(NotificationResponse response) {

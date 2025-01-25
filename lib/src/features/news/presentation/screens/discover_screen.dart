@@ -76,7 +76,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
       return const Expanded(child: BuzzWireProgressLoader());
     }
 
-    if (uiState.loadState is Error) {
+    if (uiState.loadState is Error && _areAllItemsEmpty(uiState)) {
       final message = (uiState.loadState as Error).message;
       return Expanded(
         child: BuzzWireEmptyOrErrorScreen.error(

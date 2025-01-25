@@ -275,11 +275,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     );
   }
 
-  Widget _buildSignupButton(SignupState signupState, bool isButtonEnabled) {
+  Widget _buildSignupButton(SignupState uiState, bool isButtonEnabled) {
+    final isButtonEnabled = uiState.isEmailValid &&
+        uiState.isUserNameFilled &&
+        uiState.isPasswordValid &&
+        uiState.country != null;
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: _signUp,
+        onPressed: isButtonEnabled ? _signUp : null,
         child: const Text("Signup"),
       ),
     );
