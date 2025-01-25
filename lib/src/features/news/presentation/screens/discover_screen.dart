@@ -23,8 +23,6 @@ class DiscoverScreen extends ConsumerStatefulWidget {
 }
 
 class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
-  late List<String> trendingNewsTopics;
-
   @override
   void initState() {
     super.initState();
@@ -35,8 +33,6 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     Future.microtask(() {
       ref.read(discoverNewsControllerProvider.notifier).fetchItems();
     });
-    trendingNewsTopics =
-        ref.read(discoverNewsControllerProvider.notifier).trendingNewsTopics;
   }
 
   @override
@@ -53,7 +49,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
             onRefresh: () async {
               await ref
                   .read(discoverNewsControllerProvider.notifier)
-                  .fetchItems();
+                  .fetchItems(isRefresh: true);
             },
             child: Column(
               children: [
@@ -94,24 +90,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
         children: [
           if (uiState.breakingNewsItems.isNotEmpty)
             _buildBreakingNewsSection(uiState.breakingNewsItems),
-          if (uiState.firstTrendingNewsList.isNotEmpty)
-            _buildTrendingNewsSection(
-              context,
-              trendingNewsTopics[0],
-              uiState.firstTrendingNewsList,
-            ),
-          if (uiState.secondTrendingNewsList.isNotEmpty)
-            _buildTrendingNewsSection(
-              context,
-              trendingNewsTopics[1],
-              uiState.secondTrendingNewsList,
-            ),
-          if (uiState.thirdTrendingNewsList.isNotEmpty)
-            _buildTrendingNewsSection(
-              context,
-              trendingNewsTopics[2],
-              uiState.thirdTrendingNewsList,
-            ),
+          for (var entry in uiState.topicToNewsArticleMap.entries)
+            _buildTrendingNewsSection(context, entry.key, entry.value),
         ],
       ),
     );
@@ -234,8 +214,6 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
 
   bool _areAllItemsEmpty(DiscoverNewsState uiState) {
     return uiState.breakingNewsItems.isEmpty &&
-        uiState.firstTrendingNewsList.isEmpty &&
-        uiState.secondTrendingNewsList.isEmpty &&
-        uiState.thirdTrendingNewsList.isEmpty;
+        uiState.topicToNewsArticleMap.isEmpty;
   }
 }
