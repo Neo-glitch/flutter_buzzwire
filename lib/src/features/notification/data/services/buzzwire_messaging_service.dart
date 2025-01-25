@@ -179,7 +179,7 @@ class BuzzWireMessagingService {
           // Navigate to the details screen
           WidgetsBinding.instance.addPostFrameCallback((duration) {
             GoRouter.of(context)
-                .pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
+                .pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
           });
         }
       }

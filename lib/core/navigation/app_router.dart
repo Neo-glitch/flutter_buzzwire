@@ -3,6 +3,7 @@ import 'package:buzzwire/src/features/auth/presentation/signup/screens/topics_fo
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
+import 'package:buzzwire/src/features/news/presentation/screens/news_detail_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
@@ -21,7 +22,7 @@ import '../../src/features/auth/presentation/onboarding/screens/onboarding_scree
 import '../../src/features/auth/presentation/signin/screens/signin_screen.dart';
 import '../../src/features/auth/presentation/signup/screens/signup_screen.dart';
 import '../../src/features/news/presentation/screens/discover_screen.dart';
-import '../../src/features/news/presentation/screens/news_details_screen.dart';
+import '../../src/features/news/presentation/screens/news_detail_webview_screen.dart';
 import '../../src/features/news/presentation/screens/news_webview_screen.dart';
 import '../../src/features/news/presentation/screens/saved_news_screen.dart';
 import '../../src/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -178,19 +179,30 @@ GoRouter router(RouterRef ref) {
           ],
         ),
         GoRoute(
-            path: BuzzWireRoute.newsDetails.path,
-            name: BuzzWireRoute.newsDetails.name,
-            pageBuilder:
-                TransitionFactory.getSlidePageBuilder(buildPage: (ctx, state) {
+          path: BuzzWireRoute.newsDetail.path,
+          name: BuzzWireRoute.newsDetail.name,
+          // builder: (ctx, state) {
+          //   final article = state.extra! as ArticleEntity;
+          //   return NewsDetailScreen(article: article);
+          // },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) {
               final article = state.extra! as ArticleEntity;
-              return NewsDetailsScreen(article: article);
-            })),
-        GoRoute(
-          path: BuzzWireRoute.webview.path,
-          name: BuzzWireRoute.webview.name,
-          builder: (context, state) {
-            return const WebViewScreen();
-          },
+              return NewsDetailScreen(article: article);
+            },
+          ),
+          routes: [
+            GoRoute(
+              path: BuzzWireRoute.newsDetailWebView.path,
+              name: BuzzWireRoute.newsDetailWebView.name,
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) {
+                  final articleUrl = state.extra! as String;
+                  return NewsDetailWebViewScreen(articleUrl: articleUrl);
+                },
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: BuzzWireRoute.editProfile.path,

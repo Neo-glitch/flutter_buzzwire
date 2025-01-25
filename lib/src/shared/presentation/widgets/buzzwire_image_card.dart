@@ -50,7 +50,7 @@ class BuzzWireImageCard extends StatelessWidget {
     );
   }
 
-  Image _buildImageFromImageAssetPath() {
+  Widget _buildImageFromImageAssetPath() {
     return Image.asset(
       imageAssetPath!,
       fit: BoxFit.cover,

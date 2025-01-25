@@ -76,6 +76,7 @@ class BuzzWireStrings {
   static const String signingOut = "Signing out..";
   static const String changePasswordScreenDesc =
       "To change your password, please fill in the fields below. Your password must contain at least 6 characters and must be different from the current password";
+  static const String readFullArticle = "Read full article";
 
   // fontFamily
   static const String poppins = "Poppins";

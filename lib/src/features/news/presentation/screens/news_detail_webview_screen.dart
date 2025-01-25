@@ -1,31 +1,29 @@
 import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
-import 'package:buzzwire/src/features/news/presentation/riverpod/news_details_controller.dart';
-import 'package:buzzwire/src/features/news/presentation/riverpod/news_details_state.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_webview_controller.dart';
+import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_webview_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class NewsDetailsScreen extends ConsumerStatefulWidget {
-  final ArticleEntity article;
-  const NewsDetailsScreen({
+class NewsDetailWebViewScreen extends ConsumerStatefulWidget {
+  final String articleUrl;
+  const NewsDetailWebViewScreen({
     super.key,
-    required this.article,
+    required this.articleUrl,
   });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _NewsDetailsScreenState();
+      _NewsDetailWebViewScreenState();
 }
 
-class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
+class _NewsDetailWebViewScreenState
+    extends ConsumerState<NewsDetailWebViewScreen> {
   late WebViewController _webViewController;
 
   @override
@@ -39,7 +37,7 @@ class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final uiState = ref.watch(newsDetailsControllerProvider);
+    final uiState = ref.watch(newsDetailWebViewControllerProvider);
     return WillPopScope(
       onWillPop: _canGoBack,
       child: Scaffold(
@@ -49,28 +47,11 @@ class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(NewsDetailsState uiState) {
-    final icon = uiState.isArticleSaved
-        ? FontAwesomeIcons.solidBookmark
-        : FontAwesomeIcons.bookmark;
-    return BuzzWireAppBar(
-      actions: [
-        IconButton(
-          iconSize: 24,
-          onPressed: () async {
-            HapticFeedback.mediumImpact();
-            ref
-                .read(newsDetailsControllerProvider.notifier)
-                .saveOrDeleteNewsArticle(widget.article);
-            await HapticFeedback.mediumImpact();
-          },
-          icon: FaIcon(icon),
-        )
-      ],
-    );
+  PreferredSizeWidget _buildAppBar(NewsDetailWebViewState uiState) {
+    return const BuzzWireAppBar();
   }
 
-  Widget _buildBody(NewsDetailsState uiState) {
+  Widget _buildBody(NewsDetailWebViewState uiState) {
     if (uiState.loadState is Loading) {
       return const BuzzWireProgressLoader();
     }
@@ -101,27 +82,26 @@ class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
   void _init() {
     _webViewController
       ..setJavaScriptMode(JavaScriptMode.disabled)
-      ..setBackgroundColor(context.backgroundColor)
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
             ref
-                .read(newsDetailsControllerProvider.notifier)
+                .read(newsDetailWebViewControllerProvider.notifier)
                 .setLoadState(const Loading());
           },
           onPageFinished: (String url) {
             ref
-                .read(newsDetailsControllerProvider.notifier)
+                .read(newsDetailWebViewControllerProvider.notifier)
                 .setLoadState(const Loaded());
           },
           onWebResourceError: (WebResourceError error) {
             ref
-                .read(newsDetailsControllerProvider.notifier)
+                .read(newsDetailWebViewControllerProvider.notifier)
                 .setLoadState(const Error(message: ErrorText.unknownError));
           },
           onHttpError: (error) {
             ref
-                .read(newsDetailsControllerProvider.notifier)
+                .read(newsDetailWebViewControllerProvider.notifier)
                 .setLoadState(const Error(message: ErrorText.unknownError));
           },
           onNavigationRequest: (NavigationRequest request) {
@@ -132,7 +112,6 @@ class _NewsDetailsScreenState extends ConsumerState<NewsDetailsScreen> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(widget.article.articleUrl!));
-    ref.read(newsDetailsControllerProvider.notifier).init(widget.article);
+      ..loadRequest(Uri.parse(widget.articleUrl));
   }
 }

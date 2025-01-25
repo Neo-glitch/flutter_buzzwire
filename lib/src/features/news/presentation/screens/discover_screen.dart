@@ -225,7 +225,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   }
 
   void _navToNewsDetailsScreen(ArticleEntity article) {
-    context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
+    context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
   }
 
   void _navToNewsByTopicScreen(String topic) {

@@ -46,8 +46,11 @@ class BuzzWireRoute {
   static BuzzWireRoute changePassword =
       BuzzWireRoute(path: "/change_password", name: "change_password");
 
-  static BuzzWireRoute newsDetails =
+  static BuzzWireRoute newsDetail =
       BuzzWireRoute(path: "/news_details", name: "news_details");
+
+  static BuzzWireRoute newsDetailWebView =
+      BuzzWireRoute(path: "news_details_webview", name: "news_details_webview");
 
   static BuzzWireRoute webview =
       BuzzWireRoute(path: "/webview", name: "webview");

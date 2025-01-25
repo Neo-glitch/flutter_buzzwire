@@ -80,7 +80,7 @@ class SavedNewsScreenState extends ConsumerState<SavedNewsScreen> {
       article: article,
       onClick: (article) {
         context.pushNamed(
-          BuzzWireRoute.newsDetails.name,
+          BuzzWireRoute.newsDetail.name,
           extra: article,
         );
       },
