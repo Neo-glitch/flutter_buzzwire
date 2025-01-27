@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/navigation/transition_factory.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/screens/topics_following_setup_screen.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/screens/preferred_topics_setup_screen.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
@@ -74,7 +74,7 @@ GoRouter router(RouterRef ref) {
               path: BuzzWireRoute.topicsFollowingSetup.path,
               name: BuzzWireRoute.topicsFollowingSetup.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
-                buildPage: (ctx, state) => const TopicsFollowingSetupScreen(),
+                buildPage: (ctx, state) => const PreferredTopicsSetupScreen(),
               ),
             ),
             GoRoute(

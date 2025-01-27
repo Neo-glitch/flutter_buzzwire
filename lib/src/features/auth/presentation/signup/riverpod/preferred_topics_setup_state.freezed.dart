@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'topics_following_setup_state.dart';
+part of 'preferred_topics_setup_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,21 +15,21 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$TopicsFollowingSetupState {
+mixin _$PreferredTopicsSetupState {
   LoadState get loadState => throw _privateConstructorUsedError;
   List<TopicEntity> get topics => throw _privateConstructorUsedError;
   List<TopicEntity> get selectedTopics => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TopicsFollowingSetupStateCopyWith<TopicsFollowingSetupState> get copyWith =>
+  $PreferredTopicsSetupStateCopyWith<PreferredTopicsSetupState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TopicsFollowingSetupStateCopyWith<$Res> {
-  factory $TopicsFollowingSetupStateCopyWith(TopicsFollowingSetupState value,
-          $Res Function(TopicsFollowingSetupState) then) =
-      _$TopicsFollowingSetupStateCopyWithImpl<$Res, TopicsFollowingSetupState>;
+abstract class $PreferredTopicsSetupStateCopyWith<$Res> {
+  factory $PreferredTopicsSetupStateCopyWith(PreferredTopicsSetupState value,
+          $Res Function(PreferredTopicsSetupState) then) =
+      _$PreferredTopicsSetupStateCopyWithImpl<$Res, PreferredTopicsSetupState>;
   @useResult
   $Res call(
       {LoadState loadState,
@@ -38,10 +38,10 @@ abstract class $TopicsFollowingSetupStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TopicsFollowingSetupStateCopyWithImpl<$Res,
-        $Val extends TopicsFollowingSetupState>
-    implements $TopicsFollowingSetupStateCopyWith<$Res> {
-  _$TopicsFollowingSetupStateCopyWithImpl(this._value, this._then);
+class _$PreferredTopicsSetupStateCopyWithImpl<$Res,
+        $Val extends PreferredTopicsSetupState>
+    implements $PreferredTopicsSetupStateCopyWith<$Res> {
+  _$PreferredTopicsSetupStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -73,12 +73,12 @@ class _$TopicsFollowingSetupStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$TopicsFollowingSetupStateImplCopyWith<$Res>
-    implements $TopicsFollowingSetupStateCopyWith<$Res> {
-  factory _$$TopicsFollowingSetupStateImplCopyWith(
-          _$TopicsFollowingSetupStateImpl value,
-          $Res Function(_$TopicsFollowingSetupStateImpl) then) =
-      __$$TopicsFollowingSetupStateImplCopyWithImpl<$Res>;
+abstract class _$$PreferredTopicsSetupStateImplCopyWith<$Res>
+    implements $PreferredTopicsSetupStateCopyWith<$Res> {
+  factory _$$PreferredTopicsSetupStateImplCopyWith(
+          _$PreferredTopicsSetupStateImpl value,
+          $Res Function(_$PreferredTopicsSetupStateImpl) then) =
+      __$$PreferredTopicsSetupStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -88,13 +88,13 @@ abstract class _$$TopicsFollowingSetupStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TopicsFollowingSetupStateImplCopyWithImpl<$Res>
-    extends _$TopicsFollowingSetupStateCopyWithImpl<$Res,
-        _$TopicsFollowingSetupStateImpl>
-    implements _$$TopicsFollowingSetupStateImplCopyWith<$Res> {
-  __$$TopicsFollowingSetupStateImplCopyWithImpl(
-      _$TopicsFollowingSetupStateImpl _value,
-      $Res Function(_$TopicsFollowingSetupStateImpl) _then)
+class __$$PreferredTopicsSetupStateImplCopyWithImpl<$Res>
+    extends _$PreferredTopicsSetupStateCopyWithImpl<$Res,
+        _$PreferredTopicsSetupStateImpl>
+    implements _$$PreferredTopicsSetupStateImplCopyWith<$Res> {
+  __$$PreferredTopicsSetupStateImplCopyWithImpl(
+      _$PreferredTopicsSetupStateImpl _value,
+      $Res Function(_$PreferredTopicsSetupStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -104,7 +104,7 @@ class __$$TopicsFollowingSetupStateImplCopyWithImpl<$Res>
     Object? topics = null,
     Object? selectedTopics = null,
   }) {
-    return _then(_$TopicsFollowingSetupStateImpl(
+    return _then(_$PreferredTopicsSetupStateImpl(
       loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
@@ -123,8 +123,8 @@ class __$$TopicsFollowingSetupStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TopicsFollowingSetupStateImpl implements _TopicsFollowingSetupState {
-  const _$TopicsFollowingSetupStateImpl(
+class _$PreferredTopicsSetupStateImpl implements _PreferredTopicsSetupState {
+  const _$PreferredTopicsSetupStateImpl(
       {this.loadState = const Empty(),
       final List<TopicEntity> topics = const [],
       final List<TopicEntity> selectedTopics = const []})
@@ -154,14 +154,14 @@ class _$TopicsFollowingSetupStateImpl implements _TopicsFollowingSetupState {
 
   @override
   String toString() {
-    return 'TopicsFollowingSetupState(loadState: $loadState, topics: $topics, selectedTopics: $selectedTopics)';
+    return 'PreferredTopicsSetupState(loadState: $loadState, topics: $topics, selectedTopics: $selectedTopics)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TopicsFollowingSetupStateImpl &&
+            other is _$PreferredTopicsSetupStateImpl &&
             (identical(other.loadState, loadState) ||
                 other.loadState == loadState) &&
             const DeepCollectionEquality().equals(other._topics, _topics) &&
@@ -179,17 +179,17 @@ class _$TopicsFollowingSetupStateImpl implements _TopicsFollowingSetupState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TopicsFollowingSetupStateImplCopyWith<_$TopicsFollowingSetupStateImpl>
-      get copyWith => __$$TopicsFollowingSetupStateImplCopyWithImpl<
-          _$TopicsFollowingSetupStateImpl>(this, _$identity);
+  _$$PreferredTopicsSetupStateImplCopyWith<_$PreferredTopicsSetupStateImpl>
+      get copyWith => __$$PreferredTopicsSetupStateImplCopyWithImpl<
+          _$PreferredTopicsSetupStateImpl>(this, _$identity);
 }
 
-abstract class _TopicsFollowingSetupState implements TopicsFollowingSetupState {
-  const factory _TopicsFollowingSetupState(
+abstract class _PreferredTopicsSetupState implements PreferredTopicsSetupState {
+  const factory _PreferredTopicsSetupState(
           {final LoadState loadState,
           final List<TopicEntity> topics,
           final List<TopicEntity> selectedTopics}) =
-      _$TopicsFollowingSetupStateImpl;
+      _$PreferredTopicsSetupStateImpl;
 
   @override
   LoadState get loadState;
@@ -199,6 +199,6 @@ abstract class _TopicsFollowingSetupState implements TopicsFollowingSetupState {
   List<TopicEntity> get selectedTopics;
   @override
   @JsonKey(ignore: true)
-  _$$TopicsFollowingSetupStateImplCopyWith<_$TopicsFollowingSetupStateImpl>
+  _$$PreferredTopicsSetupStateImplCopyWith<_$PreferredTopicsSetupStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

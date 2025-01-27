@@ -1,8 +1,8 @@
 import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/topics_following_setup_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/topics_following_setup_state.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_controller.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/widgets/topic_card.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
@@ -15,8 +15,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class TopicsFollowingSetupScreen extends ConsumerStatefulWidget {
-  const TopicsFollowingSetupScreen({super.key});
+class PreferredTopicsSetupScreen extends ConsumerStatefulWidget {
+  const PreferredTopicsSetupScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -24,7 +24,7 @@ class TopicsFollowingSetupScreen extends ConsumerStatefulWidget {
 }
 
 class _TopicsFollowingSetupScreenState
-    extends ConsumerState<TopicsFollowingSetupScreen> {
+    extends ConsumerState<PreferredTopicsSetupScreen> {
   @override
   void initState() {
     super.initState();
@@ -33,12 +33,12 @@ class _TopicsFollowingSetupScreenState
 
   void _onTopicClick(TopicEntity topic) {
     ref
-        .read(topicsFollowingSetupControllerProvider.notifier)
+        .read(preferredTopicsSetupControllerProvider.notifier)
         .toggleTopicSelection(topic);
   }
 
   void _getTopics() {
-    ref.read(topicsFollowingSetupControllerProvider.notifier).getTopics();
+    ref.read(preferredTopicsSetupControllerProvider.notifier).getTopics();
   }
 
   void _navigateToSignUpPage(List<TopicEntity> selectedTopics) {
@@ -47,14 +47,14 @@ class _TopicsFollowingSetupScreenState
 
   @override
   Widget build(BuildContext context) {
-    final uiState = ref.watch(topicsFollowingSetupControllerProvider);
+    final uiState = ref.watch(preferredTopicsSetupControllerProvider);
     return Scaffold(
       appBar: const BuzzWireAppBar(),
       body: _buildBody(uiState),
     );
   }
 
-  Widget _buildBody(TopicsFollowingSetupState uiState) {
+  Widget _buildBody(PreferredTopicsSetupState uiState) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -78,7 +78,7 @@ class _TopicsFollowingSetupScreenState
     );
   }
 
-  Widget _buildContent(TopicsFollowingSetupState uiState) {
+  Widget _buildContent(PreferredTopicsSetupState uiState) {
     if (uiState.loadState is Loading) {
       return const BuzzWireProgressLoader();
     }
@@ -109,7 +109,7 @@ class _TopicsFollowingSetupScreenState
     );
   }
 
-  Widget _buildTopicsList(TopicsFollowingSetupState uiState) {
+  Widget _buildTopicsList(PreferredTopicsSetupState uiState) {
     final topics = uiState.topics;
     final selectedTopics = uiState.selectedTopics;
     return GridView.builder(
@@ -133,8 +133,8 @@ class _TopicsFollowingSetupScreenState
     );
   }
 
-  Widget _buildBottomFrame(TopicsFollowingSetupState uiState) {
-    final isEnabled = uiState.selectedTopics.isNotEmpty;
+  Widget _buildBottomFrame(PreferredTopicsSetupState uiState) {
+    final isEnabled = uiState.selectedTopics.length > 1;
     return BuzzWireBottomFrame(
       child: SizedBox(
         width: double.infinity,
@@ -151,9 +151,18 @@ class _TopicsFollowingSetupScreenState
   Widget _buildTitle(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Text(
-        "Select your topics of interest",
-        style: context.titleLarge,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Select your topics of interest",
+            style: context.titleLarge,
+          ),
+          Text(
+            "Choose 2 or more",
+            style: context.bodySmall?.copyWith(fontSize: 14),
+          ),
+        ],
       ),
     );
   }

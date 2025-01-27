@@ -1,21 +1,21 @@
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/injector.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/topics_following_setup_state.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_state.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/notification/domain/usecases/get_topics_usecase.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'topics_following_setup_controller.g.dart';
+part 'preferred_topics_setup_controller.g.dart';
 
 @riverpod
-class TopicsFollowingSetupController extends _$TopicsFollowingSetupController {
+class PreferredTopicsSetupController extends _$PreferredTopicsSetupController {
   late GetTopicsUsecase _getTopicsUsecase;
 
   @override
-  TopicsFollowingSetupState build() {
+  PreferredTopicsSetupState build() {
     _getTopicsUsecase = injector();
-    return const TopicsFollowingSetupState();
+    return const PreferredTopicsSetupState();
   }
 
   void getTopics() async {
