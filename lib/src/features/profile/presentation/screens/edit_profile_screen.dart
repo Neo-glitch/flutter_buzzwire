@@ -69,18 +69,20 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   void _listenToUiState() {
-    ref.listen<EditProfileState>(editProfileControllerProvider,
-        (previous, next) async {
-      if (next.loadState is Error && previous?.loadState is! Error) {
-        final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert(BuzzWireStrings.error, message,
-            buttonText: BuzzWireStrings.retry);
-      } else if (next.loadState is Loaded) {
-        await context.showSingleButtonAlert(
-            "Success", "Profile updated successfully");
-        if (mounted) context.pop();
-      }
-    });
+    ref.listen<EditProfileState>(
+      editProfileControllerProvider,
+      (previous, next) async {
+        if (next.loadState is Error && previous?.loadState is! Error) {
+          final message = (next.loadState as Error).message;
+          context.showSingleButtonAlert(BuzzWireStrings.error, message,
+              buttonText: BuzzWireStrings.retry);
+        } else if (next.loadState is Loaded) {
+          await context.showSingleButtonAlert(
+              "Success", "Profile updated successfully");
+          if (mounted) context.pop();
+        }
+      },
+    );
   }
 
   void _showSelectImageSourceBottomSheet() {

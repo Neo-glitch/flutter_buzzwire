@@ -168,7 +168,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const BuzzWireDivider(),
             SettingsTile(
               title: BuzzWireStrings.interests,
-              onClick: () {},
+              onClick: () =>
+                  context.pushNamed(BuzzWireRoute.preferredTopics.name),
             ),
           ],
         ),

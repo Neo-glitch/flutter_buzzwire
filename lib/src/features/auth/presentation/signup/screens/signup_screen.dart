@@ -17,7 +17,6 @@ import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.d
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_country_picker.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/gestures.dart';
@@ -26,7 +25,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   final List<TopicEntity> topicsOfInterest;

@@ -9,7 +9,6 @@ import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_s
 import 'package:buzzwire/src/features/notification/domain/usecases/save_device_token_usecase.dart';
 import 'package:buzzwire/src/features/notification/domain/usecases/subscribe_to_topic_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
-import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

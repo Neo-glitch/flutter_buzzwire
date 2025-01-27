@@ -8,6 +8,7 @@ import 'package:buzzwire/src/features/news/presentation/screens/search_news_scre
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/preferred_topics_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -71,8 +72,8 @@ GoRouter router(RouterRef ref) {
           },
           routes: [
             GoRoute(
-              path: BuzzWireRoute.topicsFollowingSetup.path,
-              name: BuzzWireRoute.topicsFollowingSetup.name,
+              path: BuzzWireRoute.preferredTopicsSetup.path,
+              name: BuzzWireRoute.preferredTopicsSetup.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
                 buildPage: (ctx, state) => const PreferredTopicsSetupScreen(),
               ),
@@ -223,6 +224,13 @@ GoRouter router(RouterRef ref) {
           name: BuzzWireRoute.changePassword.name,
           pageBuilder: TransitionFactory.getSlidePageBuilder(
             buildPage: (ctx, state) => const ChangePasswordScreen(),
+          ),
+        ),
+        GoRoute(
+          path: BuzzWireRoute.preferredTopics.path,
+          name: BuzzWireRoute.preferredTopics.name,
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const PreferredTopicsScreen(),
           ),
         ),
       ],

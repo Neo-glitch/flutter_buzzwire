@@ -3,7 +3,7 @@ import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_state.dart';
-import 'package:buzzwire/src/features/auth/presentation/signup/widgets/topic_card.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/widgets/topic_image_card.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
@@ -99,10 +99,10 @@ class _TopicsFollowingSetupScreenState
     return const SizedBox.expand();
   }
 
-  BuzzWireEmptyOrErrorScreen _buildEmptyScreen() =>
+  Widget _buildEmptyScreen() =>
       BuzzWireEmptyOrErrorScreen.empty(message: ErrorText.unknownError);
 
-  BuzzWireEmptyOrErrorScreen _buildErrorScreen(String message) {
+  Widget _buildErrorScreen(String message) {
     return BuzzWireEmptyOrErrorScreen.error(
       message: message,
       onPressed: _getTopics,
@@ -124,7 +124,7 @@ class _TopicsFollowingSetupScreenState
       itemBuilder: (ctx, idx) {
         final topic = topics[idx];
         final isSelected = selectedTopics.contains(topic);
-        return TopicCard(
+        return TopicImageCard(
           topic: topic,
           isSelected: isSelected,
           onClick: _onTopicClick,

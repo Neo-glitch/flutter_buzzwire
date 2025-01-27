@@ -4,17 +4,17 @@ import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.da
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
 
-class TopicCard extends StatelessWidget {
-  const TopicCard({
+class TopicImageCard extends StatelessWidget {
+  final TopicEntity topic;
+  final bool isSelected;
+  final Function(TopicEntity topic) onClick;
+
+  const TopicImageCard({
     super.key,
     required this.topic,
     required this.isSelected,
     required this.onClick,
   });
-
-  final TopicEntity topic;
-  final bool isSelected;
-  final Function(TopicEntity topic) onClick;
 
   @override
   Widget build(BuildContext context) {

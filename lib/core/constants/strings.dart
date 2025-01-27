@@ -51,6 +51,7 @@ class BuzzWireStrings {
   static const String appPreferences = "App Preferences";
   static const String general = "General";
   static const String language = "Language";
+  static const String save = "Save";
   static const String theme = "Theme";
   static const String countryAndRegion = "Country & region";
   static const String interests = "Interests";
@@ -77,6 +78,8 @@ class BuzzWireStrings {
   static const String changePasswordScreenDesc =
       "To change your password, please fill in the fields below. Your password must contain at least 6 characters and must be different from the current password";
   static const String readFullArticle = "Read full article";
+  static const String chooseTopicsOfInterestDesc =
+      "Choose the topics you care about most, and we’ll tailor your news feed to match your interests. Stay updated on what matters to you!";
 
   // fontFamily
   static const String poppins = "Poppins";

@@ -23,8 +23,8 @@ class BuzzWireRoute {
   static BuzzWireRoute signIn =
       BuzzWireRoute(path: "/sign_in", name: "sign_in");
   static BuzzWireRoute signUp = BuzzWireRoute(path: "sign_up", name: "sign_up");
-  static BuzzWireRoute topicsFollowingSetup = BuzzWireRoute(
-      path: "topics_following_setup", name: "topics_following_setup");
+  static BuzzWireRoute preferredTopicsSetup = BuzzWireRoute(
+      path: "preferred_topics_setup", name: "preferred_topics_setup");
   static BuzzWireRoute verifyEmail =
       BuzzWireRoute(path: "verify_email", name: "verify_email");
   static BuzzWireRoute passwordReset =
@@ -56,4 +56,6 @@ class BuzzWireRoute {
       BuzzWireRoute(path: "/webview", name: "webview");
   static BuzzWireRoute settings =
       BuzzWireRoute(path: "/settings", name: "settings");
+  static BuzzWireRoute preferredTopics =
+      BuzzWireRoute(path: "/preferred_topics", name: "/preferred_topics");
 }

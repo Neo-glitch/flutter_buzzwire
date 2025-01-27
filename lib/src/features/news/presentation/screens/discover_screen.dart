@@ -32,6 +32,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   void _init() {
     Future.microtask(() {
       ref.read(discoverNewsControllerProvider.notifier).fetchItems();
+      ref.read(discoverNewsControllerProvider.notifier).observeUserStream();
     });
   }
 

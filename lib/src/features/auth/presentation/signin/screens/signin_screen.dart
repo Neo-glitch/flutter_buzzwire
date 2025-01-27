@@ -180,7 +180,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               "Don't have an account? ",
               "Create an Account",
               // () => context.pushNamed(BuzzWireRoute.signUp.name),
-              () => context.pushNamed(BuzzWireRoute.topicsFollowingSetup.name),
+              () => context.pushNamed(BuzzWireRoute.preferredTopicsSetup.name),
             ),
             const Gap(2),
             _buildRichText(
