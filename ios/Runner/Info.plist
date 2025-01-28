@@ -57,7 +57,7 @@
 		<string>BuzzWire requires access to your microphone to record audio for videos or other media.</string>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
-  		<string>mailto</string>
+			<string>mailto</string>
 		</array>
 	</dict>
 </plist>
