@@ -12,8 +12,8 @@ class FbAuthFailure extends Failure {
   FbAuthFailure(super.message);
 }
 
-class FbFirestoreFailure extends Failure {
-  FbFirestoreFailure(super.message);
+class FbFailure extends Failure {
+  FbFailure(super.message);
 }
 
 class SupabaseStorageFailure extends Failure {

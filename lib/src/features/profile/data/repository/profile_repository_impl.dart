@@ -6,8 +6,11 @@ import 'package:buzzwire/core/error/failure.dart';
 import 'package:buzzwire/core/network/network_connection_checker.dart';
 import 'package:buzzwire/src/features/profile/data/datasources/local/profle_local_datasource.dart';
 import 'package:buzzwire/src/features/profile/data/datasources/remote/profile_remote_datasource.dart';
+import 'package:buzzwire/src/features/profile/data/mapper/profile_image_mapper.dart';
 import 'package:buzzwire/src/features/profile/data/mapper/user_mapper.dart';
 import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
+import 'package:buzzwire/src/shared/data/model/user_model.dart';
+import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -42,10 +45,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         await localDatasource.saveUser(userModel);
         return const Right(unit);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -59,10 +62,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         await clearCachedUser();
         return const Right(unit);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -85,10 +88,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         final userModel = await remoteDatasource.getUser(userId);
         return Right(UserMapper.fromModel(userModel));
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
@@ -102,24 +105,25 @@ class ProfileRepositoryImpl implements ProfileRepository {
         await localDatasource.saveUser(userModel);
         return const Right(unit);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
-      return Left(FbFirestoreFailure(exception.toString()));
+      return Left(FbFailure(exception.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, String>> uploadProfileImage(
-      String userId, File image) async {
+  Future<Either<Failure, ProfileImageEntity>> uploadProfileImage(
+      UserEntity user, File image) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
       if (isConnected) {
-        final imageUrl =
-            await remoteDatasource.uploadProfileImage(userId, image);
-        return Right(imageUrl);
+        final userModel = UserMapper.fromEntity(user);
+        final profileImage =
+            await remoteDatasource.uploadProfileImage(userModel!, image);
+        return Right(ProfileImageMapper.fromModel(profileImage)!);
       }
-      return Left(FbFirestoreFailure(ErrorText.noInternetError));
+      return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
       final exception = ExceptionHandler.handleException(e);
       return Left(SupabaseStorageFailure(exception.toString()));

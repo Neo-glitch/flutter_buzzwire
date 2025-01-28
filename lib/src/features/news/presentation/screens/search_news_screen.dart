@@ -50,37 +50,40 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   @override
   Widget build(BuildContext context) {
     final uiState = ref.watch(searchNewsControllerProvider);
-    return SafeArea(
-      child: Scaffold(
-        appBar: BuzzWireAppBar(
-          title: BuzzWireSearchBar(
-            searchController: _searchController,
-            hintText: "Search...",
-            onSearch: (value) {
-              if (value.isNotEmpty) {
-                _debouncer.run(() {
-                  _searchNews(value);
-                });
-              } else {
-                _debouncer.cancel();
-                _resetLoadState();
-              }
-            },
-            onClear: () {
-              _debouncer.cancel();
-              _resetLoadState();
-            },
-            onEditingComplete: () {
-              if (_searchController.text.isNotEmpty) {
-                ref.read(searchNewsControllerProvider.notifier).onEvent(
-                    SaveSearchHistoryEvent(search: _searchController.text));
-                BuzzWireHelperFunctions.hideKeyboard();
-              }
-            },
-          ),
-        ),
-        body: _buildBody(uiState),
+    return Scaffold(
+      appBar: BuzzWireAppBar(
+        title: _buildSearchBar(),
       ),
+      body: SafeArea(child: _buildBody(uiState)),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return BuzzWireSearchBar(
+      searchController: _searchController,
+      hintText: "Search...",
+      onSearch: (value) {
+        if (value.isNotEmpty) {
+          _debouncer.run(() {
+            _searchNews(value);
+          });
+        } else {
+          _debouncer.cancel();
+          _resetLoadState();
+        }
+      },
+      onClear: () {
+        _debouncer.cancel();
+        _resetLoadState();
+      },
+      onEditingComplete: () {
+        if (_searchController.text.isNotEmpty) {
+          ref
+              .read(searchNewsControllerProvider.notifier)
+              .onEvent(SaveSearchHistoryEvent(search: _searchController.text));
+          BuzzWireHelperFunctions.hideKeyboard();
+        }
+      },
     );
   }
 
@@ -116,7 +119,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Recent"),
+            if (histories.isNotEmpty) const Text("Recent"),
             const Gap(20),
             SearchHistoryList(
               searchHistories: histories,
@@ -202,7 +205,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
     ref
         .read(searchNewsControllerProvider.notifier)
         .onEvent(SaveSearchHistoryEvent(article: article));
-    context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
+    context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
   }
 
   Future<bool> _bookmarkArticle(ArticleEntity article) async {

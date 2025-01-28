@@ -10,11 +10,15 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       userId: json['userId'] as String,
       email: json['email'] as String,
       userName: json['userName'] as String,
+      country: CountryModel.fromJson(json['country'] as Map<String, dynamic>),
+      topicsFollowing: (json['topicsFollowing'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       phoneNumber: json['phoneNumber'] as String?,
-      country: json['country'] == null
+      profileImage: json['profileImage'] == null
           ? null
-          : CountryModel.fromJson(json['country'] as Map<String, dynamic>),
-      profileImage: json['profileImage'] as String?,
+          : ProfileImageModel.fromJson(
+              json['profileImage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -24,4 +28,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'phoneNumber': instance.phoneNumber,
       'country': instance.country,
       'profileImage': instance.profileImage,
+      'topicsFollowing': instance.topicsFollowing,
     };

@@ -56,7 +56,7 @@ class _BuzzWireSearchBarState extends State<BuzzWireSearchBar> {
       child: Container(
         padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
-          color: Color.lerp(context.backgroundColor, Colors.black12, 0.12),
+          color: Color.lerp(context.surfaceColor, Colors.black12, 0.12),
           borderRadius: const BorderRadius.all(Radius.circular(24)),
         ),
         child: Row(

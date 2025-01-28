@@ -19,7 +19,7 @@ class ExceptionHandler {
     } else if (exception is FirebaseAuthException) {
       return _handleFirebaseAuthException(exception);
     } else if (exception is FirebaseException) {
-      return _handleFirebaseFirestoreException(exception);
+      return _handleFirebaseException(exception);
     } else if (exception is DatabaseException) {
       return _handleDatabaseException(exception);
     } else {
@@ -83,7 +83,7 @@ class ExceptionHandler {
     return FbAuthException(message: errorType.message);
   }
 
-  static Exception _handleFirebaseFirestoreException(
+  static Exception _handleFirebaseException(
     FirebaseException exception,
   ) {
     final errorType = switch (exception.code) {
@@ -106,6 +106,6 @@ class ExceptionHandler {
       dataLoss => FbFireStoreErrorType.dataLoss,
       _ => FbFireStoreErrorType.unknown
     };
-    return FbFirestoreException(message: errorType.message);
+    return FbFirebaseException(message: errorType.message);
   }
 }

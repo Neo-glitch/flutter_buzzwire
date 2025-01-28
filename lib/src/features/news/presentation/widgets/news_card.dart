@@ -107,7 +107,7 @@ class _NewsCardState extends State<NewsCard> {
     );
   }
 
-  Expanded _buildImageSection() {
+  Widget _buildImageSection() {
     return Expanded(
       child: BuzzWireImageCard(
         imageUrl: widget.article.image.orEmpty,

@@ -19,11 +19,7 @@ mixin _$DiscoverNewsState {
   LoadState get loadState => throw _privateConstructorUsedError;
   List<ArticleEntity> get breakingNewsItems =>
       throw _privateConstructorUsedError;
-  List<ArticleEntity> get firstTrendingNewsList =>
-      throw _privateConstructorUsedError;
-  List<ArticleEntity> get secondTrendingNewsList =>
-      throw _privateConstructorUsedError;
-  List<ArticleEntity> get thirdTrendingNewsList =>
+  Map<String, List<ArticleEntity>> get topicToNewsArticleMap =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,9 +36,7 @@ abstract class $DiscoverNewsStateCopyWith<$Res> {
   $Res call(
       {LoadState loadState,
       List<ArticleEntity> breakingNewsItems,
-      List<ArticleEntity> firstTrendingNewsList,
-      List<ArticleEntity> secondTrendingNewsList,
-      List<ArticleEntity> thirdTrendingNewsList});
+      Map<String, List<ArticleEntity>> topicToNewsArticleMap});
 }
 
 /// @nodoc
@@ -60,9 +54,7 @@ class _$DiscoverNewsStateCopyWithImpl<$Res, $Val extends DiscoverNewsState>
   $Res call({
     Object? loadState = null,
     Object? breakingNewsItems = null,
-    Object? firstTrendingNewsList = null,
-    Object? secondTrendingNewsList = null,
-    Object? thirdTrendingNewsList = null,
+    Object? topicToNewsArticleMap = null,
   }) {
     return _then(_value.copyWith(
       loadState: null == loadState
@@ -73,18 +65,10 @@ class _$DiscoverNewsStateCopyWithImpl<$Res, $Val extends DiscoverNewsState>
           ? _value.breakingNewsItems
           : breakingNewsItems // ignore: cast_nullable_to_non_nullable
               as List<ArticleEntity>,
-      firstTrendingNewsList: null == firstTrendingNewsList
-          ? _value.firstTrendingNewsList
-          : firstTrendingNewsList // ignore: cast_nullable_to_non_nullable
-              as List<ArticleEntity>,
-      secondTrendingNewsList: null == secondTrendingNewsList
-          ? _value.secondTrendingNewsList
-          : secondTrendingNewsList // ignore: cast_nullable_to_non_nullable
-              as List<ArticleEntity>,
-      thirdTrendingNewsList: null == thirdTrendingNewsList
-          ? _value.thirdTrendingNewsList
-          : thirdTrendingNewsList // ignore: cast_nullable_to_non_nullable
-              as List<ArticleEntity>,
+      topicToNewsArticleMap: null == topicToNewsArticleMap
+          ? _value.topicToNewsArticleMap
+          : topicToNewsArticleMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<ArticleEntity>>,
     ) as $Val);
   }
 }
@@ -100,9 +84,7 @@ abstract class _$$DiscoverNewsStateImplCopyWith<$Res>
   $Res call(
       {LoadState loadState,
       List<ArticleEntity> breakingNewsItems,
-      List<ArticleEntity> firstTrendingNewsList,
-      List<ArticleEntity> secondTrendingNewsList,
-      List<ArticleEntity> thirdTrendingNewsList});
+      Map<String, List<ArticleEntity>> topicToNewsArticleMap});
 }
 
 /// @nodoc
@@ -118,9 +100,7 @@ class __$$DiscoverNewsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? loadState = null,
     Object? breakingNewsItems = null,
-    Object? firstTrendingNewsList = null,
-    Object? secondTrendingNewsList = null,
-    Object? thirdTrendingNewsList = null,
+    Object? topicToNewsArticleMap = null,
   }) {
     return _then(_$DiscoverNewsStateImpl(
       loadState: null == loadState
@@ -131,18 +111,10 @@ class __$$DiscoverNewsStateImplCopyWithImpl<$Res>
           ? _value._breakingNewsItems
           : breakingNewsItems // ignore: cast_nullable_to_non_nullable
               as List<ArticleEntity>,
-      firstTrendingNewsList: null == firstTrendingNewsList
-          ? _value._firstTrendingNewsList
-          : firstTrendingNewsList // ignore: cast_nullable_to_non_nullable
-              as List<ArticleEntity>,
-      secondTrendingNewsList: null == secondTrendingNewsList
-          ? _value._secondTrendingNewsList
-          : secondTrendingNewsList // ignore: cast_nullable_to_non_nullable
-              as List<ArticleEntity>,
-      thirdTrendingNewsList: null == thirdTrendingNewsList
-          ? _value._thirdTrendingNewsList
-          : thirdTrendingNewsList // ignore: cast_nullable_to_non_nullable
-              as List<ArticleEntity>,
+      topicToNewsArticleMap: null == topicToNewsArticleMap
+          ? _value._topicToNewsArticleMap
+          : topicToNewsArticleMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<ArticleEntity>>,
     ));
   }
 }
@@ -153,13 +125,9 @@ class _$DiscoverNewsStateImpl implements _DiscoverNewsState {
   const _$DiscoverNewsStateImpl(
       {this.loadState = const Empty(),
       final List<ArticleEntity> breakingNewsItems = const [],
-      final List<ArticleEntity> firstTrendingNewsList = const [],
-      final List<ArticleEntity> secondTrendingNewsList = const [],
-      final List<ArticleEntity> thirdTrendingNewsList = const []})
+      final Map<String, List<ArticleEntity>> topicToNewsArticleMap = const {}})
       : _breakingNewsItems = breakingNewsItems,
-        _firstTrendingNewsList = firstTrendingNewsList,
-        _secondTrendingNewsList = secondTrendingNewsList,
-        _thirdTrendingNewsList = thirdTrendingNewsList;
+        _topicToNewsArticleMap = topicToNewsArticleMap;
 
   @override
   @JsonKey()
@@ -174,39 +142,19 @@ class _$DiscoverNewsStateImpl implements _DiscoverNewsState {
     return EqualUnmodifiableListView(_breakingNewsItems);
   }
 
-  final List<ArticleEntity> _firstTrendingNewsList;
+  final Map<String, List<ArticleEntity>> _topicToNewsArticleMap;
   @override
   @JsonKey()
-  List<ArticleEntity> get firstTrendingNewsList {
-    if (_firstTrendingNewsList is EqualUnmodifiableListView)
-      return _firstTrendingNewsList;
+  Map<String, List<ArticleEntity>> get topicToNewsArticleMap {
+    if (_topicToNewsArticleMap is EqualUnmodifiableMapView)
+      return _topicToNewsArticleMap;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_firstTrendingNewsList);
-  }
-
-  final List<ArticleEntity> _secondTrendingNewsList;
-  @override
-  @JsonKey()
-  List<ArticleEntity> get secondTrendingNewsList {
-    if (_secondTrendingNewsList is EqualUnmodifiableListView)
-      return _secondTrendingNewsList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_secondTrendingNewsList);
-  }
-
-  final List<ArticleEntity> _thirdTrendingNewsList;
-  @override
-  @JsonKey()
-  List<ArticleEntity> get thirdTrendingNewsList {
-    if (_thirdTrendingNewsList is EqualUnmodifiableListView)
-      return _thirdTrendingNewsList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_thirdTrendingNewsList);
+    return EqualUnmodifiableMapView(_topicToNewsArticleMap);
   }
 
   @override
   String toString() {
-    return 'DiscoverNewsState(loadState: $loadState, breakingNewsItems: $breakingNewsItems, firstTrendingNewsList: $firstTrendingNewsList, secondTrendingNewsList: $secondTrendingNewsList, thirdTrendingNewsList: $thirdTrendingNewsList)';
+    return 'DiscoverNewsState(loadState: $loadState, breakingNewsItems: $breakingNewsItems, topicToNewsArticleMap: $topicToNewsArticleMap)';
   }
 
   @override
@@ -219,11 +167,7 @@ class _$DiscoverNewsStateImpl implements _DiscoverNewsState {
             const DeepCollectionEquality()
                 .equals(other._breakingNewsItems, _breakingNewsItems) &&
             const DeepCollectionEquality()
-                .equals(other._firstTrendingNewsList, _firstTrendingNewsList) &&
-            const DeepCollectionEquality().equals(
-                other._secondTrendingNewsList, _secondTrendingNewsList) &&
-            const DeepCollectionEquality()
-                .equals(other._thirdTrendingNewsList, _thirdTrendingNewsList));
+                .equals(other._topicToNewsArticleMap, _topicToNewsArticleMap));
   }
 
   @override
@@ -231,9 +175,7 @@ class _$DiscoverNewsStateImpl implements _DiscoverNewsState {
       runtimeType,
       loadState,
       const DeepCollectionEquality().hash(_breakingNewsItems),
-      const DeepCollectionEquality().hash(_firstTrendingNewsList),
-      const DeepCollectionEquality().hash(_secondTrendingNewsList),
-      const DeepCollectionEquality().hash(_thirdTrendingNewsList));
+      const DeepCollectionEquality().hash(_topicToNewsArticleMap));
 
   @JsonKey(ignore: true)
   @override
@@ -247,9 +189,7 @@ abstract class _DiscoverNewsState implements DiscoverNewsState {
   const factory _DiscoverNewsState(
           {final LoadState loadState,
           final List<ArticleEntity> breakingNewsItems,
-          final List<ArticleEntity> firstTrendingNewsList,
-          final List<ArticleEntity> secondTrendingNewsList,
-          final List<ArticleEntity> thirdTrendingNewsList}) =
+          final Map<String, List<ArticleEntity>> topicToNewsArticleMap}) =
       _$DiscoverNewsStateImpl;
 
   @override
@@ -257,11 +197,7 @@ abstract class _DiscoverNewsState implements DiscoverNewsState {
   @override
   List<ArticleEntity> get breakingNewsItems;
   @override
-  List<ArticleEntity> get firstTrendingNewsList;
-  @override
-  List<ArticleEntity> get secondTrendingNewsList;
-  @override
-  List<ArticleEntity> get thirdTrendingNewsList;
+  Map<String, List<ArticleEntity>> get topicToNewsArticleMap;
   @override
   @JsonKey(ignore: true)
   _$$DiscoverNewsStateImplCopyWith<_$DiscoverNewsStateImpl> get copyWith =>

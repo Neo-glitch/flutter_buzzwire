@@ -2,7 +2,6 @@ import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/email_verification/riverpod/email_verification_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
@@ -59,10 +58,10 @@ class _EmailVerificationScreenState
   Widget build(BuildContext context) {
     _listentToUiState();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const BuzzWireAppBar(),
-        body: _buildBody(),
+    return Scaffold(
+      appBar: const BuzzWireAppBar(),
+      body: SafeArea(
+        child: _buildBody(),
       ),
     );
   }
@@ -85,7 +84,6 @@ class _EmailVerificationScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
         _buildScreenLogo(context),
         const Gap(30),
         _buildHeader(),
@@ -120,6 +118,7 @@ class _EmailVerificationScreenState
 
   Widget _buildHeader() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           BuzzWireStrings.emailVerificationTitle,

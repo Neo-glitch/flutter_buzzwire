@@ -49,6 +49,7 @@ Future<void> provideAuthDependencies() async {
     () => SignOutUseCase(
       authRepo: injector(),
       profileRepo: injector(),
+      notificationRepo: injector(),
     ),
   );
 
@@ -71,6 +72,7 @@ Future<void> provideAuthDependencies() async {
     () => DeleteUserAccountUseCase(
       authRepo: injector(),
       profileRepo: injector(),
+      notificationRepo: injector(),
       reAuthenticateUser: injector(),
     ),
   );

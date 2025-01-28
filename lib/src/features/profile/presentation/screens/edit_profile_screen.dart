@@ -5,6 +5,7 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/select_image_source_bottomsheet.dart';
 import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
@@ -52,7 +53,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       _emailController.text = user?.email.orEmpty ?? '';
       _userNameController.text = user?.userName.orEmpty ?? '';
       _phoneNumberController.text = user?.phoneNumber.orEmpty ?? '';
-      _countryController.text = user?.country?.name ?? '';
+      _countryController.text = user?.country.name ?? '';
     });
   }
 
@@ -68,23 +69,37 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   void _listenToUiState() {
-    ref.listen<EditProfileState>(editProfileControllerProvider,
-        (previous, next) async {
-      if (next.loadState is Error && previous?.loadState is! Error) {
-        final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert(BuzzWireStrings.error, message,
-            buttonText: BuzzWireStrings.retry);
-      } else if (next.loadState is Loaded) {
-        await context.showSingleButtonAlert(
-            "Success", "Profile updated successfully");
-        if (mounted) context.pop();
-      }
-    });
+    ref.listen<EditProfileState>(
+      editProfileControllerProvider,
+      (previous, next) async {
+        if (next.loadState is Error && previous?.loadState is! Error) {
+          final message = (next.loadState as Error).message;
+          context.showSingleButtonAlert(BuzzWireStrings.error, message,
+              buttonText: BuzzWireStrings.retry);
+        } else if (next.loadState is Loaded) {
+          await context.showSingleButtonAlert(
+              "Success", "Profile updated successfully");
+          if (mounted) context.pop();
+        }
+      },
+    );
   }
 
-  Future<void> _pickImageFromGallery() async {
+  void _showSelectImageSourceBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      builder: (ctx) =>
+          SelectImageSourceBottomSheet(onItemClick: _pickImageFromSource),
+    );
+  }
+
+  void _pickImageFromSource(ImageSource source) async {
     final imagePicker = ImagePicker();
-    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+    final image = await imagePicker.pickImage(
+      source: source,
+      imageQuality: 50,
+    );
 
     if (image != null) {
       ref
@@ -107,10 +122,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final uiState = ref.watch(editProfileControllerProvider);
     _listenToUiState();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Form(
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(
+        child: Form(
           key: _formKey,
           child: Column(
             children: [
@@ -174,19 +189,19 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             borderColor: context.primaryColor.withOpacity(0.7),
             borderWidth: 2,
             imageUrl: uiState.newImage == null
-                ? uiState.user?.profileImage.orEmpty
+                ? uiState.user?.profileImage?.imageUrl.orEmpty
                 : null,
             imagePath: uiState.newImage?.path,
           ),
           Positioned(
-            bottom: 20,
+            bottom: 10,
             right: 0,
             child: InkWell(
-              onTap: _pickImageFromGallery,
+              onTap: _showSelectImageSourceBottomSheet,
               borderRadius: BorderRadius.circular(16),
               child: const CircleAvatar(
                 radius: 16,
-                child: FaIcon(FontAwesomeIcons.pen, size: 16),
+                child: FaIcon(FontAwesomeIcons.camera, size: 16),
               ),
             ),
           ),

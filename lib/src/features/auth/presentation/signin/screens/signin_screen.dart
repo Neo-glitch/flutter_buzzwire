@@ -1,28 +1,24 @@
-import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_input_field_header.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/gestures.dart';
-
 import 'package:buzzwire/core/constants/asset_strings.dart';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
-
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
+import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -56,9 +52,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       }
     });
 
-    return SafeArea(
-      child: Scaffold(
-        body: Form(
+    return Scaffold(
+      body: SafeArea(
+        child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
@@ -183,7 +179,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
             _buildRichText(
               "Don't have an account? ",
               "Create an Account",
-              () => context.pushNamed(BuzzWireRoute.signUp.name),
+              // () => context.pushNamed(BuzzWireRoute.signUp.name),
+              () => context.pushNamed(BuzzWireRoute.preferredTopicsSetup.name),
             ),
             const Gap(2),
             _buildRichText(

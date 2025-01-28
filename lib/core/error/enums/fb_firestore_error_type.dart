@@ -54,8 +54,6 @@ extension FirebaseFirestoreErrorTypeExtension on FbFireStoreErrorType {
         return ErrorText.firestoreServiceUnavailableError;
       case FbFireStoreErrorType.dataLoss:
         return ErrorText.firestoreDataLossError;
-      default:
-        return ErrorText.unknownError;
     }
   }
 }
