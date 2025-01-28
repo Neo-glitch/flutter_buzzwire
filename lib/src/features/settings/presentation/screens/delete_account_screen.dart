@@ -5,10 +5,11 @@ import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/delete_account_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/delete_account_state.dart';
-import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_loading_dialog.dart';
+import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -25,7 +26,6 @@ class DeleteAccountScreen extends ConsumerStatefulWidget {
 class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   final _passwordTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _showPassword = false;
 
   @override
   void dispose() {
@@ -33,35 +33,32 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     super.dispose();
   }
 
-  void _togglePasswordVisibility() {
-    setState(() {
-      _showPassword = !_showPassword;
-    });
-  }
-
   void _listenToUiState() {
-    ref.listen(deleteAccountControllerProvider, (previous, next) async {
-      if (next.loadState is Error && previous?.loadState is! Error) {
-        // pop loading dialog off
-        context.pop();
-        final message = (next.loadState as Error).message;
-        context.showSingleButtonAlert(BuzzWireStrings.error, message);
-        return;
-      }
+    ref.listen(
+      deleteAccountControllerProvider,
+      (previous, next) async {
+        if (next.loadState is Error && previous?.loadState is! Error) {
+          // pop loading dialog off
+          context.pop();
+          final message = (next.loadState as Error).message;
+          context.showSingleButtonAlert(BuzzWireStrings.error, message);
+          return;
+        }
 
-      if (next.loadState is Loading) {
-        _showLoadingDialog();
-        return;
-      }
+        if (next.loadState is Loading) {
+          _showLoadingDialog();
+          return;
+        }
 
-      if (next.loadState is Loaded) {
-        context.pop();
-        await context.showToast("Your account has been successfully deleted");
-        ref
-            .read(authControllerProvider.notifier)
-            .setAuthState(AuthStatus.unAuthenticated);
-      }
-    });
+        if (next.loadState is Loaded) {
+          context.pop();
+          await context.showToast("Your account has been successfully deleted");
+          ref
+              .read(authControllerProvider.notifier)
+              .setAuthState(AuthStatus.unAuthenticated);
+        }
+      },
+    );
   }
 
   void _deleteUserAccount() {
@@ -71,17 +68,18 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   }
 
   void _showLoadingDialog() {
-    context.showFullScreenDialog(dialog: const DeleteAccountLoadingDialog());
+    context.showFullScreenDialog(
+        dialog: const OperationLoadingDialog(
+      title: BuzzWireStrings.deletingYourAccount,
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     _listenToUiState();
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: _buildBody(),
-      ),
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(child: _buildBody()),
     );
   }
 
@@ -128,30 +126,15 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     );
   }
 
-  TextFormField _buildPasswordInput(DeleteAccountState uiState) {
-    return TextFormField(
+  Widget _buildPasswordInput(DeleteAccountState uiState) {
+    return BuzzWirePasswordInputField(
       controller: _passwordTextController,
       enabled: uiState.loadState is! Loading,
+      hintText: "Enter password",
       textInputAction: TextInputAction.done,
-      keyboardType: TextInputType.visiblePassword,
-      obscureText: !_showPassword,
-      decoration: InputDecoration(
-        hintText: "Enter password",
-        prefixIcon: const Icon(Icons.lock_outline_rounded),
-        suffixIcon: GestureDetector(
-          onTap: _togglePasswordVisibility,
-          child: Icon(
-            _showPassword ? Icons.visibility : Icons.visibility_off,
-          ),
-        ),
-      ),
       onChanged: (value) => ref
           .read(deleteAccountControllerProvider.notifier)
           .validatePassword(value),
-      validator: (value) =>
-          !value?.isValidPassword() && uiState.loadState is Error
-              ? "Please ensure your password is up to 6 characters"
-              : null,
     );
   }
 
@@ -161,7 +144,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         Center(
           child: BuzzWireCircularImage(
             radius: 40,
-            imageUrl: uiState.user?.profileImage.orEmpty,
+            imageUrl: uiState.user?.profileImage?.imageUrl.orEmpty,
           ),
         ),
         const Gap(4),

@@ -30,6 +30,16 @@ class BuzzWireAssets {
 
   /// images ///
   static const String signInHeaderBg = "assets/images/signin_header_bg.jpg";
+  static const String animalTopic = "assets/images/animal_topic_bg.jpg";
+  static const String educationTopic = "assets/images/education_topic_bg.jpg";
+  static const String gamesTopic = "assets/images/games_topic_bg.jpg";
+  static const String techTopic = "assets/images/tech_topic_bg.jpg";
+  static const String politicsTopic = "assets/images/politics_topic_bg.jpg";
+  static const String musicTopic = "assets/images/music_topic_bg.jpg";
+  static const String moviesTopic = "assets/images/movies_topic_bg.jpg";
+  static const String fashionTopic = "assets/images/fashion_topic_bg.jpg";
+  static const String fitnessTopic = "assets/images/fitness_topic_bg.jpg";
+  static const String financeTopic = "assets/images/finance_topic_bg.jpg";
 
   /// icons ///
   static const String discoverIcon = "assets/icons/ic_discover.svg";

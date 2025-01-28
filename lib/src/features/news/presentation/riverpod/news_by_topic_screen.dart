@@ -36,11 +36,9 @@ class _NewsByTopicScreenState extends ConsumerState<NewsByTopicScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: _buildBody(),
-      ),
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(child: _buildBody()),
     );
   }
 
@@ -116,7 +114,7 @@ class _NewsByTopicScreenState extends ConsumerState<NewsByTopicScreen> {
         return NewsCard(
           article: article,
           onClick: (article) =>
-              context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article),
+              context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article),
           onSave: _onSaveClick,
         );
       },

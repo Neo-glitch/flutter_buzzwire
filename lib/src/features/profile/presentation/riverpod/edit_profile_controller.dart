@@ -8,6 +8,7 @@ import 'package:buzzwire/src/features/profile/domain/usecases/update_user_usecas
 import 'package:buzzwire/src/features/profile/domain/usecases/upload_profile_image_usecase.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';
 import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
+import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -59,8 +60,7 @@ class EditProfileController extends _$EditProfileController {
     _updateUserFields(user, userName, phone);
 
     if (state.newImage != null) {
-      final profileImageUrl =
-          await _uploadProfileImage(user.userId, state.newImage!);
+      final profileImageUrl = await _uploadProfileImage(user, state.newImage!);
       if (profileImageUrl == null) {
         _setErrorState(ErrorText.unknownError);
         return;
@@ -78,12 +78,13 @@ class EditProfileController extends _$EditProfileController {
   void _updateUserFields(UserEntity user, String userName, String phone) {
     if (userName.isNotEmpty) user.userName = userName;
     if (phone.isNotEmpty) user.phoneNumber = phone;
-    if (state.newCountry != null) user.country = state.newCountry;
+    if (state.newCountry != null) user.country = state.newCountry!;
   }
 
-  Future<String?> _uploadProfileImage(String userId, File image) async {
+  Future<ProfileImageEntity?> _uploadProfileImage(
+      UserEntity user, File image) async {
     final profileImageUrlResult = await _uploadProfileImageUseCase(
-      UploadProfileImageParams(userId: userId, image: image),
+      UploadProfileImageParams(user: user, image: image),
     );
     return profileImageUrlResult.fold((_) => null, (imageUrl) => imageUrl);
   }

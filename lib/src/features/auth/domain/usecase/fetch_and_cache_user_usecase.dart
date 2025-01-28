@@ -15,11 +15,11 @@ class FetchAndCacheUserUseCase implements UseCaseFuture<void, String> {
     final userResult = await profileRepo.getUser(userId);
     return userResult.fold(
       (failure) async {
-        return Left(FbFirestoreFailure("No user found with this email"));
+        return Left(FbFailure("No user found with this email"));
       },
       (user) async {
         if (user == null) {
-          return Left(FbFirestoreFailure("No user found with this email"));
+          return Left(FbFailure("No user found with this email"));
         }
 
         await profileRepo.cacheUser(user);

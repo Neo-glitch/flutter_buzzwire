@@ -23,8 +23,6 @@ class DiscoverScreen extends ConsumerStatefulWidget {
 }
 
 class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
-  late List<String> trendingNewsTopics;
-
   @override
   void initState() {
     super.initState();
@@ -34,26 +32,25 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   void _init() {
     Future.microtask(() {
       ref.read(discoverNewsControllerProvider.notifier).fetchItems();
+      ref.read(discoverNewsControllerProvider.notifier).observeUserStream();
     });
-    trendingNewsTopics =
-        ref.read(discoverNewsControllerProvider.notifier).trendingNewsTopics;
   }
 
   @override
   Widget build(BuildContext context) {
     final uiState = ref.watch(discoverNewsControllerProvider);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Padding(
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: RefreshIndicator(
             displacement: 0,
             onRefresh: () async {
               await ref
                   .read(discoverNewsControllerProvider.notifier)
-                  .fetchItems();
+                  .fetchItems(isRefresh: true);
             },
             child: Column(
               children: [
@@ -76,7 +73,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
       return const Expanded(child: BuzzWireProgressLoader());
     }
 
-    if (uiState.loadState is Error) {
+    if (uiState.loadState is Error && _areAllItemsEmpty(uiState)) {
       final message = (uiState.loadState as Error).message;
       return Expanded(
         child: BuzzWireEmptyOrErrorScreen.error(
@@ -94,24 +91,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
         children: [
           if (uiState.breakingNewsItems.isNotEmpty)
             _buildBreakingNewsSection(uiState.breakingNewsItems),
-          if (uiState.firstTrendingNewsList.isNotEmpty)
-            _buildTrendingNewsSection(
-              context,
-              trendingNewsTopics[0],
-              uiState.firstTrendingNewsList,
-            ),
-          if (uiState.secondTrendingNewsList.isNotEmpty)
-            _buildTrendingNewsSection(
-              context,
-              trendingNewsTopics[1],
-              uiState.secondTrendingNewsList,
-            ),
-          if (uiState.thirdTrendingNewsList.isNotEmpty)
-            _buildTrendingNewsSection(
-              context,
-              trendingNewsTopics[2],
-              uiState.thirdTrendingNewsList,
-            ),
+          for (var entry in uiState.topicToNewsArticleMap.entries)
+            _buildTrendingNewsSection(context, entry.key, entry.value),
         ],
       ),
     );
@@ -225,7 +206,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   }
 
   void _navToNewsDetailsScreen(ArticleEntity article) {
-    context.pushNamed(BuzzWireRoute.newsDetails.name, extra: article);
+    context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
   }
 
   void _navToNewsByTopicScreen(String topic) {
@@ -234,8 +215,6 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
 
   bool _areAllItemsEmpty(DiscoverNewsState uiState) {
     return uiState.breakingNewsItems.isEmpty &&
-        uiState.firstTrendingNewsList.isEmpty &&
-        uiState.secondTrendingNewsList.isEmpty &&
-        uiState.thirdTrendingNewsList.isEmpty;
+        uiState.topicToNewsArticleMap.isEmpty;
   }
 }

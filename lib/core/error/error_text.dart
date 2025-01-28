@@ -69,4 +69,11 @@ class ErrorText {
       "The service is currently unavailable. Please check your connection and try again.";
   static const String firestoreDataLossError =
       "Data corruption detected. Please contact support immediately.";
+
+  static const String fcmInternalError =
+      "An internal error occurred. Please try again later.";
+  static const String fcmInvalidRegistrationTokenError =
+      "The device token is invalid. Please check your FCM configuration.";
+  static const String fcmTooManyRequestsError =
+      "Too many requests have been sent. Please wait and try again later.";
 }

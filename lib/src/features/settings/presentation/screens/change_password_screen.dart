@@ -1,17 +1,14 @@
 import 'package:buzzwire/core/constants/strings.dart';
-import 'package:buzzwire/core/utils/extensions/bool_extension.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/change_password_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/change_password_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_input_field_header.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -72,14 +69,12 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     _listenToUiState();
 
-    return SafeArea(
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Scaffold(
-          appBar: _buildAppBar(),
-          body: _buildBody(),
-        ),
+    return Form(
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: SafeArea(child: _buildBody()),
       ),
     );
   }

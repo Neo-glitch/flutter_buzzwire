@@ -149,20 +149,16 @@ class SearchNewsController extends _$SearchNewsController {
   }
 
   List<ArticleEntity> _mapArticles(List<ArticleEntity> articles) {
-    return articles
-        .map((article) {
-          final localArticle = state.savedArticles
-              .firstWhereOrNull((element) => article == element);
+    return articles.map((article) {
+      final localArticle =
+          state.savedArticles.firstWhereOrNull((element) => article == element);
 
-          article
-            ..isSaved = localArticle != null
-            ..id = localArticle?.id;
+      article
+        ..isSaved = localArticle != null
+        ..id = localArticle?.id;
 
-          return article;
-        })
-        .filter((article) =>
-            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
-        .toList();
+      return article;
+    }).toList();
   }
 
   void _deleteSearch(DeleteSearchHistoryEvent event) async {

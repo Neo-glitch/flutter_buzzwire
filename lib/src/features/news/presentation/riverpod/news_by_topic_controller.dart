@@ -71,22 +71,17 @@ class NewsByTopicController extends _$NewsByTopicController {
     );
   }
 
-  // todo abstract this functionality in a usecase
   List<ArticleEntity> _mapArticles(List<ArticleEntity> articles) {
-    return articles
-        .map((article) {
-          final localArticle = state.savedArticles
-              .firstWhereOrNull((element) => article == element);
+    return articles.map((article) {
+      final localArticle =
+          state.savedArticles.firstWhereOrNull((element) => article == element);
 
-          article
-            ..isSaved = localArticle != null
-            ..id = localArticle?.id;
+      article
+        ..isSaved = localArticle != null
+        ..id = localArticle?.id;
 
-          return article;
-        })
-        .filter((article) =>
-            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
-        .toList();
+      return article;
+    }).toList();
   }
 
   Future<bool> bookmarkArticle(ArticleEntity article) async {

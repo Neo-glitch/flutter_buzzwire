@@ -9,8 +9,6 @@ class DiscoverNewsState with _$DiscoverNewsState {
   const factory DiscoverNewsState({
     @Default(Empty()) LoadState loadState,
     @Default([]) List<ArticleEntity> breakingNewsItems,
-    @Default([]) List<ArticleEntity> firstTrendingNewsList,
-    @Default([]) List<ArticleEntity> secondTrendingNewsList,
-    @Default([]) List<ArticleEntity> thirdTrendingNewsList,
+    @Default({}) Map<String, List<ArticleEntity>> topicToNewsArticleMap,
   }) = _DiscoverNewsState;
 }

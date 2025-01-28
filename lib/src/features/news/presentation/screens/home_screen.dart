@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
@@ -47,11 +45,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   Widget build(BuildContext context) {
     final cachedUser = ref.watch(homeControllerProvider);
 
-    return SafeArea(
-      child: DefaultTabController(
-        length: categories.length,
-        child: Scaffold(
-          body: ExtendedNestedScrollView(
+    return DefaultTabController(
+      length: categories.length,
+      child: Scaffold(
+        body: SafeArea(
+          child: ExtendedNestedScrollView(
             onlyOneScrollInBody: true,
             floatHeaderSlivers: true,
             // controller: _scrollController,
@@ -88,7 +86,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   context.pushNamed(BuzzWireRoute.editProfile.name),
               icon: BuzzWireCircularImage(
                 radius: 16,
-                imageUrl: cachedUser?.profileImage.orEmpty,
+                imageUrl: cachedUser?.profileImage?.imageUrl.orEmpty,
               ),
             ),
           ],

@@ -1,9 +1,14 @@
+import 'package:buzzwire/core/navigation/transition_factory.dart';
+import 'package:buzzwire/src/features/auth/presentation/signup/screens/preferred_topics_setup_screen.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/home_screen.dart';
+import 'package:buzzwire/src/features/news/presentation/screens/news_detail_screen.dart';
 import 'package:buzzwire/src/features/news/presentation/screens/search_news_screen.dart';
+import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
+import 'package:buzzwire/src/features/settings/presentation/screens/preferred_topics_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +23,7 @@ import '../../src/features/auth/presentation/onboarding/screens/onboarding_scree
 import '../../src/features/auth/presentation/signin/screens/signin_screen.dart';
 import '../../src/features/auth/presentation/signup/screens/signup_screen.dart';
 import '../../src/features/news/presentation/screens/discover_screen.dart';
-import '../../src/features/news/presentation/screens/news_details_screen.dart';
+import '../../src/features/news/presentation/screens/news_detail_webview_screen.dart';
 import '../../src/features/news/presentation/screens/news_webview_screen.dart';
 import '../../src/features/news/presentation/screens/saved_news_screen.dart';
 import '../../src/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -38,8 +43,8 @@ final discoverNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "discover_navigator");
 final savedNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "saved_news_navigator");
-final profileNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: "profle_navigator");
+final settingsNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "settings_navigator");
 // We need to have access to the previous location of the router. Otherwise, we would start from '/' on rebuild.
 GoRouter? _previousRouter;
 
@@ -67,25 +72,37 @@ GoRouter router(RouterRef ref) {
           },
           routes: [
             GoRoute(
+              path: BuzzWireRoute.preferredTopicsSetup.path,
+              name: BuzzWireRoute.preferredTopicsSetup.name,
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) => const PreferredTopicsSetupScreen(),
+              ),
+            ),
+            GoRoute(
               path: BuzzWireRoute.signUp.path,
               name: BuzzWireRoute.signUp.name,
-              builder: (context, state) {
-                return const SignUpScreen();
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) {
+                  final topics = state.extra! as List<TopicEntity>;
+                  return SignUpScreen(
+                    topicsOfInterest: topics,
+                  );
+                },
+              ),
             ),
             GoRoute(
               path: BuzzWireRoute.verifyEmail.path,
               name: BuzzWireRoute.verifyEmail.name,
-              builder: (context, state) {
-                return const EmailVerificationScreen();
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) => const EmailVerificationScreen(),
+              ),
             ),
             GoRoute(
               path: BuzzWireRoute.passwordReset.path,
               name: BuzzWireRoute.passwordReset.name,
-              builder: (context, state) {
-                return const ForgotPasswordScreen();
-              },
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) => const ForgotPasswordScreen(),
+              ),
             )
           ],
         ),
@@ -119,17 +136,19 @@ GoRouter router(RouterRef ref) {
                       GoRoute(
                         path: BuzzWireRoute.searchNews.path,
                         name: BuzzWireRoute.searchNews.name,
-                        builder: (context, state) {
-                          return const SearchNewsScreen();
-                        },
+                        pageBuilder: TransitionFactory.getSlidePageBuilder(
+                          buildPage: (ctx, state) => const SearchNewsScreen(),
+                        ),
                       ),
                       GoRoute(
                         path: BuzzWireRoute.newsByTopic.path,
                         name: BuzzWireRoute.newsByTopic.name,
-                        builder: (context, state) {
-                          final topic = state.extra! as String;
-                          return NewsByTopicScreen(topic: topic);
-                        },
+                        pageBuilder: TransitionFactory.getSlidePageBuilder(
+                          buildPage: (ctx, state) {
+                            final topic = state.extra! as String;
+                            return NewsByTopicScreen(topic: topic);
+                          },
+                        ),
                       ),
                     ])
               ],
@@ -147,7 +166,7 @@ GoRouter router(RouterRef ref) {
               ],
             ),
             StatefulShellBranch(
-              navigatorKey: profileNavigatorKey,
+              navigatorKey: settingsNavigatorKey,
               routes: [
                 GoRoute(
                   path: BuzzWireRoute.settings.path,
@@ -161,40 +180,58 @@ GoRouter router(RouterRef ref) {
           ],
         ),
         GoRoute(
-          path: BuzzWireRoute.newsDetails.path,
-          name: BuzzWireRoute.newsDetails.name,
-          builder: (context, state) {
-            final article = state.extra! as ArticleEntity;
-            return NewsDetailsScreen(article: article);
-          },
-        ),
-        GoRoute(
-          path: BuzzWireRoute.webview.path,
-          name: BuzzWireRoute.webview.name,
-          builder: (context, state) {
-            return const WebViewScreen();
-          },
+          path: BuzzWireRoute.newsDetail.path,
+          name: BuzzWireRoute.newsDetail.name,
+          // builder: (ctx, state) {
+          //   final article = state.extra! as ArticleEntity;
+          //   return NewsDetailScreen(article: article);
+          // },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) {
+              final article = state.extra! as ArticleEntity;
+              return NewsDetailScreen(article: article);
+            },
+          ),
+          routes: [
+            GoRoute(
+              path: BuzzWireRoute.newsDetailWebView.path,
+              name: BuzzWireRoute.newsDetailWebView.name,
+              pageBuilder: TransitionFactory.getSlidePageBuilder(
+                buildPage: (ctx, state) {
+                  final articleUrl = state.extra! as String;
+                  return NewsDetailWebViewScreen(articleUrl: articleUrl);
+                },
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: BuzzWireRoute.editProfile.path,
           name: BuzzWireRoute.editProfile.name,
-          builder: (context, state) {
-            return const EditProfileScreen();
-          },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const EditProfileScreen(),
+          ),
         ),
         GoRoute(
           path: BuzzWireRoute.deleteAccount.path,
           name: BuzzWireRoute.deleteAccount.name,
-          builder: (context, state) {
-            return const DeleteAccountScreen();
-          },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const DeleteAccountScreen(),
+          ),
         ),
         GoRoute(
           path: BuzzWireRoute.changePassword.path,
           name: BuzzWireRoute.changePassword.name,
-          builder: (context, state) {
-            return const ChangePasswordScreen();
-          },
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const ChangePasswordScreen(),
+          ),
+        ),
+        GoRoute(
+          path: BuzzWireRoute.preferredTopics.path,
+          name: BuzzWireRoute.preferredTopics.name,
+          pageBuilder: TransitionFactory.getSlidePageBuilder(
+            buildPage: (ctx, state) => const PreferredTopicsScreen(),
+          ),
         ),
       ],
       redirect: (ctx, state) {

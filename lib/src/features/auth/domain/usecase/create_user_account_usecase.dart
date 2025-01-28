@@ -1,4 +1,3 @@
-import 'package:buzzwire/core/error/error_text.dart';
 import 'package:buzzwire/core/error/failure.dart';
 import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
@@ -17,12 +16,12 @@ class CreateUserAccountUseCase
   Future<Either<Failure, void>> call(CreateUserAccountParam param) async {
     return await profileRepo.createUser(
       UserEntity(
-        userId: param.userId,
-        email: param.email,
-        userName: param.userName,
-        country: param.country,
-        phoneNumber: param.phone,
-      ),
+          userId: param.userId,
+          email: param.email,
+          userName: param.userName,
+          country: param.country,
+          phoneNumber: param.phone,
+          topicsFollowing: param.topicsFollowing),
     );
   }
 }
@@ -31,8 +30,9 @@ class CreateUserAccountParam {
   final String userId;
   final String email;
   final String userName;
-  CountryEntity country;
-  String? phone;
+  final CountryEntity country;
+  final String? phone;
+  final List<String> topicsFollowing;
 
   CreateUserAccountParam({
     required this.userId,
@@ -40,5 +40,6 @@ class CreateUserAccountParam {
     required this.userName,
     required this.country,
     this.phone,
+    required this.topicsFollowing,
   });
 }

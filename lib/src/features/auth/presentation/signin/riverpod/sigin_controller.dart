@@ -6,6 +6,9 @@ import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_u
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
+import 'package:buzzwire/src/features/notification/domain/usecases/save_device_token_usecase.dart';
+import 'package:buzzwire/src/features/notification/domain/usecases/subscribe_to_topic_usecase.dart';
+import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -21,6 +24,9 @@ class SignInController extends _$SignInController {
   late SignOutUseCase _signOut;
   late CheckEmailVerificationStatusUseCase _verifyEmail;
   late FetchAndCacheUserUseCase _fetchAndCacheUser;
+  late SaveDeviceTokenUsecase _saveDeviceTokenUsecase;
+  late GetCachedUserUseCase _getCachedUserUseCase;
+  late SubscribeToTopicUsecase _subscribeToTopicUsecase;
 
   @override
   SigninState build() {
@@ -28,6 +34,9 @@ class SignInController extends _$SignInController {
     _signOut = injector();
     _verifyEmail = injector();
     _fetchAndCacheUser = injector();
+    _saveDeviceTokenUsecase = injector();
+    _getCachedUserUseCase = injector();
+    _subscribeToTopicUsecase = injector();
     return const SigninState();
   }
 
@@ -40,7 +49,7 @@ class SignInController extends _$SignInController {
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
-      (user) async => await _handleUserVerification(user),
+      (user) => _handleUserVerification(user),
     );
   }
 
@@ -51,7 +60,7 @@ class SignInController extends _$SignInController {
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
-      (isVerified) async => await _handleVerificationSuccess(user, isVerified),
+      (isVerified) => _handleVerificationSuccess(user, isVerified),
     );
   }
 
@@ -69,12 +78,25 @@ class SignInController extends _$SignInController {
       (failure) =>
           state = state.copyWith(loadState: Error(message: failure.message)),
       (_) {
-        state = state.copyWith(loadState: const Loaded());
-        ref
-            .read(authControllerProvider.notifier)
-            .setAuthState(AuthStatus.authenticated);
+        _saveDeviceToken(user.uid);
       },
     );
+  }
+
+  Future<void> _saveDeviceToken(String userId) async {
+    await _saveDeviceTokenUsecase(userId);
+    await _subscribeToTopicsOfInterest();
+  }
+
+  Future<void> _subscribeToTopicsOfInterest() async {
+    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
+    for (final topic in user!.topicsFollowing) {
+      await _subscribeToTopicUsecase(topic);
+    }
+    state = state.copyWith(loadState: const Loaded());
+    ref
+        .read(authControllerProvider.notifier)
+        .setAuthState(AuthStatus.authenticated);
   }
 
   void validateEmail(String email) {

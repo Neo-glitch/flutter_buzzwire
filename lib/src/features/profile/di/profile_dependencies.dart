@@ -17,7 +17,7 @@ Future<void> provideProfileDependencies() async {
   injector.registerFactory<ProfileRemoteDataSource>(
     () => ProfileRemoteDataSourceImpl(
       firestoreDb: injector(),
-      supabaseStorage: injector(),
+      appWriteStorage: injector(),
     ),
   );
 

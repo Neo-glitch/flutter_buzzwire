@@ -1,3 +1,4 @@
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/src/features/news/data/mapper/source_mapper.dart';
 import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
@@ -36,7 +37,11 @@ class ArticleMapper {
     for (var article in articles) {
       entities.add(fromArticleModel(article));
     }
-    return entities;
+    // done to filter off removed wrong data
+    return entities
+        .where((article) =>
+            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
+        .toList();
   }
 
   static List<ArticleModel>? fromEntitiesToArticleModel(

@@ -9,7 +9,6 @@ import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -33,16 +32,14 @@ class SavedNewsScreenState extends ConsumerState<SavedNewsScreen> {
   @override
   Widget build(BuildContext context) {
     final uiState = ref.watch(savedNewsControllerProvider);
-    return SafeArea(
-      child: Scaffold(
-        appBar: BuzzWireAppBar(
-          title: Text(
-            "Saved Articles",
-            style: context.titleLarge?.copyWith(fontSize: 20),
-          ),
+    return Scaffold(
+      appBar: BuzzWireAppBar(
+        title: Text(
+          "Saved Articles",
+          style: context.titleLarge?.copyWith(fontSize: 20),
         ),
-        body: _buildBody(uiState),
       ),
+      body: SafeArea(child: _buildBody(uiState)),
     );
   }
 
@@ -51,18 +48,22 @@ class SavedNewsScreenState extends ConsumerState<SavedNewsScreen> {
       return const BuzzWireProgressLoader();
     }
 
-    return _buildContent(uiState.savedArticles);
-  }
-
-  Widget _buildContent(List<ArticleEntity> savedArticles) {
-    if (savedArticles.isEmpty) {
+    if (uiState.loadState is Loaded && uiState.savedArticles.isEmpty) {
       return BuzzWireEmptyOrErrorScreen.empty(
         message:
             "It seems your saved articles list is empty. Explore our collection and save your favorites!",
       );
-    } else {
-      return _buildSavedArticleList(savedArticles);
     }
+
+    if (uiState.loadState is Loaded) {
+      return _buildContent(uiState.savedArticles);
+    }
+
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildContent(List<ArticleEntity> savedArticles) {
+    return _buildSavedArticleList(savedArticles);
   }
 
   Widget _buildSavedArticleList(List<ArticleEntity> savedArticles) {
@@ -79,7 +80,7 @@ class SavedNewsScreenState extends ConsumerState<SavedNewsScreen> {
       article: article,
       onClick: (article) {
         context.pushNamed(
-          BuzzWireRoute.newsDetails.name,
+          BuzzWireRoute.newsDetail.name,
           extra: article,
         );
       },

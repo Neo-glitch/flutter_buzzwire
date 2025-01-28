@@ -55,11 +55,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     _listenToForgotPasswordState();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const BuzzWireAppBar(),
-        body: _buildBody(),
-      ),
+    return Scaffold(
+      appBar: const BuzzWireAppBar(),
+      body: SafeArea(child: _buildBody()),
     );
   }
 
@@ -85,7 +83,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BuzzWireAppIcon(mainAxisAlignment: MainAxisAlignment.center),
             _buildForgotPasswordLogo(),
             const Gap(30),
             _buildHeader(),

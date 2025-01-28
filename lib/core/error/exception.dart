@@ -17,8 +17,8 @@ class FbAuthException extends BaseException {
   FbAuthException({required String message}) : super(message: message);
 }
 
-class FbFirestoreException extends BaseException {
-  FbFirestoreException({required String message}) : super(message: message);
+class FbFirebaseException extends BaseException {
+  FbFirebaseException({required String message}) : super(message: message);
 }
 
 class CacheException extends BaseException {
