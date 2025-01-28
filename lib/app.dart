@@ -50,19 +50,6 @@ class _AppState extends ConsumerState<App> {
           child: child ?? const SizedBox.shrink(),
         );
       },
-      // Uncomment to use splash screen
-      // home: FlutterSplashScreen.fadeIn(
-      //   backgroundColor: BuzzWireDeviceUtils.isDarkMode(context)
-      //       ? BuzzWireColors.dark
-      //       : BuzzWireColors.light,
-      //   duration: const Duration(milliseconds: 2000),
-      //   childWidget: SizedBox(
-      //     height: 200,
-      //     width: 200,
-      //     child: Image.asset(BuzzWireAssets.splashLogo),
-      //   ),
-      //   nextScreen: const OnBoardingScreen(),
-      // ),
       routerConfig: router,
     );
   }
