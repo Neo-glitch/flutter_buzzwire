@@ -1517,8 +1517,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
-<<<<<<< HEAD
-=======
   timezone:
     dependency: transitive
     description:
@@ -1527,7 +1525,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.0"
->>>>>>> adc66699ccbdedbdac5e1b98d37944b1e3ef1412
   timing:
     dependency: transitive
     description:
@@ -1793,10 +1790,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-<<<<<<< HEAD
-  dart: ">=3.4.0 <4.0.0"
-  flutter: ">=3.19.2"
-=======
   dart: ">=3.6.0 <4.0.0"
   flutter: ">=3.24.0"
->>>>>>> adc66699ccbdedbdac5e1b98d37944b1e3ef1412
