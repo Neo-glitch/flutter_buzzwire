@@ -44,6 +44,7 @@ dependencies:
   floor: ^1.4.0
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.2.1
   flutter_local_notifications: ^18.0.1
   flutter_native_splash: ^2.4.0
   flutter_riverpod: ^2.5.1
@@ -105,6 +106,7 @@ flutter:
     - assets/icons/
     - assets/logos/
     - assets/fonts/
+    - .env
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

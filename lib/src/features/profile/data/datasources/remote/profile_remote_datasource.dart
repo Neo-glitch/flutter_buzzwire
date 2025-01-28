@@ -1,12 +1,13 @@
 import 'dart:io';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/constants/app_secrets.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:buzzwire/src/shared/data/model/profile_image_model.dart';
 import 'package:buzzwire/src/shared/data/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<void> createUser(UserModel userModel);
@@ -96,19 +97,24 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<ProfileImageModel> uploadProfileImage(
       UserModel userModel, File image) async {
     try {
+      final appWriteProfileImageBucketId =
+          dotenv.env[BuzzWireAppConstants.appWriteProfileImageBucketId];
+      final appWriteProjectId =
+          dotenv.env[BuzzWireAppConstants.appWriteProjectId];
+      final appWriteBaseUrl = dotenv.env[BuzzWireAppConstants.appWriteBaseUrl];
       final fileId = userModel.profileImage?.fileId.orEmpty;
       final userId = userModel.userId;
       if (await _checkIfFileExists(fileId)) {
         await _deleteFile(fileId!);
       }
       final response = await appWriteStorage.createFile(
-        bucketId: BuzzWireAppConstants.appWriteprofileImageBucketId,
+        bucketId: appWriteProfileImageBucketId.orEmpty,
         fileId: ID.unique(),
         file: InputFile.fromPath(
             path: image.path, filename: "$userId.png", contentType: "image/*"),
       );
       final imageUrl =
-          "${BuzzWireAppConstants.appWriteBaseUrl}/storage/buckets/${BuzzWireAppConstants.appWriteprofileImageBucketId}/files/${response.$id}/preview?project=${AppSecrets.appWriteProjectId}";
+          "$appWriteBaseUrl/storage/buckets/$appWriteProfileImageBucketId/files/${response.$id}/preview?project=$appWriteProjectId";
 
       return ProfileImageModel(fileId: response.$id, imageUrl: imageUrl);
     } catch (e, s) {
@@ -118,18 +124,23 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   Future<void> _deleteFile(String fileId) async {
+    final appWriteProfileImageBucketId =
+        dotenv.env[BuzzWireAppConstants.appWriteProfileImageBucketId];
     await appWriteStorage.deleteFile(
-      bucketId: BuzzWireAppConstants.appWriteprofileImageBucketId,
+      bucketId: appWriteProfileImageBucketId.orEmpty,
       fileId: fileId,
     );
   }
 
   Future<bool> _checkIfFileExists(String? fileId) async {
     try {
+      final appWriteProfileImageBucketId =
+          dotenv.env[BuzzWireAppConstants.appWriteProfileImageBucketId];
+
       if (fileId == null) return false;
 
       await appWriteStorage.getFile(
-        bucketId: BuzzWireAppConstants.appWriteprofileImageBucketId,
+        bucketId: appWriteProfileImageBucketId.orEmpty,
         fileId: fileId,
       );
       return true;
