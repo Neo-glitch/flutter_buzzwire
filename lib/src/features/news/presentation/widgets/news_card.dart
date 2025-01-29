@@ -19,6 +19,22 @@ class NewsCard extends StatefulWidget {
 }
 
 class _NewsCardState extends State<NewsCard> {
+  void _onSaveClick() async {
+    HapticFeedback.mediumImpact();
+    setState(() {
+      widget.article.isSaved = !widget.article.isSaved;
+    });
+
+    if (widget.onSave != null) {
+      final isSuccess = await widget.onSave!(widget.article);
+      if (!isSuccess) {
+        setState(() {
+          widget.article.isSaved = !widget.article.isSaved;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -59,38 +75,8 @@ class _NewsCardState extends State<NewsCard> {
             const SizedBox(height: 2),
             Row(
               children: [
-                Expanded(
-                  child: Text(
-                    widget.article.title.orEmpty,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.bodyMedium
-                        ?.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                ),
-                IconButton(
-                  iconSize: 16,
-                  onPressed: () async {
-                    HapticFeedback.mediumImpact();
-                    setState(() {
-                      widget.article.isSaved = !widget.article.isSaved;
-                    });
-
-                    if (widget.onSave != null) {
-                      final isSuccess = await widget.onSave!(widget.article);
-                      if (!isSuccess) {
-                        setState(() {
-                          widget.article.isSaved = !widget.article.isSaved;
-                        });
-                      }
-                    }
-                  },
-                  icon: FaIcon(
-                    widget.article.isSaved
-                        ? FontAwesomeIcons.solidBookmark
-                        : FontAwesomeIcons.bookmark,
-                  ),
-                ),
+                _buildTitle(),
+                _buildSaveButton(),
               ],
             ),
             const Spacer(),
@@ -103,6 +89,40 @@ class _NewsCardState extends State<NewsCard> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSaveButton() {
+    return IconButton(
+      iconSize: 16,
+      onPressed: _onSaveClick,
+      icon: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: FaIcon(
+          // key is what triggers the animation on it's change
+          key: ValueKey(widget.article.isSaved),
+          widget.article.isSaved
+              ? FontAwesomeIcons.solidBookmark
+              : FontAwesomeIcons.bookmark,
+        ),
+        transitionBuilder: (child, anim) {
+          return ScaleTransition(
+            scale: anim,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildTitle() {
+    return Expanded(
+      child: Text(
+        widget.article.title.orEmpty,
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+        style: context.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
       ),
     );
   }
