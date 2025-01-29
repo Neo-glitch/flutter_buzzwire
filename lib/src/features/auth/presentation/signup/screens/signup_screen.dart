@@ -100,7 +100,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       }
 
       if (next.loadState is Loaded) {
-        context.popUntilPath(BuzzWireRoute.signIn.path);
+        context.popUntilPath(BuzzWireRoute.signInScreen.path);
         context.showToast("A verification email has been sent to you");
       }
     });
@@ -302,8 +302,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   fontWeight: FontWeight.w700,
                 ),
                 recognizer: TapGestureRecognizer()
-                  ..onTap =
-                      () => context.popUntilPath(BuzzWireRoute.signIn.path),
+                  ..onTap = () =>
+                      context.popUntilPath(BuzzWireRoute.signInScreen.path),
               ),
             ],
           ),

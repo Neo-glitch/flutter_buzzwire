@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/navigation/app_router.dart';
 import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/usecase/usecase.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';
@@ -11,7 +10,6 @@ import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/notification/data/model/notification_type.dart';
 import 'package:buzzwire/src/features/notification/domain/repository/notification_repository.dart';
 import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
-import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -179,7 +177,7 @@ class BuzzWireMessagingService {
           // Navigate to the details screen
           WidgetsBinding.instance.addPostFrameCallback((duration) {
             GoRouter.of(context)
-                .pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
+                .pushNamed(BuzzWireRoute.newsDetailScreen.name, extra: article);
           });
         }
       }

@@ -42,7 +42,7 @@ class _TopicsFollowingSetupScreenState
   }
 
   void _navigateToSignUpPage(List<TopicEntity> selectedTopics) {
-    context.pushNamed(BuzzWireRoute.signUp.name, extra: selectedTopics);
+    context.pushNamed(BuzzWireRoute.signUpScreen.name, extra: selectedTopics);
   }
 
   @override

@@ -1,4 +1,8 @@
+import 'package:buzzwire/core/navigation/dialog_page.dart';
 import 'package:buzzwire/core/navigation/transition_factory.dart';
+import 'package:buzzwire/core/utils/helpers/firebase_remote_config_helper.dart';
+import 'package:buzzwire/core/utils/helpers/package_info_helper.dart';
+import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/screens/preferred_topics_setup_screen.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_screen.dart';
@@ -9,6 +13,7 @@ import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.da
 import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/preferred_topics_screen.dart';
+import 'package:buzzwire/src/shared/presentation/screens/force_update_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -60,27 +65,27 @@ GoRouter router(RouterRef ref) {
           _previousRouter?.routerDelegate.currentConfiguration.fullPath,
       routes: [
         GoRoute(
-          path: BuzzWireRoute.onBoarding.path,
-          name: BuzzWireRoute.onBoarding.name,
+          path: BuzzWireRoute.onBoardingScreen.path,
+          name: BuzzWireRoute.onBoardingScreen.name,
           builder: (context, state) => const OnBoardingScreen(),
         ),
         GoRoute(
-          path: BuzzWireRoute.signIn.path,
-          name: BuzzWireRoute.signIn.name,
+          path: BuzzWireRoute.signInScreen.path,
+          name: BuzzWireRoute.signInScreen.name,
           builder: (context, state) {
             return const SignInScreen();
           },
           routes: [
             GoRoute(
-              path: BuzzWireRoute.preferredTopicsSetup.path,
-              name: BuzzWireRoute.preferredTopicsSetup.name,
+              path: BuzzWireRoute.preferredTopicsSetupScreen.path,
+              name: BuzzWireRoute.preferredTopicsSetupScreen.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
                 buildPage: (ctx, state) => const PreferredTopicsSetupScreen(),
               ),
             ),
             GoRoute(
-              path: BuzzWireRoute.signUp.path,
-              name: BuzzWireRoute.signUp.name,
+              path: BuzzWireRoute.signUpScreen.path,
+              name: BuzzWireRoute.signUpScreen.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
                 buildPage: (ctx, state) {
                   final topics = state.extra! as List<TopicEntity>;
@@ -91,15 +96,15 @@ GoRouter router(RouterRef ref) {
               ),
             ),
             GoRoute(
-              path: BuzzWireRoute.verifyEmail.path,
-              name: BuzzWireRoute.verifyEmail.name,
+              path: BuzzWireRoute.verifyEmailScreen.path,
+              name: BuzzWireRoute.verifyEmailScreen.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
                 buildPage: (ctx, state) => const EmailVerificationScreen(),
               ),
             ),
             GoRoute(
-              path: BuzzWireRoute.passwordReset.path,
-              name: BuzzWireRoute.passwordReset.name,
+              path: BuzzWireRoute.passwordResetScreen.path,
+              name: BuzzWireRoute.passwordResetScreen.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
                 buildPage: (ctx, state) => const ForgotPasswordScreen(),
               ),
@@ -115,8 +120,8 @@ GoRouter router(RouterRef ref) {
               navigatorKey: homeNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.home.path,
-                  name: BuzzWireRoute.home.name,
+                  path: BuzzWireRoute.homeScreen.path,
+                  name: BuzzWireRoute.homeScreen.name,
                   builder: (context, state) {
                     return const HomeScreen();
                   },
@@ -127,22 +132,22 @@ GoRouter router(RouterRef ref) {
               navigatorKey: discoverNavigatorKey,
               routes: [
                 GoRoute(
-                    path: BuzzWireRoute.discover.path,
-                    name: BuzzWireRoute.discover.name,
+                    path: BuzzWireRoute.discoverScreen.path,
+                    name: BuzzWireRoute.discoverScreen.name,
                     builder: (context, state) {
                       return const DiscoverScreen();
                     },
                     routes: [
                       GoRoute(
-                        path: BuzzWireRoute.searchNews.path,
-                        name: BuzzWireRoute.searchNews.name,
+                        path: BuzzWireRoute.searchNewsScreen.path,
+                        name: BuzzWireRoute.searchNewsScreen.name,
                         pageBuilder: TransitionFactory.getSlidePageBuilder(
                           buildPage: (ctx, state) => const SearchNewsScreen(),
                         ),
                       ),
                       GoRoute(
-                        path: BuzzWireRoute.newsByTopic.path,
-                        name: BuzzWireRoute.newsByTopic.name,
+                        path: BuzzWireRoute.newsByTopicScreen.path,
+                        name: BuzzWireRoute.newsByTopicScreen.name,
                         pageBuilder: TransitionFactory.getSlidePageBuilder(
                           buildPage: (ctx, state) {
                             final topic = state.extra! as String;
@@ -157,8 +162,8 @@ GoRouter router(RouterRef ref) {
               navigatorKey: savedNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.savedNews.path,
-                  name: BuzzWireRoute.savedNews.name,
+                  path: BuzzWireRoute.savedNewsScreen.path,
+                  name: BuzzWireRoute.savedNewsScreen.name,
                   builder: (context, state) {
                     return const SavedNewsScreen();
                   },
@@ -169,8 +174,8 @@ GoRouter router(RouterRef ref) {
               navigatorKey: settingsNavigatorKey,
               routes: [
                 GoRoute(
-                  path: BuzzWireRoute.settings.path,
-                  name: BuzzWireRoute.settings.name,
+                  path: BuzzWireRoute.settingsScreen.path,
+                  name: BuzzWireRoute.settingsScreen.name,
                   builder: (context, state) {
                     return const SettingsScreen();
                   },
@@ -180,8 +185,8 @@ GoRouter router(RouterRef ref) {
           ],
         ),
         GoRoute(
-          path: BuzzWireRoute.newsDetail.path,
-          name: BuzzWireRoute.newsDetail.name,
+          path: BuzzWireRoute.newsDetailScreen.path,
+          name: BuzzWireRoute.newsDetailScreen.name,
           // builder: (ctx, state) {
           //   final article = state.extra! as ArticleEntity;
           //   return NewsDetailScreen(article: article);
@@ -194,8 +199,8 @@ GoRouter router(RouterRef ref) {
           ),
           routes: [
             GoRoute(
-              path: BuzzWireRoute.newsDetailWebView.path,
-              name: BuzzWireRoute.newsDetailWebView.name,
+              path: BuzzWireRoute.newsDetailWebViewScreen.path,
+              name: BuzzWireRoute.newsDetailWebViewScreen.name,
               pageBuilder: TransitionFactory.getSlidePageBuilder(
                 buildPage: (ctx, state) {
                   final articleUrl = state.extra! as String;
@@ -206,57 +211,79 @@ GoRouter router(RouterRef ref) {
           ],
         ),
         GoRoute(
-          path: BuzzWireRoute.editProfile.path,
-          name: BuzzWireRoute.editProfile.name,
+          path: BuzzWireRoute.editProfileScreen.path,
+          name: BuzzWireRoute.editProfileScreen.name,
           pageBuilder: TransitionFactory.getSlidePageBuilder(
             buildPage: (ctx, state) => const EditProfileScreen(),
           ),
         ),
         GoRoute(
-          path: BuzzWireRoute.deleteAccount.path,
-          name: BuzzWireRoute.deleteAccount.name,
+          path: BuzzWireRoute.deleteAccountScreen.path,
+          name: BuzzWireRoute.deleteAccountScreen.name,
           pageBuilder: TransitionFactory.getSlidePageBuilder(
             buildPage: (ctx, state) => const DeleteAccountScreen(),
           ),
         ),
         GoRoute(
-          path: BuzzWireRoute.changePassword.path,
-          name: BuzzWireRoute.changePassword.name,
+          path: BuzzWireRoute.changePasswordScreen.path,
+          name: BuzzWireRoute.changePasswordScreen.name,
           pageBuilder: TransitionFactory.getSlidePageBuilder(
             buildPage: (ctx, state) => const ChangePasswordScreen(),
           ),
         ),
         GoRoute(
-          path: BuzzWireRoute.preferredTopics.path,
-          name: BuzzWireRoute.preferredTopics.name,
+          path: BuzzWireRoute.preferredTopicsScreen.path,
+          name: BuzzWireRoute.preferredTopicsScreen.name,
           pageBuilder: TransitionFactory.getSlidePageBuilder(
             buildPage: (ctx, state) => const PreferredTopicsScreen(),
           ),
         ),
+        GoRoute(
+          path: BuzzWireRoute.forceUpdateDialog.path,
+          name: BuzzWireRoute.forceUpdateDialog.name,
+          pageBuilder: (ctx, state) {
+            return DialogPage(
+              useSafeArea: false,
+              builder: (_) => const ForceUpdateDialog(),
+            );
+          },
+        ),
       ],
       redirect: (ctx, state) {
+        final packageInfoHelper = injector.get<PackageInfoHelper>();
+        final firebaseRemoteConfigHelper =
+            injector.get<FirebaseRemoteConfigHelper>();
         final hasOpenedApp = appEntryState == true;
         // final inLoginScreen =
         //     state.matchedLocation == BuzzWireRoute.signIn.path;
         final inLoginRoute =
-            state.matchedLocation.startsWith(BuzzWireRoute.signIn.path);
+            state.matchedLocation.startsWith(BuzzWireRoute.signInScreen.path);
         final isLoggedIn = authState.authStatus == AuthStatus.authenticated;
 
         // hasn't gotten past onboarding screen
         if (!hasOpenedApp) {
-          return BuzzWireRoute.onBoarding.path;
+          return BuzzWireRoute.onBoardingScreen.path;
+        }
+
+        if (packageInfoHelper.packageInfo != null) {
+          final buildNumber =
+              int.parse(packageInfoHelper.packageInfo!.buildNumber);
+          final minAppVersion = firebaseRemoteConfigHelper.minAppVerision;
+          if (buildNumber < minAppVersion) {
+            return BuzzWireRoute.forceUpdateDialog.path;
+          }
         }
 
         // not logged in and not in signin, signup, reset password, or verify email screen
         if (!isLoggedIn) {
           // return inLoginRoute ? null : BuzzWireRoute.signIn.path;
-          return inLoginRoute ? null : BuzzWireRoute.signIn.path;
+          return inLoginRoute ? null : BuzzWireRoute.signInScreen.path;
         }
 
         // user is logged in and still in signin, signup, reset password, or verify email screen
         if (isLoggedIn) {
           if (inLoginRoute) {
-            return BuzzWireRoute.home.path;
+            return BuzzWireRoute.homeScreen.path;
           }
         }
 

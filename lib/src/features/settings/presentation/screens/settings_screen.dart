@@ -134,7 +134,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           children: [
             SettingsTile(
               title: BuzzWireStrings.profile,
-              onClick: () => context.pushNamed(BuzzWireRoute.editProfile.name),
+              onClick: () =>
+                  context.pushNamed(BuzzWireRoute.editProfileScreen.name),
             ),
             const BuzzWireDivider(),
             SettingsTile(
@@ -145,7 +146,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             SettingsTile(
               title: BuzzWireStrings.changePassword,
               onClick: () =>
-                  context.pushNamed(BuzzWireRoute.changePassword.name),
+                  context.pushNamed(BuzzWireRoute.changePasswordScreen.name),
             ),
           ],
         ),
@@ -169,7 +170,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             SettingsTile(
               title: BuzzWireStrings.interests,
               onClick: () =>
-                  context.pushNamed(BuzzWireRoute.preferredTopics.name),
+                  context.pushNamed(BuzzWireRoute.preferredTopicsScreen.name),
             ),
           ],
         ),
@@ -196,7 +197,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             SettingsTile(
               title: BuzzWireStrings.deleteAccount,
               onClick: () => context.pushNamed(
-                BuzzWireRoute.deleteAccount.name,
+                BuzzWireRoute.deleteAccountScreen.name,
               ),
             ),
           ],

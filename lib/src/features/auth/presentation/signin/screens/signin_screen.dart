@@ -151,7 +151,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     return Align(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () => context.pushNamed(BuzzWireRoute.passwordReset.name),
+        onPressed: () =>
+            context.pushNamed(BuzzWireRoute.passwordResetScreen.name),
         child: const Text("Forgot Password"),
       ),
     );
@@ -180,13 +181,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               "Don't have an account? ",
               "Create an Account",
               // () => context.pushNamed(BuzzWireRoute.signUp.name),
-              () => context.pushNamed(BuzzWireRoute.preferredTopicsSetup.name),
+              () => context
+                  .pushNamed(BuzzWireRoute.preferredTopicsSetupScreen.name),
             ),
             const Gap(2),
             _buildRichText(
               "Email not verified? ",
               "Verify email",
-              () => context.pushNamed(BuzzWireRoute.verifyEmail.name),
+              () => context.pushNamed(BuzzWireRoute.verifyEmailScreen.name),
             ),
           ],
         ),

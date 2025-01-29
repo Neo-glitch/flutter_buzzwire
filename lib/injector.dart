@@ -1,7 +1,9 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/constants/app_secrets.dart';
 import 'package:buzzwire/core/network/dio/dio_client.dart';
 import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/utils/helpers/firebase_remote_config_helper.dart';
+import 'package:buzzwire/core/utils/helpers/package_info_helper.dart';
 import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
 import 'package:buzzwire/src/features/auth/di/auth_dependcies.dart';
 import 'package:buzzwire/src/features/news/di/news_dependencies.dart';
@@ -20,7 +22,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:appwrite/appwrite.dart';
 
 final injector = GetIt.instance;
 
@@ -28,12 +29,16 @@ Future<void> init() async {
   final pref = await SharedPreferences.getInstance();
   final appDatabase =
       await $FloorAppDatabase.databaseBuilder("app_database.db").build();
-  final appWriteBaseUrl = dotenv.env[BuzzWireAppConstants.appWriteBaseUrl];
-  final appWriteProjectId = dotenv.env[BuzzWireAppConstants.appWriteProjectId];
+
+  final firebaseRemoteConfigHelper = FirebaseRemoteConfigHelper();
+  await firebaseRemoteConfigHelper.init();
+
+  final packageInfoHelper = PackageInfoHelper();
+  await packageInfoHelper.init();
 
   final appWriteClient = Client()
-      .setEndpoint(appWriteBaseUrl.orEmpty)
-      .setProject(appWriteProjectId);
+      .setEndpoint(dotenv.env[BuzzWireAppConstants.appWriteBaseUrl].orEmpty)
+      .setProject(dotenv.env[BuzzWireAppConstants.appWriteProjectId]);
 
   injector.registerLazySingleton<AppDatabase>(() => appDatabase);
   injector.registerLazySingleton<BuzzWireSharedPref>(
@@ -50,6 +55,9 @@ Future<void> init() async {
   injector.registerLazySingleton<InternetConnectionChecker>(
       () => InternetConnectionChecker());
   injector.registerLazySingleton<Storage>(() => Storage(appWriteClient));
+  injector.registerLazySingleton<FirebaseRemoteConfigHelper>(
+      () => firebaseRemoteConfigHelper);
+  injector.registerLazySingleton<PackageInfoHelper>(() => packageInfoHelper);
 
   await provideSharedDependencies();
   await provideAuthDependencies();

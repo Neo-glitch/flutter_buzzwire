@@ -103,7 +103,7 @@ class _HomeNewsPageState extends ConsumerState<HomeNewsPage> {
         article: article,
         onClick: (article) {
           context.pushNamed(
-            BuzzWireRoute.newsDetail.name,
+            BuzzWireRoute.newsDetailScreen.name,
             extra: article,
           );
         },

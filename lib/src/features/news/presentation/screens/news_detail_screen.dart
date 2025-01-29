@@ -24,7 +24,7 @@ class NewsDetailScreen extends ConsumerWidget {
   });
 
   void _navigateToNewsDetailWebViewScreen(BuildContext context) {
-    context.pushNamed(BuzzWireRoute.newsDetailWebView.name,
+    context.pushNamed(BuzzWireRoute.newsDetailWebViewScreen.name,
         extra: article.articleUrl.orEmpty);
   }
 

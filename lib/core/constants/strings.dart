@@ -80,6 +80,12 @@ class BuzzWireStrings {
   static const String readFullArticle = "Read full article";
   static const String chooseTopicsOfInterestDesc =
       "Choose the topics you care about most, and we’ll tailor your news feed to match your interests. Stay updated on what matters to you!";
+  static const String newUpdateIsAvailable = "New Update is Available";
+  static const String updateYourApplicationToTheLatestVersion =
+      "Update your application to the latest version";
+  static const String updateApplicationDialogDesc =
+      "A brand new version of the BuzzWire app is available in the App Store. Please update your app to use all of our amazing features";
+  static const String updateNow = "Update Now!";
 
   // fontFamily
   static const String poppins = "Poppins";

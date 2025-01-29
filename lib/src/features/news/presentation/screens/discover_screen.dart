@@ -103,7 +103,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: BuzzWireSearchBar(
         onTap: () {
-          context.pushNamed(BuzzWireRoute.searchNews.name);
+          context.pushNamed(BuzzWireRoute.searchNewsScreen.name);
         },
         hintText: "What are you looking for today?",
       ),
@@ -206,11 +206,11 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   }
 
   void _navToNewsDetailsScreen(ArticleEntity article) {
-    context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
+    context.pushNamed(BuzzWireRoute.newsDetailScreen.name, extra: article);
   }
 
   void _navToNewsByTopicScreen(String topic) {
-    context.pushNamed(BuzzWireRoute.newsByTopic.name, extra: topic);
+    context.pushNamed(BuzzWireRoute.newsByTopicScreen.name, extra: topic);
   }
 
   bool _areAllItemsEmpty(DiscoverNewsState uiState) {
