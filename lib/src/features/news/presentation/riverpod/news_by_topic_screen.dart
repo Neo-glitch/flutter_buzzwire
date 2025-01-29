@@ -113,8 +113,8 @@ class _NewsByTopicScreenState extends ConsumerState<NewsByTopicScreen> {
         final article = uiState.articles[idx];
         return NewsCard(
           article: article,
-          onClick: (article) =>
-              context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article),
+          onClick: (article) => context
+              .pushNamed(BuzzWireRoute.newsDetailScreen.name, extra: article),
           onSave: _onSaveClick,
         );
       },

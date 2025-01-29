@@ -1,4 +1,3 @@
-import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
 import 'package:flutter/material.dart';

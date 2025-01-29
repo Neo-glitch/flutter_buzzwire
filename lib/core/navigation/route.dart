@@ -18,44 +18,48 @@ class BuzzWireRoute {
   BuzzWireRoute({required this.path, required this.name});
 
   // auth
-  static BuzzWireRoute onBoarding =
-      BuzzWireRoute(path: "/onboarding", name: "onboarding");
-  static BuzzWireRoute signIn =
-      BuzzWireRoute(path: "/sign_in", name: "sign_in");
-  static BuzzWireRoute signUp = BuzzWireRoute(path: "sign_up", name: "sign_up");
-  static BuzzWireRoute preferredTopicsSetup = BuzzWireRoute(
-      path: "preferred_topics_setup", name: "preferred_topics_setup");
-  static BuzzWireRoute verifyEmail =
-      BuzzWireRoute(path: "verify_email", name: "verify_email");
-  static BuzzWireRoute passwordReset =
-      BuzzWireRoute(path: "password_reset", name: "password_reset");
+  static BuzzWireRoute onBoardingScreen =
+      BuzzWireRoute(path: "/onboarding", name: "onboarding_screen");
+  static BuzzWireRoute signInScreen =
+      BuzzWireRoute(path: "/sign_in", name: "sign_in_screen");
+  static BuzzWireRoute signUpScreen =
+      BuzzWireRoute(path: "sign_up", name: "sign_up_screen");
+  static BuzzWireRoute preferredTopicsSetupScreen = BuzzWireRoute(
+      path: "preferred_topics_setup", name: "preferred_topics_setup_screen");
+  static BuzzWireRoute verifyEmailScreen =
+      BuzzWireRoute(path: "verify_email", name: "verify_email_screen");
+  static BuzzWireRoute passwordResetScreen =
+      BuzzWireRoute(path: "password_reset", name: "password_reset_screen");
 
-  static BuzzWireRoute home = BuzzWireRoute(path: "/", name: "home");
-  static BuzzWireRoute discover =
-      BuzzWireRoute(path: "/discover", name: "discover");
-  static BuzzWireRoute newsByTopic =
-      BuzzWireRoute(path: "news_by_topic", name: "news_by_topic");
-  static BuzzWireRoute searchNews =
-      BuzzWireRoute(path: "search_news", name: "search_news");
-  static BuzzWireRoute savedNews =
-      BuzzWireRoute(path: "/saved_news", name: "saved_news");
-  static BuzzWireRoute editProfile =
-      BuzzWireRoute(path: "/edit_profile", name: "edit_profile");
-  static BuzzWireRoute deleteAccount =
-      BuzzWireRoute(path: "/delete_account", name: "delete_account");
-  static BuzzWireRoute changePassword =
-      BuzzWireRoute(path: "/change_password", name: "change_password");
+  static BuzzWireRoute homeScreen =
+      BuzzWireRoute(path: "/", name: "home_screen");
+  static BuzzWireRoute discoverScreen =
+      BuzzWireRoute(path: "/discover", name: "discover_screen");
+  static BuzzWireRoute newsByTopicScreen =
+      BuzzWireRoute(path: "news_by_topic", name: "news_by_topic_screen");
+  static BuzzWireRoute searchNewsScreen =
+      BuzzWireRoute(path: "search_news", name: "search_news_screen");
+  static BuzzWireRoute savedNewsScreen =
+      BuzzWireRoute(path: "/saved_news", name: "saved_news_screen");
+  static BuzzWireRoute editProfileScreen =
+      BuzzWireRoute(path: "/edit_profile", name: "edit_profile_screen");
+  static BuzzWireRoute deleteAccountScreen =
+      BuzzWireRoute(path: "/delete_account", name: "delete_account_screen");
+  static BuzzWireRoute changePasswordScreen =
+      BuzzWireRoute(path: "/change_password", name: "change_password_screen");
 
-  static BuzzWireRoute newsDetail =
-      BuzzWireRoute(path: "/news_details", name: "news_details");
+  static BuzzWireRoute newsDetailScreen =
+      BuzzWireRoute(path: "/news_details", name: "news_details_screen");
 
-  static BuzzWireRoute newsDetailWebView =
-      BuzzWireRoute(path: "news_details_webview", name: "news_details_webview");
+  static BuzzWireRoute newsDetailWebViewScreen = BuzzWireRoute(
+      path: "news_details_webview", name: "news_details_webview_screen");
 
   static BuzzWireRoute webview =
       BuzzWireRoute(path: "/webview", name: "webview");
-  static BuzzWireRoute settings =
-      BuzzWireRoute(path: "/settings", name: "settings");
-  static BuzzWireRoute preferredTopics =
-      BuzzWireRoute(path: "/preferred_topics", name: "/preferred_topics");
+  static BuzzWireRoute settingsScreen =
+      BuzzWireRoute(path: "/settings", name: "settings_screen");
+  static BuzzWireRoute preferredTopicsScreen =
+      BuzzWireRoute(path: "/preferred_topics", name: "preferred_topics_screen");
+  static BuzzWireRoute forceUpdateDialog =
+      BuzzWireRoute(path: "/force_update", name: "force_update_dialog");
 }

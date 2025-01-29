@@ -205,7 +205,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
     ref
         .read(searchNewsControllerProvider.notifier)
         .onEvent(SaveSearchHistoryEvent(article: article));
-    context.pushNamed(BuzzWireRoute.newsDetail.name, extra: article);
+    context.pushNamed(BuzzWireRoute.newsDetailScreen.name, extra: article);
   }
 
   Future<bool> _bookmarkArticle(ArticleEntity article) async {

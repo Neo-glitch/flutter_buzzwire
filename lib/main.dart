@@ -1,3 +1,5 @@
+import 'package:buzzwire/core/utils/helpers/firebase_remote_config_helper.dart';
+import 'package:buzzwire/core/utils/helpers/package_info_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +29,11 @@ void main() async {
   } catch (e) {
     throw Exception('Error loading .env file: $e');
   }
-  await di.init();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await di.init();
   runApp(
     ProviderScope(
       observers: [

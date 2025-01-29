@@ -83,7 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           actions: [
             IconButton(
               onPressed: () =>
-                  context.pushNamed(BuzzWireRoute.editProfile.name),
+                  context.pushNamed(BuzzWireRoute.editProfileScreen.name),
               icon: BuzzWireCircularImage(
                 radius: 16,
                 imageUrl: cachedUser?.profileImage?.imageUrl.orEmpty,
