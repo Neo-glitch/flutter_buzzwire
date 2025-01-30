@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:942678162515:android:dc57c8ccae56f7c03cdaa6",
+        "mobilesdk_app_id": "1:942678162515:android:579c8b3abc63e5f53cdaa6",
         "android_client_info": {
-          "package_name": "com.buzzwire.buzzwire"
+          "package_name": "com.buzzwire.app"
         }
       },
       "oauth_client": [],
@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:942678162515:android:a31f816350d9a17f3cdaa6",
+        "mobilesdk_app_id": "1:942678162515:android:dc57c8ccae56f7c03cdaa6",
         "android_client_info": {
-          "package_name": "com.example.buzzwire"
+          "package_name": "com.buzzwire.buzzwire"
         }
       },
       "oauth_client": [],
