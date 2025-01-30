@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:gap/gap.dart';
 
 class BuzzWireProgressButton extends StatelessWidget {
   final Widget text;
@@ -30,8 +29,7 @@ class BuzzWireProgressButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          text,
-          const Gap(4),
+          if (!isLoading) text,
           if (isLoading)
             const SpinKitWave(
               color: Colors.white,
