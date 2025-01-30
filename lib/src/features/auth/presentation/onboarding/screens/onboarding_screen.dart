@@ -1,17 +1,14 @@
-import 'package:buzzwire/core/navigation/route.dart';
 import 'package:buzzwire/src/features/auth/presentation/onboarding/riverpod/onboarding_state.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../../../core/utils/device/device_utility.dart';
 import '../../../../../../core/utils/extensions/context_extension.dart';
 import '../../app_entry/app_entry_controller.dart';
 import '../onboarding_item.dart';
 import '../riverpod/onboarding_controller.dart';
 import '../widgets/onboarding_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends ConsumerStatefulWidget {
   const OnBoardingScreen({super.key});

@@ -1,6 +1,7 @@
 import 'package:buzzwire/src/features/news/domain/entity/source_entity.dart';
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class ArticleEntity extends Equatable {
   int? id;
   final SourceEntity? source;

@@ -15,7 +15,6 @@ import 'package:buzzwire/src/features/search_history/domain/usecase/delete_searc
 import 'package:buzzwire/src/features/search_history/domain/usecase/get_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/save_search_history_usecase.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'search_news_controller.g.dart';

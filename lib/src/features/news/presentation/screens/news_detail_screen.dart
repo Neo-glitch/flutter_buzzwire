@@ -29,10 +29,12 @@ class NewsDetailScreen extends ConsumerWidget {
   }
 
   void _shareArticle() async {
+    HapticFeedback.mediumImpact();
     await Share.share(article.articleUrl.orEmpty);
   }
 
   void _saveOrUnSaveArticle(WidgetRef ref) {
+    HapticFeedback.mediumImpact();
     ref
         .read(newsDetailControllerProvider(article).notifier)
         .saveOrUnsaveNewsArticle();
@@ -111,18 +113,24 @@ class NewsDetailScreen extends ConsumerWidget {
       actions: [
         IconButton(
           iconSize: 20,
-          onPressed: () {
-            HapticFeedback.mediumImpact();
-            _saveOrUnSaveArticle(ref);
-          },
-          icon: FaIcon(icon),
+          onPressed: () => _saveOrUnSaveArticle(ref),
+          icon: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: FaIcon(
+              key: ValueKey(uiState.article?.isSaved == true),
+              icon,
+            ),
+            transitionBuilder: (child, anim) {
+              return ScaleTransition(
+                scale: anim,
+                child: child,
+              );
+            },
+          ),
         ),
         IconButton(
           iconSize: 20,
-          onPressed: () {
-            HapticFeedback.mediumImpact();
-            _shareArticle();
-          },
+          onPressed: () => _shareArticle(),
           icon: const FaIcon(FontAwesomeIcons.retweet),
         ),
       ],

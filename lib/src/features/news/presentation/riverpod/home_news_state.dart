@@ -1,6 +1,5 @@
-import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
+import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_news_state.freezed.dart';

@@ -110,7 +110,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     );
   }
 
-  Column _buildTrendingNewsSection(
+  Widget _buildTrendingNewsSection(
     BuildContext context,
     String topic,
     List<ArticleEntity> articles,
@@ -138,7 +138,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
     );
   }
 
-  Row _buildTrendingNewsSectionHeader(String topic) {
+  Widget _buildTrendingNewsSectionHeader(String topic) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
