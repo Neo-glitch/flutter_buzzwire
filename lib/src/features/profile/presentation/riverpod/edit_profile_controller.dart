@@ -48,7 +48,7 @@ class EditProfileController extends _$EditProfileController {
   }
 
   void setCountry(CountryEntity country) {
-    final canResubmitCountry = country.name != state.user?.country?.name;
+    final canResubmitCountry = country.name != state.user?.country.name;
     state = state.copyWith(
         canResubmitCountry: canResubmitCountry, newCountry: country);
   }

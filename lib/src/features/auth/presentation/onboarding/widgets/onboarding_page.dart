@@ -23,7 +23,7 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     super.initState();
     _animController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 700),
       lowerBound: 0,
       upperBound: 1,
     );

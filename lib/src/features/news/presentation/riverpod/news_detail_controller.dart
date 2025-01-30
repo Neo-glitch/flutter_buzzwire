@@ -1,4 +1,3 @@
-import 'package:buzzwire/core/utils/extensions/bool_extension.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';

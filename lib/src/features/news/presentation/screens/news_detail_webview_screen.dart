@@ -1,5 +1,4 @@
 import 'package:buzzwire/core/error/error_text.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_webview_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_webview_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';

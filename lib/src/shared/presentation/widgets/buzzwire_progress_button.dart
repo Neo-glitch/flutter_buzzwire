@@ -1,5 +1,3 @@
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';

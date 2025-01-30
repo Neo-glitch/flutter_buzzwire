@@ -1,6 +1,6 @@
-import '../error/failure.dart';
-import '../utils/resource.dart';
 import 'package:fpdart/fpdart.dart';
+
+import '../error/failure.dart';
 
 abstract class UseCaseFuture<SuccessType, Params> {
   Future<Either<Failure, SuccessType>> call(Params param);

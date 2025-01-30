@@ -9,7 +9,6 @@ import 'package:buzzwire/src/features/profile/data/datasources/remote/profile_re
 import 'package:buzzwire/src/features/profile/data/mapper/profile_image_mapper.dart';
 import 'package:buzzwire/src/features/profile/data/mapper/user_mapper.dart';
 import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
-import 'package:buzzwire/src/shared/data/model/user_model.dart';
 import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:fpdart/fpdart.dart';

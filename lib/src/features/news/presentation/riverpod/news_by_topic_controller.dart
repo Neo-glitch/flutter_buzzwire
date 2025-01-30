@@ -10,7 +10,6 @@ import 'package:buzzwire/src/features/news/domain/usecases/get_saved_articles_us
 import 'package:buzzwire/src/features/news/domain/usecases/save_article_usecase.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'news_by_topic_controller.g.dart';

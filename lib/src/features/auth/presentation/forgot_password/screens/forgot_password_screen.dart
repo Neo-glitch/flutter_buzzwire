@@ -8,7 +8,6 @@ import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_state.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';

@@ -2,6 +2,7 @@ import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class UserEntity extends Equatable {
   final String userId;
   final String email;
