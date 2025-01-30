@@ -128,6 +128,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TrendingNewsList(
             itemWidth: 200,
+            itemPlaceHolderSize: 80,
             articles: articles,
             onItemClick: (article) {
               _navToNewsDetailsScreen(article);

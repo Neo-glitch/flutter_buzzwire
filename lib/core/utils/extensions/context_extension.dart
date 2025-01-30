@@ -53,7 +53,7 @@ extension ContextExtension<T> on BuildContext {
         SnackBar(
           backgroundColor: BuzzWireColors.darkerGrey,
           behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 3),
+          duration: const Duration(seconds: 2),
           showCloseIcon: true,
           dismissDirection: DismissDirection.horizontal,
           closeIconColor: secondaryColor,

@@ -3,14 +3,17 @@ import 'package:buzzwire/src/features/news/presentation/widgets/trending_news_ca
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+// ignore: must_be_immutable
 class TrendingNewsList extends StatelessWidget {
   final double itemWidth;
+  double? itemPlaceHolderSize;
   final List<ArticleEntity> articles;
   final void Function(ArticleEntity) onItemClick;
 
-  const TrendingNewsList({
+  TrendingNewsList({
     super.key,
     required this.itemWidth,
+    this.itemPlaceHolderSize,
     required this.articles,
     required this.onItemClick,
   });
@@ -28,6 +31,7 @@ class TrendingNewsList extends StatelessWidget {
           },
           child: TrendingNewsCard(
             width: itemWidth,
+            placeHolderSize: itemPlaceHolderSize,
             article: article,
           ),
         );

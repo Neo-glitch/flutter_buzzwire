@@ -8,10 +8,13 @@ import 'package:gap/gap.dart';
 
 class TrendingNewsCard extends StatelessWidget {
   final double width;
+  final double? placeHolderSize;
   final ArticleEntity article;
+
   const TrendingNewsCard({
     super.key,
     required this.width,
+    this.placeHolderSize,
     required this.article,
   });
 
@@ -27,6 +30,7 @@ class TrendingNewsCard extends StatelessWidget {
             child: BuzzWireImageCard(
               radius: 6,
               width: double.infinity,
+              placeHoldersSize: placeHolderSize,
               // height: constraint.maxHeight * 0.55,
               imageUrl: article.image.orEmpty,
             ),
