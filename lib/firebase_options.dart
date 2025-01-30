@@ -51,18 +51,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDp2H8t-DC0Cq70WckJwq-ImwuJwZZxxbM',
-    appId: '1:942678162515:android:a31f816350d9a17f3cdaa6',
+    appId: '1:942678162515:android:dc57c8ccae56f7c03cdaa6',
     messagingSenderId: '942678162515',
     projectId: 'buzzwire-62480',
-    storageBucket: 'buzzwire-62480.appspot.com',
+    storageBucket: 'buzzwire-62480.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCCzYauAse2-LjTENJUn8G-D2vQ6LQvGg0',
-    appId: '1:942678162515:ios:92a116296303938a3cdaa6',
+    appId: '1:942678162515:ios:39ed8dc9a04eba823cdaa6',
     messagingSenderId: '942678162515',
     projectId: 'buzzwire-62480',
-    storageBucket: 'buzzwire-62480.appspot.com',
-    iosBundleId: 'com.example.buzzwire',
+    storageBucket: 'buzzwire-62480.firebasestorage.app',
+    iosBundleId: 'com.buzzwire.buzzwire',
   );
+
 }

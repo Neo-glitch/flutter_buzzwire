@@ -1,4 +1,4 @@
-package com.example.buzzwire
+package com.buzzwire.buzzwire
 
 import io.flutter.embedding.android.FlutterActivity
 

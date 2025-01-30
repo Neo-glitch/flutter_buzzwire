@@ -45,3 +45,6 @@ app.*.map.json
 # dotenv
 .env
 .env.*
+
+upload-keystore.jks
+.properties

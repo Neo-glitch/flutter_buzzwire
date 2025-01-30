@@ -82,6 +82,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.6
   # for flutter floor generator
+  change_app_package_name: ^1.4.0
   floor_generator: ^1.4.0
   # flutter launcher icon
   flutter_launcher_icons: ^0.14.3
