@@ -1,6 +1,6 @@
-# buzzwire
+# Buzzwire
 
-A new Flutter project.
+The ultimate news app designed for the modern reader. Delivering real-time updates, personalized feeds, and breaking news alerts.
 
 ## App Screenshots
 
