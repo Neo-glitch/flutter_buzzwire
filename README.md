@@ -13,4 +13,3 @@ The ultimate news app designed for the modern reader. Delivering real-time updat
 </p>
 
 
-
