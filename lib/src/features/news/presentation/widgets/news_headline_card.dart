@@ -20,7 +20,7 @@ class NewsHeadlineCard extends StatelessWidget {
       child: Stack(
         children: [
           _buildBackgroundImage(article.image.orEmpty),
-          _buildOverlay(),
+          // _buildOverlay(),
           _buildHeadlineContent(
             context,
             article.source?.name,
@@ -42,16 +42,6 @@ class NewsHeadlineCard extends StatelessWidget {
     );
   }
 
-  Widget _buildOverlay() {
-    return Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.black45,
-        borderRadius: BorderRadius.circular(6),
-      ),
-    );
-  }
-
   Widget _buildHeadlineContent(
     BuildContext context,
     String? source,
@@ -59,51 +49,62 @@ class NewsHeadlineCard extends StatelessWidget {
     String? publishedAt,
   ) {
     return Positioned(
-      left: 16,
-      right: 16,
-      bottom: 8,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                source.orEmpty,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
-              ),
-              const Gap(5),
-              Container(
-                height: 4,
-                width: 4,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4, top: 4),
+        decoration: const BoxDecoration(
+          color: Colors.black26,
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  source.orEmpty,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.white),
                 ),
-              ),
-              const Gap(5),
-              Text(
-                BuzzWireDateHelperFunctions.formatTimeAgo(publishedAt.orEmpty),
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: Colors.white, fontSize: 8),
-              ),
-            ],
-          ),
-          const Gap(5),
-          Text(
-            article.title.orEmpty,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall
-                ?.copyWith(color: Colors.white),
-          ),
-        ],
+                const Gap(5),
+                Container(
+                  height: 4,
+                  width: 4,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                ),
+                const Gap(5),
+                Text(
+                  BuzzWireDateHelperFunctions.formatTimeAgo(
+                      publishedAt.orEmpty),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(color: Colors.white, fontSize: 8),
+                ),
+              ],
+            ),
+            const Gap(5),
+            Text(
+              article.title.orEmpty,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }
