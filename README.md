@@ -34,6 +34,7 @@ This project was built using the following technologies and packages:
 - **[Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)** - For push notifications.
 - **[Firebase Remote Config](https://firebase.google.com/docs/remote-config)** - For managing app configurations and force updates.
 - **[Appwrite Storage](https://appwrite.io/docs/storage)** - For storing and managing images and files in the cloud.
+- **[News API](https://newsapi.org/)** - For fetching the latest news articles and headlines.
 
 ### Navigation
 - **[GoRouter](https://pub.dev/packages/go_router)** - A declarative routing package for Flutter.
