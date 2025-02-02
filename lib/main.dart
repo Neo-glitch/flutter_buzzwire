@@ -1,6 +1,8 @@
+import 'package:buzzwire/core/utils/device/device_utility.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,7 +15,7 @@ import 'src/shared/presentation/riverpod/provider_observer.dart';
 /// Used when data alone remote messages are sent to the app, can be used to make update preferences
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // init any dependencies you will need
+  // init any dependencies needed
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -32,6 +34,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await di.init();
+  BuzzWireDeviceUtils.setPreferredOrientation([DeviceOrientation.portraitUp]);
   runApp(
     ProviderScope(
       observers: [
