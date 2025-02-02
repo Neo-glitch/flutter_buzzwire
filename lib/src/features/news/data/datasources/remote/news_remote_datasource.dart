@@ -46,7 +46,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
         queryParameters: {
           "country": "us",
           "page": 1,
-          "pageSize": 5,
+          "pageSize": 8,
         },
       );
       return NewsModel.fromJson(response);
