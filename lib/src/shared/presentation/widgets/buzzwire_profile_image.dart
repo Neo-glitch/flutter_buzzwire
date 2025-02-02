@@ -6,13 +6,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BuzzWireCircularImage extends StatelessWidget {
+class BuzzWireProfileImage extends StatelessWidget {
   final double radius;
   final String? imageUrl;
   final String? imagePath;
   final Color? borderColor;
   final double? borderWidth;
-  const BuzzWireCircularImage({
+  const BuzzWireProfileImage({
     super.key,
     required this.radius,
     this.imageUrl,
@@ -38,7 +38,7 @@ class BuzzWireCircularImage extends StatelessWidget {
       return CachedNetworkImage(
         fit: BoxFit.cover,
         placeholder: (context, url) {
-          return const Center(child: FaIcon(Icons.image));
+          return _buildPlaceHolderImage();
         },
         errorWidget: (context, url, error) {
           return _buildPlaceHolderImage();

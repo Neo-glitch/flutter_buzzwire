@@ -10,7 +10,7 @@ import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottom_frame.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_profile_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_country_picker.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
@@ -184,7 +184,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return Center(
       child: Stack(
         children: [
-          BuzzWireCircularImage(
+          BuzzWireProfileImage(
             radius: 60,
             borderColor: context.primaryColor.withOpacity(0.7),
             borderWidth: 2,

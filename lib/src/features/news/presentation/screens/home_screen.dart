@@ -8,7 +8,7 @@ import 'package:buzzwire/src/features/news/presentation/riverpod/home_controller
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_icon.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_profile_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/keep_alive_page.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +84,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             IconButton(
               onPressed: () =>
                   context.pushNamed(BuzzWireRoute.editProfileScreen.name),
-              icon: BuzzWireCircularImage(
+              icon: BuzzWireProfileImage(
                 radius: 16,
                 imageUrl: cachedUser?.profileImage?.imageUrl.orEmpty,
               ),

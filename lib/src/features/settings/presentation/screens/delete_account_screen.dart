@@ -8,7 +8,7 @@ import 'package:buzzwire/src/features/settings/presentation/riverpod/delete_acco
 import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
 import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_circular_image.dart';
+import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_profile_image.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -142,7 +142,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     return Column(
       children: [
         Center(
-          child: BuzzWireCircularImage(
+          child: BuzzWireProfileImage(
             radius: 40,
             imageUrl: uiState.user?.profileImage?.imageUrl.orEmpty,
           ),
