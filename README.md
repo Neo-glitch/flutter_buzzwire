@@ -30,7 +30,7 @@ This project was built using the following technologies and packages:
 
 ### Backend & Database
 - **[Firebase Cloud Firestore](https://firebase.google.com/docs/firestore)** - A NoSQL cloud database to store and sync data.
-- **[Firebase Authentication](https://firebase.google.com/docs/auth)** - For user authentication (email/password, Google, etc.).
+- **[Firebase Authentication](https://firebase.google.com/docs/auth)** - For user authentication (email/password).
 - **[Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)** - For push notifications.
 - **[Firebase Remote Config](https://firebase.google.com/docs/remote-config)** - For managing app configurations and force updates.
 - **[Appwrite Storage](https://appwrite.io/docs/storage)** - For storing and managing images and files in the cloud.
