@@ -7,7 +7,7 @@ part of 'news_detail_webview_controller.dart';
 // **************************************************************************
 
 String _$newsDetailWebViewControllerHash() =>
-    r'018a2e204e170d86d879ad835312c9f6336f40d9';
+    r'3af0e559a755e852775ca5e365be94e54fb8c3ff';
 
 /// See also [NewsDetailWebViewController].
 @ProviderFor(NewsDetailWebViewController)

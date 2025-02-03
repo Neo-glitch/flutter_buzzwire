@@ -15,7 +15,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
-class NewsDetailScreen extends ConsumerWidget {
+class NewsDetailScreen extends ConsumerStatefulWidget {
   final ArticleEntity article;
 
   const NewsDetailScreen({
@@ -23,51 +23,66 @@ class NewsDetailScreen extends ConsumerWidget {
     required this.article,
   });
 
-  void _navigateToNewsDetailWebViewScreen(BuildContext context) {
+  @override
+  ConsumerState<NewsDetailScreen> createState() => _NewsDetailScreenState();
+}
+
+class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
+  void _navigateToNewsDetailWebViewScreen() {
     context.pushNamed(BuzzWireRoute.newsDetailWebViewScreen.name,
-        extra: article.articleUrl.orEmpty);
+        extra: widget.article.articleUrl.orEmpty);
   }
 
   void _shareArticle() async {
     HapticFeedback.mediumImpact();
-    await Share.share(article.articleUrl.orEmpty);
+    await Share.share(widget.article.articleUrl.orEmpty);
   }
 
-  void _saveOrUnSaveArticle(WidgetRef ref) {
+  void _saveOrUnSaveArticle() {
     HapticFeedback.mediumImpact();
     ref
-        .read(newsDetailControllerProvider(article).notifier)
+        .read(newsDetailControllerProvider(widget.article).notifier)
         .saveOrUnsaveNewsArticle();
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final uiState = ref.watch(newsDetailControllerProvider(article));
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref
+          .read(newsDetailControllerProvider(widget.article).notifier)
+          .mapArticle();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final uiState = ref.watch(newsDetailControllerProvider(widget.article));
 
     return Scaffold(
-      appBar: _buildAppBar(uiState, ref),
-      body: _buildBody(context, uiState),
+      appBar: _buildAppBar(uiState),
+      body: _buildBody(uiState),
     );
   }
 
-  Widget _buildBody(BuildContext context, NewsDetailState uiState) {
+  Widget _buildBody(NewsDetailState uiState) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
-          _buildTitle(context),
+          _buildTitle(),
           _buildImage(),
-          _buildContent(context),
+          _buildContent(),
         ],
       ),
     );
   }
 
-  Widget _buildTitle(BuildContext context) {
+  Widget _buildTitle() {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
       child: Text(
-        article.title.orEmpty,
+        widget.article.title.orEmpty,
         style: context.titleLarge,
       ),
     );
@@ -75,24 +90,24 @@ class NewsDetailScreen extends ConsumerWidget {
 
   Widget _buildImage() {
     return BuzzWireImageCard(
-      imageUrl: article.image,
+      imageUrl: widget.article.image,
       height: 200,
       width: double.infinity,
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         children: [
           Text(
-            article.content.orEmpty,
+            widget.article.content.orEmpty,
             style: context.bodyMedium,
           ),
           const Gap(10),
           TextButton(
-            onPressed: () => _navigateToNewsDetailWebViewScreen(context),
+            onPressed: _navigateToNewsDetailWebViewScreen,
             child: Text(
               BuzzWireStrings.readFullArticle,
               style:
@@ -104,7 +119,7 @@ class NewsDetailScreen extends ConsumerWidget {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(NewsDetailState uiState, WidgetRef ref) {
+  PreferredSizeWidget _buildAppBar(NewsDetailState uiState) {
     final icon = uiState.article?.isSaved == true
         ? FontAwesomeIcons.solidBookmark
         : FontAwesomeIcons.bookmark;
@@ -113,7 +128,7 @@ class NewsDetailScreen extends ConsumerWidget {
       actions: [
         IconButton(
           iconSize: 20,
-          onPressed: () => _saveOrUnSaveArticle(ref),
+          onPressed: _saveOrUnSaveArticle,
           icon: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             child: FaIcon(
@@ -130,7 +145,7 @@ class NewsDetailScreen extends ConsumerWidget {
         ),
         IconButton(
           iconSize: 20,
-          onPressed: () => _shareArticle(),
+          onPressed: _shareArticle,
           icon: const FaIcon(FontAwesomeIcons.retweet),
         ),
       ],

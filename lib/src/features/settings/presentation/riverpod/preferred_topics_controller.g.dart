@@ -7,7 +7,7 @@ part of 'preferred_topics_controller.dart';
 // **************************************************************************
 
 String _$preferredTopicsControllerHash() =>
-    r'7f860ed4c0be703e3b142310fa324497aa70570c';
+    r'b175d94bffb84769c70ff32e8b4857c36ea33583';
 
 /// See also [PreferredTopicsController].
 @ProviderFor(PreferredTopicsController)
