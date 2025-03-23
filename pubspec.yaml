@@ -77,6 +77,10 @@ dependencies:
   uuid: ^4.3.3
   webview_flutter: ^4.7.0
 
+dependency_overrides:
+  # fix for appWrite issue 
+  flutter_web_auth_2: 4.1.0 
+
 # ------------------------------ PACKAGES END -------------------------------------------- #
 # ------------------------------ DEV PACKAGES -------------------------------------------- #
 dev_dependencies:
