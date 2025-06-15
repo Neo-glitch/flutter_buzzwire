@@ -85,7 +85,7 @@ class BuzzWireMessagingService {
 
   static Future<void> _getFCMToken() async {
     _deviceToken = await _messaging.getToken();
-    await _messaging.unsubscribeFromTopic("Sports");
+    // await _messaging.unsubscribeFromTopic("Sports");
 
     // get update toten values and
     _messaging.onTokenRefresh.listen((newToken) {
