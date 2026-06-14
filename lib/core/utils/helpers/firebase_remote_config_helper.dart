@@ -1,5 +1,6 @@
 import 'package:buzzwire/core/constants/firebase_remote_config_keys.dart';
 import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class FirebaseRemoteConfigHelper {
@@ -17,7 +18,7 @@ class FirebaseRemoteConfigHelper {
 
   Future<void> _setConfigSettings() async => _remoteConfig.setConfigSettings(
         RemoteConfigSettings(
-          fetchTimeout: const Duration(seconds: 20),
+          fetchTimeout: const Duration(seconds: 3),
           minimumFetchInterval: const Duration(seconds: 5),
         ),
       );
@@ -29,12 +30,20 @@ class FirebaseRemoteConfigHelper {
       );
 
   Future<void> _fetchAndActivate() async {
-    bool updated = await _remoteConfig.fetchAndActivate();
+    try {
+      bool updated = await _remoteConfig.fetchAndActivate();
 
-    if (updated) {
-      BuzzWireLoggerHelper.debug('The config has been updated.');
-    } else {
-      BuzzWireLoggerHelper.debug('The config is not updated..');
+      if (updated) {
+        BuzzWireLoggerHelper.debug('The config has been updated.');
+      } else {
+        BuzzWireLoggerHelper.debug('The config is not updated..');
+      }
+    } on FirebaseException catch (e) {
+      BuzzWireLoggerHelper.error(
+        'Remote config fetch failed (using cached/default values): ${e.message}',
+      );
+    } catch (e) {
+      BuzzWireLoggerHelper.error('Remote config unexpected error: $e');
     }
   }
 

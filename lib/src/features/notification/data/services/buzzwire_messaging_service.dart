@@ -12,6 +12,7 @@ import 'package:buzzwire/src/features/notification/data/model/notification_type.
 import 'package:buzzwire/src/features/notification/domain/repository/notification_repository.dart';
 import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
 import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,27 +40,37 @@ class BuzzWireMessagingService {
   );
 
   static Future<void> init() async {
-    await _requestPermission();
-    await _getFCMToken();
-    await _configureLocalNotificationPlugin();
-    await _createAndroidNotificationChannel();
-    await getInitialMessage();
-    _subscribeToSystemAlertTopic();
-    // Foreground notification handler (when push notification received when app in foreground)
-    FirebaseMessaging.onMessage.listen(_showForegroundNotification);
-    // for notification click when app in background
-    FirebaseMessaging.onMessageOpenedApp
-        .listen((remoteMessage) => _handleMessageData(remoteMessage.data));
+    try {
+      await _requestPermission();
+      await _getFCMToken();
+      await _configureLocalNotificationPlugin();
+      await _createAndroidNotificationChannel();
+      await getInitialMessage();
+      _subscribeToSystemAlertTopic();
+      // Foreground notification handler (when push notification received when app in foreground)
+      FirebaseMessaging.onMessage.listen(_showForegroundNotification);
+      // for notification click when app in background
+      FirebaseMessaging.onMessageOpenedApp
+          .listen((remoteMessage) => _handleMessageData(remoteMessage.data));
+    } on FirebaseException catch (e) {
+      BuzzWireLoggerHelper.error('Messaging init failed: ${e.message}');
+    } catch (e) {
+      BuzzWireLoggerHelper.error('Messaging init unexpected error: $e');
+    }
   }
 
   static Future<void> getInitialMessage() async {
-    // gets message that caused app to start from terminated state
-    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-    BuzzWireLoggerHelper.debug(
-        "Notification Initital message is: ${initialMessage.toString()}");
+    try {
+      // gets message that caused app to start from terminated state
+      final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+      BuzzWireLoggerHelper.debug(
+          "Notification Initial message is: ${initialMessage.toString()}");
 
-    if (initialMessage != null) {
-      _handleMessageData(initialMessage.data);
+      if (initialMessage != null) {
+        _handleMessageData(initialMessage.data);
+      }
+    } catch (e) {
+      BuzzWireLoggerHelper.error('Failed to get initial message: $e');
     }
   }
 
@@ -85,25 +96,31 @@ class BuzzWireMessagingService {
   }
 
   static Future<void> _getFCMToken() async {
-    if (Platform.isIOS) {
-      String? apnsToken;
-      int retries = 0;
-      while (apnsToken == null && retries < 3) {
-        apnsToken = await _messaging.getAPNSToken();
-        if (apnsToken == null) {
-          await Future.delayed(const Duration(seconds: 1));
-          retries++;
+    try {
+      if (Platform.isIOS) {
+        String? apnsToken;
+        int retries = 0;
+        while (apnsToken == null && retries < 3) {
+          apnsToken = await _messaging.getAPNSToken();
+          if (apnsToken == null) {
+            await Future.delayed(const Duration(seconds: 1));
+            retries++;
+          }
         }
+        if (apnsToken == null) return;
       }
-      if (apnsToken == null) return;
+
+      _deviceToken = await _messaging.getToken();
+      _messaging.onTokenRefresh.listen((newToken) {
+        _deviceToken = newToken;
+      });
+
+      BuzzWireLoggerHelper.debug("Device Token is: $_deviceToken");
+    } on FirebaseException catch (e) {
+      BuzzWireLoggerHelper.error('Failed to get FCM token: ${e.message}');
+    } catch (e) {
+      BuzzWireLoggerHelper.error('FCM token unexpected error: $e');
     }
-
-    _deviceToken = await _messaging.getToken();
-    _messaging.onTokenRefresh.listen((newToken) {
-      _deviceToken = newToken;
-    });
-
-    BuzzWireLoggerHelper.debug("Device Token is: $_deviceToken");
   }
 
   static Future<void> _configureLocalNotificationPlugin() async {
