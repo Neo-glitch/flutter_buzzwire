@@ -1,6 +1,6 @@
 # Buzzwire
 
-The ultimate news app designed for the modern reader. Delivering real-time updates, personalized feeds, and breaking news alerts.
+The ultimate news app designed for the modern reader. Delivering real-time updates, personalized feeds, and breaking news alerts on your android and ios device.
 
 ## App Screenshots
 
