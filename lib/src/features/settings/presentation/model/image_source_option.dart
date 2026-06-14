@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageSourceOption {
   final ImageSource source;
   final String title;
-  final IconData iconData;
+  final FaIconData iconData;
 
   ImageSourceOption({
     required this.source,

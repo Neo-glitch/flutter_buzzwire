@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class BuzzWireDialogTheme {
   BuzzWireDialogTheme._();
 
-  static final lightDialogTheme = const DialogTheme().copyWith(
+  static final lightDialogTheme = const DialogThemeData().copyWith(
     backgroundColor: BuzzWireColors.light,
     surfaceTintColor: Colors.transparent,
     shape: const RoundedRectangleBorder(
@@ -14,7 +14,7 @@ class BuzzWireDialogTheme {
     ),
   );
 
-  static final darkDialogTheme = const DialogTheme().copyWith(
+  static final darkDialogTheme = const DialogThemeData().copyWith(
     backgroundColor: BuzzWireColors.dark,
     surfaceTintColor: Colors.transparent,
     shape: const RoundedRectangleBorder(

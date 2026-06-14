@@ -47,6 +47,8 @@ Clean Architecture with feature-based modules. Each feature lives under `lib/src
 - `presentation/` — screens, widgets, Riverpod controllers and states
 - `di/` — a single `provideXxxDependencies()` function that registers that feature's GetIt bindings
 
+**Features:** `auth`, `news`, `notification`, `profile`, `search_history`, `settings`
+
 Shared cross-feature code lives in `lib/src/shared/`.
 
 Core infrastructure (theme, navigation, error types, network client, constants, utils) lives in `lib/core/`.
@@ -68,7 +70,7 @@ The repository layer uses `fpdart` `Either<Failure, SuccessType>`. Exceptions ar
 - `FbFailure` — Firestore errors
 - `CacheFailure` — Floor/local DB errors
 
-Use cases implement typed interfaces from `lib/core/usecase/usecase.dart` (`UseCaseFuture`, `UseCaseStream`, `UseCaseResult`, etc.) and always return `Either`. `NoParams` is used when a use case takes no arguments.
+Use cases implement typed interfaces from `lib/core/usecase/usecase.dart` (`UseCaseFuture`, `UseCaseStream`, `UseCaseResult`, `UseCaseFutureVoid`, `UseCaseVoid`) and always return `Either`. `NoParams` is used when a use case takes no arguments.
 
 ### Networking
 `DioClient` (singleton, `lib/core/network/dio/dio_client.dart`) wraps Dio with a base URL and two interceptors: `ApiKeyInterceptor` (injects the News API key from `.env`) and `LoggerInterceptor`. All News API calls go through this client.
@@ -77,7 +79,21 @@ Use cases implement typed interfaces from `lib/core/usecase/usecase.dart` (`UseC
 Floor (SQLite abstraction) via `AppDatabase` (`lib/src/shared/data/datasources/local/app_database.dart`). It holds two entities: `LocalArticleModel` (saved articles) and `SearchHistoryModel`. DAOs are `ArticleDao` and `SearchHistoryDao`.
 
 ### Navigation
-GoRouter with a `@riverpod`-generated `router` provider. The router watches `authControllerProvider` and `appEntryControllerProvider` to redirect unauthenticated or first-time users. Routes are named constants defined in `lib/core/navigation/route.dart`. The main shell uses `StatefulShellRoute.indexedStack` with four branches (Home, Discover, Saved, Settings) rendered by `HomeWrapperScreen` using `persistent_bottom_nav_bar_v2`.
+GoRouter with a `@riverpod`-generated `router` provider (`lib/core/navigation/app_router.dart`). The router watches `authControllerProvider` and `appEntryControllerProvider` and redirects based on three conditions in order: onboarding seen, force-update check (Firebase Remote Config vs build number), and auth status.
+
+Routes are defined as static `BuzzWireRoute` instances on `lib/core/navigation/route.dart`. Navigate using named routes:
+```dart
+context.goNamed(BuzzWireRoute.homeScreen.name)
+context.pushNamed(BuzzWireRoute.newsDetailScreen.name, extra: article)
+```
+The `extra` parameter passes typed objects (e.g. `ArticleEntity`, `TopicEntity`, `String`) — cast from `state.extra` inside the builder.
+
+The main shell uses `StatefulShellRoute.indexedStack` with four branches (Home, Discover, Saved, Settings) rendered by `HomeWrapperScreen` using `persistent_bottom_nav_bar_v2`. Each branch has its own `GlobalKey<NavigatorState>`.
+
+Custom page transitions use `TransitionFactory.getSlidePageBuilder()`. Dialog routes use `DialogPage` (`lib/core/navigation/dialog_page.dart`).
+
+### Pagination
+Infinite scroll is handled by `PaginationListView` and `PaginationSliverListView` in `lib/src/shared/presentation/pagination/`. Use `ScrollNotificationHandler` to detect when more data should be loaded, and `LoadingMoreDataWidget` as the bottom loader indicator.
 
 ### Models and Code Generation
 Remote models use `@JsonSerializable()` with generated `.g.dart` files. Local Floor entities are annotated with `@Entity`. State classes use `@freezed`. After any annotation change, regenerate with `build_runner`.
@@ -92,3 +108,14 @@ Secrets are stored in `.env` (included as a Flutter asset). Access via `dotenv.e
 - **Firebase Remote Config** — minimum app version for force-update checks
 - **Appwrite Storage** — profile images and topic images
 - **News API** — headlines and article search via Dio
+
+### Utilities
+`lib/core/utils/` contains:
+- Extensions: `context_extension.dart` (theme/media query shortcuts), `string_extension.dart` (`.orEmpty`), `list_extension.dart`, `num_extension.dart`, `bool_extension.dart`
+- `BuzzWireLoggerHelper` — structured logging (wraps `logger` package)
+- `BuzzWireValidator` — form field validators
+- `Debouncer` — debounce search input
+- `DeviceUtility` — platform/screen helpers
+- `BuzzWireSharedPref` — typed SharedPreferences wrapper (`lib/core/utils/local_storage/shared_preference_util.dart`)
+
+`ReusableStreamController<T>` (`lib/src/shared/data/utils/reusable_stream_controller.dart`) is a lazy broadcast stream controller used in datasources for Firestore real-time subscriptions; it recreates the controller if closed.

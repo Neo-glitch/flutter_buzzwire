@@ -2,6 +2,7 @@ import 'package:buzzwire/core/utils/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/settings/presentation/model/image_source_option.dart';
 import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottomsheet_drag_handle.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,7 +63,7 @@ class SelectImageSourceBottomSheet extends StatelessWidget {
     required Function(ImageSource) onClick,
   }) {
     return ListTile(
-      leading: Icon(imageSource.iconData),
+      leading: FaIcon(imageSource.iconData),
       title: Text(
         imageSource.title,
         style: context.bodyMedium,
