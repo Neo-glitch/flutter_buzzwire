@@ -29,20 +29,20 @@ environment:
 # versions available, run `flutter pub outdated`.
 # ------------------------------ PACKAGES -------------------------------------------- #
 dependencies:
-  appwrite: ^13.1.1
+  appwrite: ^25.1.0
   back_button_interceptor: ^8.0.0
   cached_network_image: ^3.3.1
   carousel_slider: ^5.0.0
-  cloud_firestore: ^5.0.1
+  cloud_firestore: ^6.5.0
   country_picker: ^2.0.27
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
   equatable: ^2.0.7
   extended_nested_scroll_view: ^6.2.1
-  firebase_analytics: ^11.4.1
-  firebase_auth: ^5.1.0
-  firebase_messaging: ^15.1.6
-  firebase_remote_config: ^5.3.1
+  firebase_analytics: ^12.4.2
+  firebase_auth: ^6.5.2
+  firebase_messaging: ^16.3.0
+  firebase_remote_config: ^6.5.2
   floor: ^1.4.0
   flutter:
     sdk: flutter
@@ -52,7 +52,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_spinkit: ^5.2.1
   flutter_svg: ^2.0.10+1
-  fluttertoast: ^8.2.8
+  fluttertoast: ^9.1.0
   font_awesome_flutter: ^11.0.0
   fpdart: ^1.1.0
   gap: ^3.0.1
@@ -78,8 +78,6 @@ dependencies:
   webview_flutter: ^4.7.0
 
 dependency_overrides:
-  # fix for appWrite issue 
-  flutter_web_auth_2: 4.1.0 
 
 # ------------------------------ PACKAGES END -------------------------------------------- #
 # ------------------------------ DEV PACKAGES -------------------------------------------- #

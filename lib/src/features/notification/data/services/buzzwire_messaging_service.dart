@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:buzzwire/core/constants/colors.dart';
 import 'package:buzzwire/core/navigation/app_router.dart';
@@ -84,10 +85,20 @@ class BuzzWireMessagingService {
   }
 
   static Future<void> _getFCMToken() async {
-    _deviceToken = await _messaging.getToken();
-    // await _messaging.unsubscribeFromTopic("Sports");
+    if (Platform.isIOS) {
+      String? apnsToken;
+      int retries = 0;
+      while (apnsToken == null && retries < 3) {
+        apnsToken = await _messaging.getAPNSToken();
+        if (apnsToken == null) {
+          await Future.delayed(const Duration(seconds: 1));
+          retries++;
+        }
+      }
+      if (apnsToken == null) return;
+    }
 
-    // get update toten values and
+    _deviceToken = await _messaging.getToken();
     _messaging.onTokenRefresh.listen((newToken) {
       _deviceToken = newToken;
     });

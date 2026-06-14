@@ -38,7 +38,7 @@ Future<void> init() async {
 
   final appWriteClient = Client()
       .setEndpoint(dotenv.env[BuzzWireAppConstants.appWriteBaseUrl].orEmpty)
-      .setProject(dotenv.env[BuzzWireAppConstants.appWriteProjectId]);
+      .setProject(dotenv.env[BuzzWireAppConstants.appWriteProjectId].orEmpty);
 
   injector.registerLazySingleton<AppDatabase>(() => appDatabase);
   injector.registerLazySingleton<BuzzWireSharedPref>(

@@ -1,0 +1,6 @@
+{
+  "dart.analysisExcludedFolders": [
+    "build/ios/SourcePackages",
+    "build/macos/SourcePackages"
+  ]
+}
