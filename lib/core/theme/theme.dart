@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/theme/custom_themes/dialog_theme.dart';
 
-import '../constants/colors.dart';
-import '../constants/strings.dart';
+import 'app_colors.dart';
+import 'font_constants.dart';
 import 'color_schemes/color_schemes.dart';
 import 'custom_themes/app_bar_theme.dart';
 import 'custom_themes/bottom_sheet_theme.dart';
@@ -19,7 +19,7 @@ class BuzzWireAppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: BuzzWireColorScheme.lightTheme,
-    fontFamily: BuzzWireStrings.poppins,
+    fontFamily: FontConstants.poppins,
     brightness: Brightness.light,
     primaryColor: BuzzWireColors.primary,
     scaffoldBackgroundColor: BuzzWireColors.light,
@@ -37,7 +37,7 @@ class BuzzWireAppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: BuzzWireColorScheme.darkTheme,
-    fontFamily: BuzzWireStrings.poppins,
+    fontFamily: FontConstants.poppins,
     brightness: Brightness.dark,
     primaryColor: BuzzWireColors.primary,
     scaffoldBackgroundColor: BuzzWireColors.dark,

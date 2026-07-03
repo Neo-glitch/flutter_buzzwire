@@ -1,7 +1,7 @@
 import 'package:buzzwire/src/features/profile/data/mapper/country_mapper.dart';
 import 'package:buzzwire/src/features/profile/data/mapper/profile_image_mapper.dart';
-import 'package:buzzwire/src/shared/data/model/user_model.dart';
-import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
+import 'package:buzzwire/core/data/model/user_model.dart';
+import 'package:buzzwire/core/domain/entity/user_entity.dart';
 
 class UserMapper {
   UserMapper._();

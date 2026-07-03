@@ -7,7 +7,7 @@ part of 'home_news_controller.dart';
 // **************************************************************************
 
 String _$homeNewsControllerHash() =>
-    r'27109817a14dffe4de11b23e27fbf0dfe3f83731';
+    r'b17ff8d25063a48d970685430f3d48d24f8f9832';
 
 /// Copied from Dart SDK
 class _SystemHash {

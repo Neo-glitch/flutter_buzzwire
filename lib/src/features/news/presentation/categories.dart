@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
 
 enum NewsCategory {
   business,

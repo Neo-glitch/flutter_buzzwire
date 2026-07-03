@@ -1,13 +1,13 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/create_user_account_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signout_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signup_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
-import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/domain/entity/country_entity.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'signup_controller.g.dart';

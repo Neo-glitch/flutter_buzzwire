@@ -1,20 +1,20 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/network/dio/dio_client.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/utils/helpers/firebase_remote_config_helper.dart';
-import 'package:buzzwire/core/utils/helpers/package_info_helper.dart';
-import 'package:buzzwire/core/utils/local_storage/shared_preference_util.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/utils/helpers/firebase_remote_config_helper.dart';
+import 'package:buzzwire/core/common/utils/helpers/package_info_helper.dart';
+import 'package:buzzwire/core/cache/shared_preference_util.dart';
+import 'package:buzzwire/core/network/network_constants.dart';
 import 'package:buzzwire/src/features/auth/di/auth_dependcies.dart';
 import 'package:buzzwire/src/features/news/di/news_dependencies.dart';
 import 'package:buzzwire/src/features/notification/di/notification_dependencies.dart';
 import 'package:buzzwire/src/features/profile/di/profile_dependencies.dart';
 import 'package:buzzwire/src/features/search_history/di/search_history_dependencies.dart';
 import 'package:buzzwire/src/features/settings/di/settings_dependencies.dart';
-import 'package:buzzwire/src/shared/data/datasources/local/app_database.dart';
-import 'package:buzzwire/src/shared/data/manager/app_theme_manager_impl.dart';
+import 'package:buzzwire/core/database/app_database.dart';
+import 'package:buzzwire/core/data/manager/app_theme_manager_impl.dart';
 import 'package:buzzwire/src/shared/di/shared_dependencies.dart';
-import 'package:buzzwire/src/shared/domain/manager/app_theme_manager.dart';
+import 'package:buzzwire/core/domain/manager/app_theme_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -37,8 +37,8 @@ Future<void> init() async {
   await packageInfoHelper.init();
 
   final appWriteClient = Client()
-      .setEndpoint(dotenv.env[BuzzWireAppConstants.appWriteBaseUrl].orEmpty)
-      .setProject(dotenv.env[BuzzWireAppConstants.appWriteProjectId].orEmpty);
+      .setEndpoint(dotenv.env[NetworkConstants.appWriteBaseUrl].orEmpty)
+      .setProject(dotenv.env[NetworkConstants.appWriteProjectId].orEmpty);
 
   injector.registerLazySingleton<AppDatabase>(() => appDatabase);
   injector.registerLazySingleton<BuzzWireSharedPref>(

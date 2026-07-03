@@ -1,5 +1,5 @@
-import '../../../../../core/constants/asset_strings.dart';
-import '../../../../../core/constants/strings.dart';
+import 'package:buzzwire/core/ui/assets.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 
 class OnboardingItem {
   final String title;

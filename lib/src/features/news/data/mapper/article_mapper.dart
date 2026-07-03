@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
+import 'package:buzzwire/core/network/network_constants.dart';
 import 'package:buzzwire/src/features/news/data/mapper/source_mapper.dart';
 import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
@@ -40,7 +40,7 @@ class ArticleMapper {
     // done to filter off removed wrong data
     return entities
         .where((article) =>
-            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
+            article.articleUrl != NetworkConstants.removedArticleUrl)
         .toList();
   }
 

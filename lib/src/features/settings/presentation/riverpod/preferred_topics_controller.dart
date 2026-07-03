@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/notification/domain/usecases/get_topics_usecase.dart';
@@ -7,7 +7,7 @@ import 'package:buzzwire/src/features/notification/domain/usecases/unsubscribe_f
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/update_user_usecase.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/preferred_topics_state.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'preferred_topics_controller.g.dart';

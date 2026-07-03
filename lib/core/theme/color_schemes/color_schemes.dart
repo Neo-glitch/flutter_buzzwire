@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/colors.dart';
+import 'package:buzzwire/core/theme/app_colors.dart';
 
 class BuzzWireColorScheme {
   BuzzWireColorScheme._();

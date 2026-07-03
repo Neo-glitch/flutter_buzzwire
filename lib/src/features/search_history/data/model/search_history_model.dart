@@ -1,8 +1,8 @@
-import 'package:buzzwire/core/constants/strings.dart';
+import 'package:buzzwire/core/database/database_constants.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: BuzzWireStrings.searchHistoryTableName)
+@Entity(tableName: DatabaseConstants.searchHistoryTableName)
 class SearchHistoryModel {
   @PrimaryKey(autoGenerate: true)
   final int? id;

@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/check_email_verification_status_usecases.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_usecase.dart';
@@ -9,7 +9,7 @@ import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_s
 import 'package:buzzwire/src/features/notification/domain/usecases/save_device_token_usecase.dart';
 import 'package:buzzwire/src/features/notification/domain/usecases/subscribe_to_topic_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

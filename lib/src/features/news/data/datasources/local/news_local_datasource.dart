@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/utils/extensions/num_extension.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'package:buzzwire/core/common/utils/extensions/num_extension.dart';
+import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
-import 'package:buzzwire/src/shared/data/datasources/local/app_database.dart';
+import 'package:buzzwire/core/database/app_database.dart';
 
 abstract class NewsLocalDataSource {
   Future<int> getSavedArticlesCount();

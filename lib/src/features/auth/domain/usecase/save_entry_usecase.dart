@@ -1,7 +1,7 @@
 import 'package:fpdart/src/either.dart';
 
-import '../../../../../core/error/failure.dart';
-import '../../../../../core/usecase/usecase.dart';
+import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/usecase/usecase.dart';
 import '../manager/local_user_manager.dart';
 
 class SaveEntryUseCase implements UseCaseFuture<bool, NoParams> {

@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
-import 'package:buzzwire/src/shared/data/model/profile_image_model.dart';
-import 'package:buzzwire/src/shared/data/model/user_model.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/logging/logger_helper.dart';
+import 'package:buzzwire/core/data/firebase_constants.dart';
+import 'package:buzzwire/core/data/model/profile_image_model.dart';
+import 'package:buzzwire/core/data/model/user_model.dart';
+import 'package:buzzwire/core/network/network_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -98,10 +99,9 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       UserModel userModel, File image) async {
     try {
       final appWriteProfileImageBucketId =
-          dotenv.env[BuzzWireAppConstants.appWriteProfileImageBucketId];
-      final appWriteProjectId =
-          dotenv.env[BuzzWireAppConstants.appWriteProjectId];
-      final appWriteBaseUrl = dotenv.env[BuzzWireAppConstants.appWriteBaseUrl];
+          dotenv.env[NetworkConstants.appWriteProfileImageBucketId];
+      final appWriteProjectId = dotenv.env[NetworkConstants.appWriteProjectId];
+      final appWriteBaseUrl = dotenv.env[NetworkConstants.appWriteBaseUrl];
       final fileId = userModel.profileImage?.fileId.orEmpty;
       final userId = userModel.userId;
       if (await _checkIfFileExists(fileId)) {
@@ -125,7 +125,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
   Future<void> _deleteFile(String fileId) async {
     final appWriteProfileImageBucketId =
-        dotenv.env[BuzzWireAppConstants.appWriteProfileImageBucketId];
+        dotenv.env[NetworkConstants.appWriteProfileImageBucketId];
     await appWriteStorage.deleteFile(
       bucketId: appWriteProfileImageBucketId.orEmpty,
       fileId: fileId,
@@ -135,7 +135,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<bool> _checkIfFileExists(String? fileId) async {
     try {
       final appWriteProfileImageBucketId =
-          dotenv.env[BuzzWireAppConstants.appWriteProfileImageBucketId];
+          dotenv.env[NetworkConstants.appWriteProfileImageBucketId];
 
       if (fileId == null) return false;
 
@@ -150,5 +150,5 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   CollectionReference<Map<String, dynamic>> get _getUsersCollectionRef =>
-      firestoreDb.collection(BuzzWireAppConstants.usersCollecton);
+      firestoreDb.collection(FirebaseConstants.usersCollection);
 }

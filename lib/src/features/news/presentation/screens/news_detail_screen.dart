@@ -1,12 +1,12 @@
-import 'package:buzzwire/core/constants/strings.dart';
+import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
 import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/ui/strings.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

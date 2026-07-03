@@ -1,5 +1,5 @@
-import 'package:buzzwire/src/shared/data/model/country_model.dart';
-import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
+import 'package:buzzwire/core/data/model/country_model.dart';
+import 'package:buzzwire/core/domain/entity/country_entity.dart';
 
 class CountryMapper {
   CountryMapper._();

@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/error/exception_handler.dart';
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/core/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/data/error/exception_handler.dart';
+import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/common/utils/extensions/list_extension.dart';
 import 'package:buzzwire/src/features/news/data/datasources/local/news_local_datasource.dart';
 import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_datasource.dart';
 import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';

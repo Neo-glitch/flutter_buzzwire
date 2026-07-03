@@ -1,6 +1,6 @@
 import 'package:buzzwire/injector.dart';
 
-import '../../../../../core/usecase/usecase.dart';
+import '../../../../../core/domain/usecase/usecase.dart';
 import '../../domain/usecase/read_entry_usecase.dart';
 import '../../domain/usecase/save_entry_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

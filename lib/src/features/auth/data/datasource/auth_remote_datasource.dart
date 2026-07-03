@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../../core/utils/logging/logger_helper.dart';
+import '../../../../../core/common/logging/logger_helper.dart';
 
 abstract class AuthRemoteDataSource {
   Stream<User?> authStateChanges();

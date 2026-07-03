@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/list_extension.dart';
-import 'package:buzzwire/core/utils/extensions/num_extension.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/common/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/num_extension.dart';
+import 'package:buzzwire/core/network/network_constants.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';
@@ -14,7 +14,7 @@ import 'package:buzzwire/src/features/search_history/domain/entity/search_histor
 import 'package:buzzwire/src/features/search_history/domain/usecase/delete_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/get_search_history_usecase.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/save_search_history_usecase.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'search_news_controller.g.dart';
@@ -108,7 +108,7 @@ class SearchNewsController extends _$SearchNewsController {
           loadState: Error(message: error.message), currentPage: previousPage),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / BuzzWireAppConstants.pageSize).ceil();
+            (result.totalResults.orZero / NetworkConstants.pageSize).ceil();
         final articles = state.searchResults.toList() + result.articles.orEmpty;
 
         state = state.copyWith(
@@ -135,7 +135,7 @@ class SearchNewsController extends _$SearchNewsController {
           state = state.copyWith(loadState: Error(message: error.message)),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / BuzzWireAppConstants.pageSize).ceil();
+            (result.totalResults.orZero / NetworkConstants.pageSize).ceil();
 
         state = state.copyWith(
           loadState: const Loaded(),

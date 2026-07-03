@@ -1,4 +1,4 @@
-import '../../../../../core/utils/local_storage/shared_preference_util.dart';
+import '../../../../../core/cache/shared_preference_util.dart';
 
 abstract class AuthLocalDataSource {
   bool checkIfAunthenticated();

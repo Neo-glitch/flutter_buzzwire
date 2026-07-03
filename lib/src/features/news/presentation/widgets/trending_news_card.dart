@@ -1,7 +1,7 @@
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_image_card.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
+import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/utils/helpers/date_helper_functions.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

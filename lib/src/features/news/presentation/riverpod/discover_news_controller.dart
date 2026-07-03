@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/common/utils/extensions/list_extension.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/entity/news_entity.dart';
@@ -9,7 +9,7 @@ import 'package:buzzwire/src/features/news/domain/usecases/get_news_usecase.dart
 import 'package:buzzwire/src/features/news/presentation/riverpod/discover_news_state.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_stream_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

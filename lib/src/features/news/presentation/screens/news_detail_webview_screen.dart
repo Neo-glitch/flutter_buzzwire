@@ -1,10 +1,10 @@
-import 'package:buzzwire/core/error/error_text.dart';
+import 'package:buzzwire/core/data/error/constant/error_text.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_webview_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_detail_webview_state.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_empty_or_error_screen.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_loader.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_empty_or_error_screen.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_progress_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';

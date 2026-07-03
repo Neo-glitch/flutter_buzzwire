@@ -1,5 +1,5 @@
-import 'package:buzzwire/src/shared/data/model/profile_image_model.dart';
-import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
+import 'package:buzzwire/core/data/model/profile_image_model.dart';
+import 'package:buzzwire/core/domain/entity/profile_image_entity.dart';
 
 class ProfileImageMapper {
   ProfileImageMapper._();

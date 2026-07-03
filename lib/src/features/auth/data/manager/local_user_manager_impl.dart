@@ -1,8 +1,8 @@
+import 'package:buzzwire/core/cache/preference_keys.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../../core/constants/preference_keys.dart';
-import '../../../../../core/error/failure.dart';
-import '../../../../../core/utils/local_storage/shared_preference_util.dart';
+import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/cache/shared_preference_util.dart';
 import '../../domain/manager/local_user_manager.dart';
 
 class LocalUserManagerImpl implements LocalUserManager {

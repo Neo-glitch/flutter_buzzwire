@@ -2,8 +2,8 @@ import 'package:buzzwire/src/features/auth/domain/repository/auth_repository.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../../core/error/failure.dart';
-import '../../../../../core/usecase/usecase.dart';
+import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/usecase/usecase.dart';
 
 class SignInUseCase implements UseCaseFuture<User, SignInParams> {
   final AuthRepository authRepo;

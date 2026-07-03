@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/constants/strings.dart';
+import 'package:buzzwire/core/database/database_constants.dart';
 import 'package:buzzwire/src/features/news/data/model/source_model.dart';
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'local_article_model.g.dart';
 
 @JsonSerializable()
-@Entity(tableName: BuzzWireStrings.savedNewsTableName)
+@Entity(tableName: DatabaseConstants.savedNewsTableName)
 class LocalArticleModel {
   @PrimaryKey(autoGenerate: true)
   final int? id;

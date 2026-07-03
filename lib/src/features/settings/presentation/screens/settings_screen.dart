@@ -1,15 +1,15 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/constants/strings.dart';
 import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/network/network_constants.dart';
+import 'package:buzzwire/core/theme/app_colors.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_bottomsheet.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/src/shared/presentation/screens/operation_loading_dialog.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_divider.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
+import 'package:buzzwire/core/ui/dialog/operation_loading_dialog.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -56,7 +56,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _launchEmail() async {
     final wasLaunched = await launchUrl(
       Uri.parse(
-          "mailto:${BuzzWireAppConstants.devEmail}?subject=Feedback for BuzzWire"),
+          "mailto:${NetworkConstants.devEmail}?subject=Feedback for BuzzWire"),
     );
     if (!wasLaunched) {
       if (mounted) context.showToast("Failed to lauch email app!");

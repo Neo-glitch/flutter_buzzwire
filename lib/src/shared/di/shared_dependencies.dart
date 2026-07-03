@@ -1,8 +1,8 @@
 import 'package:buzzwire/core/network/network_connection_checker.dart';
 import 'package:buzzwire/injector.dart';
-import 'package:buzzwire/src/shared/domain/usecase/get_app_theme+mode_usecase.dart';
-import 'package:buzzwire/src/shared/domain/usecase/get_app_theme_mode_stream_usecase.dart';
-import 'package:buzzwire/src/shared/domain/usecase/save_app_theme_mode_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/get_app_theme+mode_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/get_app_theme_mode_stream_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/save_app_theme_mode_usecase.dart';
 
 Future<void> provideSharedDependencies() async {
   injector.registerFactory<GetAppThemeModeStream>(

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:buzzwire/core/error/failure.dart';
-import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
-import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
+import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/domain/entity/profile_image_entity.dart';
+import 'package:buzzwire/core/domain/entity/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class ProfileRepository {

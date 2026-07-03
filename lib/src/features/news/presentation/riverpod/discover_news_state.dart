@@ -1,4 +1,4 @@
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

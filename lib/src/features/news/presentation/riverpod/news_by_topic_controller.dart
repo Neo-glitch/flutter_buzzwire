@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/list_extension.dart';
-import 'package:buzzwire/core/utils/extensions/num_extension.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/common/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/num_extension.dart';
+import 'package:buzzwire/core/network/network_constants.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';
@@ -9,7 +9,7 @@ import 'package:buzzwire/src/features/news/domain/usecases/get_news_usecase.dart
 import 'package:buzzwire/src/features/news/domain/usecases/get_saved_articles_usecase.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/save_article_usecase.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/news_by_topic_state.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'news_by_topic_controller.g.dart';
@@ -44,7 +44,7 @@ class NewsByTopicController extends _$NewsByTopicController {
           loadState: Error(message: error.message), currentPage: previousPage),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / BuzzWireAppConstants.pageSize).ceil();
+            (result.totalResults.orZero / NetworkConstants.pageSize).ceil();
         final articles = page > 1
             ? state.articles.toList() + result.articles.orEmpty
             : result.articles.orEmpty;

@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

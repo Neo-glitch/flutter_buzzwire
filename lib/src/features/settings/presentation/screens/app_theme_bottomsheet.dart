@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/theme_controller.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_bottomsheet_drag_handle.dart';
+import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/theme/app_colors.dart';
+import 'package:buzzwire/src/theme_controller.dart';
+import 'package:buzzwire/core/ui/widgets/buzzwire_bottomsheet_drag_handle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

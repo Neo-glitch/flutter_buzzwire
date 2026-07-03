@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/navigation/dialog_page.dart';
 import 'package:buzzwire/core/navigation/transition_factory.dart';
-import 'package:buzzwire/core/utils/helpers/firebase_remote_config_helper.dart';
-import 'package:buzzwire/core/utils/helpers/package_info_helper.dart';
+import 'package:buzzwire/core/common/utils/helpers/firebase_remote_config_helper.dart';
+import 'package:buzzwire/core/common/utils/helpers/package_info_helper.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/screens/preferred_topics_setup_screen.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
@@ -13,7 +13,7 @@ import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.da
 import 'package:buzzwire/src/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:buzzwire/src/features/settings/presentation/screens/preferred_topics_screen.dart';
-import 'package:buzzwire/src/shared/presentation/screens/force_update_dialog.dart';
+import 'package:buzzwire/core/ui/dialog/force_update_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
