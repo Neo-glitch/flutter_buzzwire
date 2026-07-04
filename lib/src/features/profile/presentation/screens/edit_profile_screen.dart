@@ -5,7 +5,7 @@ import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';
-import 'package:buzzwire/src/features/settings/presentation/screens/select_image_source_bottomsheet.dart';
+import 'package:buzzwire/src/features/profile/presentation/bottom_sheet/select_image_source_bottomsheet.dart';
 import 'package:buzzwire/core/domain/entity/country_entity.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';

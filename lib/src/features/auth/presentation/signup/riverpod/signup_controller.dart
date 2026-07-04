@@ -4,7 +4,7 @@ import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/create_user_account_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/signout_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signup_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
 import 'package:buzzwire/core/domain/entity/country_entity.dart';

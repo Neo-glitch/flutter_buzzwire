@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
-import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
+import 'package:buzzwire/core/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/ui/widgets/media/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
 

@@ -7,15 +7,15 @@ import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_u
 import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
-import 'package:buzzwire/src/features/notification/domain/usecases/save_device_token_usecase.dart';
-import 'package:buzzwire/src/features/notification/domain/usecases/subscribe_to_topic_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/save_device_token_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/subscribe_to_topic_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/usecase/signin_usecase.dart';
-import '../../../domain/usecase/signout_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
 
 part 'sigin_controller.g.dart';
 

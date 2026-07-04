@@ -10,7 +10,7 @@ import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/usecase/signin_usecase.dart';
-import '../../../domain/usecase/signout_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
 
 part 'email_verification_controller.g.dart';
 

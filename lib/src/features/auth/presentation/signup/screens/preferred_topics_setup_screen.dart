@@ -4,7 +4,7 @@ import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/widgets/topic_image_card.dart';
-import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
+import 'package:buzzwire/core/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';
 import 'package:buzzwire/core/ui/widgets/layout/buzzwire_bottom_frame.dart';

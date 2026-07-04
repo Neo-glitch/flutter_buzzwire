@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../../core/domain/entity/error/failure.dart';
 import '../../../../../core/domain/usecase/usecase.dart';
-import '../repository/auth_repository.dart';
+import 'package:buzzwire/core/domain/repository/auth_repository.dart';
 
 class SignUpUseCase implements UseCaseFuture<User, SignUpParams> {
   final AuthRepository authRepo;

@@ -9,7 +9,7 @@ import 'package:buzzwire/core/ui/strings.dart';
 // Features and shared widgets
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
-import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
+import 'package:buzzwire/core/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/domain/entity/country_entity.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:buzzwire/core/ui/dialog/operation_loading_dialog.dart';
