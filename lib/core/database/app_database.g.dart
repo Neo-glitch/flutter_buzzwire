@@ -202,7 +202,7 @@ class _$ArticleDao extends ArticleDao {
             (LocalArticleModel item) => <String, Object?>{
                   'id': item.id,
                   'savedAt': _dateTimeConverter.encode(item.savedAt),
-                  'source': _sourceModelConverter.encode(item.source),
+                  'source': _localSourceModelConverter.encode(item.source),
                   'author': item.author,
                   'title': item.title,
                   'description': item.description,
@@ -219,7 +219,7 @@ class _$ArticleDao extends ArticleDao {
             (LocalArticleModel item) => <String, Object?>{
                   'id': item.id,
                   'savedAt': _dateTimeConverter.encode(item.savedAt),
-                  'source': _sourceModelConverter.encode(item.source),
+                  'source': _localSourceModelConverter.encode(item.source),
                   'author': item.author,
                   'title': item.title,
                   'description': item.description,
@@ -256,7 +256,7 @@ class _$ArticleDao extends ArticleDao {
         mapper: (Map<String, Object?> row) => LocalArticleModel(
             id: row['id'] as int?,
             savedAt: _dateTimeConverter.decode(row['savedAt'] as int),
-            source: _sourceModelConverter.decode(row['source'] as String?),
+            source: _localSourceModelConverter.decode(row['source'] as String?),
             author: row['author'] as String?,
             title: row['title'] as String?,
             description: row['description'] as String?,
@@ -274,7 +274,7 @@ class _$ArticleDao extends ArticleDao {
         mapper: (Map<String, Object?> row) => LocalArticleModel(
             id: row['id'] as int?,
             savedAt: _dateTimeConverter.decode(row['savedAt'] as int),
-            source: _sourceModelConverter.decode(row['source'] as String?),
+            source: _localSourceModelConverter.decode(row['source'] as String?),
             author: row['author'] as String?,
             title: row['title'] as String?,
             description: row['description'] as String?,
@@ -306,4 +306,4 @@ class _$ArticleDao extends ArticleDao {
 // ignore_for_file: unused_element
 final _localArticleModelConverter = LocalArticleModelConverter();
 final _dateTimeConverter = DateTimeConverter();
-final _sourceModelConverter = SourceModelConverter();
+final _localSourceModelConverter = LocalSourceModelConverter();

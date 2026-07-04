@@ -12,7 +12,7 @@ LocalArticleModel _$LocalArticleModelFromJson(Map<String, dynamic> json) =>
       savedAt: DateTime.parse(json['savedAt'] as String),
       source: json['source'] == null
           ? null
-          : SourceModel.fromJson(json['source'] as Map<String, dynamic>),
+          : LocalSourceModel.fromJson(json['source'] as Map<String, dynamic>),
       author: json['author'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,

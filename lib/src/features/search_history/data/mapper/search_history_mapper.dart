@@ -1,7 +1,7 @@
 import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';
-import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
+import 'package:buzzwire/core/database/model/local_article_model.dart';
+import 'package:buzzwire/core/database/model/search_history_model.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
-import 'package:buzzwire/src/features/search_history/data/model/search_history_model.dart';
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';
 
 class SearchHistoryMapper {

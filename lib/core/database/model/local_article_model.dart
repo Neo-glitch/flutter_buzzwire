@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/database/constant/database_constants.dart';
-import 'package:buzzwire/src/features/news/data/model/source_model.dart';
+import 'package:buzzwire/core/database/model/local_source_model.dart';
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,7 +11,7 @@ class LocalArticleModel {
   @PrimaryKey(autoGenerate: true)
   final int? id;
   final DateTime savedAt;
-  final SourceModel? source;
+  final LocalSourceModel? source;
   final String? author;
   final String? title;
   final String? description;
@@ -47,7 +47,7 @@ class LocalArticleModel {
   LocalArticleModel copyWith({
     int? id,
     DateTime? savedAt,
-    SourceModel? source,
+    LocalSourceModel? source,
     String? author,
     String? title,
     String? description,

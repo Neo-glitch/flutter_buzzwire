@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/common/extension/num_extension.dart';
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
-import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
+import 'package:buzzwire/core/database/model/local_article_model.dart';
 import 'package:buzzwire/core/database/app_database.dart';
 
 abstract class NewsLocalDataSource {

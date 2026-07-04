@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
+import 'package:buzzwire/core/database/model/local_article_model.dart';
 import 'package:floor/floor.dart';
 
 class LocalArticleModelConverter
