@@ -40,11 +40,13 @@ This project was built using the following technologies and packages:
 - **[GoRouter](https://pub.dev/packages/go_router)** - A declarative routing package for Flutter.
 
 ### Networking
-- **[Dio](https://pub.dev/packages/dio)** - A powerful HTTP client for making network requests.
+- **[Retrofit](https://pub.dev/packages/retrofit)** - A type-safe HTTP client generator for Dart, built on top of Dio.
+- **[Dio](https://pub.dev/packages/dio)** ~~(plain usage deprecated — now used as the underlying engine for Retrofit)~~ - A powerful HTTP client for making network requests.
 - **[Fpdart](https://pub.dev/packages/fpdart)** - Functional programming in Dart, used for `Either` type handling.
 
 ### Local Database & Caching
-- **[Floor Database](https://pub.dev/packages/floor)** - A SQLite abstraction for local database management.
+- **[Drift](https://pub.dev/packages/drift)** - A reactive SQLite persistence library for Flutter and Dart.
+- **[Floor Database](https://pub.dev/packages/floor)** ~~(deprecated — migrated to Drift)~~ - A SQLite abstraction for local database management.
 - **[Shared Preferences](https://pub.dev/packages/shared_preferences)** - For lightweight local caching of user data.
 
 ### Image Handling
