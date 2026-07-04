@@ -22,7 +22,9 @@ mixin _$NewsByTopicState {
   List<ArticleEntity> get articles => throw _privateConstructorUsedError;
   List<ArticleEntity> get savedArticles => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsByTopicState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NewsByTopicStateCopyWith<NewsByTopicState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$NewsByTopicStateCopyWithImpl<$Res, $Val extends NewsByTopicState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NewsByTopicState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$NewsByTopicNewsStateImplCopyWithImpl<$Res>
       $Res Function(_$NewsByTopicNewsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NewsByTopicState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -212,7 +218,9 @@ class _$NewsByTopicNewsStateImpl implements _NewsByTopicNewsState {
       const DeepCollectionEquality().hash(_articles),
       const DeepCollectionEquality().hash(_savedArticles));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsByTopicState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NewsByTopicNewsStateImplCopyWith<_$NewsByTopicNewsStateImpl>
@@ -239,8 +247,11 @@ abstract class _NewsByTopicNewsState implements NewsByTopicState {
   List<ArticleEntity> get articles;
   @override
   List<ArticleEntity> get savedArticles;
+
+  /// Create a copy of NewsByTopicState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NewsByTopicNewsStateImplCopyWith<_$NewsByTopicNewsStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

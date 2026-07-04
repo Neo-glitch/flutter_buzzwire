@@ -22,7 +22,9 @@ mixin _$DiscoverNewsState {
   Map<String, List<ArticleEntity>> get topicToNewsArticleMap =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DiscoverNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DiscoverNewsStateCopyWith<DiscoverNewsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$DiscoverNewsStateCopyWithImpl<$Res, $Val extends DiscoverNewsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DiscoverNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -95,6 +99,8 @@ class __$$DiscoverNewsStateImplCopyWithImpl<$Res>
       $Res Function(_$DiscoverNewsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DiscoverNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -177,7 +183,9 @@ class _$DiscoverNewsStateImpl implements _DiscoverNewsState {
       const DeepCollectionEquality().hash(_breakingNewsItems),
       const DeepCollectionEquality().hash(_topicToNewsArticleMap));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DiscoverNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DiscoverNewsStateImplCopyWith<_$DiscoverNewsStateImpl> get copyWith =>
@@ -198,8 +206,11 @@ abstract class _DiscoverNewsState implements DiscoverNewsState {
   List<ArticleEntity> get breakingNewsItems;
   @override
   Map<String, List<ArticleEntity>> get topicToNewsArticleMap;
+
+  /// Create a copy of DiscoverNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DiscoverNewsStateImplCopyWith<_$DiscoverNewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

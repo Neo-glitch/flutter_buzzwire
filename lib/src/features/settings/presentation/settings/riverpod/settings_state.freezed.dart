@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingsState {
   LoadState get loadState => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
       _$SettingsStateImpl _value, $Res Function(_$SettingsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -115,7 +121,9 @@ class _$SettingsStateImpl implements _SettingsState {
   @override
   int get hashCode => Object.hash(runtimeType, loadState);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
@@ -128,8 +136,11 @@ abstract class _SettingsState implements SettingsState {
 
   @override
   LoadState get loadState;
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

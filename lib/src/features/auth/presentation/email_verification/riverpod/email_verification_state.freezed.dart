@@ -20,7 +20,9 @@ mixin _$EmailVerificationState {
   bool get isEmailValid => throw _privateConstructorUsedError;
   bool get isPasswordValid => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EmailVerificationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EmailVerificationStateCopyWith<EmailVerificationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,6 +47,8 @@ class _$EmailVerificationStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EmailVerificationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +95,8 @@ class __$$EmailVerificationStateImplCopyWithImpl<$Res>
       $Res Function(_$EmailVerificationStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EmailVerificationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -155,7 +161,9 @@ class _$EmailVerificationStateImpl implements _EmailVerificationState {
   int get hashCode =>
       Object.hash(runtimeType, loadState, isEmailValid, isPasswordValid);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EmailVerificationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EmailVerificationStateImplCopyWith<_$EmailVerificationStateImpl>
@@ -175,8 +183,11 @@ abstract class _EmailVerificationState implements EmailVerificationState {
   bool get isEmailValid;
   @override
   bool get isPasswordValid;
+
+  /// Create a copy of EmailVerificationState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EmailVerificationStateImplCopyWith<_$EmailVerificationStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

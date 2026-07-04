@@ -11,6 +11,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_remote_config
   permission_handler_windows
   share_plus
+  sqlite3_flutter_libs
   url_launcher_windows
   window_to_front
 )

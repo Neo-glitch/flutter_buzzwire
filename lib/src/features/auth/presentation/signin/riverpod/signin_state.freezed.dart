@@ -20,7 +20,9 @@ mixin _$SigninState {
   bool get isEmailValid => throw _privateConstructorUsedError;
   bool get isPasswordValid => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SigninState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SigninStateCopyWith<SigninState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$SigninStateCopyWithImpl<$Res, $Val extends SigninState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SigninState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$SigninStateImplCopyWithImpl<$Res>
       _$SigninStateImpl _value, $Res Function(_$SigninStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SigninState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,7 +157,9 @@ class _$SigninStateImpl implements _SigninState {
   int get hashCode =>
       Object.hash(runtimeType, loadState, isEmailValid, isPasswordValid);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SigninState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SigninStateImplCopyWith<_$SigninStateImpl> get copyWith =>
@@ -170,8 +178,11 @@ abstract class _SigninState implements SigninState {
   bool get isEmailValid;
   @override
   bool get isPasswordValid;
+
+  /// Create a copy of SigninState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SigninStateImplCopyWith<_$SigninStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

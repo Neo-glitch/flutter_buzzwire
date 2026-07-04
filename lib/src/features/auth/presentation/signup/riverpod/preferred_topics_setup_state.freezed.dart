@@ -20,7 +20,9 @@ mixin _$PreferredTopicsSetupState {
   List<TopicEntity> get topics => throw _privateConstructorUsedError;
   List<TopicEntity> get selectedTopics => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PreferredTopicsSetupState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PreferredTopicsSetupStateCopyWith<PreferredTopicsSetupState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +50,8 @@ class _$PreferredTopicsSetupStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PreferredTopicsSetupState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -97,6 +101,8 @@ class __$$PreferredTopicsSetupStateImplCopyWithImpl<$Res>
       $Res Function(_$PreferredTopicsSetupStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PreferredTopicsSetupState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -176,7 +182,9 @@ class _$PreferredTopicsSetupStateImpl implements _PreferredTopicsSetupState {
       const DeepCollectionEquality().hash(_topics),
       const DeepCollectionEquality().hash(_selectedTopics));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PreferredTopicsSetupState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PreferredTopicsSetupStateImplCopyWith<_$PreferredTopicsSetupStateImpl>
@@ -197,8 +205,11 @@ abstract class _PreferredTopicsSetupState implements PreferredTopicsSetupState {
   List<TopicEntity> get topics;
   @override
   List<TopicEntity> get selectedTopics;
+
+  /// Create a copy of PreferredTopicsSetupState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PreferredTopicsSetupStateImplCopyWith<_$PreferredTopicsSetupStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

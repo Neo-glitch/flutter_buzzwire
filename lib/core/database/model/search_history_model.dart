@@ -1,10 +1,6 @@
-import 'package:buzzwire/core/database/constant/database_constants.dart';
 import 'package:buzzwire/core/database/model/local_article_model.dart';
-import 'package:floor/floor.dart';
 
-@Entity(tableName: DatabaseConstants.searchHistoryTableName)
 class SearchHistoryModel {
-  @PrimaryKey(autoGenerate: true)
   final int? id;
   final String? search;
   final LocalArticleModel? article;

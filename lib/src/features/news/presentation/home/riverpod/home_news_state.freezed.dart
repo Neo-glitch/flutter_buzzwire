@@ -22,7 +22,9 @@ mixin _$HomeNewsState {
   List<ArticleEntity> get articles => throw _privateConstructorUsedError;
   List<ArticleEntity> get savedArticles => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HomeNewsStateCopyWith<HomeNewsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$HomeNewsStateCopyWithImpl<$Res, $Val extends HomeNewsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of HomeNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$HomeNewsStateImplCopyWithImpl<$Res>
       _$HomeNewsStateImpl _value, $Res Function(_$HomeNewsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of HomeNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -212,7 +218,9 @@ class _$HomeNewsStateImpl implements _HomeNewsState {
       const DeepCollectionEquality().hash(_articles),
       const DeepCollectionEquality().hash(_savedArticles));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HomeNewsStateImplCopyWith<_$HomeNewsStateImpl> get copyWith =>
@@ -237,8 +245,11 @@ abstract class _HomeNewsState implements HomeNewsState {
   List<ArticleEntity> get articles;
   @override
   List<ArticleEntity> get savedArticles;
+
+  /// Create a copy of HomeNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HomeNewsStateImplCopyWith<_$HomeNewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

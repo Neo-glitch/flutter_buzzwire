@@ -19,7 +19,9 @@ mixin _$SavedNewsState {
   LoadState get loadState => throw _privateConstructorUsedError;
   List<ArticleEntity> get savedArticles => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SavedNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SavedNewsStateCopyWith<SavedNewsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$SavedNewsStateCopyWithImpl<$Res, $Val extends SavedNewsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SavedNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$SavedNewsStateImplCopyWithImpl<$Res>
       _$SavedNewsStateImpl _value, $Res Function(_$SavedNewsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SavedNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,7 +146,9 @@ class _$SavedNewsStateImpl implements _SavedNewsState {
   int get hashCode => Object.hash(runtimeType, loadState,
       const DeepCollectionEquality().hash(_savedArticles));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SavedNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SavedNewsStateImplCopyWith<_$SavedNewsStateImpl> get copyWith =>
@@ -157,8 +165,11 @@ abstract class _SavedNewsState implements SavedNewsState {
   LoadState get loadState;
   @override
   List<ArticleEntity> get savedArticles;
+
+  /// Create a copy of SavedNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SavedNewsStateImplCopyWith<_$SavedNewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

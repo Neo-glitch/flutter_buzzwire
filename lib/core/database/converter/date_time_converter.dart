@@ -1,13 +1,11 @@
-import 'package:floor/floor.dart';
+import 'package:drift/drift.dart';
 
 class DateTimeConverter extends TypeConverter<DateTime, int> {
-  @override
-  DateTime decode(int databaseValue) {
-    return DateTime.fromMillisecondsSinceEpoch(databaseValue);
-  }
+  const DateTimeConverter();
 
   @override
-  int encode(DateTime value) {
-    return value.millisecondsSinceEpoch;
-  }
+  DateTime fromSql(int fromDb) => DateTime.fromMillisecondsSinceEpoch(fromDb);
+
+  @override
+  int toSql(DateTime value) => value.millisecondsSinceEpoch;
 }

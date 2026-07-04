@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$OnBoardingState {
   int get pageIndex => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OnBoardingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OnBoardingStateCopyWith<OnBoardingState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$OnBoardingStateCopyWithImpl<$Res, $Val extends OnBoardingState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OnBoardingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$OnBoardingStateImplCopyWithImpl<$Res>
       _$OnBoardingStateImpl _value, $Res Function(_$OnBoardingStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OnBoardingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,7 +131,9 @@ class _$OnBoardingStateImpl
   @override
   int get hashCode => Object.hash(runtimeType, pageIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OnBoardingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OnBoardingStateImplCopyWith<_$OnBoardingStateImpl> get copyWith =>
@@ -138,8 +146,11 @@ abstract class _OnBoardingState implements OnBoardingState {
 
   @override
   int get pageIndex;
+
+  /// Create a copy of OnBoardingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OnBoardingStateImplCopyWith<_$OnBoardingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
