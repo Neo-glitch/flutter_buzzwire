@@ -4,8 +4,6 @@ import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/check_email_verification_status_usecases.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_usecase.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
 import 'package:buzzwire/core/domain/usecase/save_device_token_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/subscribe_to_topic_usecase.dart';
@@ -95,9 +93,6 @@ class SignInController extends _$SignInController {
       await _subscribeToTopicUsecase(topic);
     }
     state = state.copyWith(loadState: const Loaded());
-    ref
-        .read(authControllerProvider.notifier)
-        .setAuthState(AuthStatus.authenticated);
   }
 
   void validateEmail(String email) {

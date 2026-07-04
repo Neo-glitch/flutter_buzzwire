@@ -19,9 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../src/features/auth/presentation/app_entry/app_entry_controller.dart';
-import '../../../src/features/auth/presentation/auth_controller.dart';
-import '../../../src/features/auth/presentation/auth_state.dart';
+import '../../../core/presentation/controllers/app_entry_controller.dart';
+import '../../../core/presentation/controllers/auth_controller.dart';
+import '../../../core/ui/model/auth_status.dart';
 import '../../../src/features/auth/presentation/email_verification/screens/email_verification_screen.dart';
 import '../../../src/features/auth/presentation/forgot_password/screens/forgot_password_screen.dart';
 import '../../../src/features/auth/presentation/onboarding/screens/onboarding_screen.dart';
@@ -54,7 +54,7 @@ GoRouter? _previousRouter;
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final authState = ref.watch(authControllerProvider);
+  final authStatus = ref.watch(authControllerProvider);
   final appEntryState = ref.watch(appEntryControllerProvider);
 
   return _previousRouter = GoRouter(
@@ -257,7 +257,7 @@ GoRouter router(RouterRef ref) {
         //     state.matchedLocation == BuzzWireRoute.signIn.path;
         final inLoginRoute =
             state.matchedLocation.startsWith(BuzzWireRoute.signInScreen.path);
-        final isLoggedIn = authState.authStatus == AuthStatus.authenticated;
+        final isLoggedIn = authStatus == AuthStatus.authenticated;
 
         // hasn't gotten past onboarding screen
         if (!hasOpenedApp) {

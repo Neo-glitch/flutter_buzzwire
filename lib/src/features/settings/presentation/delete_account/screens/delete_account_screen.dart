@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
+import 'package:buzzwire/core/presentation/controllers/auth_controller.dart';
+import 'package:buzzwire/core/ui/model/auth_status.dart';
 import 'package:buzzwire/src/features/settings/presentation/delete_account/riverpod/delete_account_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/delete_account/riverpod/delete_account_state.dart';
 import 'package:buzzwire/core/ui/dialog/operation_loading_dialog.dart';
@@ -56,7 +56,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
           await context.showToast("Your account has been successfully deleted");
           ref
               .read(authControllerProvider.notifier)
-              .setAuthState(AuthStatus.unAuthenticated);
+              .setAuthStatus(AuthStatus.unAuthenticated);
         }
       },
     );

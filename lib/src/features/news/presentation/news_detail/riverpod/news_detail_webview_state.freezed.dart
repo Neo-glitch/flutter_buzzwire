@@ -46,10 +46,10 @@ class _$NewsDetailWebViewStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loadState = freezed,
+    Object? loadState = null,
   }) {
     return _then(_value.copyWith(
-      loadState: freezed == loadState
+      loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
               as LoadState,
@@ -82,10 +82,10 @@ class __$$NewsDetailWebViewStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loadState = freezed,
+    Object? loadState = null,
   }) {
     return _then(_$NewsDetailWebViewStateImpl(
-      loadState: freezed == loadState
+      loadState: null == loadState
           ? _value.loadState
           : loadState // ignore: cast_nullable_to_non_nullable
               as LoadState,
@@ -112,12 +112,12 @@ class _$NewsDetailWebViewStateImpl implements _NewsDetailWebViewState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NewsDetailWebViewStateImpl &&
-            const DeepCollectionEquality().equals(other.loadState, loadState));
+            (identical(other.loadState, loadState) ||
+                other.loadState == loadState));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(loadState));
+  int get hashCode => Object.hash(runtimeType, loadState);
 
   @JsonKey(ignore: true)
   @override

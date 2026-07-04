@@ -4,6 +4,8 @@ import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/core/ui/assets.dart';
 import 'package:buzzwire/core/ui/strings.dart';
+import 'package:buzzwire/core/presentation/controllers/auth_controller.dart';
+import 'package:buzzwire/core/ui/model/auth_status.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/sigin_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
@@ -49,6 +51,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       if (next.loadState is Error && previous?.loadState is! Error) {
         final error = (next.loadState as Error).message;
         context.showSingleButtonAlert(BuzzWireStrings.error, error);
+      }
+      if (next.loadState is Loaded && previous?.loadState is! Loaded) {
+        ref
+            .read(authControllerProvider.notifier)
+            .setAuthStatus(AuthStatus.authenticated);
       }
     });
 

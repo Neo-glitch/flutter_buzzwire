@@ -1,5 +1,7 @@
 import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/presentation/controllers/auth_controller.dart';
 import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/model/auth_status.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/settings/presentation/settings/widgets/settings_tile.dart';
@@ -80,6 +82,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         }
         if (next.loadState is Loading) {
           _showLoadingDialog();
+        }
+        if (next.loadState is Loaded && previous?.loadState is! Loaded) {
+          ref
+              .read(authControllerProvider.notifier)
+              .setAuthStatus(AuthStatus.unAuthenticated);
         }
       },
     );

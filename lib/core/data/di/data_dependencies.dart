@@ -4,10 +4,12 @@ import 'package:buzzwire/core/data/datasource/notification/notification_remote_d
 import 'package:buzzwire/core/data/datasource/profile/profle_local_datasource.dart';
 import 'package:buzzwire/core/data/datasource/profile/profile_remote_datasource.dart';
 import 'package:buzzwire/core/data/manager/app_theme_manager_impl.dart';
+import 'package:buzzwire/core/data/manager/local_user_manager_impl.dart';
 import 'package:buzzwire/core/data/repository/auth_repository_impl.dart';
 import 'package:buzzwire/core/data/repository/notification_repository_impl.dart';
 import 'package:buzzwire/core/data/repository/profile_repository_impl.dart';
 import 'package:buzzwire/core/domain/manager/app_theme_manager.dart';
+import 'package:buzzwire/core/domain/manager/local_user_manager.dart';
 import 'package:buzzwire/core/domain/repository/auth_repository.dart';
 import 'package:buzzwire/core/domain/repository/notification_repository.dart';
 import 'package:buzzwire/core/domain/repository/profile_repository.dart';
@@ -16,6 +18,8 @@ import '../../../injector.dart';
 Future<void> provideDataDependencies() async {
   injector.registerLazySingleton<AppThemeManager>(
       () => AppThemeManagerImpl(sharedPref: injector()));
+  injector.registerLazySingleton<LocalUserManager>(
+      () => LocalUserManagerImpl(appPreference: injector()));
 
   // Auth data layer
   injector.registerFactory<AuthLocalDataSource>(

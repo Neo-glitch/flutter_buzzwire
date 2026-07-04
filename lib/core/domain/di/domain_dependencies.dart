@@ -2,8 +2,10 @@ import 'package:buzzwire/core/domain/usecase/change_password_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/delete_device_token_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/delete_user_account_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/get_topics_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/read_entry_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/reauthenticate_user_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/save_device_token_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/save_entry_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/get_app_theme_mode_stream_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/get_app_theme_mode_usecase.dart';
@@ -19,6 +21,12 @@ Future<void> provideDomainDependencies() async {
       () => GetAppThemeMode(themeManager: injector()));
   injector.registerFactory<SaveAppTheme>(
       () => SaveAppTheme(themeManager: injector()));
+
+  // App entry use cases
+  injector.registerFactory<ReadEntryUseCase>(
+      () => ReadEntryUseCase(userManager: injector()));
+  injector.registerFactory<SaveEntryUseCase>(
+      () => SaveEntryUseCase(userManager: injector()));
 
   // Cross-feature auth use cases
   injector.registerFactory<ReAuthenticateUserUseCase>(

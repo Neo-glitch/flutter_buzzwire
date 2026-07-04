@@ -1,12 +1,10 @@
-import 'package:buzzwire/core/domain/usecase/usecase.dart';
-import 'package:buzzwire/injector.dart';
-import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/core/domain/usecase/delete_device_token_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
+import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/features/settings/presentation/settings/riverpod/settings_state.dart';
-import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_controller.g.dart';
@@ -34,8 +32,6 @@ class SettingsController extends _$SettingsController {
       await _deleteDeviceTokenUsecase(user.userId);
     }
     await _signOutUseCase(NoParams());
-    ref
-        .read(authControllerProvider.notifier)
-        .setAuthState(AuthStatus.unAuthenticated);
+    state = state.copyWith(loadState: const Loaded());
   }
 }

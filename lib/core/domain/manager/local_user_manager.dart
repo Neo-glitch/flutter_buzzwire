@@ -1,4 +1,3 @@
-// handles checking and save boolean to verify if user has opened app before
 import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:fpdart/fpdart.dart';
 
