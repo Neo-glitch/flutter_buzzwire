@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NewsDetailWebViewState {
   LoadState get loadState => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsDetailWebViewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NewsDetailWebViewStateCopyWith<NewsDetailWebViewState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$NewsDetailWebViewStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NewsDetailWebViewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,6 +83,8 @@ class __$$NewsDetailWebViewStateImplCopyWithImpl<$Res>
       $Res Function(_$NewsDetailWebViewStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NewsDetailWebViewState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,7 +125,9 @@ class _$NewsDetailWebViewStateImpl implements _NewsDetailWebViewState {
   @override
   int get hashCode => Object.hash(runtimeType, loadState);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NewsDetailWebViewState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NewsDetailWebViewStateImplCopyWith<_$NewsDetailWebViewStateImpl>
@@ -133,8 +141,11 @@ abstract class _NewsDetailWebViewState implements NewsDetailWebViewState {
 
   @override
   LoadState get loadState;
+
+  /// Create a copy of NewsDetailWebViewState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NewsDetailWebViewStateImplCopyWith<_$NewsDetailWebViewStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

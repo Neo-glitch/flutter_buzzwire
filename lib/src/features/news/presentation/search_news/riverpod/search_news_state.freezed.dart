@@ -24,7 +24,9 @@ mixin _$SearchNewsState {
   int get currentPage => throw _privateConstructorUsedError;
   int get lastPage => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SearchNewsStateCopyWith<SearchNewsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +56,8 @@ class _$SearchNewsStateCopyWithImpl<$Res, $Val extends SearchNewsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SearchNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,6 +122,8 @@ class __$$SearchNewsStateImplCopyWithImpl<$Res>
       _$SearchNewsStateImpl _value, $Res Function(_$SearchNewsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -242,7 +248,9 @@ class _$SearchNewsStateImpl implements _SearchNewsState {
       currentPage,
       lastPage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchNewsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchNewsStateImplCopyWith<_$SearchNewsStateImpl> get copyWith =>
@@ -271,8 +279,11 @@ abstract class _SearchNewsState implements SearchNewsState {
   int get currentPage;
   @override
   int get lastPage;
+
+  /// Create a copy of SearchNewsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchNewsStateImplCopyWith<_$SearchNewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,14 +1,10 @@
-import 'package:buzzwire/core/database/constant/database_constants.dart';
 import 'package:buzzwire/core/database/model/local_source_model.dart';
-import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'local_article_model.g.dart';
 
 @JsonSerializable()
-@Entity(tableName: DatabaseConstants.savedNewsTableName)
 class LocalArticleModel {
-  @PrimaryKey(autoGenerate: true)
   final int? id;
   final DateTime savedAt;
   final LocalSourceModel? source;

@@ -1,20 +1,21 @@
 import 'dart:convert';
 
 import 'package:buzzwire/core/database/model/local_article_model.dart';
-import 'package:floor/floor.dart';
+import 'package:drift/drift.dart';
 
 class LocalArticleModelConverter
     extends TypeConverter<LocalArticleModel?, String?> {
+  const LocalArticleModelConverter();
+
   @override
-  LocalArticleModel? decode(String? databaseValue) {
-    if (databaseValue == null) return null;
-    final articleModelJson =
-        Map<String, dynamic>.from(jsonDecode(databaseValue));
-    return LocalArticleModel.fromJson(articleModelJson);
+  LocalArticleModel? fromSql(String? fromDb) {
+    if (fromDb == null) return null;
+    return LocalArticleModel.fromJson(
+        Map<String, dynamic>.from(jsonDecode(fromDb)));
   }
 
   @override
-  String? encode(LocalArticleModel? value) {
+  String? toSql(LocalArticleModel? value) {
     if (value == null) return null;
     return jsonEncode(value.toJson());
   }
