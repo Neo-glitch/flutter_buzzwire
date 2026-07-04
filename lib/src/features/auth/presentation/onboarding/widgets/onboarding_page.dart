@@ -1,5 +1,5 @@
-import '../../../../../../core/common/utils/device/device_utility.dart';
-import '../../../../../../core/common/utils/extensions/context_extension.dart';
+import '../../../../../../core/common/utils/device_util.dart';
+import '../../../../../../core/ui/extensions/context_extension.dart';
 import '../onboarding_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

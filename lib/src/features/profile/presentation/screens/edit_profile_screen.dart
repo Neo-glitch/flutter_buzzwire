@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_controller.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';

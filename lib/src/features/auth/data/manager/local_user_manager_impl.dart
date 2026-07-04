@@ -1,12 +1,12 @@
-import 'package:buzzwire/core/cache/preference_keys.dart';
+import 'package:buzzwire/core/cache/constant/preference_keys.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../../core/domain/error/failure.dart';
-import '../../../../../core/cache/shared_preference_util.dart';
+import '../../../../../core/cache/buzzwire_app_cache.dart';
 import '../../domain/manager/local_user_manager.dart';
 
 class LocalUserManagerImpl implements LocalUserManager {
-  final BuzzWireSharedPref appPreference;
+  final BuzzWireAppCache appPreference;
 
   LocalUserManagerImpl({required this.appPreference});
 

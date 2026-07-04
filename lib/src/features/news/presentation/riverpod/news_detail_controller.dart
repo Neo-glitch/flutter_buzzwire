@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
-import 'package:buzzwire/core/common/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/common/utils/list_util.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';

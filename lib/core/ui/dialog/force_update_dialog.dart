@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_app_icon.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_bottom_frame.dart';

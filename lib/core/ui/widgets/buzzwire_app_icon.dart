@@ -2,7 +2,7 @@ import 'package:buzzwire/core/ui/assets.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../../common/utils/extensions/context_extension.dart';
+import '../extensions/context_extension.dart';
 
 class BuzzWireAppIcon extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;

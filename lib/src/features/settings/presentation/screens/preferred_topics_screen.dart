@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/data/error/constant/error_text.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/preferred_topics_controller.dart';

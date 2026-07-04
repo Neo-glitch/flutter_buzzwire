@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:buzzwire/core/navigation/app_router.dart';
-import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/navigation/router/app_router.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/injector.dart';

@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/common/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
+import 'package:buzzwire/core/common/utils/date_util.dart';
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class ArticleSearchHistoryCard extends StatelessWidget {
                 ),
                 const Gap(20),
                 Text(
-                  BuzzWireDateHelperFunctions.formatTimeAgo(
+                  BuzzWireDateUtil.formatTimeAgo(
                       publishedAt.orEmpty),
                   style: context.bodySmall?.copyWith(fontSize: 10),
                 )

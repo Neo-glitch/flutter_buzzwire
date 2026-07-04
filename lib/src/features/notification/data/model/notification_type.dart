@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/common/utils/extensions/list_extension.dart';
+import 'package:buzzwire/core/common/utils/list_util.dart';
 
 enum NotificationType {
   systemAlert("system_alert"),

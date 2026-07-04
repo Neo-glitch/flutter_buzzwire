@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
-import 'package:buzzwire/core/common/utils/helpers/firebase_remote_config_keys.dart';
+import 'package:buzzwire/core/config/firebase_remote_config_keys.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 

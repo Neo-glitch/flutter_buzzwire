@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/common/utils/extensions/bool_extension.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/extension/bool_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

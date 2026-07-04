@@ -1,5 +1,6 @@
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/validators/email_validator.dart';
+import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/check_email_verification_status_usecases.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_usecase.dart';
@@ -100,12 +101,12 @@ class SignInController extends _$SignInController {
   }
 
   void validateEmail(String email) {
-    final isEmailValid = email.isValidEmail();
+    final isEmailValid = EmailValidator.isValid(email);
     state = state.copyWith(isEmailValid: isEmailValid);
   }
 
   void validatePassword(String password) {
-    final isPasswordValid = password.isValidPassword();
+    final isPasswordValid = PasswordValidator.isValid(password);
     state = state.copyWith(isPasswordValid: isPasswordValid);
   }
 }

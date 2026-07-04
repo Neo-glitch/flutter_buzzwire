@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/navigation/route.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';

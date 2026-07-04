@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
-class BuzzWireDateHelperFunctions {
-  BuzzWireDateHelperFunctions._();
+class BuzzWireDateUtil {
+  BuzzWireDateUtil._();
 
   static String formatTimeAgo(String dateString) {
     if (dateString.isEmpty) return "";

@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/settings/presentation/model/image_source_option.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_bottomsheet_drag_handle.dart';
 import 'package:flutter/material.dart';

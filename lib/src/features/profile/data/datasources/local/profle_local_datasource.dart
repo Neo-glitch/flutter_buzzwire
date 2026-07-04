@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:buzzwire/core/cache/preference_keys.dart';
-import 'package:buzzwire/core/cache/shared_preference_util.dart';
+import 'package:buzzwire/core/cache/constant/preference_keys.dart';
+import 'package:buzzwire/core/cache/buzzwire_app_cache.dart';
 import 'package:buzzwire/core/data/model/user_model.dart';
 import 'package:buzzwire/core/common/utils/reusable_stream_controller.dart';
 
@@ -15,7 +15,7 @@ abstract class ProfileLocalDataSource {
 }
 
 class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
-  final BuzzWireSharedPref pref;
+  final BuzzWireAppCache pref;
   final _userStreamController = ReusableStreamController<UserModel?>();
 
   ProfileLocalDataSourceImpl({required this.pref});

@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/common/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
+import 'package:buzzwire/core/common/utils/date_util.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -84,7 +84,7 @@ class NewsHeadlineCard extends StatelessWidget {
                 ),
                 const Gap(5),
                 Text(
-                  BuzzWireDateHelperFunctions.formatTimeAgo(
+                  BuzzWireDateUtil.formatTimeAgo(
                       publishedAt.orEmpty),
                   style: Theme.of(context)
                       .textTheme

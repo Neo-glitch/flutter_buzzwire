@@ -96,6 +96,9 @@ class BuzzWireStrings {
   static const String chooseTopicsOfInterestDesc =
       "Choose the topics you care about most, and we'll tailor your news feed to match your interests. Stay updated on what matters to you!";
 
+  // Support contact
+  static const String devEmail = "nwekeemmanuel247@gmail.com";
+
   // Force-update dialog
   static const String newUpdateIsAvailable = "New Update is Available";
   static const String updateYourApplicationToTheLatestVersion =

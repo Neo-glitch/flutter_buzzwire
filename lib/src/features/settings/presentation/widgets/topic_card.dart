@@ -1,5 +1,5 @@
 
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';

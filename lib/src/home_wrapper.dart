@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';

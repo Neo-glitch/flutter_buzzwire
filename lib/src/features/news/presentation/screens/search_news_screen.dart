@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/common/utils/helpers/debouncer.dart';
-import 'package:buzzwire/core/common/utils/helpers/helper_functions.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/utils/debouncer.dart';
+import 'package:buzzwire/core/common/utils/device_util.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/search_news_event.dart';
@@ -81,7 +81,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
           ref
               .read(searchNewsControllerProvider.notifier)
               .onEvent(SaveSearchHistoryEvent(search: _searchController.text));
-          BuzzWireHelperFunctions.hideKeyboard();
+          BuzzWireDeviceUtils.hideKeyboard();
         }
       },
     );
@@ -185,7 +185,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
   }
 
   void _onDeleteSearchHistory(SearchHistoryEntity history) {
-    BuzzWireHelperFunctions.hideKeyboard();
+    BuzzWireDeviceUtils.hideKeyboard();
     ref
         .read(searchNewsControllerProvider.notifier)
         .onEvent(DeleteSearchHistoryEvent(searchHistory: history));
@@ -193,7 +193,7 @@ class _SearchNewsScreenState extends ConsumerState<SearchNewsScreen> {
 
   void _onClickSearchHistory(SearchHistoryEntity history) {
     if (history.search != null) {
-      BuzzWireHelperFunctions.hideKeyboard();
+      BuzzWireDeviceUtils.hideKeyboard();
       _searchController.text = history.search!;
       _searchNews(history.search!);
     } else {

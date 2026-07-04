@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/common/utils/helpers/date_helper_functions.dart';
-import 'package:buzzwire/core/common/utils/helpers/helper_functions.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
+import 'package:buzzwire/core/common/utils/date_util.dart';
+import 'package:buzzwire/core/common/utils/device_util.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class _NewsCardState extends State<NewsCard> {
         if (widget.onClick != null) {
           widget.onClick!(widget.article);
         }
-        BuzzWireHelperFunctions.hideKeyboard();
+        BuzzWireDeviceUtils.hideKeyboard();
       },
       child: SizedBox(
         height: 120,
@@ -81,7 +81,7 @@ class _NewsCardState extends State<NewsCard> {
             ),
             const Spacer(),
             Text(
-              BuzzWireDateHelperFunctions.formatTimeAgo(
+              BuzzWireDateUtil.formatTimeAgo(
                 widget.article.publishedAt.orEmpty,
               ),
               maxLines: 1,

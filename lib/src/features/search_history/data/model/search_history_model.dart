@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/database/database_constants.dart';
+import 'package:buzzwire/core/database/constant/database_constants.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
 import 'package:floor/floor.dart';
 

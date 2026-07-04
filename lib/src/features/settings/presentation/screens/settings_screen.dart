@@ -1,6 +1,5 @@
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/network/network_constants.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/news/presentation/widgets/settings_tile.dart';
@@ -56,7 +55,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _launchEmail() async {
     final wasLaunched = await launchUrl(
       Uri.parse(
-          "mailto:${NetworkConstants.devEmail}?subject=Feedback for BuzzWire"),
+          "mailto:${BuzzWireStrings.devEmail}?subject=Feedback for BuzzWire"),
     );
     if (!wasLaunched) {
       if (mounted) context.showToast("Failed to lauch email app!");

@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/common/utils/device/device_utility.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/common/utils/device_util.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/core/ui/assets.dart';
 import 'package:buzzwire/core/ui/strings.dart';

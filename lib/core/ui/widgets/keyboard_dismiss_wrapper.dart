@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/common/utils/helpers/helper_functions.dart';
+import 'package:buzzwire/core/common/utils/device_util.dart';
 import 'package:flutter/material.dart';
 
 // wrapper class for all screens, to help hide keyboard once tap occurs outside
@@ -11,7 +11,7 @@ class KeyboardDismissWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BuzzWireHelperFunctions.hideKeyboard();
+        BuzzWireDeviceUtils.hideKeyboard();
       },
       behavior: HitTestBehavior.opaque,
       child: child,

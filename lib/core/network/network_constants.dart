@@ -12,8 +12,11 @@ class NetworkConstants {
   static const String newsApiKey = "NEWS_API_KEY";
   static const String newsApiBaseUrl = "NEWS_API_BASE_URL";
 
-  // Support contact
-  static const String devEmail = "nwekeemmanuel247@gmail.com";
+  // Firestore collection names
+  static const String usersCollection = "users";
+  static const String articlesCollection = "articlesCollection";
+  static const String deviceTokenCollection = "devices";
+  static const String topicsCollection = "topics";
 
   // .env key names — Appwrite
   static const String appWriteProjectId = "APP_WRITE_PROJECT_ID";

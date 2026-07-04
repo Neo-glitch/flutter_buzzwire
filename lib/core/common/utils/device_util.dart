@@ -9,8 +9,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 class BuzzWireDeviceUtils {
   BuzzWireDeviceUtils._();
 
-  static void hideKeyboard(BuildContext context) {
-    FocusScope.of(context).requestFocus(FocusNode());
+  static void hideKeyboard() {
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   static Future<void> setStatusBarColor(Color color, bool isDarkMode) async {

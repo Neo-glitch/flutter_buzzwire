@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:buzzwire/core/cache/preference_keys.dart';
+import 'package:buzzwire/core/cache/constant/preference_keys.dart';
 import 'package:buzzwire/core/domain/error/failure.dart';
-import 'package:buzzwire/core/cache/shared_preference_util.dart';
+import 'package:buzzwire/core/cache/buzzwire_app_cache.dart';
 import 'package:buzzwire/core/domain/manager/app_theme_manager.dart';
 import 'package:flutter/src/material/app.dart';
 import 'package:fpdart/fpdart.dart';
 
 class AppThemeManagerImpl implements AppThemeManager {
-  final BuzzWireSharedPref sharedPref;
+  final BuzzWireAppCache sharedPref;
   final _themeModeController = StreamController<ThemeMode>.broadcast();
 
   AppThemeManagerImpl({

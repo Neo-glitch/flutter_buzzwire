@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:buzzwire/src/features/news/data/datasources/local/article_dao.dart';
+import 'package:buzzwire/core/database/dao/article_dao.dart';
 import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
-import 'package:buzzwire/src/features/search_history/data/datasources/local/search_history_dao.dart';
+import 'package:buzzwire/core/database/dao/search_history_dao.dart';
 import 'package:buzzwire/src/features/search_history/data/model/search_history_model.dart';
-import 'package:buzzwire/core/database/date_time_converter.dart';
-import 'package:buzzwire/core/database/local_article_model_converter.dart';
-import 'package:buzzwire/core/database/source_model_converter.dart';
+import 'package:buzzwire/core/database/converter/date_time_converter.dart';
+import 'package:buzzwire/core/database/converter/local_article_model_converter.dart';
+import 'package:buzzwire/core/database/converter/source_model_converter.dart';
 import 'package:floor/floor.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 

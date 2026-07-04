@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/database/database_constants.dart';
+import 'package:buzzwire/core/database/constant/database_constants.dart';
 import 'package:buzzwire/src/features/news/data/model/source_model.dart';
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';

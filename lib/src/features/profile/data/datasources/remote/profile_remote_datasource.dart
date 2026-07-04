@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
-import 'package:buzzwire/core/data/firebase_constants.dart';
 import 'package:buzzwire/core/data/model/profile_image_model.dart';
 import 'package:buzzwire/core/data/model/user_model.dart';
 import 'package:buzzwire/core/network/network_constants.dart';
@@ -150,5 +149,5 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   CollectionReference<Map<String, dynamic>> get _getUsersCollectionRef =>
-      firestoreDb.collection(FirebaseConstants.usersCollection);
+      firestoreDb.collection(NetworkConstants.usersCollection);
 }

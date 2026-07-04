@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/data/error/constant/error_text.dart';
-import 'package:buzzwire/core/network/network_connection_checker.dart';
+import 'package:buzzwire/core/common/utils/network_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/src/either.dart';
 

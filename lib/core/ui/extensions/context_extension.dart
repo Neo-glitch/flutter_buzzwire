@@ -189,18 +189,4 @@ extension ContextExtension<T> on BuildContext {
         fontSize: labelMedium?.fontSize ?? 14);
   }
 
-  void popUntilPath(String routePath) {
-    final router = GoRouter.of(this);
-    final currentLocation =
-        router.routerDelegate.currentConfiguration.matches.last.matchedLocation;
-
-    while (currentLocation != routePath && canPop()) {
-      pop();
-    }
-  }
-
-  // Replace this with go Router call
-  void navigateToScreen(BuildContext context, Widget screen) {
-    Navigator.push(this, MaterialPageRoute(builder: (_) => screen));
-  }
 }

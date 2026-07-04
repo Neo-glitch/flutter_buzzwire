@@ -1,11 +1,11 @@
-import '../../../../../core/cache/shared_preference_util.dart';
+import '../../../../../core/cache/buzzwire_app_cache.dart';
 
 abstract class AuthLocalDataSource {
   bool checkIfAunthenticated();
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  final BuzzWireSharedPref appPreference;
+  final BuzzWireAppCache appPreference;
 
   AuthLocalDataSourceImpl({required this.appPreference});
 

@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
-import 'package:buzzwire/core/common/utils/helpers/date_helper_functions.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
+import 'package:buzzwire/core/common/utils/date_util.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -52,7 +52,7 @@ class TrendingNewsCard extends StatelessWidget {
                 ),
                 const Gap(2),
                 Text(
-                  BuzzWireDateHelperFunctions.formatTimeAgo(
+                  BuzzWireDateUtil.formatTimeAgo(
                       article.publishedAt.orEmpty),
                   style: context.bodySmall,
                 )

@@ -5,9 +5,9 @@ import 'package:buzzwire/core/ui/widgets/keyboard_dismiss_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'core/navigation/app_router.dart';
+import 'core/navigation/router/app_router.dart';
 import 'core/theme/theme.dart';
-import 'core/common/utils/device/device_utility.dart';
+import 'core/common/utils/device_util.dart';
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});

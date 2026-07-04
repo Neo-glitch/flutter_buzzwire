@@ -2,8 +2,8 @@ import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/core/ui/assets.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 
-import '../../../../../../core/common/utils/device/device_utility.dart';
-import '../../../../../../core/common/utils/extensions/context_extension.dart';
+import '../../../../../../core/common/utils/device_util.dart';
+import '../../../../../../core/ui/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

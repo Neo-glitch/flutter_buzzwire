@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/saved_news_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/riverpod/saved_news_state.dart';

@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/data/error/constant/error_text.dart';
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/widgets/topic_image_card.dart';

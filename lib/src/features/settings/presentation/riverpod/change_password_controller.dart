@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/data/error/constant/error_text.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
-import 'package:buzzwire/core/common/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/change_password_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
@@ -48,19 +48,19 @@ class ChangePasswordController extends _$ChangePasswordController {
   }
 
   void validateCurrentPassword(String password) {
-    final isPasswordValid = password.isValidPassword();
+    final isPasswordValid = PasswordValidator.isValid(password);
     state = state.copyWith(isOldPasswordValid: isPasswordValid);
   }
 
   void validateNewPassword(String password, String oldPassword) {
     final isPasswordValid =
-        password.isValidPassword() && password != oldPassword;
+        PasswordValidator.isValid(password) && password != oldPassword;
     state = state.copyWith(isNewPasswordValid: isPasswordValid);
   }
 
   void validateConfirmPassword(String password, String newPassword) {
     final isPasswordValid =
-        password.isValidPassword() && password == newPassword;
+        PasswordValidator.isValid(password) && password == newPassword;
     state = state.copyWith(isConfirmPasswordValid: isPasswordValid);
   }
 }

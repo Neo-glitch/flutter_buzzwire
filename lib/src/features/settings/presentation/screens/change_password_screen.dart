@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/common/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/change_password_controller.dart';
 import 'package:buzzwire/src/features/settings/presentation/riverpod/change_password_state.dart';
