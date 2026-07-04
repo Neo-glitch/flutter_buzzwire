@@ -1,4 +1,3 @@
-import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/core/data/datasource/auth/auth_remote_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -12,102 +11,57 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<User> signIn(String email, String password) async {
-    try {
-      final response = await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return response.user!;
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    final response = await firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    return response.user!;
   }
 
   @override
   Future<void> signOut() async {
-    try {
-      return await firebaseAuth.signOut();
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await firebaseAuth.signOut();
   }
 
   @override
   Future<User> signup(String email, String password) async {
-    try {
-      final response = await firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      return response.user!;
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    final response = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    return response.user!;
   }
 
   @override
   Future<void> resetPassword(String email) {
-    try {
-      return firebaseAuth.sendPasswordResetEmail(email: email);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
   @override
   Future<bool> verifyEmail() async {
-    try {
-      await firebaseAuth.currentUser?.reload();
-      return firebaseAuth.currentUser?.emailVerified ?? false;
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    await firebaseAuth.currentUser?.reload();
+    return firebaseAuth.currentUser?.emailVerified ?? false;
   }
 
   @override
   Future<void> sendVerificationEmail() async {
-    try {
-      await firebaseAuth.currentUser?.sendEmailVerification();
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    await firebaseAuth.currentUser?.sendEmailVerification();
   }
 
   @override
   Future<void> deleteAccount() async {
-    try {
-      await firebaseAuth.currentUser?.delete();
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    await firebaseAuth.currentUser?.delete();
   }
 
   @override
   Future<void> changePassword(String newPassword) async {
-    try {
-      await firebaseAuth.currentUser?.updatePassword(newPassword);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    await firebaseAuth.currentUser?.updatePassword(newPassword);
   }
 
   @override
   Future<void> reAuthenticateUser(String email, String password) async {
-    try {
-      final credential = EmailAuthProvider.credential(
-        email: email,
-        password: password,
-      );
+    final credential = EmailAuthProvider.credential(
+      email: email,
+      password: password,
+    );
 
-      final currentUser = firebaseAuth.currentUser;
-      await currentUser?.reauthenticateWithCredential(credential);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    final currentUser = firebaseAuth.currentUser;
+    await currentUser?.reauthenticateWithCredential(credential);
   }
 }

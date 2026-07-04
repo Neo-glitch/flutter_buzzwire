@@ -1,5 +1,4 @@
 import 'package:buzzwire/core/common/extension/string_extension.dart';
-import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/core/data/datasource/notification/notification_remote_datasource.dart';
 import 'package:buzzwire/core/data/model/topic_model.dart';
 import 'package:buzzwire/core/network/constant/network_constants.dart';
@@ -75,20 +74,15 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
 
   @override
   Future<List<TopicModel>> getTopics() async {
-    try {
-      final topicsCollectionSnap = await _topicsCollectionRef
-          .withConverter(
-            fromFirestore: TopicModel.fromFirestore,
-            toFirestore: (topicModel, options) => topicModel.toFirestore(),
-          )
-          .get(const GetOptions(source: Source.server));
+    final topicsCollectionSnap = await _topicsCollectionRef
+        .withConverter(
+          fromFirestore: TopicModel.fromFirestore,
+          toFirestore: (topicModel, options) => topicModel.toFirestore(),
+        )
+        .get(const GetOptions(source: Source.server));
 
-      final topics =
-          topicsCollectionSnap.docs.map((doc) => doc.data()).toList();
-      return topics;
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    final topics =
+        topicsCollectionSnap.docs.map((doc) => doc.data()).toList();
+    return topics;
   }
 }

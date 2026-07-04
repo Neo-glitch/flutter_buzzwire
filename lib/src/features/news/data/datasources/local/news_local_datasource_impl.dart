@@ -11,34 +11,18 @@ class NewsLocalDataSourceImpl implements NewsLocalDataSource {
 
   @override
   Future<void> clearAllSavedArticles() async {
-    try {
-      return await database.newsDao.clearAllSavedArticles();
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.newsDao.clearAllSavedArticles();
   }
 
   @override
   Future<void> deleteSavedArticle(LocalArticleModel article) async {
-    try {
-      return await database.newsDao.deleteSavedArticle(article);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.newsDao.deleteSavedArticle(article);
   }
 
   @override
   Future<List<LocalArticleModel>> getPaginatedSavedArticles(
       int pageSize, int pageOffset) async {
-    try {
-      return await database.newsDao
-          .getPaginatedSavedArticle(pageSize, pageOffset);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.newsDao.getPaginatedSavedArticle(pageSize, pageOffset);
   }
 
   @override
@@ -50,22 +34,12 @@ class NewsLocalDataSourceImpl implements NewsLocalDataSource {
 
   @override
   Future<int> getSavedArticlesCount() async {
-    try {
-      final itemCount = await database.newsDao.getSavedArticlesItemCount();
-      return itemCount.orZero;
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    final itemCount = await database.newsDao.getSavedArticlesItemCount();
+    return itemCount.orZero;
   }
 
   @override
   Future<void> saveArticle(LocalArticleModel article) async {
-    try {
-      return await database.newsDao.saveArticle(article);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.newsDao.saveArticle(article);
   }
 }

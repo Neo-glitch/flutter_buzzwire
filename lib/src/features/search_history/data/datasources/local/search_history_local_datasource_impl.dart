@@ -10,22 +10,12 @@ class SearchHistoryLocalDataSourceImpl extends SearchHistoryLocalDataSource {
 
   @override
   Future<void> clearSearchHistory() async {
-    try {
-      return await database.searchHistoryDao.clearSearchHistory();
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.searchHistoryDao.clearSearchHistory();
   }
 
   @override
   Future<void> deleteSearchHistory(SearchHistoryModel searchHistory) async {
-    try {
-      return await database.searchHistoryDao.deleteSearchHistory(searchHistory);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.searchHistoryDao.deleteSearchHistory(searchHistory);
   }
 
   @override
@@ -37,11 +27,6 @@ class SearchHistoryLocalDataSourceImpl extends SearchHistoryLocalDataSource {
 
   @override
   Future<void> saveSearchHistory(SearchHistoryModel searchHistory) async {
-    try {
-      return await database.searchHistoryDao.insertSearchHistory(searchHistory);
-    } catch (e, s) {
-      BuzzWireLoggerHelper.error(s.toString());
-      rethrow;
-    }
+    return await database.searchHistoryDao.insertSearchHistory(searchHistory);
   }
 }
