@@ -4,7 +4,9 @@ import 'package:buzzwire/core/domain/repository/notification_repository.dart';
 import 'package:buzzwire/core/domain/repository/profile_repository.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class SignOutUseCase implements UseCaseFutureVoid<NoParams> {
   final AuthRepository authRepo;
   final ProfileRepository profileRepo;

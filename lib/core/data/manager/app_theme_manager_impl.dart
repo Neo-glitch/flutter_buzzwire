@@ -6,7 +6,9 @@ import 'package:buzzwire/core/cache/buzzwire_app_cache.dart';
 import 'package:buzzwire/core/domain/manager/app_theme_manager.dart';
 import 'package:flutter/src/material/app.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: AppThemeManager)
 class AppThemeManagerImpl implements AppThemeManager {
   final BuzzWireAppCache sharedPref;
   final _themeModeController = StreamController<ThemeMode>.broadcast();

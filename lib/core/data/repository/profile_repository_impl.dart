@@ -12,7 +12,9 @@ import 'package:buzzwire/core/domain/entity/profile_image_entity.dart';
 import 'package:buzzwire/core/domain/entity/user_entity.dart';
 import 'package:buzzwire/core/domain/repository/profile_repository.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: ProfileRepository)
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDatasource;
   final ProfileLocalDataSource localDatasource;

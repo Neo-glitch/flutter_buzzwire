@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
 import 'firebase_options.dart';
-import 'injector.dart' as di;
+import 'injector.dart';
 import 'package:buzzwire/core/common/logging/provider_observer.dart';
 
 /// to handle background messages i.e when app is in background or terminated state
@@ -33,7 +33,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await di.init();
+  await configureDependencies();
   BuzzWireDeviceUtils.setPreferredOrientation([DeviceOrientation.portraitUp]);
   runApp(
     ProviderScope(

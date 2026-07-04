@@ -2,7 +2,9 @@ import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/core/domain/repository/notification_repository.dart';
 import 'package:fpdart/src/either.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class SaveDeviceTokenUsecase implements UseCaseFutureVoid<String> {
   final NotificationRepository notificationRepo;
 

@@ -6,7 +6,9 @@ import 'package:buzzwire/core/domain/repository/profile_repository.dart';
 import 'package:buzzwire/core/domain/usecase/reauthenticate_user_usecase.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class DeleteUserAccountUseCase
     implements UseCaseFutureVoid<DeleteUserAccountParam> {
   final AuthRepository authRepo;

@@ -5,7 +5,9 @@ import 'package:buzzwire/core/domain/entity/country_entity.dart';
 import 'package:buzzwire/core/domain/entity/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpdart/src/either.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class CreateUserAccountUseCase
     implements UseCaseFutureVoid<CreateUserAccountParam> {
   final ProfileRepository profileRepo;

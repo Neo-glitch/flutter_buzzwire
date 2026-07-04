@@ -2,7 +2,9 @@ import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/core/domain/repository/profile_repository.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class FetchAndCacheUserUseCase implements UseCaseFuture<void, String> {
   final ProfileRepository profileRepo;
 

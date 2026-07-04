@@ -1,6 +1,8 @@
 import 'package:buzzwire/core/cache/buzzwire_app_cache.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@LazySingleton(as: BuzzWireAppCache)
 class BuzzWireAppCacheImpl implements BuzzWireAppCache {
   final SharedPreferences _preferences;
 

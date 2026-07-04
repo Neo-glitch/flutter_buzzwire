@@ -6,7 +6,9 @@ import 'package:buzzwire/core/cache/constant/preference_keys.dart';
 import 'package:buzzwire/core/common/utils/reusable_stream_controller.dart';
 import 'package:buzzwire/core/data/datasource/profile/profle_local_datasource.dart';
 import 'package:buzzwire/core/data/model/user_model.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: ProfileLocalDataSource)
 class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
   final BuzzWireAppCache pref;
   final _userStreamController = ReusableStreamController<UserModel?>();

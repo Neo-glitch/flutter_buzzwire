@@ -3,7 +3,9 @@ import 'package:buzzwire/core/cache/constant/preference_keys.dart';
 import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/manager/local_user_manager.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: LocalUserManager)
 class LocalUserManagerImpl implements LocalUserManager {
   final BuzzWireAppCache appPreference;
 
