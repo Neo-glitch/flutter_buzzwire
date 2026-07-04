@@ -3,7 +3,7 @@ import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/common/utils/date_util.dart';
 import 'package:buzzwire/core/common/utils/device_util.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
+import 'package:buzzwire/core/ui/widgets/media/buzzwire_image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -1,6 +1,6 @@
 import 'package:buzzwire/injector.dart';
-import 'package:buzzwire/src/features/auth/data/datasource/auth_local_datasource.dart';
-import 'package:buzzwire/src/features/auth/data/datasource/auth_remote_datasource.dart';
+import 'package:buzzwire/src/features/auth/data/datasource/local/auth_local_datasource.dart';
+import 'package:buzzwire/src/features/auth/data/datasource/remote/auth_remote_datasource.dart';
 import 'package:buzzwire/src/features/auth/data/manager/local_user_manager_impl.dart';
 import 'package:buzzwire/src/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:buzzwire/src/features/auth/domain/manager/local_user_manager.dart';

@@ -13,12 +13,12 @@ import 'package:buzzwire/src/features/notification/domain/entity/topic_entity.da
 import 'package:buzzwire/core/domain/entity/country_entity.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:buzzwire/core/ui/dialog/operation_loading_dialog.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_bottom_frame.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_country_picker.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_email_input_field.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_password_input_field.dart';
-import 'package:buzzwire/core/ui/widgets/form_input_group.dart';
+import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/layout/buzzwire_bottom_frame.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/buzzwire_country_picker.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/buzzwire_email_input_field.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/buzzwire_password_input_field.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/form_input_group.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/gestures.dart';
 // External packages

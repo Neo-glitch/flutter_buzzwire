@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/entity/error/failure.dart';
 import '../../../../../core/domain/usecase/usecase.dart';
 import '../repository/auth_repository.dart';
 

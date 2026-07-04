@@ -7,10 +7,10 @@ import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_state.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_email_input_field.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_progress_button.dart';
-import 'package:buzzwire/core/ui/widgets/form_input_group.dart';
+import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/buzzwire_email_input_field.dart';
+import 'package:buzzwire/core/ui/widgets/buttons/buzzwire_progress_button.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/form_input_group.dart';
 // External packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

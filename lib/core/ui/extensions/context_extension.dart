@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/theme/app_colors.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_simple_dialog.dart';
+import 'package:buzzwire/core/ui/dialog/buzzwire_simple_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';

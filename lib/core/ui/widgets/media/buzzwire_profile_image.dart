@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../common/extension/num_extension.dart';
+import 'package:buzzwire/core/common/extension/num_extension.dart';
 
 class BuzzWireProfileImage extends StatelessWidget {
   final double radius;

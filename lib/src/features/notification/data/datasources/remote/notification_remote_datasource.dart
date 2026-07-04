@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
-import 'package:buzzwire/core/network/network_constants.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:buzzwire/src/features/notification/data/model/topic_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

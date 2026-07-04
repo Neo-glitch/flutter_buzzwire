@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../injector.dart';
 import '../../common/extension/string_extension.dart';
 import '../dio/dio_client.dart' show DioClient;
-import '../network_constants.dart';
+import '../constant/network_constants.dart';
 
 Future<void> provideNetworkDependencies() async {
   final appWriteClient = Client()

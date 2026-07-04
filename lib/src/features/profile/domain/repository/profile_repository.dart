@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/entity/profile_image_entity.dart';
 import 'package:buzzwire/core/domain/entity/user_entity.dart';
 import 'package:fpdart/fpdart.dart';

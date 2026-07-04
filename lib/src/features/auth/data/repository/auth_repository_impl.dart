@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/src/either.dart';
 
 import '../../../../../core/data/error/exception_handler.dart';
-import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/entity/error/failure.dart';
 import '../../domain/repository/auth_repository.dart';
-import '../datasource/auth_remote_datasource.dart';
+import '../datasource/remote/auth_remote_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;

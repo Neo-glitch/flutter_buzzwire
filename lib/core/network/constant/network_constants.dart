@@ -8,10 +8,6 @@ class NetworkConstants {
   static const int pageSize = 20;
   static const String removedArticleUrl = "https://removed.com";
 
-  // .env key names — News API
-  static const String newsApiKey = "NEWS_API_KEY";
-  static const String newsApiBaseUrl = "NEWS_API_BASE_URL";
-
   // Firestore collection names
   static const String usersCollection = "users";
   static const String articlesCollection = "articlesCollection";
@@ -25,4 +21,8 @@ class NetworkConstants {
   static const String appWriteTopicsImageBucketId =
       "APP_WRITE_TOPICS_IMAGE_BUCKET_ID";
   static const String appWriteBaseUrl = "APP_WRITE_BASE_URL";
+
+  // .env key names — News API
+  static const String newsApiKey = "NEWS_API_KEY";
+  static const String newsApiBaseUrl = "NEWS_API_BASE_URL";
 }

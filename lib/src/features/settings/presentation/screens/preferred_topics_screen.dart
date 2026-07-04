@@ -6,11 +6,11 @@ import 'package:buzzwire/src/features/settings/presentation/riverpod/preferred_t
 import 'package:buzzwire/src/features/settings/presentation/riverpod/preferred_topics_state.dart';
 import 'package:buzzwire/src/features/settings/presentation/widgets/topic_card.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_bottom_frame.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_empty_or_error_screen.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_progress_button.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_progress_loader.dart';
+import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/layout/buzzwire_bottom_frame.dart';
+import 'package:buzzwire/core/ui/widgets/feedback/buzzwire_empty_or_error_screen.dart';
+import 'package:buzzwire/core/ui/widgets/buttons/buzzwire_progress_button.dart';
+import 'package:buzzwire/core/ui/widgets/progress/buzzwire_progress_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

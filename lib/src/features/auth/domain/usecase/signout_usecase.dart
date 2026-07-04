@@ -1,7 +1,7 @@
 import 'package:buzzwire/src/features/notification/domain/repository/notification_repository.dart';
 import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
 import 'package:fpdart/fpdart.dart';
-import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/entity/error/failure.dart';
 import '../../../../../core/domain/usecase/usecase.dart';
 import '../repository/auth_repository.dart';
 

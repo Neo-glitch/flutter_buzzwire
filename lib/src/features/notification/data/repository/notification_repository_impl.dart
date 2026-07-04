@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/data/error/constant/error_text.dart';
 import 'package:buzzwire/core/data/error/exception_handler.dart';
-import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/common/utils/network_connection_checker.dart';
 import 'package:buzzwire/src/features/notification/data/datasources/remote/notification_remote_datasource.dart';
 import 'package:buzzwire/src/features/notification/data/mapper/topic_mapper.dart';

@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 

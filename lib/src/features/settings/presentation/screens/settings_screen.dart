@@ -7,8 +7,8 @@ import 'package:buzzwire/src/features/settings/presentation/riverpod/settings_co
 import 'package:buzzwire/src/features/settings/presentation/screens/app_theme_bottomsheet.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:buzzwire/core/ui/dialog/operation_loading_dialog.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/core/ui/widgets/buzzwire_divider.dart';
+import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/divider/buzzwire_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

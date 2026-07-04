@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/domain/error/failure.dart';
+import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';

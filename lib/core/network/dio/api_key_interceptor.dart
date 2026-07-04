@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/network/network_constants.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

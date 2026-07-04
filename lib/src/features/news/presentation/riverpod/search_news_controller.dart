@@ -2,7 +2,7 @@ import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/core/common/extension/list_extension.dart';
 import 'package:buzzwire/core/common/utils/list_util.dart';
 import 'package:buzzwire/core/common/extension/num_extension.dart';
-import 'package:buzzwire/core/network/network_constants.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';

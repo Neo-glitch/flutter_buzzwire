@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/ui/widgets/buzzwire_image_card.dart';
+import 'package:buzzwire/core/ui/widgets/media/buzzwire_image_card.dart';
 import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/common/utils/date_util.dart';

@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/network/dio/dio_client.dart';
 
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
-import 'package:buzzwire/core/network/network_constants.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
 

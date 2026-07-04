@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/cache/constant/preference_keys.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/entity/error/failure.dart';
 import '../../../../../core/cache/buzzwire_app_cache.dart';
 import '../../domain/manager/local_user_manager.dart';
 

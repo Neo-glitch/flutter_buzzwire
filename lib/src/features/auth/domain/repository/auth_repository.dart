@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../../../../core/domain/error/failure.dart';
+import '../../../../../core/domain/entity/error/failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 
