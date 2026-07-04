@@ -8,7 +8,9 @@ import 'package:buzzwire/core/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/domain/repository/notification_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpdart/src/either.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: NotificationRepository)
 class NotificationRepositoryImpl implements NotificationRepository {
   final NotificationRemoteDatasource remoteDatasource;
   final NetworkConnectionChecker networkConnectionChecker;

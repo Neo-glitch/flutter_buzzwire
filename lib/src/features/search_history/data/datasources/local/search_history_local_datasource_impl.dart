@@ -2,7 +2,9 @@ import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/core/database/app_database.dart';
 import 'package:buzzwire/core/database/model/search_history_model.dart';
 import 'package:buzzwire/src/features/search_history/data/datasources/local/search_history_local_datasource.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: SearchHistoryLocalDataSource)
 class SearchHistoryLocalDataSourceImpl extends SearchHistoryLocalDataSource {
   final AppDatabase database;
 

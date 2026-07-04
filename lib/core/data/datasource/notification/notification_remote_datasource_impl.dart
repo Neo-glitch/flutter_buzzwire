@@ -4,7 +4,9 @@ import 'package:buzzwire/core/data/model/topic_model.dart';
 import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: NotificationRemoteDatasource)
 class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   final FirebaseMessaging messaging;
   final FirebaseFirestore firestore;

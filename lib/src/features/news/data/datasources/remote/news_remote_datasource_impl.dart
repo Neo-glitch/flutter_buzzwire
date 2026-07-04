@@ -3,7 +3,9 @@ import 'package:buzzwire/src/features/news/data/datasources/remote/api/news_api_
 import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_datasource.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: NewsRemoteDataSource)
 class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   final NewsApiService newsApiService;
 

@@ -5,7 +5,9 @@ import 'package:buzzwire/src/features/search_history/data/mapper/search_history_
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';
 import 'package:buzzwire/src/features/search_history/domain/repository/search_history_repository.dart';
 import 'package:fpdart/src/either.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: SearchHistoryRepository)
 class SearchHistoryRepositoryImpl implements SearchHistoryRepository {
   final SearchHistoryLocalDataSource localDataSource;
 

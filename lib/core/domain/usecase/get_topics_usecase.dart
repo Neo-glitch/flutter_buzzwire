@@ -3,7 +3,9 @@ import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/core/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/domain/repository/notification_repository.dart';
 import 'package:fpdart/src/either.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class GetTopicsUsecase implements UseCaseFuture<List<TopicEntity>, NoParams> {
   final NotificationRepository notificationRepo;
 
