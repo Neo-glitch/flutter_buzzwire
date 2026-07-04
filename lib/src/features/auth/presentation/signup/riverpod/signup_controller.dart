@@ -1,13 +1,14 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/domain/validators/email_validator.dart';
+import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/create_user_account_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/send_verification_email_usecase.dart';
-import 'package:buzzwire/src/features/auth/domain/usecase/signout_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/signup_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/signup_state.dart';
-import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/domain/entity/country_entity.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'signup_controller.g.dart';
@@ -114,12 +115,12 @@ class SignUpController extends _$SignUpController {
   }
 
   void validateEmail(String email) {
-    final isEmailValid = email.isValidEmail();
+    final isEmailValid = EmailValidator.isValid(email);
     state = state.copyWith(isEmailValid: isEmailValid);
   }
 
   void validatePassword(String password) {
-    final isPasswordValid = password.isValidPassword();
+    final isPasswordValid = PasswordValidator.isValid(password);
     state = state.copyWith(isPasswordValid: isPasswordValid);
   }
 

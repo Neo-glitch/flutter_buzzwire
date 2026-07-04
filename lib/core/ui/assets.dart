@@ -1,0 +1,49 @@
+/// Contains paths to image, logo, and icon assets
+class BuzzWireAssets {
+  BuzzWireAssets._();
+
+  /// Logos ///
+  // App Logos
+  static const String darkAppLogo = "assets/logos/dark_app_logo.png";
+  static const String lightAppLogo = "assets/logos/light_app_logo.png";
+  static const String appLogo = "assets/logos/app_logo.png";
+
+  // Onboarding logos
+  static const String onBoardingLogo1 = "assets/logos/onboarding_one.svg";
+  static const String onBoardingLogo2 = "assets/logos/onboarding_two.svg";
+  static const String onBoardingLogo3 = "assets/logos/onboarding_three.svg";
+  static const String onBoardingLogo4 = "assets/logos/onboarding_four.svg";
+
+  // Authentication flow logos
+  static const String signInLogo = "assets/logos/signin_logo.svg";
+  static const String signupLogo = "assets/logos/signup_logo.svg";
+  static const String signUpSuccessLogo =
+      "assets/logos/signup_success_logo.svg";
+  static const String emailVerificationLogo =
+      "assets/logos/verify_email_logo.svg";
+  static const String forgotPasswordLogo =
+      "assets/logos/forgot_password_logo.svg";
+
+  // In-app logos
+  static const String emptyDataLogo = "assets/logos/empty_data_logo.svg";
+  static const String errorLogo = "assets/logos/error_logo.svg";
+
+  /// Images ///
+  static const String signInHeaderBg = "assets/images/signin_header_bg.jpg";
+  static const String animalTopic = "assets/images/animal_topic_bg.jpg";
+  static const String educationTopic = "assets/images/education_topic_bg.jpg";
+  static const String gamesTopic = "assets/images/games_topic_bg.jpg";
+  static const String techTopic = "assets/images/tech_topic_bg.jpg";
+  static const String politicsTopic = "assets/images/politics_topic_bg.jpg";
+  static const String musicTopic = "assets/images/music_topic_bg.jpg";
+  static const String moviesTopic = "assets/images/movies_topic_bg.jpg";
+  static const String fashionTopic = "assets/images/fashion_topic_bg.jpg";
+  static const String fitnessTopic = "assets/images/fitness_topic_bg.jpg";
+  static const String financeTopic = "assets/images/finance_topic_bg.jpg";
+
+  /// Icons ///
+  static const String discoverIcon = "assets/icons/ic_discover.svg";
+  static const String homeIcon = "assets/icons/ic_home.svg";
+  static const String profileIcon = "assets/icons/ic_profile.svg";
+  static const String savedIcon = "assets/icons/ic_saved.svg";
+}

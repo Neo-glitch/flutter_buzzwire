@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:buzzwire/core/constants/colors.dart';
-import 'package:buzzwire/core/navigation/app_router.dart';
-import 'package:buzzwire/core/navigation/route.dart';
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'package:buzzwire/core/navigation/router/app_router.dart';
+import 'package:buzzwire/core/navigation/route/route.dart';
+import 'package:buzzwire/core/common/logging/logger_helper.dart';
+import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';
 import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/notification/data/model/notification_type.dart';
-import 'package:buzzwire/src/features/notification/domain/repository/notification_repository.dart';
-import 'package:buzzwire/src/features/profile/domain/repository/profile_repository.dart';
-import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
+import 'package:buzzwire/core/domain/repository/notification_repository.dart';
+import 'package:buzzwire/core/domain/repository/profile_repository.dart';
+import 'package:buzzwire/core/domain/entity/user_entity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +62,8 @@ class BuzzWireMessagingService {
   static Future<void> getInitialMessage() async {
     try {
       // gets message that caused app to start from terminated state
-      final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+      final initialMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
       BuzzWireLoggerHelper.debug(
           "Notification Initial message is: ${initialMessage.toString()}");
 

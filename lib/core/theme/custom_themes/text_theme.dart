@@ -1,5 +1,5 @@
-import '../../constants/colors.dart';
-import '../../constants/strings.dart';
+import 'package:buzzwire/core/theme/app_colors.dart';
+import 'package:buzzwire/core/theme/font_constants.dart';
 import 'package:flutter/material.dart';
 
 class BuzzWireTextTheme {
@@ -7,32 +7,32 @@ class BuzzWireTextTheme {
 
   static TextTheme lightTextTheme = TextTheme(
     displayLarge: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.playFairDisplay,
+        fontFamily: FontConstants.playFairDisplay,
         fontSize: 57.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
     displayMedium: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.playFairDisplay,
+        fontFamily: FontConstants.playFairDisplay,
         fontSize: 45.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
     displaySmall: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.playFairDisplay,
+        fontFamily: FontConstants.playFairDisplay,
         fontSize: 36.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
     headlineLarge: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.merriWeather,
+        fontFamily: FontConstants.merriWeather,
         fontSize: 32.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
     headlineMedium: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.merriWeather,
+        fontFamily: FontConstants.merriWeather,
         fontSize: 28.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
     headlineSmall: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.merriWeather,
+        fontFamily: FontConstants.merriWeather,
         fontSize: 24.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textBlack),
@@ -78,32 +78,32 @@ class BuzzWireTextTheme {
 
   static TextTheme darkTextTheme = TextTheme(
     displayLarge: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.playFairDisplay,
+        fontFamily: FontConstants.playFairDisplay,
         fontSize: 57.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),
     displayMedium: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.playFairDisplay,
+        fontFamily: FontConstants.playFairDisplay,
         fontSize: 45.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),
     displaySmall: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.playFairDisplay,
+        fontFamily: FontConstants.playFairDisplay,
         fontSize: 36.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),
     headlineLarge: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.merriWeather,
+        fontFamily: FontConstants.merriWeather,
         fontSize: 32.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),
     headlineMedium: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.merriWeather,
+        fontFamily: FontConstants.merriWeather,
         fontSize: 28.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),
     headlineSmall: const TextStyle().copyWith(
-        fontFamily: BuzzWireStrings.merriWeather,
+        fontFamily: FontConstants.merriWeather,
         fontSize: 24.0,
         fontWeight: FontWeight.w400,
         color: BuzzWireColors.textWhite),

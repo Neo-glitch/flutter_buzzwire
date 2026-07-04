@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/core/network/dio/dio_client.dart';
 
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
+import 'package:buzzwire/core/common/logging/logger_helper.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
 
@@ -22,13 +22,13 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<NewsModel> getNews({required String query, required int page}) async {
     try {
       final response = await dioClient.get(
-        BuzzWireAppConstants.news,
+        NetworkConstants.news,
         queryParameters: {
           "q": query,
           "language": "en",
           "sortBy": "publishedAt",
           "page": page,
-          "pageSize": BuzzWireAppConstants.pageSize,
+          "pageSize": NetworkConstants.pageSize,
         },
       );
       return NewsModel.fromJson(response);
@@ -42,7 +42,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<NewsModel> getHeadlines() async {
     try {
       final response = await dioClient.get(
-        BuzzWireAppConstants.headlines,
+        NetworkConstants.headlines,
         queryParameters: {
           "country": "us",
           "page": 1,
@@ -63,12 +63,12 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   }) async {
     try {
       final response = await dioClient.get(
-        BuzzWireAppConstants.headlines,
+        NetworkConstants.headlines,
         queryParameters: {
           "country": "us",
           "page": page,
           "category": category,
-          "pageSize": BuzzWireAppConstants.pageSize,
+          "pageSize": NetworkConstants.pageSize,
         },
       );
       return NewsModel.fromJson(response);
@@ -82,7 +82,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<NewsSourceModel> getNewsSources() async {
     try {
       final response = await dioClient.get(
-        BuzzWireAppConstants.sources,
+        NetworkConstants.sources,
         queryParameters: {
           "language": "en",
         },

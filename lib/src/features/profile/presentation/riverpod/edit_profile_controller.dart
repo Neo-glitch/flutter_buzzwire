@@ -1,16 +1,16 @@
 import 'dart:io';
 
-import 'package:buzzwire/core/error/error_text.dart';
-import 'package:buzzwire/core/usecase/usecase.dart';
+import 'package:buzzwire/core/data/error/constant/error_text.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/update_user_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/upload_profile_image_usecase.dart';
 import 'package:buzzwire/src/features/profile/presentation/riverpod/edit_profile_state.dart';
-import 'package:buzzwire/src/shared/domain/entity/country_entity.dart';
-import 'package:buzzwire/src/shared/domain/entity/profile_image_entity.dart';
-import 'package:buzzwire/src/shared/domain/entity/user_entity.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/domain/entity/country_entity.dart';
+import 'package:buzzwire/core/domain/entity/profile_image_entity.dart';
+import 'package:buzzwire/core/domain/entity/user_entity.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'edit_profile_controller.g.dart';

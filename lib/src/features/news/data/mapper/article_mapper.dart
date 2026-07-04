@@ -1,7 +1,7 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
+import 'package:buzzwire/core/database/model/local_article_model.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:buzzwire/src/features/news/data/mapper/source_mapper.dart';
 import 'package:buzzwire/src/features/news/data/model/article_model.dart';
-import 'package:buzzwire/src/features/news/data/model/local_article_model.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 
 class ArticleMapper {
@@ -40,7 +40,7 @@ class ArticleMapper {
     // done to filter off removed wrong data
     return entities
         .where((article) =>
-            article.articleUrl != BuzzWireAppConstants.removedArticleUrl)
+            article.articleUrl != NetworkConstants.removedArticleUrl)
         .toList();
   }
 
@@ -58,7 +58,7 @@ class ArticleMapper {
   static ArticleEntity fromLocalArticleModel(LocalArticleModel model) =>
       ArticleEntity(
         id: model.id,
-        source: SourceMapper.toEntity(model.source),
+        source: SourceMapper.fromLocalModel(model.source),
         author: model.author,
         title: model.title,
         description: model.description,
@@ -72,7 +72,7 @@ class ArticleMapper {
       LocalArticleModel(
         id: entity.id,
         savedAt: DateTime.now(),
-        source: SourceMapper.fromEntity(entity.source),
+        source: SourceMapper.toLocalModel(entity.source),
         author: entity.author,
         title: entity.title,
         description: entity.description,

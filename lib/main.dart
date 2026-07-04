@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/utils/device/device_utility.dart';
+import 'package:buzzwire/core/common/utils/device_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app.dart';
 import 'firebase_options.dart';
 import 'injector.dart' as di;
-import 'src/shared/presentation/riverpod/provider_observer.dart';
+import 'package:buzzwire/core/common/logging/provider_observer.dart';
 
 /// to handle background messages i.e when app is in background or terminated state
 /// Used when data alone remote messages are sent to the app, can be used to make update preferences

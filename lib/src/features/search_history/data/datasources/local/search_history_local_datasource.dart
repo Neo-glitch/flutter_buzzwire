@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/utils/logging/logger_helper.dart';
-import 'package:buzzwire/src/features/search_history/data/model/search_history_model.dart';
-import 'package:buzzwire/src/shared/data/datasources/local/app_database.dart';
+import 'package:buzzwire/core/common/logging/logger_helper.dart';
+import 'package:buzzwire/core/database/model/search_history_model.dart';
+import 'package:buzzwire/core/database/app_database.dart';
 
 abstract class SearchHistoryLocalDataSource {
   Stream<List<SearchHistoryModel>> getSearchHistory();

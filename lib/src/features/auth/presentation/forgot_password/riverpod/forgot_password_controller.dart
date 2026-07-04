@@ -1,8 +1,8 @@
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/validators/email_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_state.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'forgot_password_controller.g.dart';
@@ -28,7 +28,7 @@ class ForgotPasswordController extends _$ForgotPasswordController {
   }
 
   void validateEmail(String email) {
-    final isEmailValid = email.isValidEmail();
+    final isEmailValid = EmailValidator.isValid(email);
     state = state.copyWith(isEmailValid: isEmailValid);
   }
 }

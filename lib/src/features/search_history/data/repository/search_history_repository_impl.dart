@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/error/exception_handler.dart';
-import 'package:buzzwire/core/error/failure.dart';
+import 'package:buzzwire/core/data/error/exception_handler.dart';
+import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/src/features/search_history/data/datasources/local/search_history_local_datasource.dart';
 import 'package:buzzwire/src/features/search_history/data/mapper/search_history_mapper.dart';
 import 'package:buzzwire/src/features/search_history/domain/entity/search_history_entity.dart';

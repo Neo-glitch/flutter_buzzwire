@@ -1,16 +1,16 @@
 // Core imports
-import 'package:buzzwire/core/constants/asset_strings.dart';
-import 'package:buzzwire/core/constants/strings.dart';
-import 'package:buzzwire/core/utils/device/device_utility.dart';
-import 'package:buzzwire/core/utils/extensions/context_extension.dart';
+import 'package:buzzwire/core/common/utils/device_util.dart';
+import 'package:buzzwire/core/ui/extensions/context_extension.dart';
+import 'package:buzzwire/core/ui/assets.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 // Features and shared widgets
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_controller.dart';
 import 'package:buzzwire/src/features/auth/presentation/forgot_password/riverpod/forgot_password_state.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_app_bar.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_email_input_field.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/buzzwire_progress_button.dart';
-import 'package:buzzwire/src/shared/presentation/widgets/form_input_group.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
+import 'package:buzzwire/core/ui/widgets/app_bar/buzzwire_app_bar.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/buzzwire_email_input_field.dart';
+import 'package:buzzwire/core/ui/widgets/buttons/buzzwire_progress_button.dart';
+import 'package:buzzwire/core/ui/widgets/inputs/form_input_group.dart';
 // External packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

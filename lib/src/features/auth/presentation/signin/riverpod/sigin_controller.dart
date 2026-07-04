@@ -1,20 +1,19 @@
-import 'package:buzzwire/core/usecase/usecase.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/domain/usecase/usecase.dart';
+import 'package:buzzwire/core/domain/validators/email_validator.dart';
+import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/check_email_verification_status_usecases.dart';
 import 'package:buzzwire/src/features/auth/domain/usecase/fetch_and_cache_user_usecase.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_controller.dart';
-import 'package:buzzwire/src/features/auth/presentation/auth_state.dart';
 import 'package:buzzwire/src/features/auth/presentation/signin/riverpod/signin_state.dart';
-import 'package:buzzwire/src/features/notification/domain/usecases/save_device_token_usecase.dart';
-import 'package:buzzwire/src/features/notification/domain/usecases/subscribe_to_topic_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/save_device_token_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/subscribe_to_topic_usecase.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
-import 'package:buzzwire/src/shared/presentation/riverpod/load_state.dart';
+import 'package:buzzwire/core/ui/model/load_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/usecase/signin_usecase.dart';
-import '../../../domain/usecase/signout_usecase.dart';
+import 'package:buzzwire/core/domain/usecase/signout_usecase.dart';
 
 part 'sigin_controller.g.dart';
 
@@ -94,18 +93,15 @@ class SignInController extends _$SignInController {
       await _subscribeToTopicUsecase(topic);
     }
     state = state.copyWith(loadState: const Loaded());
-    ref
-        .read(authControllerProvider.notifier)
-        .setAuthState(AuthStatus.authenticated);
   }
 
   void validateEmail(String email) {
-    final isEmailValid = email.isValidEmail();
+    final isEmailValid = EmailValidator.isValid(email);
     state = state.copyWith(isEmailValid: isEmailValid);
   }
 
   void validatePassword(String password) {
-    final isPasswordValid = password.isValidPassword();
+    final isPasswordValid = PasswordValidator.isValid(password);
     state = state.copyWith(isPasswordValid: isPasswordValid);
   }
 }

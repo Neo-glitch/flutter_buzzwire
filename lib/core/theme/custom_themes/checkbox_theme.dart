@@ -1,4 +1,4 @@
-import '../../constants/colors.dart';
+import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BuzzWireCheckboxTheme {

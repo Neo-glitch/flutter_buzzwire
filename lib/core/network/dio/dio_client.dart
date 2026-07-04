@@ -1,5 +1,5 @@
-import 'package:buzzwire/core/constants/app_constants.dart';
-import 'package:buzzwire/core/utils/extensions/string_extension.dart';
+import 'package:buzzwire/core/common/extension/string_extension.dart';
+import 'package:buzzwire/core/network/constant/network_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -14,7 +14,7 @@ class DioClient {
   factory DioClient() => _instance;
 
   final Dio _dio = Dio(BaseOptions(
-      baseUrl: dotenv.env[BuzzWireAppConstants.newsApiBaseUrl].orEmpty,
+      baseUrl: dotenv.env[NetworkConstants.newsApiBaseUrl].orEmpty,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
