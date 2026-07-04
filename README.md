@@ -24,6 +24,7 @@ This project was built using the following technologies and packages:
 
 ### Dependency Injection
 - **[GetIt](https://pub.dev/packages/get_it)** - A simple service locator for dependency injection in Flutter.
+- **[Injectable](https://pub.dev/packages/injectable)** - A code generator for GetIt, enabling annotation-driven dependency registration via `@module`, `@injectable`, `@singleton`, and related annotations.
 
 ### State Management
 - **[Riverpod](https://pub.dev/packages/flutter_riverpod)** - A state management library that simplifies state handling and improves testability.
@@ -41,7 +42,7 @@ This project was built using the following technologies and packages:
 
 ### Networking
 - **[Retrofit](https://pub.dev/packages/retrofit)** - A type-safe HTTP client generator for Dart, built on top of Dio.
-- **[Dio](https://pub.dev/packages/dio)** ~~(plain usage deprecated — now used as the underlying engine for Retrofit)~~ - A powerful HTTP client for making network requests.
+- **[Dio](https://pub.dev/packages/dio)** - A powerful HTTP client for Dart, used as the underlying engine for Retrofit and for custom interceptors (API key injection, logging).
 - **[Fpdart](https://pub.dev/packages/fpdart)** - Functional programming in Dart, used for `Either` type handling.
 
 ### Local Database & Caching
