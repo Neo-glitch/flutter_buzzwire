@@ -18,7 +18,7 @@ Future<void> provideNewsDependencies() async {
   injector.registerFactory<NewsLocalDataSource>(
       () => NewsLocalDataSourceImpl(database: injector()));
   injector.registerFactory<NewsRemoteDataSource>(
-      () => NewsRemoteDataSourceImpl(dioClient: injector()));
+      () => NewsRemoteDataSourceImpl(newsApiService: injector()));
 
   injector.registerFactory<NewsRepository>(() => NewsRepositoryImpl(
       remoteDataSource: injector(), localDataSource: injector()));

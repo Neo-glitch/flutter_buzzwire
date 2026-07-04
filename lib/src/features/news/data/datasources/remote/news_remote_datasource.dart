@@ -1,7 +1,6 @@
-import 'package:buzzwire/core/network/dio/dio_client.dart';
-
 import 'package:buzzwire/core/common/logging/logger_helper.dart';
 import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/src/features/news/data/datasources/remote/api/news_api_service.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
 
@@ -14,24 +13,20 @@ abstract class NewsRemoteDataSource {
 }
 
 class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
-  final DioClient dioClient;
+  final NewsApiService newsApiService;
 
-  NewsRemoteDataSourceImpl({required this.dioClient});
+  NewsRemoteDataSourceImpl({required this.newsApiService});
 
   @override
   Future<NewsModel> getNews({required String query, required int page}) async {
     try {
-      final response = await dioClient.get(
-        NetworkConstants.news,
-        queryParameters: {
-          "q": query,
-          "language": "en",
-          "sortBy": "publishedAt",
-          "page": page,
-          "pageSize": NetworkConstants.pageSize,
-        },
+      return await newsApiService.getNews(
+        query: query,
+        language: 'en',
+        sortBy: 'publishedAt',
+        page: page,
+        pageSize: NetworkConstants.pageSize,
       );
-      return NewsModel.fromJson(response);
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;
@@ -41,15 +36,11 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   @override
   Future<NewsModel> getHeadlines() async {
     try {
-      final response = await dioClient.get(
-        NetworkConstants.headlines,
-        queryParameters: {
-          "country": "us",
-          "page": 1,
-          "pageSize": 8,
-        },
+      return await newsApiService.getHeadlines(
+        country: 'us',
+        page: 1,
+        pageSize: 8,
       );
-      return NewsModel.fromJson(response);
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;
@@ -62,16 +53,12 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
     required String category,
   }) async {
     try {
-      final response = await dioClient.get(
-        NetworkConstants.headlines,
-        queryParameters: {
-          "country": "us",
-          "page": page,
-          "category": category,
-          "pageSize": NetworkConstants.pageSize,
-        },
+      return await newsApiService.getHeadlinesByCategory(
+        country: 'us',
+        page: page,
+        category: category,
+        pageSize: NetworkConstants.pageSize,
       );
-      return NewsModel.fromJson(response);
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;
@@ -81,13 +68,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   @override
   Future<NewsSourceModel> getNewsSources() async {
     try {
-      final response = await dioClient.get(
-        NetworkConstants.sources,
-        queryParameters: {
-          "language": "en",
-        },
-      );
-      return NewsSourceModel.fromJson(response);
+      return await newsApiService.getNewsSources(language: 'en');
     } catch (e, s) {
       BuzzWireLoggerHelper.error(s.toString());
       rethrow;
