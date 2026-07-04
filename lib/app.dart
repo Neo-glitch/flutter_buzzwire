@@ -1,6 +1,6 @@
 import 'package:buzzwire/core/theme/app_colors.dart';
 import 'package:buzzwire/src/features/notification/data/services/buzzwire_messaging_service.dart';
-import 'package:buzzwire/src/theme_controller.dart';
+import 'package:buzzwire/theme_controller.dart';
 import 'package:buzzwire/core/ui/widgets/layout/keyboard_dismiss_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

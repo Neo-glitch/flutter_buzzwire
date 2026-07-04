@@ -32,7 +32,7 @@ import '../../../src/features/news/presentation/news_detail/screens/news_detail_
 import '../../../src/features/news/presentation/saved_news/screens/saved_news_screen.dart';
 import '../../../src/features/profile/presentation/screens/edit_profile_screen.dart';
 import '../../../src/features/settings/presentation/settings/screens/settings_screen.dart';
-import '../../../src/home_wrapper.dart';
+import 'package:buzzwire/home_wrapper.dart';
 import '../route/route.dart';
 
 part 'app_router.g.dart';
