@@ -37,6 +37,7 @@ dependencies:
   country_picker: ^2.0.27
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
+  retrofit: '>=4.4.1 <4.9.0'
   drift: ^2.22.1
   drift_flutter: ^0.2.4
   sqflite: ^2.0.0
@@ -86,6 +87,7 @@ dev_dependencies:
   build_runner: ^2.4.6
   change_app_package_name: ^1.4.0
   drift_dev: ^2.22.2
+  retrofit_generator: ^9.6.0
   # flutter launcher icon
   flutter_launcher_icons: ^0.14.3
   flutter_lints: ^3.0.0
@@ -113,6 +115,9 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/logos/
+    - assets/illustrations/auth/
+    - assets/illustrations/onboarding/
+    - assets/illustrations/states/
     - assets/fonts/
     - .env
   # An image asset can refer to one or more resolution-specific "variants", see

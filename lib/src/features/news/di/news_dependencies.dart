@@ -1,6 +1,8 @@
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/data/datasources/local/news_local_datasource.dart';
+import 'package:buzzwire/src/features/news/data/datasources/local/news_local_datasource_impl.dart';
 import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_datasource.dart';
+import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_datasource_impl.dart';
 import 'package:buzzwire/src/features/news/data/repository/news_repository_impl.dart';
 import 'package:buzzwire/src/features/news/domain/repository/news_repository.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/clear_saved_articles_usecase.dart';
@@ -18,7 +20,7 @@ Future<void> provideNewsDependencies() async {
   injector.registerFactory<NewsLocalDataSource>(
       () => NewsLocalDataSourceImpl(database: injector()));
   injector.registerFactory<NewsRemoteDataSource>(
-      () => NewsRemoteDataSourceImpl(dioClient: injector()));
+      () => NewsRemoteDataSourceImpl(newsApiService: injector()));
 
   injector.registerFactory<NewsRepository>(() => NewsRepositoryImpl(
       remoteDataSource: injector(), localDataSource: injector()));

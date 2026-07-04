@@ -4,29 +4,33 @@ class BuzzWireAssets {
 
   /// Logos ///
   // App Logos
-  static const String darkAppLogo = "assets/logos/dark_app_logo.png";
-  static const String lightAppLogo = "assets/logos/light_app_logo.png";
   static const String appLogo = "assets/logos/app_logo.png";
 
-  // Onboarding logos
-  static const String onBoardingLogo1 = "assets/logos/onboarding_one.svg";
-  static const String onBoardingLogo2 = "assets/logos/onboarding_two.svg";
-  static const String onBoardingLogo3 = "assets/logos/onboarding_three.svg";
-  static const String onBoardingLogo4 = "assets/logos/onboarding_four.svg";
+  // Onboarding illustrations
+  static const String onBoardingLogo1 =
+      "assets/illustrations/onboarding/onboarding_one.svg";
+  static const String onBoardingLogo2 =
+      "assets/illustrations/onboarding/onboarding_two.svg";
+  static const String onBoardingLogo3 =
+      "assets/illustrations/onboarding/onboarding_three.svg";
+  static const String onBoardingLogo4 =
+      "assets/illustrations/onboarding/onboarding_four.svg";
 
-  // Authentication flow logos
-  static const String signInLogo = "assets/logos/signin_logo.svg";
-  static const String signupLogo = "assets/logos/signup_logo.svg";
+  // Authentication flow illustrations
+  static const String signInLogo = "assets/illustrations/auth/signin_logo.svg";
+  static const String signupLogo = "assets/illustrations/auth/signup_logo.svg";
   static const String signUpSuccessLogo =
-      "assets/logos/signup_success_logo.svg";
+      "assets/illustrations/auth/signup_success_logo.svg";
   static const String emailVerificationLogo =
-      "assets/logos/verify_email_logo.svg";
+      "assets/illustrations/auth/verify_email_logo.svg";
   static const String forgotPasswordLogo =
-      "assets/logos/forgot_password_logo.svg";
+      "assets/illustrations/auth/forgot_password_logo.svg";
 
-  // In-app logos
-  static const String emptyDataLogo = "assets/logos/empty_data_logo.svg";
-  static const String errorLogo = "assets/logos/error_logo.svg";
+  // In-app state illustrations
+  static const String emptyDataLogo =
+      "assets/illustrations/states/empty_data_logo.svg";
+  static const String errorLogo =
+      "assets/illustrations/states/error_logo.svg";
 
   /// Images ///
   static const String signInHeaderBg = "assets/images/signin_header_bg.jpg";

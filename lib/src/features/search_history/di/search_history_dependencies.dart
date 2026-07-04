@@ -1,5 +1,6 @@
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/search_history/data/datasources/local/search_history_local_datasource.dart';
+import 'package:buzzwire/src/features/search_history/data/datasources/local/search_history_local_datasource_impl.dart';
 import 'package:buzzwire/src/features/search_history/data/repository/search_history_repository_impl.dart';
 import 'package:buzzwire/src/features/search_history/domain/repository/search_history_repository.dart';
 import 'package:buzzwire/src/features/search_history/domain/usecase/clear_search_history_usecase.dart';

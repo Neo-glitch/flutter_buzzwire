@@ -1,8 +1,11 @@
-import 'package:buzzwire/core/data/datasource/auth/auth_local_datasource.dart';
 import 'package:buzzwire/core/data/datasource/auth/auth_remote_datasource.dart';
+import 'package:buzzwire/core/data/datasource/auth/auth_remote_datasource_impl.dart';
 import 'package:buzzwire/core/data/datasource/notification/notification_remote_datasource.dart';
+import 'package:buzzwire/core/data/datasource/notification/notification_remote_datasource_impl.dart';
 import 'package:buzzwire/core/data/datasource/profile/profle_local_datasource.dart';
+import 'package:buzzwire/core/data/datasource/profile/profle_local_datasource_impl.dart';
 import 'package:buzzwire/core/data/datasource/profile/profile_remote_datasource.dart';
+import 'package:buzzwire/core/data/datasource/profile/profile_remote_datasource_impl.dart';
 import 'package:buzzwire/core/data/manager/app_theme_manager_impl.dart';
 import 'package:buzzwire/core/data/manager/local_user_manager_impl.dart';
 import 'package:buzzwire/core/data/repository/auth_repository_impl.dart';
@@ -22,8 +25,6 @@ Future<void> provideDataDependencies() async {
       () => LocalUserManagerImpl(appPreference: injector()));
 
   // Auth data layer
-  injector.registerFactory<AuthLocalDataSource>(
-      () => AuthLocalDataSourceImpl(appPreference: injector()));
   injector.registerFactory<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(firebaseAuth: injector()));
   injector.registerFactory<AuthRepository>(() => AuthRepositoryImpl(
