@@ -1,5 +1,5 @@
 import 'package:buzzwire/core/database/model/local_article_model.dart';
-import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/core/constants/api_endpoints.dart';
 import 'package:buzzwire/src/features/news/data/mapper/source_mapper.dart';
 import 'package:buzzwire/src/features/news/data/model/article_model.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
@@ -40,7 +40,7 @@ class ArticleMapper {
     // done to filter off removed wrong data
     return entities
         .where((article) =>
-            article.articleUrl != NetworkConstants.removedArticleUrl)
+            article.articleUrl != ApiEndpoints.removedArticleUrl)
         .toList();
   }
 

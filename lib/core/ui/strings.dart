@@ -7,6 +7,9 @@ class BuzzWireStrings {
   static const String homeAppBarTitle = "Welcome Back!";
   static const String homeAppBarSubTitle = "Dat App Boy";
 
+  // Generic error messages
+  static const String unknownError = "Something went wrong. Please try again.";
+
   // Generic UI labels
   static const String cancel = "Cancel";
   static const String error = "Error";

@@ -1,6 +1,6 @@
-import 'package:buzzwire/core/data/error/exception_handler.dart';
 import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/common/extension/list_extension.dart';
+import 'package:buzzwire/core/exception/exception_handler.dart';
 import 'package:buzzwire/src/features/news/data/datasources/local/news_local_datasource.dart';
 import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_datasource.dart';
 import 'package:buzzwire/src/features/news/data/mapper/article_mapper.dart';
@@ -31,8 +31,7 @@ class NewsRepositoryImpl implements NewsRepository {
           await remoteDataSource.getNews(query: query, page: page);
       return Right(NewsMapper.toEntity(newsModel));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(ApiFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -42,8 +41,7 @@ class NewsRepositoryImpl implements NewsRepository {
       final newsModel = await remoteDataSource.getHeadlines();
       return Right(NewsMapper.toEntity(newsModel));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(ApiFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -57,8 +55,7 @@ class NewsRepositoryImpl implements NewsRepository {
           page: page, category: category);
       return Right(NewsMapper.toEntity(newsModel));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(ApiFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -68,8 +65,7 @@ class NewsRepositoryImpl implements NewsRepository {
       final newsSourceModel = await remoteDataSource.getNewsSources();
       return Right(SourceMapper.toEntitites(newsSourceModel.sources));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(ApiFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -78,8 +74,7 @@ class NewsRepositoryImpl implements NewsRepository {
     try {
       return Right(await localDataSource.clearAllSavedArticles());
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -89,8 +84,7 @@ class NewsRepositoryImpl implements NewsRepository {
       final model = ArticleMapper.toLocalArticleModel(entity);
       return Right(await localDataSource.deleteSavedArticle(model));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -105,8 +99,7 @@ class NewsRepositoryImpl implements NewsRepository {
       final entities = ArticleMapper.toEntitiesFromLocalArticleModel(articles);
       return Right(entities.orEmpty);
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -123,8 +116,7 @@ class NewsRepositoryImpl implements NewsRepository {
     try {
       return Right(await localDataSource.getSavedArticlesCount());
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -134,8 +126,7 @@ class NewsRepositoryImpl implements NewsRepository {
       final model = ArticleMapper.toLocalArticleModel(entity);
       return Right(await localDataSource.saveArticle(model));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 }

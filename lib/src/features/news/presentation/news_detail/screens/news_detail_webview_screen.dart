@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/src/features/news/presentation/news_detail/riverpod/news_detail_webview_controller.dart';
 import 'package:buzzwire/src/features/news/presentation/news_detail/riverpod/news_detail_webview_state.dart';
 import 'package:buzzwire/core/ui/model/load_state.dart';
@@ -96,12 +96,12 @@ class _NewsDetailWebViewScreenState
           onWebResourceError: (WebResourceError error) {
             ref
                 .read(newsDetailWebViewControllerProvider.notifier)
-                .setLoadState(const Error(message: ErrorText.unknownError));
+                .setLoadState(const Error(message: BuzzWireStrings.unknownError));
           },
           onHttpError: (error) {
             ref
                 .read(newsDetailWebViewControllerProvider.notifier)
-                .setLoadState(const Error(message: ErrorText.unknownError));
+                .setLoadState(const Error(message: BuzzWireStrings.unknownError));
           },
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.startsWith('https://www.youtube.com/')) {

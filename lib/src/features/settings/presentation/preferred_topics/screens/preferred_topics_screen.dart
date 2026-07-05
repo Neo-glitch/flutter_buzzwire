@@ -1,4 +1,3 @@
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
 import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/core/domain/entity/topic_entity.dart';
@@ -164,7 +163,7 @@ class _PreferredTopicsScreenState extends ConsumerState<PreferredTopicsScreen> {
   }
 
   Widget _buildEmptyScreen() =>
-      BuzzWireEmptyOrErrorScreen.empty(message: ErrorText.unknownError);
+      BuzzWireEmptyOrErrorScreen.empty(message: BuzzWireStrings.unknownError);
 
   Widget _buildErrorScreen(String message) {
     return BuzzWireEmptyOrErrorScreen.error(

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/profile/domain/usecases/get_cached_user_usecase.dart';
@@ -62,7 +62,7 @@ class EditProfileController extends _$EditProfileController {
     if (state.newImage != null) {
       final profileImageUrl = await _uploadProfileImage(user, state.newImage!);
       if (profileImageUrl == null) {
-        _setErrorState(ErrorText.unknownError);
+        _setErrorState(BuzzWireStrings.unknownError);
         return;
       }
       user.profileImage = profileImageUrl;
@@ -70,7 +70,7 @@ class EditProfileController extends _$EditProfileController {
 
     final updateProfileResult = await _updateUserUseCase(user);
     updateProfileResult.fold(
-      (_) => _setErrorState(ErrorText.unknownError),
+      (_) => _setErrorState(BuzzWireStrings.unknownError),
       (_) => state = state.copyWith(loadState: const Loaded()),
     );
   }

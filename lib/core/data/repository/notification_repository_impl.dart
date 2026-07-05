@@ -1,11 +1,11 @@
 import 'package:buzzwire/core/common/utils/network_connection_checker.dart';
 import 'package:buzzwire/core/data/datasource/notification/notification_remote_datasource.dart';
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
-import 'package:buzzwire/core/data/error/exception_handler.dart';
 import 'package:buzzwire/core/data/mapper/topic_mapper.dart';
 import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/entity/topic_entity.dart';
 import 'package:buzzwire/core/domain/repository/notification_repository.dart';
+import 'package:buzzwire/core/exception/constant/error_text.dart';
+import 'package:buzzwire/core/exception/exception_handler.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:injectable/injectable.dart';
@@ -24,15 +24,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<Either<Failure, void>> deleteUserDeviceTokens(String userId) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
-
       if (isConnected) {
         await remoteDatasource.deleteUserDeviceTokens(userId);
         return const Right(unit);
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -40,15 +38,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<Either<Failure, void>> saveDeviceToken(String userId) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
-
       if (isConnected) {
         await remoteDatasource.saveDeviceToken(userId);
         return const Right(unit);
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -56,15 +52,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<Either<Failure, void>> subscribeToTopic(String topic) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
-
       if (isConnected) {
         await remoteDatasource.subscribeToTopic(topic);
         return const Right(unit);
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -72,15 +66,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<Either<Failure, void>> unsubscribeFromTopic(String topic) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
-
       if (isConnected) {
         await remoteDatasource.unsubscribeFromTopic(topic);
         return const Right(unit);
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -88,15 +80,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<Either<Failure, void>> deleteDeviceToken(String userId) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
-
       if (isConnected) {
         await remoteDatasource.deleteToken(userId);
         return const Right(unit);
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -112,8 +102,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 }

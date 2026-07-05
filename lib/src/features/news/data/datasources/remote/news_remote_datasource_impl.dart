@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/src/features/news/data/datasources/remote/api/news_api_service.dart';
 import 'package:buzzwire/src/features/news/data/datasources/remote/news_remote_datasource.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
@@ -18,7 +18,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
       language: 'en',
       sortBy: 'publishedAt',
       page: page,
-      pageSize: NetworkConstants.pageSize,
+      pageSize: AppConstants.pageSize,
     );
   }
 
@@ -40,7 +40,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
       country: 'us',
       page: page,
       category: category,
-      pageSize: NetworkConstants.pageSize,
+      pageSize: AppConstants.pageSize,
     );
   }
 

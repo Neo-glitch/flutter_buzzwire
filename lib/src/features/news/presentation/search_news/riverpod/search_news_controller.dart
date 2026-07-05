@@ -2,7 +2,7 @@ import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/core/common/extension/list_extension.dart';
 import 'package:buzzwire/core/common/utils/list_util.dart';
 import 'package:buzzwire/core/common/extension/num_extension.dart';
-import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/core/constants/app_constants.dart';
 import 'package:buzzwire/injector.dart';
 import 'package:buzzwire/src/features/news/domain/entity/article_entity.dart';
 import 'package:buzzwire/src/features/news/domain/usecases/delete_saved_article_usecase.dart';
@@ -109,7 +109,7 @@ class SearchNewsController extends _$SearchNewsController {
           loadState: Error(message: error.message), currentPage: previousPage),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / NetworkConstants.pageSize).ceil();
+            (result.totalResults.orZero / AppConstants.pageSize).ceil();
         final articles = state.searchResults.toList() + result.articles.orEmpty;
 
         state = state.copyWith(
@@ -136,7 +136,7 @@ class SearchNewsController extends _$SearchNewsController {
           state = state.copyWith(loadState: Error(message: error.message)),
       (result) {
         final lastPage =
-            (result.totalResults.orZero / NetworkConstants.pageSize).ceil();
+            (result.totalResults.orZero / AppConstants.pageSize).ceil();
 
         state = state.copyWith(
           loadState: const Loaded(),

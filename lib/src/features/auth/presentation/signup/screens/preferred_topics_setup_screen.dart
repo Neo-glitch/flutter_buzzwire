@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/core/navigation/route/route.dart';
 import 'package:buzzwire/core/ui/extensions/context_extension.dart';
 import 'package:buzzwire/src/features/auth/presentation/signup/riverpod/preferred_topics_setup_controller.dart';
@@ -100,7 +100,7 @@ class _TopicsFollowingSetupScreenState
   }
 
   Widget _buildEmptyScreen() =>
-      BuzzWireEmptyOrErrorScreen.empty(message: ErrorText.unknownError);
+      BuzzWireEmptyOrErrorScreen.empty(message: BuzzWireStrings.unknownError);
 
   Widget _buildErrorScreen(String message) {
     return BuzzWireEmptyOrErrorScreen.error(

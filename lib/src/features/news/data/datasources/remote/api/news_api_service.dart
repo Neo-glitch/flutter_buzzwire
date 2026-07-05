@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/core/constants/api_endpoints.dart';
 import 'package:buzzwire/src/features/news/data/model/news_model.dart';
 import 'package:buzzwire/src/features/news/data/model/news_source_model.dart';
 import 'package:dio/dio.dart';
@@ -10,19 +10,19 @@ part 'news_api_service.g.dart';
 abstract class NewsApiService {
   factory NewsApiService(Dio dio, {String baseUrl}) = _NewsApiService;
 
-  @GET(NetworkConstants.sources)
+  @GET(ApiEndpoints.sources)
   Future<NewsSourceModel> getNewsSources({
     @Query('language') required String language,
   });
 
-  @GET(NetworkConstants.headlines)
+  @GET(ApiEndpoints.headlines)
   Future<NewsModel> getHeadlines({
     @Query('country') required String country,
     @Query('page') required int page,
     @Query('pageSize') required int pageSize,
   });
 
-  @GET(NetworkConstants.headlines)
+  @GET(ApiEndpoints.headlines)
   Future<NewsModel> getHeadlinesByCategory({
     @Query('country') required String country,
     @Query('page') required int page,
@@ -30,7 +30,7 @@ abstract class NewsApiService {
     @Query('pageSize') required int pageSize,
   });
 
-  @GET(NetworkConstants.news)
+  @GET(ApiEndpoints.news)
   Future<NewsModel> getNews({
     @Query('q') required String query,
     @Query('language') required String language,
