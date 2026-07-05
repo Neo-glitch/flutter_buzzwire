@@ -1,9 +1,9 @@
 import 'package:buzzwire/core/common/utils/network_connection_checker.dart';
 import 'package:buzzwire/core/data/datasource/auth/auth_remote_datasource.dart';
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
-import 'package:buzzwire/core/data/error/exception_handler.dart';
 import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/repository/auth_repository.dart';
+import 'package:buzzwire/core/exception/constant/error_text.dart';
+import 'package:buzzwire/core/exception/exception_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:injectable/injectable.dart';
@@ -19,11 +19,6 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  bool checkIfAunthenticated() {
-    return false;
-  }
-
-  @override
   Stream<User?> authStateChanges() => authRemoteDataSource.authStateChanges();
 
   @override
@@ -35,8 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -45,8 +39,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       return Right(await authRemoteDataSource.signOut());
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -59,8 +52,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -74,8 +66,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -89,8 +80,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -104,8 +94,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -118,8 +107,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -132,8 +120,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -148,8 +135,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Left(FbAuthFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbAuthFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 }

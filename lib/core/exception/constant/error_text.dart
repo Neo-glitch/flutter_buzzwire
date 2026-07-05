@@ -10,11 +10,11 @@ class ErrorText {
       "Unable to send data to server, please check your internet";
   static const badRequestError = "Something went wrong. Please try again.";
   static const unAuthorizedError =
-      "You’re not authorized. Please log in and try again.";
+      "You're not authorized. Please log in and try again.";
   static const tooManyRequestError =
       "Too many attempts. Please wait a moment and try again.";
   static const internalServerError =
-      "We’re experiencing server issues. Please try again later.";
+      "We're experiencing server issues. Please try again later.";
   static const noInternetError =
       "No internet connection. Check your network and try again.";
   static const cacheError = "A temporary error occurred. Please try again.";

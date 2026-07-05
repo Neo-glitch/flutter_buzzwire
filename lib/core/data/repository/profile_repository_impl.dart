@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:buzzwire/core/common/utils/network_connection_checker.dart';
 import 'package:buzzwire/core/data/datasource/profile/profle_local_datasource.dart';
 import 'package:buzzwire/core/data/datasource/profile/profile_remote_datasource.dart';
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
-import 'package:buzzwire/core/data/error/exception_handler.dart';
 import 'package:buzzwire/core/data/mapper/profile_image_mapper.dart';
 import 'package:buzzwire/core/data/mapper/user_mapper.dart';
 import 'package:buzzwire/core/domain/entity/error/failure.dart';
 import 'package:buzzwire/core/domain/entity/profile_image_entity.dart';
 import 'package:buzzwire/core/domain/entity/user_entity.dart';
 import 'package:buzzwire/core/domain/repository/profile_repository.dart';
+import 'package:buzzwire/core/exception/constant/error_text.dart';
+import 'package:buzzwire/core/exception/exception_handler.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
@@ -31,8 +31,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     try {
       return Right(localDatasource.clearUser());
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -48,8 +47,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -65,8 +63,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -76,8 +73,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       final userModel = localDatasource.getUser();
       return Right(UserMapper.fromModel(userModel));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -91,8 +87,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -108,8 +103,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(FbFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -126,8 +120,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       }
       return Left(FbFailure(ErrorText.noInternetError));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(SupabaseStorageFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 
@@ -137,8 +130,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       final userModel = UserMapper.fromEntity(userEntity);
       return Right(await localDatasource.saveUser(userModel!));
     } on Exception catch (e) {
-      final exception = ExceptionHandler.handleException(e);
-      return Left(CacheFailure(exception.toString()));
+      return Left(ExceptionHandler.toFailure(e));
     }
   }
 

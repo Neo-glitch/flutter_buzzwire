@@ -1,4 +1,4 @@
-import 'package:buzzwire/core/data/error/constant/error_text.dart';
+import 'package:buzzwire/core/ui/strings.dart';
 import 'package:buzzwire/core/domain/usecase/usecase.dart';
 import 'package:buzzwire/core/domain/validators/password_validator.dart';
 import 'package:buzzwire/injector.dart';
@@ -30,7 +30,7 @@ class DeleteAccountController extends _$DeleteAccountController {
 
     if (user == null) {
       state = state.copyWith(
-          loadState: const Error(message: ErrorText.unknownError));
+          loadState: const Error(message: BuzzWireStrings.unknownError));
       return;
     }
     final deleteAccountResult = await _deleteUserAccountUseCase(
