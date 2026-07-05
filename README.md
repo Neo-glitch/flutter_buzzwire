@@ -50,6 +50,9 @@ This project was built using the following technologies and packages:
 - **[Floor Database](https://pub.dev/packages/floor)** ~~(deprecated — migrated to Drift)~~ - A SQLite abstraction for local database management.
 - **[Shared Preferences](https://pub.dev/packages/shared_preferences)** - For lightweight local caching of user data.
 
+### UI & Theming
+- **[Material 3](https://m3.material.io/)** - Google's latest design system, with adaptive light and dark theme support that respects system preferences.
+
 ### Image Handling
 - **[Cached Network Image](https://pub.dev/packages/cached_network_image)** - For efficiently loading and caching images from the network.
 
