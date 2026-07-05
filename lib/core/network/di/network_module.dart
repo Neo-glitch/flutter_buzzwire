@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../common/extension/string_extension.dart';
-import '../constant/network_constants.dart';
+import 'package:buzzwire/core/constants/env_keys.dart';
 import '../dio/dio_client.dart';
 
 @module
@@ -19,8 +19,8 @@ abstract class NetworkModule {
   @lazySingleton
   Storage appWriteStorage() {
     final client = Client()
-        .setEndpoint(dotenv.env[NetworkConstants.appWriteBaseUrl].orEmpty)
-        .setProject(dotenv.env[NetworkConstants.appWriteProjectId].orEmpty);
+        .setEndpoint(dotenv.env[EnvKeys.appWriteBaseUrl].orEmpty)
+        .setProject(dotenv.env[EnvKeys.appWriteProjectId].orEmpty);
     return Storage(client);
   }
 

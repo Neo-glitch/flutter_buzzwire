@@ -1,7 +1,7 @@
 import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/data/datasource/notification/notification_remote_datasource.dart';
 import 'package:buzzwire/core/data/model/topic_model.dart';
-import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/core/constants/firebase_collection_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
@@ -17,10 +17,10 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   });
 
   CollectionReference<Map<String, dynamic>> get _deviceTokenCollectionRef =>
-      firestore.collection(NetworkConstants.deviceTokenCollection);
+      firestore.collection(FirebaseCollectionConstants.deviceTokenCollection);
 
   CollectionReference<Map<String, dynamic>> get _topicsCollectionRef =>
-      firestore.collection(NetworkConstants.topicsCollection);
+      firestore.collection(FirebaseCollectionConstants.topicsCollection);
 
   @override
   Future<void> saveDeviceToken(String userId) async {

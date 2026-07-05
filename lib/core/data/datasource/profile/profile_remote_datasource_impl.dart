@@ -5,7 +5,8 @@ import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/data/datasource/profile/profile_remote_datasource.dart';
 import 'package:buzzwire/core/data/model/profile_image_model.dart';
 import 'package:buzzwire/core/data/model/user_model.dart';
-import 'package:buzzwire/core/network/constant/network_constants.dart';
+import 'package:buzzwire/core/constants/env_keys.dart';
+import 'package:buzzwire/core/constants/firebase_collection_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
@@ -71,9 +72,9 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<ProfileImageModel> uploadProfileImage(
       UserModel userModel, File image) async {
     final appWriteProfileImageBucketId =
-        dotenv.env[NetworkConstants.appWriteProfileImageBucketId];
-    final appWriteProjectId = dotenv.env[NetworkConstants.appWriteProjectId];
-    final appWriteBaseUrl = dotenv.env[NetworkConstants.appWriteBaseUrl];
+        dotenv.env[EnvKeys.appWriteProfileImageBucketId];
+    final appWriteProjectId = dotenv.env[EnvKeys.appWriteProjectId];
+    final appWriteBaseUrl = dotenv.env[EnvKeys.appWriteBaseUrl];
     final fileId = userModel.profileImage?.fileId.orEmpty;
     final userId = userModel.userId;
     if (await _checkIfFileExists(fileId)) {
@@ -93,7 +94,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
   Future<void> _deleteFile(String fileId) async {
     final appWriteProfileImageBucketId =
-        dotenv.env[NetworkConstants.appWriteProfileImageBucketId];
+        dotenv.env[EnvKeys.appWriteProfileImageBucketId];
     await appWriteStorage.deleteFile(
       bucketId: appWriteProfileImageBucketId.orEmpty,
       fileId: fileId,
@@ -103,7 +104,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<bool> _checkIfFileExists(String? fileId) async {
     try {
       final appWriteProfileImageBucketId =
-          dotenv.env[NetworkConstants.appWriteProfileImageBucketId];
+          dotenv.env[EnvKeys.appWriteProfileImageBucketId];
 
       if (fileId == null) return false;
 
@@ -118,5 +119,5 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   CollectionReference<Map<String, dynamic>> get _getUsersCollectionRef =>
-      firestoreDb.collection(NetworkConstants.usersCollection);
+      firestoreDb.collection(FirebaseCollectionConstants.usersCollection);
 }
