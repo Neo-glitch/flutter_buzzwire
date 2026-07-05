@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'constant/error_text.dart';
 import 'exception.dart';
-import 'firebase_error_codes.dart';
+import 'constant/firebase_error_codes.dart';
 
 class ExceptionHandler {
   ExceptionHandler._();
