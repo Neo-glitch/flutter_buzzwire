@@ -103,14 +103,16 @@ class _AppThemeBottomSheetState extends ConsumerState<AppThemeBottomSheet> {
         isSelected ? context.primaryColor : context.surfaceColor;
     return Container(
       decoration: BoxDecoration(
-        color: context.surfaceColor,
         border: Border.all(
           color: borderColor,
           width: 1,
         ),
         borderRadius: const BorderRadius.all(Radius.circular(14)),
       ),
-      child: CheckboxListTile(
+      child: Material(
+        color: context.surfaceColor,
+        borderRadius: const BorderRadius.all(Radius.circular(14)),
+        child: CheckboxListTile(
         activeColor: context.primaryColor,
         contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         side: const BorderSide(color: BuzzWireColors.darkGrey, width: 1.8),
@@ -125,6 +127,7 @@ class _AppThemeBottomSheetState extends ConsumerState<AppThemeBottomSheet> {
         ),
         value: isSelected,
         onChanged: onCLick,
+      ),
       ),
     );
   }
