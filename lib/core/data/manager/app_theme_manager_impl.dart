@@ -24,7 +24,7 @@ class AppThemeManagerImpl implements AppThemeManager {
 
   @override
   Stream<Either<Failure, ThemeMode>> getAppThemeModeStream() {
-    _themeModeController.add(getCachedThemeMode());
+    getCachedThemeMode().then(_themeModeController.add);
     return _themeModeController.stream.map((themeMode) => Right(themeMode));
   }
 
@@ -44,12 +44,17 @@ class AppThemeManagerImpl implements AppThemeManager {
   Stream<ThemeMode> get themeModeStream => _themeModeController.stream;
 
   @override
-  Either<Failure, ThemeMode> get currentThemeMode =>
-      Right(getCachedThemeMode());
+  Future<Either<Failure, ThemeMode>> get currentThemeMode async {
+    try {
+      return Right(await getCachedThemeMode());
+    } on Exception catch (e) {
+      return Left(CacheFailure(e.toString()));
+    }
+  }
 
-  ThemeMode getCachedThemeMode() {
+  Future<ThemeMode> getCachedThemeMode() async {
     ThemeMode currentThemeMode = ThemeMode.system;
-    final themeModeString = sharedPref.getString(themeModeKey);
+    final themeModeString = await sharedPref.getString(themeModeKey);
     if (themeModeString != null) {
       currentThemeMode = ThemeMode.values.firstWhere(
         (element) => element.toString() == themeModeString,

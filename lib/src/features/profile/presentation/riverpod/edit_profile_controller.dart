@@ -26,8 +26,13 @@ class EditProfileController extends _$EditProfileController {
     _uploadProfileImageUseCase = injector();
     _updateUserUseCase = injector();
     _getCachedUserUseCase = injector();
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
-    return EditProfileState(user: user);
+    _loadUser();
+    return const EditProfileState();
+  }
+
+  Future<void> _loadUser() async {
+    final user = await _getCachedUserUseCase(NoParams());
+    state = state.copyWith(user: user.getOrElse((l) => null));
   }
 
   void setImage(File image) {

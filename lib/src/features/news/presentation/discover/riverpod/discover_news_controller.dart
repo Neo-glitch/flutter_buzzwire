@@ -22,6 +22,7 @@ class DiscoverNewsController extends _$DiscoverNewsController {
   late GetCachedUserUseCase _getCachedUserUseCase;
   late GetCachedUserStreamUseCase _getCachedUserStream;
   List<String> _previousTopicsOfInterest = [];
+  late Future<void> _topicsLoaded;
 
   @override
   DiscoverNewsState build() {
@@ -29,9 +30,14 @@ class DiscoverNewsController extends _$DiscoverNewsController {
     _getNews = injector();
     _getCachedUserUseCase = injector();
     _getCachedUserStream = injector();
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
-    _previousTopicsOfInterest = user?.topicsFollowing.orEmpty ?? [];
+    _topicsLoaded = _loadPreviousTopicsOfInterest();
     return const DiscoverNewsState();
+  }
+
+  Future<void> _loadPreviousTopicsOfInterest() async {
+    final user =
+        (await _getCachedUserUseCase(NoParams())).getOrElse((l) => null);
+    _previousTopicsOfInterest = user?.topicsFollowing.orEmpty ?? [];
   }
 
   void observeUserStream() {
@@ -49,6 +55,7 @@ class DiscoverNewsController extends _$DiscoverNewsController {
     bool isRefresh = false,
   }) async {
     state = state.copyWith(loadState: const Loading());
+    await _topicsLoaded;
 
     final headlinesRespose = await _getHeadlines(NoParams());
     final responses = [headlinesRespose];

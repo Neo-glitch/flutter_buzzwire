@@ -18,7 +18,7 @@ class GetRemoteOrLocalUserUseCase
     final remoteUser = remoteUserResult.getOrElse((l) => null);
 
     if (remoteUser == null) {
-      return profileRepo.getCachedUser();
+      return await profileRepo.getCachedUser();
     }
     return Right(remoteUser);
   }

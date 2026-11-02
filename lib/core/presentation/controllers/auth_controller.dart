@@ -11,11 +11,12 @@ class AuthController extends _$AuthController {
   late GetCachedUserUseCase _getCachedUserUseCase;
 
   @override
-  AuthStatus build() {
+  Future<AuthStatus> build() async {
     _getCachedUserUseCase = injector();
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
+    final result = await _getCachedUserUseCase(NoParams());
+    final user = result.getOrElse((l) => null);
     return user != null ? AuthStatus.authenticated : AuthStatus.unAuthenticated;
   }
 
-  void setAuthStatus(AuthStatus status) => state = status;
+  void setAuthStatus(AuthStatus status) => state = AsyncData(status);
 }

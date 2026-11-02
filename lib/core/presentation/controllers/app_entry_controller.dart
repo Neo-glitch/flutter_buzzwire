@@ -6,16 +6,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_entry_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AppEntryController extends _$AppEntryController {
   late ReadEntryUseCase _readEntry;
   late SaveEntryUseCase _saveEntry;
 
   @override
-  bool build() {
+  Future<bool> build() async {
     _readEntry = injector();
     _saveEntry = injector();
-    return _readEntry(NoParams()).fold(
+    final result = await _readEntry(NoParams());
+    return result.fold(
       (failure) => false,
       (result) => result,
     );
@@ -26,7 +27,7 @@ class AppEntryController extends _$AppEntryController {
     result.fold(
       (failure) {},
       (result) {
-        state = result;
+        state = AsyncData(result);
       },
     );
   }

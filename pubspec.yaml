@@ -29,7 +29,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 # ------------------------------ PACKAGES -------------------------------------------- #
 dependencies:
-  appwrite: ^25.1.0
   back_button_interceptor: ^8.0.0
   cached_network_image: ^3.3.1
   carousel_slider: ^5.0.0
@@ -73,12 +72,14 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^5.3.1
   riverpod_annotation: ^2.1.2
   share_plus: ^10.1.4
-  shared_preferences: ^2.2.3
   smooth_page_indicator: ^1.1.0
   sticky_headers: ^0.3.0+2
   url_launcher: ^6.3.0
   uuid: ^4.3.3
   webview_flutter: ^4.7.0
+  firebase_storage: ^13.6.1
+  flutter_secure_storage: ^10.3.4
+  mime: ^2.1.0
 
 dependency_overrides:
 

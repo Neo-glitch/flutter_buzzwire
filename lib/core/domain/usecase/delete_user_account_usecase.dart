@@ -45,18 +45,26 @@ class DeleteUserAccountUseCase
         await notificationRepo.deleteUserDeviceTokens(userEntity.userId);
     return result.fold(
       (failure) => Left(failure),
-      (_) async => _deleteUserAccount(userEntity),
+      (_) async => _deleteProfile(userEntity),
     );
   }
 
-  Future<Either<Failure, void>> _deleteUserAccount(
-    UserEntity userEntity,
-  ) async {
-    final profileDeletionResult = await profileRepo.deleteUser(userEntity);
-    return profileDeletionResult.fold(
+  Future<Either<Failure, void>> _deleteProfile(UserEntity userEntity) async {
+    final result = await profileRepo.deleteUser(userEntity);
+    return result.fold(
+      (failure) => Left(failure),
+      (_) async => _deleteAuthAccount(),
+    );
+  }
+
+  /// Runs last: once the Auth account is gone, security rules no longer let
+  /// the client delete the user's data.
+  Future<Either<Failure, void>> _deleteAuthAccount() async {
+    final result = await authRepo.deleteAccount();
+    return result.fold(
       (failure) => Left(failure),
       (_) async {
-        await authRepo.deleteAccount();
+        await profileRepo.clearCachedUser();
         return const Right(unit);
       },
     );

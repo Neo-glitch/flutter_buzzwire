@@ -9,7 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:appwrite/appwrite.dart' as _i317;
 import 'package:buzzwire/core/cache/buzzwire_app_cache.dart' as _i960;
 import 'package:buzzwire/core/cache/buzzwire_app_cache_impl.dart' as _i840;
 import 'package:buzzwire/core/cache/di/cache_module.dart' as _i1050;
@@ -165,11 +164,12 @@ import 'package:buzzwire/src/features/search_history/domain/usecase/save_search_
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
+import 'package:firebase_storage/firebase_storage.dart' as _i457;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i973;
-import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -193,10 +193,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => databaseModule.appDatabase(),
       preResolve: true,
     );
-    await gh.lazySingletonAsync<_i460.SharedPreferences>(
-      () => cacheModule.sharedPreferences,
-      preResolve: true,
-    );
+    gh.lazySingleton<_i558.FlutterSecureStorage>(
+        () => cacheModule.secureStorage);
     await gh.lazySingletonAsync<_i449.FirebaseRemoteConfigHelper>(
       () => configModule.remoteConfigHelper(),
       preResolve: true,
@@ -204,8 +202,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i59.FirebaseAuth>(() => networkModule.firebaseAuth);
     gh.lazySingleton<_i974.FirebaseFirestore>(
         () => networkModule.firebaseFirestore);
+    gh.lazySingleton<_i457.FirebaseStorage>(
+        () => networkModule.firebaseStorage);
     gh.lazySingleton<_i327.DioClient>(() => networkModule.dioClient);
-    gh.lazySingleton<_i317.Storage>(() => networkModule.appWriteStorage());
     gh.lazySingleton<_i973.InternetConnectionChecker>(
         () => commonModule.connectionChecker);
     await gh.lazySingletonAsync<_i652.PackageInfoHelper>(
@@ -214,11 +213,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i892.FirebaseMessaging>(
         () => notificationModule.firebaseMessaging);
-    gh.lazySingleton<_i96.ProfileRemoteDataSource>(
-        () => _i619.ProfileRemoteDataSourceImpl(
-              firestoreDb: gh<_i974.FirebaseFirestore>(),
-              appWriteStorage: gh<_i317.Storage>(),
-            ));
     gh.lazySingleton<_i584.NetworkConnectionChecker>(() =>
         _i547.NetworkConnectionCheckImpl(
             connectionChecker: gh<_i973.InternetConnectionChecker>()));
@@ -235,10 +229,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i969.NewsRemoteDataSource>(() =>
         _i41.NewsRemoteDataSourceImpl(
             newsApiService: gh<_i776.NewsApiService>()));
+    gh.lazySingleton<_i96.ProfileRemoteDataSource>(
+        () => _i619.ProfileRemoteDataSourceImpl(
+              firestoreDb: gh<_i974.FirebaseFirestore>(),
+              firebaseStorage: gh<_i457.FirebaseStorage>(),
+            ));
     gh.lazySingleton<_i423.AuthRemoteDataSource>(() =>
         _i88.AuthRemoteDataSourceImpl(firebaseAuth: gh<_i59.FirebaseAuth>()));
-    gh.lazySingleton<_i960.BuzzWireAppCache>(() =>
-        _i840.BuzzWireAppCacheImpl(preferences: gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i1030.NotificationRemoteDatasource>(
         () => _i336.NotificationRemoteDatasourceImpl(
               messaging: gh<_i892.FirebaseMessaging>(),
@@ -260,6 +257,8 @@ extension GetItInjectableX on _i174.GetIt {
           authRemoteDataSource: gh<_i423.AuthRemoteDataSource>(),
           networkConnectionChecker: gh<_i584.NetworkConnectionChecker>(),
         ));
+    gh.lazySingleton<_i960.BuzzWireAppCache>(() => _i840.BuzzWireAppCacheImpl(
+        secureStorage: gh<_i558.FlutterSecureStorage>()));
     gh.lazySingleton<_i388.ProfileLocalDataSource>(() =>
         _i320.ProfileLocalDataSourceImpl(pref: gh<_i960.BuzzWireAppCache>()));
     gh.lazySingleton<_i973.NotificationRepository>(

@@ -78,8 +78,10 @@ Use cases implement typed interfaces from `lib/core/domain/usecase/usecase.dart`
 ### Local Database
 Drift (SQLite abstraction) via `AppDatabase` (`lib/core/database/app_database.dart`). It holds two tables: `SavedNewsTable` (saved articles) and `SearchHistoryTable`. DAOs are `ArticleDao` and `SearchHistoryDao`. Models are in `lib/core/database/model/` and type converters in `lib/core/database/converter/`. The database is at schema version 2 with a migration from the previous Floor-based schema (v1).
 
-### Cache / SharedPreferences
-`BuzzWireAppCache` (`lib/core/cache/buzzwire_app_cache.dart`) is the typed SharedPreferences abstraction. It supports `String`, `int`, `double`, `bool`, and `List<String>` operations. The implementation is `BuzzWireAppCacheImpl`; preference key constants are in `lib/core/cache/constant/preference_keys.dart`.
+### Cache / Secure Storage
+`BuzzWireAppCache` (`lib/core/cache/buzzwire_app_cache.dart`) is the typed key-value abstraction. It supports `String`, `int`, `double`, `bool`, and `List<String>` operations; all getters are async (`Future<T?>`). The implementation is `BuzzWireAppCacheImpl`, an `@LazySingleton(as: BuzzWireAppCache)` that calls `FlutterSecureStorage` directly on every read and write (no in-memory map, no preloading, no startup initializer, migration, or install marker). Everything is stored as strings (bool/int/double via `toString`/`parse`, `List<String>` via JSON). `FlutterSecureStorage` is bound in `lib/core/cache/di/cache_module.dart` with iOS `KeychainAccessibility.first_unlock` so background handlers can read values while locked. The app behaves like a fresh install: legacy SharedPreferences data is not migrated, and the `shared_preferences` dependency has been removed. Key constants are in `lib/core/cache/constant/preference_keys.dart`.
+
+Because reads are async, cache-backed use cases (`ReadEntryUseCase`, `GetAppThemeMode`, `GetCachedUserUseCase`) are `UseCaseFuture`. `AuthController`, `AppEntryController` and `ThemeController` are async notifiers (`AsyncValue`) that `main()` awaits via a `ProviderContainer` before `runApp`, so the router redirect and theme always see loaded values (the redirect returns `null` if a value is still unknown).
 
 ### Navigation
 GoRouter with a `@riverpod`-generated `router` provider (`lib/core/navigation/router/app_router.dart`). The router watches `authControllerProvider` and `appEntryControllerProvider` and redirects based on three conditions in order: onboarding seen, force-update check (Firebase Remote Config vs build number), and auth status. These controllers live in `lib/core/presentation/controllers/`.
@@ -102,14 +104,15 @@ Infinite scroll is handled by `PaginationListView` and `PaginationSliverListView
 Remote models use `@JsonSerializable()` with generated `.g.dart` files. Local Drift tables are `Table` subclasses (not `@Entity`). State classes use `@freezed`. After any annotation change, regenerate with `build_runner`.
 
 ### Environment Variables
-Secrets are stored in `.env` (included as a Flutter asset). Access via `dotenv.env[BuzzWireAppConstants.<key>]`. Key constant names are defined in `BuzzWireAppConstants` (`lib/core/constants/app_constants.dart`): `NEWS_API_KEY`, `NEWS_API_BASE_URL`, `APP_WRITE_PROJECT_ID`, `APP_WRITE_BASE_URL`, `APP_WRITE_PROFILE_IMAGE_BUCKET_ID`, `APP_WRITE_TOPICS_IMAGE_BUCKET_ID`.
+Secrets are stored in `.env` (included as a Flutter asset). Access via `dotenv.env[EnvKeys.<key>]`. Key constant names are defined in `EnvKeys` (`lib/core/constants/env_keys.dart`): `NEWS_API_KEY`, `NEWS_API_BASE_URL`.
 
 ### External Services
 - **Firebase Auth** — email/password sign-in, email verification, password reset
 - **Cloud Firestore** — user profiles, device tokens, topics
 - **Firebase Messaging + flutter_local_notifications** — push notifications with foreground/background/terminated handlers; `BuzzWireMessagingService` manages the full lifecycle
 - **Firebase Remote Config** — minimum app version for force-update checks; helper in `lib/core/config/firebase_remote_config_helper.dart`
-- **Appwrite Storage** — profile images and topic images
+- **Firebase Storage** — profile images (`profile_images/{uid}`) and topic images (`topic_images/`); rules in `storage.rules`
+- **Cloud Functions** (`functions/`, Node 22, 2nd gen) — `sweepOrphanedUsers` runs weekly (Mondays 03:00 UTC; run on demand with "Force run" in Google Cloud Console → Cloud Scheduler). It deletes the photo, devices doc and Auth account for Auth users older than 24h with no `users/{uid}` doc (account deletion stopped before the Auth step), and deletes `users`/`devices` docs and photos whose Auth account no longer exists. `SWEEP_DRY_RUN` in `functions/.env` (default `true`) makes it only log what it would delete. The app itself deletes account data in `DeleteUserAccountUseCase` (device tokens → profile image and user doc → Auth account last). Deploy with `firebase deploy --only functions`
 - **News API** — headlines and article search via Dio
 
 ### Utilities

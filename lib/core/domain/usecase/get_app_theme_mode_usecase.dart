@@ -6,12 +6,12 @@ import 'package:fpdart/src/either.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetAppThemeMode implements UseCaseResult<ThemeMode, NoParams> {
+class GetAppThemeMode implements UseCaseFuture<ThemeMode, NoParams> {
   final AppThemeManager themeManager;
 
   GetAppThemeMode({required this.themeManager});
   @override
-  Either<Failure, ThemeMode> call(NoParams param) {
+  Future<Either<Failure, ThemeMode>> call(NoParams param) {
     return themeManager.currentThemeMode;
   }
 }

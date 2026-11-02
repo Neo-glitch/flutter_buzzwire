@@ -12,9 +12,9 @@ class LocalUserManagerImpl implements LocalUserManager {
   LocalUserManagerImpl({required this.appPreference});
 
   @override
-  Either<Failure, bool> readAppEntry() {
+  Future<Either<Failure, bool>> readAppEntry() async {
     try {
-      final result = appPreference.getBool(appEntryKey) ?? false;
+      final result = await appPreference.getBool(appEntryKey) ?? false;
       return Right(result);
     } on Exception catch (e) {
       return Left(CacheFailure(e.toString()));

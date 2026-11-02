@@ -15,23 +15,23 @@ class ThemeController extends _$ThemeController {
   late GetAppThemeMode _getAppTheme;
 
   @override
-  ThemeMode build() {
+  Future<ThemeMode> build() async {
     _getAppThemeStream = injector();
     _saveAppTheme = injector();
     _getAppTheme = injector();
-    final themeMode = getCurrentTheme();
-    return themeMode;
+    final result = await _getAppTheme(NoParams());
+    return result.getOrElse((l) => ThemeMode.system);
   }
 
   void initAppThemeStream() {
     _getAppThemeStream(NoParams()).listen((event) {
       final themeMode = event.getOrElse((l) => ThemeMode.system);
-      state = themeMode;
+      state = AsyncData(themeMode);
     });
   }
 
   ThemeMode getCurrentTheme() {
-    return _getAppTheme(NoParams()).getOrElse((l) => ThemeMode.system);
+    return state.valueOrNull ?? ThemeMode.system;
   }
 
   Future<void> setAppTheme(ThemeMode themeMode) async {

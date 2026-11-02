@@ -46,15 +46,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   void _initializeControllers() {
-    Future.microtask(() {
-      final uiState = ref.read(editProfileControllerProvider);
-      final user = uiState.user;
-
-      _emailController.text = user?.email.orEmpty ?? '';
-      _userNameController.text = user?.userName.orEmpty ?? '';
-      _phoneNumberController.text = user?.phoneNumber.orEmpty ?? '';
-      _countryController.text = user?.country.name ?? '';
-    });
+    // The cached user loads asynchronously, so fill the fields once it arrives.
+    ref.listenManual(
+      editProfileControllerProvider.select((state) => state.user),
+      (previous, user) {
+        if (user == null) return;
+        _emailController.text = user.email.orEmpty;
+        _userNameController.text = user.userName.orEmpty;
+        _phoneNumberController.text = user.phoneNumber.orEmpty;
+        _countryController.text = user.country.name;
+      },
+      fireImmediately: true,
+    );
   }
 
   @override

@@ -7,6 +7,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
+import 'package:buzzwire/core/presentation/controllers/app_entry_controller.dart';
+import 'package:buzzwire/core/presentation/controllers/auth_controller.dart';
+import 'package:buzzwire/theme_controller.dart';
 import 'firebase_options.dart';
 import 'injector.dart';
 import 'package:buzzwire/core/common/logging/provider_observer.dart';
@@ -35,11 +38,17 @@ void main() async {
   );
   await configureDependencies();
   BuzzWireDeviceUtils.setPreferredOrientation([DeviceOrientation.portraitUp]);
+  final container = ProviderContainer(observers: [MyObserver()]);
+  // Load async cached values the router redirect and theme need before the
+  // first frame so routing and theme never start from an unknown state.
+  await Future.wait([
+    container.read(appEntryControllerProvider.future),
+    container.read(authControllerProvider.future),
+    container.read(themeControllerProvider.future),
+  ]);
   runApp(
-    ProviderScope(
-      observers: [
-        MyObserver(),
-      ],
+    UncontrolledProviderScope(
+      container: container,
       child: const App(),
     ),
   );

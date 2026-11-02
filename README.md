@@ -34,7 +34,9 @@ This project was built using the following technologies and packages:
 - **[Firebase Authentication](https://firebase.google.com/docs/auth)** - For user authentication (email/password).
 - **[Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)** - For push notifications.
 - **[Firebase Remote Config](https://firebase.google.com/docs/remote-config)** - For managing app configurations and force updates.
-- **[Appwrite Storage](https://appwrite.io/docs/storage)** - For storing and managing images and files in the cloud.
+- **[Firebase Storage](https://firebase.google.com/docs/storage)** - For storing and managing profile and topic images in the cloud.
+- **[Appwrite Storage](https://appwrite.io/docs/storage)** ~~(deprecated — migrated to Firebase Storage)~~ - For storing and managing images and files in the cloud.
+- **[Firebase Cloud Functions](https://firebase.google.com/docs/functions)** - Serverless backend code; a weekly scheduled function cleans up user data left behind by incomplete account deletions.
 - **[News API](https://newsapi.org/)** - For fetching the latest news articles and headlines.
 
 ### Navigation
@@ -48,7 +50,8 @@ This project was built using the following technologies and packages:
 ### Local Database & Caching
 - **[Drift](https://pub.dev/packages/drift)** - A reactive SQLite persistence library for Flutter and Dart.
 - **[Floor Database](https://pub.dev/packages/floor)** ~~(deprecated — migrated to Drift)~~ - A SQLite abstraction for local database management.
-- **[Shared Preferences](https://pub.dev/packages/shared_preferences)** - For lightweight local caching of user data.
+- **[Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage)** - For encrypted local caching of user data and app preferences (Keychain on iOS, Keystore on Android).
+- **[Shared Preferences](https://pub.dev/packages/shared_preferences)** ~~(deprecated — migrated to Flutter Secure Storage)~~ - For lightweight local caching of user data.
 
 ### UI & Theming
 - **[Material 3](https://m3.material.io/)** - Google's latest design system, with adaptive light and dark theme support that respects system preferences.

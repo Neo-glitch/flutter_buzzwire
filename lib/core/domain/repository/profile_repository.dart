@@ -7,7 +7,7 @@ import 'package:fpdart/fpdart.dart';
 
 abstract class ProfileRepository {
   Future<Either<Failure, UserEntity?>> getUser(String userId);
-  Either<Failure, UserEntity?> getCachedUser();
+  Future<Either<Failure, UserEntity?>> getCachedUser();
   Future<Either<Failure, void>> updateUser(UserEntity userEntity);
   Future<Either<Failure, void>> cacheUser(UserEntity userEntity);
   Future<Either<Failure, void>> deleteUser(UserEntity userEntity);

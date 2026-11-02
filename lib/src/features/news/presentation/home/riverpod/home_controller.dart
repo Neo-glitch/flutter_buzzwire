@@ -19,8 +19,15 @@ class HomeController extends _$HomeController {
     _getCachedUser = injector();
 
     observeUserStream();
-    final user = _getCachedUser(NoParams()).getOrElse((l) => null);
-    return user;
+    _loadUser();
+    return null;
+  }
+
+  Future<void> _loadUser() async {
+    final user = await _getCachedUser(NoParams());
+    if (state == null) {
+      state = user.getOrElse((l) => null);
+    }
   }
 
   void observeUserStream() {

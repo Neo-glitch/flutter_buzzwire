@@ -3,5 +3,5 @@ import 'package:fpdart/fpdart.dart';
 
 abstract class LocalUserManager {
   Future<Either<Failure, bool>> saveAppEntry();
-  Either<Failure, bool> readAppEntry();
+  Future<Either<Failure, bool>> readAppEntry();
 }

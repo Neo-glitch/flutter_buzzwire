@@ -54,8 +54,10 @@ GoRouter? _previousRouter;
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final authStatus = ref.watch(authControllerProvider);
-  final appEntryState = ref.watch(appEntryControllerProvider);
+  // Both are preloaded in main() before runApp, so they are always available
+  // here; null (still loading) is treated as "unknown" in the redirect.
+  final authStatus = ref.watch(authControllerProvider).valueOrNull;
+  final appEntryState = ref.watch(appEntryControllerProvider).valueOrNull;
 
   return _previousRouter = GoRouter(
       debugLogDiagnostics: kDebugMode,
@@ -252,7 +254,8 @@ GoRouter router(RouterRef ref) {
         final packageInfoHelper = injector.get<PackageInfoHelper>();
         final firebaseRemoteConfigHelper =
             injector.get<FirebaseRemoteConfigHelper>();
-        final hasOpenedApp = appEntryState == true;
+        if (authStatus == null || appEntryState == null) return null;
+        final hasOpenedApp = appEntryState;
         // final inLoginScreen =
         //     state.matchedLocation == BuzzWireRoute.signIn.path;
         final inLoginRoute =

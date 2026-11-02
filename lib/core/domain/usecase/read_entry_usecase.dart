@@ -5,13 +5,13 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class ReadEntryUseCase implements UseCaseResult<bool, NoParams> {
+class ReadEntryUseCase implements UseCaseFuture<bool, NoParams> {
   final LocalUserManager userManager;
 
   ReadEntryUseCase({required this.userManager});
 
   @override
-  Either<Failure, bool> call(NoParams params) {
+  Future<Either<Failure, bool>> call(NoParams params) {
     return userManager.readAppEntry();
   }
 }

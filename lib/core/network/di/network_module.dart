@@ -1,11 +1,8 @@
-import 'package:appwrite/appwrite.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/extension/string_extension.dart';
-import 'package:buzzwire/core/constants/env_keys.dart';
 import '../dio/dio_client.dart';
 
 @module
@@ -17,12 +14,7 @@ abstract class NetworkModule {
   FirebaseFirestore get firebaseFirestore => FirebaseFirestore.instance;
 
   @lazySingleton
-  Storage appWriteStorage() {
-    final client = Client()
-        .setEndpoint(dotenv.env[EnvKeys.appWriteBaseUrl].orEmpty)
-        .setProject(dotenv.env[EnvKeys.appWriteProjectId].orEmpty);
-    return Storage(client);
-  }
+  FirebaseStorage get firebaseStorage => FirebaseStorage.instance;
 
   @lazySingleton
   DioClient get dioClient => DioClient();

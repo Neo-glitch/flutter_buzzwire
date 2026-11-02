@@ -26,6 +26,12 @@ const String internalError = "internal";
 const String serviceUnavailable = "unavailable";
 const String dataLoss = "data-loss";
 
+// Firebase Storage error codes
+const String storageCancelled = "canceled";
+const String storageUnauthorized = "unauthorized";
+const String storageQuotaExceeded = "quota-exceeded";
+const String storageRetryLimitExceeded = "retry-limit-exceeded";
+
 // FirebaseMessaging error codes
 const String internal = "internal-error";
 const String invalidRegistrationToken = "invalid-registration-token";

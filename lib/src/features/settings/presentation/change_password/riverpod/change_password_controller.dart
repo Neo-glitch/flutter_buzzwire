@@ -24,7 +24,8 @@ class ChangePasswordController extends _$ChangePasswordController {
 
   void changePassword(String currentPassword, String newPassword) async {
     state = state.copyWith(loadState: const Loading());
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
+    final user =
+        (await _getCachedUserUseCase(NoParams())).getOrElse((l) => null);
 
     if (user == null) {
       state = state.copyWith(

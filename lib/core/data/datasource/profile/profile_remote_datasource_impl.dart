@@ -1,24 +1,26 @@
 import 'dart:io';
 
-import 'package:appwrite/appwrite.dart';
-import 'package:buzzwire/core/common/extension/string_extension.dart';
 import 'package:buzzwire/core/data/datasource/profile/profile_remote_datasource.dart';
 import 'package:buzzwire/core/data/model/profile_image_model.dart';
 import 'package:buzzwire/core/data/model/user_model.dart';
-import 'package:buzzwire/core/constants/env_keys.dart';
 import 'package:buzzwire/core/constants/firebase_collection_constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mime/mime.dart';
 
 @LazySingleton(as: ProfileRemoteDataSource)
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final FirebaseFirestore firestoreDb;
-  final Storage appWriteStorage;
+  final FirebaseStorage firebaseStorage;
+
+  static const String _profileImagesPath = 'profile_images';
+  static const String _fallbackContentType = 'image/jpeg';
+  static const String _objectNotFoundCode = 'object-not-found';
 
   ProfileRemoteDataSourceImpl({
     required this.firestoreDb,
-    required this.appWriteStorage,
+    required this.firebaseStorage,
   });
 
   @override
@@ -35,11 +37,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   @override
   Future<void> deleteUser(UserModel userModel) async {
     final userId = userModel.userId;
-    final fileId = userModel.profileImage?.fileId.orEmpty;
-    if (userModel.profileImage != null && await _checkIfFileExists(fileId)) {
-      await _deleteFile(fileId!);
-    }
-
+    await _deleteProfileImage(userId);
     await _getUsersCollectionRef.doc(userId).delete();
   }
 
@@ -71,50 +69,20 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   @override
   Future<ProfileImageModel> uploadProfileImage(
       UserModel userModel, File image) async {
-    final appWriteProfileImageBucketId =
-        dotenv.env[EnvKeys.appWriteProfileImageBucketId];
-    final appWriteProjectId = dotenv.env[EnvKeys.appWriteProjectId];
-    final appWriteBaseUrl = dotenv.env[EnvKeys.appWriteBaseUrl];
-    final fileId = userModel.profileImage?.fileId.orEmpty;
-    final userId = userModel.userId;
-    if (await _checkIfFileExists(fileId)) {
-      await _deleteFile(fileId!);
-    }
-    final response = await appWriteStorage.createFile(
-      bucketId: appWriteProfileImageBucketId.orEmpty,
-      fileId: ID.unique(),
-      file: InputFile.fromPath(
-          path: image.path, filename: "$userId.png", contentType: "image/*"),
-    );
-    final imageUrl =
-        "$appWriteBaseUrl/storage/buckets/$appWriteProfileImageBucketId/files/${response.$id}/preview?project=$appWriteProjectId";
+    // same path per user, so a new upload overwrites the previous photo
+    final ref = firebaseStorage.ref('$_profileImagesPath/${userModel.userId}');
+    final contentType = lookupMimeType(image.path) ?? _fallbackContentType;
+    await ref.putFile(image, SettableMetadata(contentType: contentType));
+    final imageUrl = await ref.getDownloadURL();
 
-    return ProfileImageModel(fileId: response.$id, imageUrl: imageUrl);
+    return ProfileImageModel(fileId: ref.fullPath, imageUrl: imageUrl);
   }
 
-  Future<void> _deleteFile(String fileId) async {
-    final appWriteProfileImageBucketId =
-        dotenv.env[EnvKeys.appWriteProfileImageBucketId];
-    await appWriteStorage.deleteFile(
-      bucketId: appWriteProfileImageBucketId.orEmpty,
-      fileId: fileId,
-    );
-  }
-
-  Future<bool> _checkIfFileExists(String? fileId) async {
+  Future<void> _deleteProfileImage(String userId) async {
     try {
-      final appWriteProfileImageBucketId =
-          dotenv.env[EnvKeys.appWriteProfileImageBucketId];
-
-      if (fileId == null) return false;
-
-      await appWriteStorage.getFile(
-        bucketId: appWriteProfileImageBucketId.orEmpty,
-        fileId: fileId,
-      );
-      return true;
-    } catch (e) {
-      return false;
+      await firebaseStorage.ref('$_profileImagesPath/$userId').delete();
+    } on FirebaseException catch (e) {
+      if (e.code != _objectNotFoundCode) rethrow;
     }
   }
 

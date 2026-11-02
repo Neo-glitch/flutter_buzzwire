@@ -19,13 +19,18 @@ class DeleteAccountController extends _$DeleteAccountController {
   DeleteAccountState build() {
     _deleteUserAccountUseCase = injector();
     _getCachedUserUseCase = injector();
-    final user = _getCachedUserUseCase(NoParams());
-    return DeleteAccountState(user: user.getOrElse((l) => null));
+    _loadUser();
+    return const DeleteAccountState();
+  }
+
+  Future<void> _loadUser() async {
+    final user = await _getCachedUserUseCase(NoParams());
+    state = state.copyWith(user: user.getOrElse((l) => null));
   }
 
   void deleteUserAccount(String password) async {
     state = state.copyWith(loadState: const Loading());
-    final userResult = _getCachedUserUseCase(NoParams());
+    final userResult = await _getCachedUserUseCase(NoParams());
     final user = userResult.getOrElse((l) => null);
 
     if (user == null) {

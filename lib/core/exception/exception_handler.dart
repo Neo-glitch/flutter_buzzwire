@@ -91,14 +91,14 @@ class ExceptionHandler {
     FirebaseException exception,
   ) {
     final message = switch (exception.code) {
-      cancelled => ErrorText.firestoreCancelledError,
+      cancelled || storageCancelled => ErrorText.firestoreCancelledError,
       invalidArgument => ErrorText.firestoreInvalidArgumentError,
-      timeout => ErrorText.firestoreTimeoutError,
+      timeout || storageRetryLimitExceeded => ErrorText.firestoreTimeoutError,
       docNotFound => ErrorText.firestoreDocNotFoundError,
       docAlreadyExists => ErrorText.firestoreDocAlreadyExistsError,
-      permissionDenied => ErrorText.firestorePermissionDeniedError,
+      permissionDenied || storageUnauthorized => ErrorText.firestorePermissionDeniedError,
       unauthenticated => ErrorText.firestoreUnauthenticatedError,
-      firebaseQuotaExhausted => ErrorText.firestoreQuotaExhaustedError,
+      firebaseQuotaExhausted || storageQuotaExceeded => ErrorText.firestoreQuotaExhaustedError,
       failedPrecondition => ErrorText.firestoreFailedPreconditionError,
       operationAbortedOnConflict =>
         ErrorText.firestoreOperationAbortedOnConflictError,

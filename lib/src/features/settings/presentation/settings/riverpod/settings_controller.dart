@@ -25,7 +25,7 @@ class SettingsController extends _$SettingsController {
 
   Future<void> signOut() async {
     state = state.copyWith(loadState: const Loading());
-    final userResult = _getCachedUserUseCase(NoParams());
+    final userResult = await _getCachedUserUseCase(NoParams());
     final user = userResult.getOrElse((l) => null);
 
     if (user != null) {

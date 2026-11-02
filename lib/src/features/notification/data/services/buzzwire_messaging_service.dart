@@ -194,7 +194,7 @@ class BuzzWireMessagingService {
           NotificationType.fromJsonName(remoteMessageData["type"]);
 
       if (notificationType == NotificationType.newArticle &&
-          _getUser() != null) {
+          await _getUser() != null) {
         final Map<String, dynamic> articleJson =
             jsonDecode(remoteMessageData["article"]);
         final article =
@@ -213,8 +213,9 @@ class BuzzWireMessagingService {
     }
   }
 
-  static UserEntity? _getUser() {
-    return _profileRepository.getCachedUser().getOrElse((l) => null);
+  static Future<UserEntity?> _getUser() async {
+    final result = await _profileRepository.getCachedUser();
+    return result.getOrElse((l) => null);
   }
 
   static void _onForegroundNotificationTap(NotificationResponse response) {

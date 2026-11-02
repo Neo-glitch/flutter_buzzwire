@@ -1,52 +1,80 @@
-import 'package:buzzwire/core/cache/buzzwire_app_cache.dart';
-import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
+import 'package:buzzwire/core/cache/buzzwire_app_cache.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
+
+/// [BuzzWireAppCache] backed directly by [FlutterSecureStorage]. Every read
+/// and write goes to secure storage; everything is stored as a string.
 @LazySingleton(as: BuzzWireAppCache)
 class BuzzWireAppCacheImpl implements BuzzWireAppCache {
-  final SharedPreferences _preferences;
+  final FlutterSecureStorage _secureStorage;
 
-  BuzzWireAppCacheImpl({required SharedPreferences preferences})
-      : _preferences = preferences;
-
-  @override
-  Future<bool> saveString(String key, String value) =>
-      _preferences.setString(key, value);
+  BuzzWireAppCacheImpl({required FlutterSecureStorage secureStorage})
+      : _secureStorage = secureStorage;
 
   @override
-  String? getString(String key) => _preferences.getString(key);
+  Future<bool> saveString(String key, String value) => _write(key, value);
 
   @override
-  Future<bool> saveInt(String key, int value) =>
-      _preferences.setInt(key, value);
+  Future<String?> getString(String key) => _secureStorage.read(key: key);
 
   @override
-  int? getInt(String key) => _preferences.getInt(key);
+  Future<bool> saveInt(String key, int value) => _write(key, value.toString());
+
+  @override
+  Future<int?> getInt(String key) async =>
+      int.tryParse(await _secureStorage.read(key: key) ?? '');
 
   @override
   Future<bool> saveDouble(String key, double value) =>
-      _preferences.setDouble(key, value);
+      _write(key, value.toString());
 
   @override
-  double? getDouble(String key) => _preferences.getDouble(key);
+  Future<double?> getDouble(String key) async =>
+      double.tryParse(await _secureStorage.read(key: key) ?? '');
 
   @override
   Future<bool> saveBool(String key, bool value) =>
-      _preferences.setBool(key, value);
+      _write(key, value.toString());
 
   @override
-  bool? getBool(String key) => _preferences.getBool(key);
+  Future<bool?> getBool(String key) async =>
+      switch (await _secureStorage.read(key: key)) {
+        'true' => true,
+        'false' => false,
+        _ => null,
+      };
 
   @override
   Future<bool> saveStringList(String key, List<String> value) =>
-      _preferences.setStringList(key, value);
+      _write(key, jsonEncode(value));
 
   @override
-  List<String>? getStringList(String key) => _preferences.getStringList(key);
+  Future<List<String>?> getStringList(String key) async {
+    final raw = await _secureStorage.read(key: key);
+    if (raw == null) return null;
+    try {
+      return (jsonDecode(raw) as List).cast<String>();
+    } on Object {
+      return null;
+    }
+  }
 
   @override
-  Future<bool> remove(String key) => _preferences.remove(key);
+  Future<bool> remove(String key) async {
+    await _secureStorage.delete(key: key);
+    return true;
+  }
 
   @override
-  Future<bool> clear() => _preferences.clear();
+  Future<bool> clear() async {
+    await _secureStorage.deleteAll();
+    return true;
+  }
+
+  Future<bool> _write(String key, String value) async {
+    await _secureStorage.write(key: key, value: value);
+    return true;
+  }
 }

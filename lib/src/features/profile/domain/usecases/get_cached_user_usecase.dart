@@ -6,12 +6,12 @@ import 'package:fpdart/src/either.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetCachedUserUseCase implements UseCaseResult<UserEntity?, NoParams> {
+class GetCachedUserUseCase implements UseCaseFuture<UserEntity?, NoParams> {
   final ProfileRepository profileRepo;
 
   GetCachedUserUseCase({required this.profileRepo});
   @override
-  Either<Failure, UserEntity?> call(NoParams param) {
+  Future<Either<Failure, UserEntity?>> call(NoParams param) {
     return profileRepo.getCachedUser();
   }
 }

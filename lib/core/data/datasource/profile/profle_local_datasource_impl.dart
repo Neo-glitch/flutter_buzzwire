@@ -22,8 +22,8 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
   }
 
   @override
-  UserModel? getUser() {
-    String? userModelJsonString = pref.getString(userKey);
+  Future<UserModel?> getUser() async {
+    String? userModelJsonString = await pref.getString(userKey);
 
     if (userModelJsonString != null) {
       final userModelJson = jsonDecode(userModelJsonString);
@@ -40,10 +40,10 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
   }
 
   @override
-  Stream<UserModel?> get userStream {
-    final user = getUser();
+  Stream<UserModel?> get userStream async* {
+    final user = await getUser();
     _userStreamController.add(user);
-    return _userStreamController.stream;
+    yield* _userStreamController.stream;
   }
 
   @override

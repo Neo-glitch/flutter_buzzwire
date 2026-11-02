@@ -88,7 +88,8 @@ class SignInController extends _$SignInController {
   }
 
   Future<void> _subscribeToTopicsOfInterest() async {
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
+    final user =
+        (await _getCachedUserUseCase(NoParams())).getOrElse((l) => null);
     for (final topic in user!.topicsFollowing) {
       await _subscribeToTopicUsecase(topic);
     }

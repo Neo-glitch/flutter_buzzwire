@@ -36,6 +36,21 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, void>> deleteUser(UserEntity userEntity) async {
+    try {
+      final isConnected = await networkConnectionChecker.isConnected;
+      if (isConnected) {
+        final userModel = UserMapper.fromEntity(userEntity);
+        await remoteDatasource.deleteUser(userModel!);
+        return const Right(unit);
+      }
+      return Left(FbFailure(ErrorText.noInternetError));
+    } on Exception catch (e) {
+      return Left(ExceptionHandler.toFailure(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> createUser(UserEntity userEntity) async {
     try {
       final isConnected = await networkConnectionChecker.isConnected;
@@ -52,25 +67,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteUser(UserEntity userEntity) async {
+  Future<Either<Failure, UserEntity?>> getCachedUser() async {
     try {
-      final isConnected = await networkConnectionChecker.isConnected;
-      if (isConnected) {
-        final userModel = UserMapper.fromEntity(userEntity);
-        await remoteDatasource.deleteUser(userModel!);
-        await clearCachedUser();
-        return const Right(unit);
-      }
-      return Left(FbFailure(ErrorText.noInternetError));
-    } on Exception catch (e) {
-      return Left(ExceptionHandler.toFailure(e));
-    }
-  }
-
-  @override
-  Either<Failure, UserEntity?> getCachedUser() {
-    try {
-      final userModel = localDatasource.getUser();
+      final userModel = await localDatasource.getUser();
       return Right(UserMapper.fromModel(userModel));
     } on Exception catch (e) {
       return Left(ExceptionHandler.toFailure(e));

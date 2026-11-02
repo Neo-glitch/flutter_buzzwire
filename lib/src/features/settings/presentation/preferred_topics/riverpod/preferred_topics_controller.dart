@@ -33,13 +33,14 @@ class PreferredTopicsController extends _$PreferredTopicsController {
   void getTopics() async {
     state = state.copyWith(loadState: const Loading());
     final result = await _getTopicsUsecase(NoParams());
+    final user =
+        (await _getCachedUserUseCase(NoParams())).getOrElse((l) => null);
     result.fold(
       (failure) {
         state = state.copyWith(loadState: Error(message: failure.message));
       },
       (topics) {
         List<TopicEntity> selectedTopics = [];
-        final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
 
         if (user != null) {
           final topicsFollowing = user.topicsFollowing;
@@ -81,7 +82,8 @@ class PreferredTopicsController extends _$PreferredTopicsController {
   }
 
   Future<bool> _unSubscribeFromAllTopics() async {
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
+    final user =
+        (await _getCachedUserUseCase(NoParams())).getOrElse((l) => null);
     if (user != null) {
       for (String topic in user.topicsFollowing) {
         final response = await _unsubscribeFromTopicUsecase(topic);
@@ -111,7 +113,8 @@ class PreferredTopicsController extends _$PreferredTopicsController {
   }
 
   void _updateUserDetails() async {
-    final user = _getCachedUserUseCase(NoParams()).getOrElse((l) => null);
+    final user =
+        (await _getCachedUserUseCase(NoParams())).getOrElse((l) => null);
     if (user != null) {
       user.topicsFollowing =
           state.selectedTopics.map((topic) => topic.title).toList();

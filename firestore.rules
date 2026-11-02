@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // User profiles: only the owner can read or write their own doc.
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // FCM device tokens, one doc per user: { tokens: [ ... ] }.
+    match /devices/{userId} {
+      // Signed-in users may query (the app looks up which user already holds
+      // this device's token before saving it).
+      allow read: if isSignedIn();
+      allow create, delete: if isOwner(userId);
+      // Owner can update freely; anyone signed in may only remove tokens from
+      // another user's doc (used when a device switches account).
+      allow update: if isOwner(userId)
+        || (isSignedIn()
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['tokens'])
+            && request.resource.data.tokens.toSet()
+                 .difference(resource.data.tokens.toSet()).size() == 0);
+    }
+
+    // Topics are admin-managed; signed-in users can only read them.
+    match /topics/{topicId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // Everything else is denied by default.
+  }
+}

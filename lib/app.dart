@@ -29,7 +29,8 @@ class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
-    final themeMode = ref.watch(themeControllerProvider);
+    final themeMode =
+        ref.watch(themeControllerProvider).valueOrNull ?? ThemeMode.system;
 
     bool isDarkMode = _isDarkMode(themeMode, context);
     final statusbarColor =
